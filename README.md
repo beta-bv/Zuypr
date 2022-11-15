@@ -10,5 +10,4 @@
   <i>
     De matching app voor studenten, gericht op drank voorkeur. Gegarandeerd een leuke nacht!
   </i>
-
 </center>
