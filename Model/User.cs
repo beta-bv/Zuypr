@@ -35,11 +35,10 @@ namespace Model
             return true;
         }
 
-
-
-        public static bool CheckName(string name)
+        public static bool IsNameValid(string name)
         {
-            return true;
+            name = name.Trim();
+            return (name.Length > 0 && name.Length <= 50 && name.All(char.IsLetter));
         }
 
         public static bool IsDateOfBirthValid(DateTime date)
