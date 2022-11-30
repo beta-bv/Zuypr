@@ -1,11 +1,11 @@
 # Editor folders
-*/**/.idea
-*/**/.vs
-*/**/.vscode
+.idea
+.vs
+.vscode
 
 # Build files
-*/**/bin
-*/**/obj
+*/bin
+*/obj
 
 # Mac Desktop-Service Store files
 .DS_Store
