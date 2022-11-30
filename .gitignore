@@ -6,3 +6,6 @@
 # Build files
 */bin
 */obj
+
+# Mac Desktop-Service Store files
+.DS_Store
