@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tests
 {
-    internal class User_CheckNameShould
+    public class User_CheckNameShould
     {
     }
 }

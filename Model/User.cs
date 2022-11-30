@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Layouts;
+using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 
 namespace Model
@@ -22,6 +23,7 @@ namespace Model
             Email = email;
             DateOfBirth = dateOfBirth;
         }
+
         public static bool CheckAge(DateTime date)
         {
             DateTime dateNow = DateTime.Now;
@@ -33,10 +35,7 @@ namespace Model
             return true;
         }
 
-        public static bool CheckEmail(string email)
-        {
-            return true;
-        }
+
 
         public static bool CheckName(string name)
         {

@@ -9,8 +9,6 @@ namespace Tests
 {
     public class User_IsDateOfBirthValidShould
     {
-        public class User_CheckAgeShould
-        {
             [Theory]
             [InlineData(2010, 1, 1, true)]
             [InlineData(1999, 1, 1, true)]
@@ -23,4 +21,3 @@ namespace Tests
             }
         }
     }
-}
