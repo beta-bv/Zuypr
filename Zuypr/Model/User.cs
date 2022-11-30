@@ -11,5 +11,8 @@ namespace Model
         public List<string> Cities { get; set; }
         public Bitmap ProfielImage { get; set; }
         public List<User> Matches { get; set; }
+        public List<Drink> Favourites { get; set; }
+        public List<Drink> Likes { get; set; }
+        public List<Drink> Dislikes { get; set; }
     }
 }
