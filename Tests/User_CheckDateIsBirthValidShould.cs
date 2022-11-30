@@ -14,10 +14,20 @@ namespace Tests
             [InlineData(1999, 1, 1, true)]
             [InlineData(2023, 11, 30, false)]
             [InlineData(2150, 12, 1, false)]
+            [InlineData(0, 1, 1, false)]
+            [InlineData(0, 0, 0, false)]
+            [InlineData(-2000, 1, 1, false)]
             public void CheckDateOfBirthValid(int year, int month, int day, bool Expected)
             {
-                DateTime date = new DateTime(year, month, day);
-                Assert.Equal(Expected, User.IsDateOfBirthValid(date));
+                try
+                {
+                    DateTime date = new DateTime(year, month, day);
+                    Assert.Equal(Expected, User.IsDateOfBirthValid(date));
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    Assert.Equal(Expected, false);
+                }
             }
         }
     }
