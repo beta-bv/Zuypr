@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using Microsoft.Maui.Layouts;
+using System.Drawing;
 
 namespace Model
 {
@@ -15,32 +16,46 @@ namespace Model
         public List<Drink> Likes { get; set; }
         public List<Drink> Dislikes { get; set; }
 
-        public User(string name, string email, DateTime dateOfBirth){
+        public User(string name, string email, DateTime dateOfBirth)
+        {
             Name = name;
             Email = email;
             DateOfBirth = dateOfBirth;
         }
-        public bool CheckAge(DateTime date){
+        public static bool CheckAge(DateTime date)
+        {
             DateTime dateNow = DateTime.Now;
 
-            if(date.CompareTo(dateNow) < 18)
+            if (date.AddYears(18).CompareTo(dateNow) > 0)
             {
                 return false;
             }
             return true;
         }
 
-        public bool CheckEmail(string email) {
+        public static bool CheckEmail(string email)
+        {
             return true;
         }
 
-        public bool CheckName(string name) {
+        public static bool CheckName(string name)
+        {
+            return true;
+        }
+
+        public static bool IsDateOfBirthValid(DateTime date)
+        {
+            DateTime dateNow = DateTime.Now;
+            if(date > dateNow)
+            {
+                return false;
+            }
             return true;
         }
 
         public User GetDummyUser() //returned een dummy user voor dummy gebruik
         {
-            return new User("dummyUser", "email@email.com", new DateTime(1, 1, 1999) );
+            return new User("dummyUser", "email@email.com", new DateTime(1, 1, 1999));
         }
 
 
