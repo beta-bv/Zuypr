@@ -7,6 +7,8 @@ namespace Model
     public class User
     {
         private string _name;
+        private string _email;
+        private DateTime _dateOfBirth;
         public string Name {
             get { 
                 return _name; 
@@ -14,14 +16,27 @@ namespace Model
             set {
                 if(!IsNameValid(value))
                 {
-                    throw new Exception("SCHRIJF JE KUT NAMEN GOED KUTHOERTJE IK KOM JE MOEDER NEUKEN (:");
+                    throw new Exception("NAME INCORRECT");
                 }
                 _name = value;
-
             } 
             }
-        public string Email { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public string Email {
+            get { return _email; } 
+            set {
+                if(!new EmailAddressAttribute().IsValid(value)) 
+                {
+                    throw new Exception("EMAIL INVALID");
+                }
+                _email = value;
+            } }
+        public DateTime DateOfBirth { get{ return _dateOfBirth; }
+            set {
+            if(!CheckAge(value) || !IsDateOfBirthValid(value))
+                {
+                    throw new Exception("INVALID BIRTH DATE");
+                }
+            } }
         public List<string> Cities { get; set; }
         public Bitmap ProfielImage { get; set; }
         public List<User> Matches { get; set; }
@@ -42,7 +57,7 @@ namespace Model
 
             if (date.AddYears(18).CompareTo(dateNow) > 0)
             {
-                return false;
+            return false;
             }
             return true;
         }
