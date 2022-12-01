@@ -224,5 +224,9 @@ namespace Model
             }
             return false;
         }
+        public bool RemoveUser()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
