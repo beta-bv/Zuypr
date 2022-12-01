@@ -9,77 +9,79 @@
         <VerticalStackLayout
             x:Name="RegisterVStack"
             VerticalOptions="Center"
+            Padding="10"
             Spacing="20">
 
+        <Label
+            Text="Register"
+            SemanticProperties.HeadingLevel="Level1"
+            FontSize="32"
+            HorizontalOptions="Center" />
+
+        <HorizontalStackLayout
+            Margin="10"
+            HorizontalOptions="Center">
+
+            <VerticalStackLayout
+                Spacing="10"
+                VerticalOptions="Start">
+
+                <Entry
+                    x:Name="NameField"
+                    Placeholder="Name"
+                    WidthRequest="250"
+                    MaxLength="200" />
+                <DatePicker
+                    x:Name="BirthDateField"
+                    WidthRequest="250" />
+
+            </VerticalStackLayout>
+
+            <VerticalStackLayout
+                Spacing="10"
+                VerticalOptions="Center">
+
+                <Entry
+                    x:Name="EmailField"
+                    Placeholder="Email Address"
+                    WidthRequest="250"
+                    MaxLength="200" />
+
+                <Entry
+                    x:Name="PasswordField"
+                    Placeholder="Password"
+                    WidthRequest="250"
+                    MaxLength="200" />
+
+                <Entry
+                    x:Name="PasswordConfirmField"
+                    Placeholder="Repeat Password"
+                    WidthRequest="250"
+                    MaxLength="200" />
+
+            </VerticalStackLayout>
+
+        </HorizontalStackLayout>
+
+
+
+
+        <Button
+            x:Name="submitButton"
+            Text="Let's Zuyp!"
+            Clicked="RegisterUser"
+            HorizontalOptions="Center" />
+
+        <Frame
+            IsVisible="false"
+            x:Name="ErrorFrame"
+            HorizontalOptions="Center"
+            BackgroundColor="#BFFF0000">
             <Label
-                Text="Register"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
-
-            <HorizontalStackLayout
-                Margin="10"
-                HorizontalOptions="Center">
-
-                <VerticalStackLayout
-                    Spacing="10"
-                    VerticalOptions="Start">
-
-                    <Entry
-                        x:Name="NameField"
-                        Placeholder="Name"
-                        WidthRequest="250"
-                        MaxLength="200" />
-                    <DatePicker
-                        x:Name="BirthDateField"
-                        WidthRequest="250" />
-
-                </VerticalStackLayout>
-
-                <VerticalStackLayout
-                    Spacing="10"
-                    VerticalOptions="Center">
-
-                    <Entry
-                        x:Name="EmailField"
-                        Placeholder="Email Address"
-                        WidthRequest="250"
-                        MaxLength="200" />
-
-                    <Entry
-                        x:Name="PasswordField"
-                        Placeholder="Password"
-                        WidthRequest="250"
-                        MaxLength="200" />
-
-                    <Entry
-                        x:Name="PasswordConfirmField"
-                        Placeholder="Repeat Password"
-                        WidthRequest="250"
-                        MaxLength="200" />
-
-                </VerticalStackLayout>
-
-            </HorizontalStackLayout>
-
-            
-
-
-            <Button
-                x:Name="submitButton"
-                Text="Let's Zuyp!"
-                Clicked="RegisterUser"
-                HorizontalOptions="Center" />
-
-            <Frame
-                IsVisible="false"
-                x:Name="ErrorFrame"
+                x:Name="ErrorLabel"
                 HorizontalOptions="Center"
-                BorderColor="Red">
-                <Label
-                    x:Name="ErrorLabel"
-                    Text="Error: Dit is fout gegeaan" />
-            </Frame>
+                Text="Error: Dit is fout gegeaan"/>
+        </Frame>
         </VerticalStackLayout>
     </ScrollView>
 
