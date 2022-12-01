@@ -10,21 +10,30 @@ namespace Tests
     public class User_UpdateEmailShould
     {
         User TestUser;
+
         public User_UpdateEmailShould()
         {
-            TestUser = new User("crong", "gmail@gmail.com", "123", new DateTime(2000, 10, 2));
+            TestUser = new User("crong", "gmail@gmail.com", "RAREMAARweee123!", new DateTime(2000, 10, 2));
         }
 
         [Theory]
         [InlineData("gmail@gmail.com", "gmail@gmail.com", false)]
-        [InlineData("gmail@gmail.com", "gmail@.com", false)]
+        [InlineData("gmail@gmail.com", "gmail@.com", true)]
+        [InlineData("gmail@gmail.com", "gmail.com", false, true)]
         [InlineData("gmail@gmail.com", "neiwe@gmail.com", true)]
         [InlineData("hotmail@hot.com", "neiwe@gmail.com", false)]
         [InlineData("gmail@gmail.com", "stinky@hotmail.com", true)]
-        public void CheckEmailUpdate(string emailOld, string emailNew, bool Expected)
+        public void CheckEmailUpdate(string emailOld, string emailNew, bool expected, bool exception = false)
         {
 
-            Assert.Equal(Expected, TestUser.UpdateUserEmail(emailOld, emailNew));
+            if (exception)
+            {
+                Assert.Throws<Exception>(() => TestUser.UpdateUserEmail(emailNew, emailOld));
+            }
+            else
+            {
+                Assert.Equal(expected, TestUser.UpdateUserEmail(emailNew, emailOld));
+            }
         }
     }
 }

@@ -194,7 +194,7 @@ namespace Model
         /// <returns></returns>
         public bool UpdateUserEmail(string emailNew, string emailOld) //TODO implement het database gedeelte nog
         {
-            if (emailOld.Equals(Email) && emailNew != emailOld)
+            if (emailOld.Equals(Email) && !emailNew.Equals(emailOld))
             {
                 Email = emailNew;
                 return true;
