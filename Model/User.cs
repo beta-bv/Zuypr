@@ -38,6 +38,7 @@ namespace Model
         }
         /// <summary>
         /// Stores the SHA256 hash of the password
+        /// <para>The getter automaticly hashes the given password string</para>
         /// </summary>
         public string Password
         {
