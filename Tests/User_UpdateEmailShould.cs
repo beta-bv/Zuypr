@@ -10,6 +10,7 @@ namespace Tests
     public class User_UpdateEmailShould
     {
         User TestUser;
+
         public User_UpdateEmailShould()
         {
             TestUser = new User("crong", "gmail@gmail.com", "RAREMAARweee123!", new DateTime(2000, 10, 2));
@@ -24,17 +25,14 @@ namespace Tests
         [InlineData("gmail@gmail.com", "stinky@hotmail.com", true)]
         public void CheckEmailUpdate(string emailOld, string emailNew, bool expected, bool exception = false)
         {
-            try
+
+            if (exception)
             {
-                var result = TestUser.UpdateUserEmail(emailNew, emailOld);
-                Assert.Equal(expected, result);
+                Assert.Throws<Exception>(() => TestUser.UpdateUserEmail(emailNew, emailOld));
             }
-            catch (Exception ex) 
+            else
             {
-               if(exception) 
-                {
-                    Assert.True(true);
-                }
+                Assert.Equal(expected, TestUser.UpdateUserEmail(emailNew, emailOld));
             }
         }
     }
