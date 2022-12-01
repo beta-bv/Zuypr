@@ -187,9 +187,10 @@ namespace Model
         }
 
         /// <summary>
-        /// updates user email
+        /// Updates user email
         /// </summary>
-        /// <param name="email"></param>
+        /// <param name="emailNew"></param>
+        /// <param name="emailOld"></param>
         /// <returns></returns>
         public bool UpdateUserEmail(string emailNew, string emailOld) //TODO implement het database gedeelte nog
         {
