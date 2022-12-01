@@ -6,6 +6,7 @@
 
     <ScrollView>
         <VerticalStackLayout
+            x:Name="RegisterVStack"
             VerticalOptions="Center">
 
             <Label
@@ -64,7 +65,8 @@
             <Button
                 x:Name="submitButton"
                 Text="Let's Zuyp!"
-                Clicked="RegisterUser"/>
+                Clicked="RegisterUser"
+                HorizontalOptions="Center"/>
 
         </VerticalStackLayout>
     </ScrollView>
