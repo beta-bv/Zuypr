@@ -19,7 +19,7 @@ namespace Model
             {
                 if (!IsNameValid(value))
                 {
-                    throw new Exception("NAME INCORRECT");
+                    throw new Exception("Je hebt geen valide naam ingevuld");
                 }
                 _name = value;
             }
@@ -31,7 +31,7 @@ namespace Model
             {
                 if (!new EmailAddressAttribute().IsValid(value))
                 {
-                    throw new Exception("EMAIL INVALID");
+                    throw new Exception("Je hebt geen valide emailadres ingevuld");
                 }
                 _email = value;
             }
@@ -50,14 +50,14 @@ namespace Model
                     // Check for password requirements
                     if (!(value.Length >= 8 && value.Any(char.IsUpper) && value.Any(a => !char.IsLetterOrDigit(a) && !char.IsWhiteSpace(a))))
                     {
-                        throw new Exception("PASSWORD DOES NOT MEET REQUIREMENTS");
+                        throw new Exception("Wachtwoord moet minstens acht tekens lang zijn, met minstens één hoofdletter en één speciaal teken");
                     }
                     // Hash the input string using SHA256
                     _password = HashString(value);
                 }
                 else
                 {
-                    throw new Exception("INVALID PASSWORD");
+                    throw new Exception("Wachtwoord is ongeldig");
                 }
             }
         }
@@ -66,10 +66,15 @@ namespace Model
             get { return _dateOfBirth; }
             set
             {
-                if (!CheckAge(value) || !IsDateOfBirthValid(value))
+                if (!IsDateOfBirthValid(value))
                 {
-                    throw new Exception("INVALID BIRTH DATE");
+                    throw new Exception("Je mag geen datum selecteren uit de toekomst");
                 }
+                else if (!CheckAge(value))
+                {
+                    throw new Exception("Je moet minstens achttien jaar oud zijn om te mogen regristreren");
+                }
+                
                 _dateOfBirth = value;
             }
         }

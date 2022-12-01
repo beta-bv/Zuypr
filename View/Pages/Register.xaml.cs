@@ -1,4 +1,5 @@
 ﻿using Model;
+using System.Linq.Expressions;
 
 namespace View.Pages;
 
@@ -17,18 +18,24 @@ public partial class Register : ContentPage
         string password = "";
         if(User.ComparePasswords(PasswordField.Text, PasswordConfirmField.Text))
         {
+            ErrorFrame.IsVisible = false;
             password = PasswordField.Text;
-            User Client = new User(name, email, password, dateOfBirth);
+            try
+            {
+                User Client = new User(name, email, password, dateOfBirth);
+            }
+            catch(Exception ex)
+            {
+                ErrorLabel.Text = ex.Message;
+                ErrorFrame.IsVisible = true;
+                return;
+            }
             await Navigation.PushAsync(new Profile());
         }
         else
         {
-            if (som != 1)
-            {
-                RegisterVStack.Children.Add(new Label() { Text = "de wachtwoorden kwamen niet overeen" });
-            }
-            som++;
+            ErrorLabel.Text = "Wachtwoorden komen niet overeen";
+            ErrorFrame.IsVisible = true;
         }
     }
-
 }
