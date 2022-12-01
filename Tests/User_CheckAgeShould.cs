@@ -13,7 +13,7 @@ namespace Tests
         [InlineData(2010, 1, 1, false)] 
         [InlineData(1999, 1, 1, true)]
         [InlineData(2004, 11, 30, true)]
-        [InlineData(2004, 12, 1, false)]
+        [InlineData(2004, 12, 30, false)]
         public void CheckAge(int year, int month, int day, bool Expected)
         {
             DateTime date = new DateTime(year, month, day);
