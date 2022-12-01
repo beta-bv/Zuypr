@@ -2,10 +2,8 @@
 
 public partial class MyDrinks : ContentPage
 {
-
-	public MyDrinks()
-	{
-		InitializeComponent();
-	}
+    public MyDrinks()
+    {
+        InitializeComponent();
+    }
 }
-

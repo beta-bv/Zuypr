@@ -2,10 +2,8 @@
 
 public partial class Matching : ContentPage
 {
-
-	public Matching()
-	{
-		InitializeComponent();
-	}
+    public Matching()
+    {
+        InitializeComponent();
+    }
 }
-

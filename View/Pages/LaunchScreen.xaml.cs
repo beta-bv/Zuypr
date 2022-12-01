@@ -2,7 +2,6 @@
 
 public partial class LaunchScreen : ContentPage
 {
-
     public LaunchScreen()
     {
         InitializeComponent();
@@ -13,4 +12,3 @@ public partial class LaunchScreen : ContentPage
         await Navigation.PushAsync(new Profile());
     }
 }
-

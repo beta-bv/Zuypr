@@ -2,10 +2,8 @@
 
 public partial class MyMatches : ContentPage
 {
-
-	public MyMatches()
-	{
-		InitializeComponent();
-	}
+    public MyMatches()
+    {
+        InitializeComponent();
+    }
 }
-
