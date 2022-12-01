@@ -40,5 +40,11 @@
             <ShellContent ContentTemplate="{DataTemplate views:Settings}"/>
         </Tab>
     </FlyoutItem>
+    <FlyoutItem
+        Title="Register [TEMP]" Route="Register">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:Register}"/>
+        </Tab>
+    </FlyoutItem>
 
 </Shell>
