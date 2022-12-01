@@ -13,7 +13,7 @@ namespace Tests
         User TestUser;
         public User_SettersShould()
         {
-            TestUser = new User("crong", "gmail@gmail.com", new DateTime(2000, 10, 2));
+            TestUser = new User("crong", "gmail@gmail.com", "123", new DateTime(2000, 10, 2));
         }
 
         [Theory]

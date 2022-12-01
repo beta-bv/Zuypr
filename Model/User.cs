@@ -51,11 +51,8 @@ namespace Model
                     {
                         throw new Exception("PASSWORD DOES NOT MEET REQUIREMENTS");
                     }
-
                     // Hash the input string using SHA256
-                    byte[] textBytes = System.Text.Encoding.UTF8.GetBytes(value);
-                    byte[] hashedBytes = SHA256.HashData(textBytes);
-                    _password = BitConverter.ToString(hashedBytes).Replace("-", String.Empty);
+                    _password = HashString(value);
                 }
                 else
                 {
@@ -82,11 +79,12 @@ namespace Model
         public List<Drink> Likes { get; set; }
         public List<Drink> Dislikes { get; set; }
 
-        public User(string name, string email, DateTime dateOfBirth)
+        public User(string name, string email, string password, DateTime dateOfBirth)
         {
             Name = name;
             Email = email;
             DateOfBirth = dateOfBirth;
+            Password = password;
         }
 
         /// <summary>
@@ -104,6 +102,38 @@ namespace Model
             }
             return true;
         }
+
+        /// <summary>
+        /// compares two passwords
+        /// </summary>
+        /// <param name="password1"></param>
+        /// <param name="password2"></param>
+        /// <returns></returns>
+        public static bool ComparePasswords(string password1, string password2)
+        {
+            password1 = HashString(password1);
+            password2 = HashString(password2);
+
+            if (password1.Equals(password2))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// hashed a given string using SHA256
+        /// </summary>
+        /// <param name="stringToHash"></param>
+        /// <returns></returns>
+        public static string HashString(string stringToHash)
+        {
+            // Hash the input string using SHA256
+            byte[] textBytes = System.Text.Encoding.UTF8.GetBytes(stringToHash);
+            byte[] hashedBytes = SHA256.HashData(textBytes);
+            return BitConverter.ToString(hashedBytes).Replace("-", String.Empty);
+        }
+
         /// <summary>
         /// Checks if a name is not empty or longer than 50 characters and only allows letters and spaces.
         /// </summary>
@@ -133,13 +163,23 @@ namespace Model
         /// <returns></returns>
         public User GetDummyUser()
         {
-            return new User("dummyUser", "email@email.com", new DateTime(1, 1, 1999));
+            return new User("dummyUser", "123", "email@email.com", new DateTime(1, 1, 1999));
         }
+
+        /// <summary>
+        /// Gets User from the database
+        /// </summary>
+        /// <returns></returns>
         public User GetUserFromDatabase()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Adds user to the database
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public static bool AddUserToDatabase(User user)
         {
             throw new NotImplementedException();
