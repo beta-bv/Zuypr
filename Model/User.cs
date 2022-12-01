@@ -5,12 +5,49 @@ using System.Drawing;
 
 namespace Model
 {
-    // All the code in this file is included in all platforms.
     public class User
     {
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        private string _name;
+        private string _email;
+        private DateTime _dateOfBirth;
+
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                if (!IsNameValid(value))
+                {
+                    throw new Exception("NAME INCORRECT");
+                }
+                _name = value;
+            }
+        }
+        public string Email
+        {
+            get { return _email; }
+            set
+            {
+                if (!new EmailAddressAttribute().IsValid(value))
+                {
+                    throw new Exception("EMAIL INVALID");
+                }
+                _email = value;
+            }
+        }
+        public DateTime DateOfBirth
+        {
+            get { return _dateOfBirth; }
+            set
+            {
+                if (!CheckAge(value) || !IsDateOfBirthValid(value))
+                {
+                    throw new Exception("INVALID BIRTH DATE");
+                }
+                _dateOfBirth = value;
+            }
+        }
+
         public List<string> Cities { get; set; }
         public Bitmap ProfielImage { get; set; }
         public List<User> Matches { get; set; }
@@ -18,6 +55,7 @@ namespace Model
         private List<Drink> _favourites { get; set; }
         private List<Drink> _likes { get; set; }
         private List<Drink> _dislikes { get; set; }
+
 
         public User(string name, string email, DateTime dateOfBirth)
         {
