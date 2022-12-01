@@ -1,11 +1,7 @@
-<<<<<<< Updated upstream
-﻿using System.Drawing;
-=======
-﻿using Microsoft.Maui.Controls.Shapes;
+using Microsoft.Maui.Controls.Shapes;
 using Microsoft.Maui.Layouts;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
->>>>>>> Stashed changes
 
 namespace Model
 {
@@ -14,15 +10,10 @@ namespace Model
     {
         public string Name { get; set; }
         public string Email { get; set; }
-        public DateOnly DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
         public List<string> Cities { get; set; }
         public Bitmap ProfielImage { get; set; }
         public List<User> Matches { get; set; }
-<<<<<<< Updated upstream
-        public List<Drink> Favourites { get; set; }
-        public List<Drink> Likes { get; set; }
-        public List<Drink> Dislikes { get; set; }
-=======
 
         private List<Drink> _favourites { get; set; }
         private List<Drink> _likes { get; set; }
@@ -286,6 +277,5 @@ namespace Model
         {
             return new User("dummyUser", "email@email.com", new DateTime(1999, 1, 1));
         }
->>>>>>> Stashed changes
     }
 }
