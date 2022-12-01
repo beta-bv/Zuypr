@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="View.Pages.Register"
-             Shell.FlyoutBehavior="Locked">
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="View.Pages.Register"
+    Shell.FlyoutBehavior="Locked">
 
     <ScrollView>
         <VerticalStackLayout
             x:Name="RegisterVStack"
-            VerticalOptions="Center">
+            VerticalOptions="Center"
+            Spacing="20">
 
             <Label
                 Text="Register"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
                 HorizontalOptions="Center" />
-
-            
 
             <HorizontalStackLayout
                 Margin="10"
@@ -26,13 +26,13 @@
                     VerticalOptions="Start">
 
                     <Entry
-                    x:Name="NameField"
-                    Placeholder="Name"
-                    WidthRequest="250"
-                    MaxLength="200"/>
+                        x:Name="NameField"
+                        Placeholder="Name"
+                        WidthRequest="250"
+                        MaxLength="200" />
                     <DatePicker
-                    x:Name="BirthDateField"
-                    WidthRequest="250"/>
+                        x:Name="BirthDateField"
+                        WidthRequest="250" />
 
                 </VerticalStackLayout>
 
@@ -41,33 +41,42 @@
                     VerticalOptions="Center">
 
                     <Entry
-                    x:Name="EmailField"
-                    Placeholder="Email Address"
-                    WidthRequest="250"
-                    MaxLength="200"/>
+                        x:Name="EmailField"
+                        Placeholder="Email Address"
+                        WidthRequest="250"
+                        MaxLength="200" />
 
                     <Entry
-                    x:Name="PasswordField"
-                    Placeholder="Password"
-                    WidthRequest="250"
-                    MaxLength="200"/>
+                        x:Name="PasswordField"
+                        Placeholder="Password"
+                        WidthRequest="250"
+                        MaxLength="200" />
 
                     <Entry
-                    x:Name="PasswordConfirmField"
-                    Placeholder="Repeat Password"
-                    WidthRequest="250"
-                    MaxLength="200"/>
+                        x:Name="PasswordConfirmField"
+                        Placeholder="Repeat Password"
+                        WidthRequest="250"
+                        MaxLength="200" />
 
                 </VerticalStackLayout>
 
             </HorizontalStackLayout>
 
+            
+
+
             <Button
                 x:Name="submitButton"
                 Text="Let's Zuyp!"
                 Clicked="RegisterUser"
-                HorizontalOptions="Center"/>
+                HorizontalOptions="Center" />
 
+            <Frame
+                HorizontalOptions="Center"
+                BorderColor="Red">
+                <Label
+                    Text="Error: Dit is fout gegeaan" />
+            </Frame>
         </VerticalStackLayout>
     </ScrollView>
 
