@@ -191,11 +191,11 @@ namespace Model
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public bool UpdateUserEmail(string email) //TODO implement het database gedeelte nog
+        public bool UpdateUserEmail(string emailNew, string emailOld) //TODO implement het database gedeelte nog
         {
-            if (email.Equals(Email))
+            if (emailOld.Equals(Email) && emailNew != emailOld)
             {
-                Email = email;
+                Email = emailNew;
                 return true;
             }
             return false;
@@ -208,8 +208,10 @@ namespace Model
         /// <returns></returns>
         public bool UpdateUserPassword(string oldPassword, string newPasswordField1, string newPasswordField2) //TODO implement het database gedeelte nog
         {
-            if(Password.Equals(HashString(oldPassword))){
-                if(ComparePasswords(newPasswordField1, newPasswordField2)){
+            if (ComparePasswords(newPasswordField1, newPasswordField2))
+            {
+                string tempPasswordFieldCombine = newPasswordField1;
+                if (Password.Equals(HashString(oldPassword)) && !Password.Equals(HashString(tempPasswordFieldCombine))){
                     Password = newPasswordField1;
                     return true;  
                 }
