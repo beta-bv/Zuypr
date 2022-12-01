@@ -10,7 +10,12 @@ public partial class Register : ContentPage
     {
         InitializeComponent();
     }
-    private async void RegisterUser(object sender, EventArgs e)
+    /// <summary>
+    ///  maakt de user aan
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private async void RegisterUser(object sender, EventArgs e) 
     {
         string name = NameField.Text.Trim();
         string email = EmailField.Text.Trim();
@@ -26,7 +31,7 @@ public partial class Register : ContentPage
             }
             catch(Exception ex)
             {
-                ErrorLabel.Text = ex.Message;
+                ErrorLabel.Text = ex.Message;  //note dat dit niet echt de meest veilige zooi is, misschien eigen exception klasse aanmaken om de registratie error te weergeven?
                 ErrorFrame.IsVisible = true;
                 return;
             }
