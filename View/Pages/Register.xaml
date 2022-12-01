@@ -51,20 +51,19 @@
                     x:Name="PasswordField"
                     Placeholder="Password"
                     WidthRequest="250"
-                    MaxLength="200" />
+                    MaxLength="200"
+                    IsPassword="True" />
 
                 <Entry
                     x:Name="PasswordConfirmField"
                     Placeholder="Repeat Password"
                     WidthRequest="250"
-                    MaxLength="200" />
+                    MaxLength="200"
+                    IsPassword="True"/>
 
             </VerticalStackLayout>
 
         </HorizontalStackLayout>
-
-
-
 
         <Button
             x:Name="submitButton"
