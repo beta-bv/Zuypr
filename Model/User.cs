@@ -38,7 +38,7 @@ namespace Model
         }
         /// <summary>
         /// Stores the <see cref="SHA256">SHA256</see> hash of the password
-        /// <para>The getter automaticly hashes the given password string</para>
+        /// <para>The getter automatically hashes the given password string</para>
         /// </summary>
         public string Password
         {
@@ -162,7 +162,7 @@ namespace Model
         /// Creates a dummy user
         /// </summary>
         /// <returns></returns>
-        public User GetDummyUser()
+        public static User GetDummyUser()
         {
             return new User("dummyUser", "123", "email@email.com", new DateTime(1, 1, 1999));
         }
@@ -171,7 +171,7 @@ namespace Model
         /// Gets User from the database
         /// </summary>
         /// <returns></returns>
-        public User GetUserFromDatabase()
+        public User GetUserFromDatabase(User user)
         {
             throw new NotImplementedException();
         }
@@ -186,5 +186,37 @@ namespace Model
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// updates user email
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public bool UpdateUserEmail(string emailNew, string emailOld) //TODO implement het database gedeelte nog
+        {
+            if (emailOld.Equals(Email) && emailNew != emailOld)
+            {
+                Email = emailNew;
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// updates user password
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public bool UpdateUserPassword(string oldPassword, string newPasswordField1, string newPasswordField2) //TODO implement het database gedeelte nog
+        {
+            if (ComparePasswords(newPasswordField1, newPasswordField2))
+            {
+                string tempPasswordFieldCombine = newPasswordField1;
+                if (Password.Equals(HashString(oldPassword)) && !Password.Equals(HashString(tempPasswordFieldCombine))){
+                    Password = newPasswordField1;
+                    return true;  
+                }
+            }
+            return false;
+        }
     }
 }
