@@ -1,14 +1,44 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
 <Shell
     x:Class="View.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:View"
-    Shell.FlyoutBehavior="Disabled">
+    xmlns:views="clr-namespace:View.Pages"
+    FlyoutBehavior="Locked"
+    NavBarIsVisible="False">
+    
+    <!--<ShellContent IsEnabled="False" IsVisible="False" ContentTemplate="{DataTemplate views:LaunchScreen}"/>-->
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <FlyoutItem 
+        Title="My Profile" Route="Profile">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:Profile}"/>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem
+        Title="Matching" Route="Matching">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:Matching}"/>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem
+        Title="My Drinks" Route="MyDrinks">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:MyDrinks}"/>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem
+        Title="My Matches" Route="MyMatches">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:MyMatches}"/>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem
+        Title="Settings" Route="Settings">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:Settings}"/>
+        </Tab>
+    </FlyoutItem>
 
 </Shell>
