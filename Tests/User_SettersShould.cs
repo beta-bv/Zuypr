@@ -13,7 +13,7 @@ namespace Tests
         User TestUser;
         public User_SettersShould()
         {
-            TestUser = new User("crong", "gmail@gmail.com", "123", new DateTime(2000, 10, 2));
+            TestUser = new User("crong", "gmail@gmail.com", "Great01Password!", new DateTime(2000, 10, 2));
         }
 
         [Theory]
@@ -45,6 +45,29 @@ namespace Tests
             }
             TestUser.DateOfBirth = date;
             Assert.Equal(date, TestUser.DateOfBirth);
+        }
+
+        [Theory]
+        [InlineData(null, false)]
+        [InlineData("", false)]
+        [InlineData("onlylowercase", false)]
+        [InlineData("ONLYUPPERCASE", false)]
+        [InlineData("1234567890", false)]
+        [InlineData("A!", false)]
+        [InlineData("short", false)]
+
+        [InlineData("Goodpassword!", true)]
+        [InlineData("Pass123!", true)]
+        [InlineData("This is quite a long password with spaces!", true)]
+        public void CheckPassword(string password, bool expected)
+        {
+            if (expected == false)
+            {
+                Assert.Throws<Exception>(() => TestUser.Password = password);
+                return;
+            }
+            TestUser.Password = password;
+            Assert.Equal(User.HashString(password), TestUser.Password);
         }
 
         [Theory]

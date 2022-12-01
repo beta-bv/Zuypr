@@ -48,7 +48,7 @@ namespace Model
                 if (value != null && value != "")
                 {
                     // Check for password requirements
-                    if (!(value.Length >= 8 && value.Any(char.IsUpper) && value.Any(char.IsSymbol)))
+                    if (!(value.Length >= 8 && value.Any(char.IsUpper) && value.Any(a => !char.IsLetterOrDigit(a) && !char.IsWhiteSpace(a))))
                     {
                         throw new Exception("PASSWORD DOES NOT MEET REQUIREMENTS");
                     }
