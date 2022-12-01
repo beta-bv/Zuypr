@@ -31,7 +31,7 @@ namespace Tests
             Assert.Equal(name, TestUser.Name);
         }
 
-        [Theory]
+        [Theory]    
         [InlineData(2010, 1, 1, false)]
         [InlineData(1999, 1, 1, true)]
         public void CheckAge(int year, int month, int day, bool expected)
