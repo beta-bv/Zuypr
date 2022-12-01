@@ -75,7 +75,6 @@ namespace Model
             }
             return true;
         }
-
         /// <summary>
         /// Checks if a name is not empty or longer than 50 characters and only allows letters and spaces.
         /// </summary>
@@ -88,7 +87,7 @@ namespace Model
         }
 
         /// <summary>
-        /// Verifies that the given date is not in the future.
+        /// Verifies that the given date is not in the future.x
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
@@ -107,7 +106,15 @@ namespace Model
         {
             return new User("dummyUser", "email@email.com", new DateTime(1, 1, 1999));
         }
+        public User GetUserFromDatabase()
+        {
+            throw new NotImplementedException();
+        }
 
+        public static bool AddUserToDatabase(User user)
+        {
+            throw new NotImplementedException();
+        }
 
     }
 }
