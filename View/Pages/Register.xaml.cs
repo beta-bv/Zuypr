@@ -4,6 +4,7 @@ namespace View.Pages;
 
 public partial class Register : ContentPage
 {
+    int som = 0;
     public Register()
     {
         InitializeComponent();
@@ -16,12 +17,17 @@ public partial class Register : ContentPage
         string password = "";
         if(User.ComparePasswords(PasswordField.Text, PasswordConfirmField.Text))
         {
-            password = User.HashString(PasswordField.Text);
+            password = PasswordField.Text;
             User Client = new User(name, email, password, dateOfBirth);
+            await Navigation.PushAsync(new Profile());
         }
         else
         {
-            new Label() { Text = "de wachtwoorden kwamen niet overeen" };
+            if (som != 1)
+            {
+                RegisterVStack.Children.Add(new Label() { Text = "de wachtwoorden kwamen niet overeen" });
+            }
+            som++;
         }
     }
 
