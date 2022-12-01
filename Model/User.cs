@@ -1,6 +1,7 @@
 ﻿using Microsoft.Maui.Layouts;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
+using System.Security.Cryptography;
 
 namespace Model
 {
@@ -9,6 +10,7 @@ namespace Model
         private string _name;
         private string _email;
         private DateTime _dateOfBirth;
+        private string _password;
 
         public string Name
         {
@@ -32,6 +34,33 @@ namespace Model
                     throw new Exception("EMAIL INVALID");
                 }
                 _email = value;
+            }
+        }
+        /// <summary>
+        /// Stores the SHA256 hash of the password
+        /// </summary>
+        public string Password
+        {
+            get { return _password; }
+            set
+            {
+                if (value != null && value != "")
+                {
+                    // Check for password requirements
+                    if (!(value.Length >= 8 && value.Any(char.IsUpper) && value.Any(char.IsSymbol)))
+                    {
+                        throw new Exception("PASSWORD DOES NOT MEET REQUIREMENTS");
+                    }
+
+                    // Hash the input string using SHA256
+                    byte[] textBytes = System.Text.Encoding.UTF8.GetBytes(value);
+                    byte[] hashedBytes = SHA256.HashData(textBytes);
+                    _password = BitConverter.ToString(hashedBytes).Replace("-", String.Empty);
+                }
+                else
+                {
+                    throw new Exception("INVALID PASSWORD");
+                }
             }
         }
         public DateTime DateOfBirth
