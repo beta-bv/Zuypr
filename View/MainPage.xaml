@@ -35,11 +35,6 @@
                 Clicked="OnCounterClicked"
                 HorizontalOptions="Center" />
 
-            <Button
-                x:Name="RegisterPageBtn"
-                Text="RegisterPage"
-                HorizontalOptions="Center" />
-
         </VerticalStackLayout>
     </ScrollView>
 
