@@ -70,6 +70,7 @@ namespace Model
 
             if (drinkList.Count() >= listLength)
             {
+                throw new Exception("LIST IS ALREADY FULL");
                 return true;
             }
             else {
@@ -169,6 +170,7 @@ namespace Model
             }
             else
             {
+                throw new Exception("DRINK NOT IN LIST");
                 return false;
             }
         }
@@ -188,7 +190,6 @@ namespace Model
             else
             {
                 return false;
-
             }
         }
 
