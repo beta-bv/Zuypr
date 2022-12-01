@@ -17,18 +17,43 @@
             <HorizontalStackLayout
                 HorizontalOptions="Center">
                 <Entry
-                    x:Name="Name"
+                    x:Name="NameField"
                     Placeholder="Name"
                     WidthRequest="250"
                     MaxLength="200"/>
+                
+                <Entry
+                    x:Name="EmailField"
+                    Placeholder="Email Address"
+                    WidthRequest="250"
+                    MaxLength="200"/>
+                
+                
+                
+            </HorizontalStackLayout>
+            
+            <HorizontalStackLayout
+                HorizontalOptions="Center">
+                
+                <DatePicker
+                    x:Name="BirthDateField"
+                    WidthRequest="250"/>
 
                 <Entry
-                    x:Name="emailField"
+                    x:Name="PasswordField"
                     Placeholder="Email Address"
                     WidthRequest="250"
                     MaxLength="200"/>
             </HorizontalStackLayout>
 
+            <HorizontalStackLayout
+                HorizontalOptions="Center">
+                <Entry
+                    x:Name="PasswordConfirmField"
+                    Placeholder="Email Address"
+                    WidthRequest="250"
+                    MaxLength="200"/>
+            </HorizontalStackLayout>
 
 
 
