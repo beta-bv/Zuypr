@@ -1,5 +1,6 @@
 using Microsoft.Maui.Controls.Shapes;
 using Microsoft.Maui.Layouts;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 
@@ -67,6 +68,20 @@ namespace Model
             _dislikes = new List<Drink>();
         }
 
+        public List<Drink> GetFavourites() {
+            return _favourites;
+        }
+
+        public List<Drink> GetLikes()
+        {
+            return _likes;
+        }
+
+        public List<Drink> GetDislikes()
+        {
+            return _dislikes;
+        }
+
         /// <summary>
         /// Checks if a drink already is in a given list Favourites, Likes or dislikes.
         /// </summary>
@@ -108,7 +123,6 @@ namespace Model
 
             if (drinkList.Count() >= listLength)
             {
-                throw new Exception("LIST IS ALREADY FULL");
                 return true;
             }
             else {
@@ -146,6 +160,8 @@ namespace Model
 
             if (AddToDrinkList(drink, _favourites))
             {
+                RemoveFromLikes(drink);
+                RemoveFromDislikes(drink);
                 return true;
             }
             else
@@ -165,6 +181,8 @@ namespace Model
 
             if (AddToDrinkList(drink, _likes))
             {
+                RemoveFromFavourites(drink);
+                RemoveFromDislikes(drink);
                 return true;
             }
             else
@@ -184,6 +202,8 @@ namespace Model
 
             if (AddToDrinkList(drink, _dislikes))
             {
+                RemoveFromLikes(drink);
+                RemoveFromFavourites(drink);
                 return true;
             }
             else
@@ -208,7 +228,6 @@ namespace Model
             }
             else
             {
-                throw new Exception("DRINK NOT IN LIST");
                 return false;
             }
         }
