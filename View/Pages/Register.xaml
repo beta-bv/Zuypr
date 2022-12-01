@@ -14,48 +14,57 @@
                 FontSize="32"
                 HorizontalOptions="Center" />
 
+            
+
             <HorizontalStackLayout
+                Margin="10"
                 HorizontalOptions="Center">
-                <Entry
+
+                <VerticalStackLayout
+                    Spacing="10"
+                    VerticalOptions="Start">
+
+                    <Entry
                     x:Name="NameField"
                     Placeholder="Name"
                     WidthRequest="250"
                     MaxLength="200"/>
-                
-                <Entry
+                    <DatePicker
+                    x:Name="BirthDateField"
+                    WidthRequest="250"/>
+
+                </VerticalStackLayout>
+
+                <VerticalStackLayout
+                    Spacing="10"
+                    VerticalOptions="Center">
+
+                    <Entry
                     x:Name="EmailField"
                     Placeholder="Email Address"
                     WidthRequest="250"
                     MaxLength="200"/>
-                
-                
-                
-            </HorizontalStackLayout>
-            
-            <HorizontalStackLayout
-                HorizontalOptions="Center">
-                
-                <DatePicker
-                    x:Name="BirthDateField"
-                    WidthRequest="250"/>
 
-                <Entry
+                    <Entry
                     x:Name="PasswordField"
-                    Placeholder="Email Address"
+                    Placeholder="Password"
                     WidthRequest="250"
                     MaxLength="200"/>
-            </HorizontalStackLayout>
 
-            <HorizontalStackLayout
-                HorizontalOptions="Center">
-                <Entry
+                    <Entry
                     x:Name="PasswordConfirmField"
-                    Placeholder="Email Address"
+                    Placeholder="Repeat Password"
                     WidthRequest="250"
                     MaxLength="200"/>
+
+                </VerticalStackLayout>
+
             </HorizontalStackLayout>
 
-
+            <Button
+                x:Name="submitButton"
+                Text="Let's Zuyp!"
+                Clicked="RegisterUser"/>
 
         </VerticalStackLayout>
     </ScrollView>
