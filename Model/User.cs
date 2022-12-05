@@ -1,6 +1,7 @@
 ﻿using Microsoft.Maui.Layouts;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
+using System.Linq;
 using System.Security.Cryptography;
 
 namespace Model
@@ -188,7 +189,26 @@ namespace Model
         /// <returns></returns>
         public static bool AddUserToDatabase(User user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                // Open the database connection
+                DatabaseContext dbContext = new DatabaseContext();
+
+                // If there is already a user with this email address in the database then throw an error
+                if (dbContext.Users.Any(a => a.Email.Equals(user.Email)))
+                {
+                    throw new Exception("A user with this email address already exists in the database");
+                }
+
+                // Add the user to the database and save the changes
+                dbContext.Users.Add(user);
+                dbContext.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                throw new Exception("Database Failure");
+            }
         }
 
         /// <summary>
