@@ -1,7 +1,7 @@
-﻿using Microsoft.Maui.Layouts;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Maui.Layouts;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
-using System.Linq;
 using System.Security.Cryptography;
 
 namespace Model
@@ -179,7 +179,17 @@ namespace Model
         /// <returns></returns>
         public User GetUserFromDatabase(User user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                DatabaseContext db = new DatabaseContext();  //maakt database context aan
+                User userFromDatabse = db.Users              
+                .Where(u => u.Email.Equals(user.Email)).First();   //query haalt de user op aan de hand van zijn/haar email
+                return userFromDatabse;                            // returned de user
+            }
+            catch (Exception ex) {
+                new Exception("Database Failure");                 // gooit een exception als er iets mis gaat met de database
+                return null;
+            }
         }
 
         /// <summary>
@@ -209,6 +219,7 @@ namespace Model
             {
                 throw new Exception("Database Failure");
             }
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -221,7 +232,11 @@ namespace Model
         {
             if (emailOld.Equals(Email) && !emailNew.Equals(emailOld))
             {
+                DatabaseContext db = new DatabaseContext();
                 Email = emailNew;
+                User tempUser = GetUserFromDatabase(this);
+                tempUser.Email = emailNew;
+                db.SaveChanges();
                 return true;
             }
             return false;
@@ -238,18 +253,38 @@ namespace Model
         {
             if (ComparePasswords(newPasswordField1, newPasswordField2))
             {
-                string tempPasswordFieldCombine = newPasswordField1;
-                if (Password.Equals(HashString(oldPassword)) && !Password.Equals(HashString(tempPasswordFieldCombine)))
+                string newPassword = newPasswordField1;
+                if (Password.Equals(HashString(oldPassword)) && !Password.Equals(HashString(newPassword)))
                 {
-                    Password = newPasswordField1;
-                    return true;
+                    try
+                    {
+                        DatabaseContext db = new DatabaseContext();
+                        User tempUser = GetUserFromDatabase(this);
+                        tempUser.Password = newPassword;
+                        db.SaveChanges();
+                        return true;
+                    }
+                    catch(Exception ex)
+                    {
+                        throw new Exception("DATABASE FAILURE");
+                        return false;
+                    }
+
                 }
             }
             return false;
         }
-        public bool RemoveUser()
+
+        public bool RemoveUser(User user)
         {
-            throw new NotImplementedException();
+            DatabaseContext db = new DatabaseContext();
+            if (GetUserFromDatabase(user) != null)
+            {
+                db.Users.Remove(user);
+                return true;
+            }
+            return false;
+            }
         }
+    
     }
-}

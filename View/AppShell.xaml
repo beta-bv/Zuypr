@@ -48,4 +48,20 @@
                 ContentTemplate="{DataTemplate views:Register}" />
         </Tab>
     </FlyoutItem>
+    <FlyoutItem
+        Title="Login [TEMP]"
+        Route="Login">
+        <Tab>
+            <ShellContent
+                ContentTemplate="{DataTemplate views:Login}" />
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem
+        Title="Logout [TEMP]"
+        Route="Logout">
+        <Tab>
+            <ShellContent
+                ContentTemplate="{DataTemplate views:Login}" />
+        </Tab>
+    </FlyoutItem>
 </Shell>
