@@ -53,6 +53,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Pages\ChatScreen.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\Register.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -80,6 +83,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Pages\ChatScreen.xaml.cs">
+	    <DependentUpon>ChatScreen.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Pages\Register.xaml.cs">
 	    <DependentUpon>Register.xaml</DependentUpon>
 	  </Compile>

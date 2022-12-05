@@ -48,4 +48,12 @@
                 ContentTemplate="{DataTemplate views:Register}" />
         </Tab>
     </FlyoutItem>
+    <FlyoutItem
+        Title="Chat [TEMP]"
+        Route="Chat">
+        <Tab>
+            <ShellContent
+                ContentTemplate="{DataTemplate views:ChatScreen}" />
+        </Tab>
+    </FlyoutItem>
 </Shell>
