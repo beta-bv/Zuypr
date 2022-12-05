@@ -5,7 +5,6 @@ namespace View.Pages;
 
 public partial class Register : ContentPage
 {
-    int som = 0;
     public Register()
     {
         InitializeComponent();
@@ -17,30 +16,43 @@ public partial class Register : ContentPage
     /// <param name="e"></param>
     private async void RegisterUser(object sender, EventArgs e) 
     {
-        string name = NameField.Text.Trim();
-        string email = EmailField.Text.Trim();
-        DateTime dateOfBirth = BirthDateField.Date;
-        string password = "";
-        if(User.ComparePasswords(PasswordField.Text, PasswordConfirmField.Text))
+        try
         {
-            ErrorFrame.IsVisible = false;
-            password = PasswordField.Text;
-            try
+            string name = NameField.Text?.Trim();
+            string email = EmailField.Text?.Trim();
+            DateTime dateOfBirth = BirthDateField.Date;
+            string password = "";
+            if (User.ComparePasswords(PasswordField.Text, PasswordConfirmField.Text))
             {
-                User Client = new User(name, email, password, dateOfBirth);
+                ErrorFrame.IsVisible = false;
+                password = PasswordField.Text;
+                try
+                {
+                    User Client = new User(name, email, password, dateOfBirth);
+                }
+                catch (Exception ex)
+                {
+
+                    if (ex is ArgumentException)
+                    {
+                        ErrorLabel.Text = ex.Message;  //note dat dit niet echt de meest veilige zooi is, misschien eigen exception klasse aanmaken om de registratie error te weergeven?
+                        ErrorFrame.IsVisible = true;
+                        return;
+                    }
+                }
+                await Navigation.PushAsync(new Profile());
             }
-            catch(Exception ex)
+            else
             {
-                ErrorLabel.Text = ex.Message;  //note dat dit niet echt de meest veilige zooi is, misschien eigen exception klasse aanmaken om de registratie error te weergeven?
+                ErrorLabel.Text = "Wachtwoorden komen niet overeen";
                 ErrorFrame.IsVisible = true;
-                return;
             }
-            await Navigation.PushAsync(new Profile());
         }
-        else
+        catch(Exception nullEx)
         {
-            ErrorLabel.Text = "Wachtwoorden komen niet overeen";
+            ErrorLabel.Text = "Je moet iets invullen om te regristreren";  //note dat dit niet echt de meest veilige zooi is, misschien eigen exception klasse aanmaken om de registratie error te weergeven?
             ErrorFrame.IsVisible = true;
+            return;
         }
     }
 }
