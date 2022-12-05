@@ -89,13 +89,7 @@ namespace Model
         /// <returns></returns>
         public bool CheckIfInList(Drink drink, List<Drink> drinkList)
         {
-            if (drinkList.Contains(drink))
-            {
-                return true;
-            }
-            else {
-                return false;
-            }
+            return drinkList.Contains(drink);
         }
 
         /// <summary>
@@ -107,14 +101,7 @@ namespace Model
         {
             int capacity = drinkList.Capacity;
             int size = drinkList.Count();
-
-            if (size == capacity)
-            {
-                return true;
-            }
-            else {
-                return false;
-            }
+            return size == capacity;
         }
 
         /// <summary>
@@ -143,14 +130,7 @@ namespace Model
         /// <returns></returns>
         public bool AddToFavourites(Drink drink)
         {
-            if (AddToDrinkList(drink, _favourites))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return AddToDrinkList(drink, _favourites);
         }
 
         /// <summary>
@@ -160,14 +140,7 @@ namespace Model
         /// <returns></returns>
         public bool AddToLikes(Drink drink)
         {
-            if (AddToDrinkList(drink, _likes))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return AddToDrinkList(drink, _likes);
         }
 
         /// <summary>
@@ -177,14 +150,7 @@ namespace Model
         /// <returns></returns>
         public bool AddToDislikes(Drink drink)
         {
-            if (AddToDrinkList(drink, _dislikes))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return AddToDrinkList(drink, _dislikes);
         }
 
         /// <summary>
