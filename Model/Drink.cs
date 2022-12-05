@@ -20,5 +20,11 @@ namespace Model
         public DrinkType DrinkType { get; set;}
         public string DrinkName { get; set; }
         public float Percentage { get; set; }
+
+        public static Drink GetDummyDrink()
+        {
+            return new Drink();
+        }
     }
+
 }
