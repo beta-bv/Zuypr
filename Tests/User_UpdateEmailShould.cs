@@ -25,7 +25,6 @@ namespace Tests
         [InlineData("gmail@gmail.com", "stinky@hotmail.com", true)]
         public void CheckEmailUpdate(string emailOld, string emailNew, bool expected, bool exception = false)
         {
-
             if (exception)
             {
                 Assert.Throws<Exception>(() => TestUser.UpdateUserEmail(emailNew, emailOld));

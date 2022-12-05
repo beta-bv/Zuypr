@@ -19,7 +19,7 @@ namespace Model
             {
                 if (!IsNameValid(value))
                 {
-                    throw new ArgumentException ("Je hebt geen valide naam ingevuld");
+                    throw new ArgumentException("Je hebt geen valide naam ingevuld");
                 }
                 _name = value;
             }
@@ -74,7 +74,7 @@ namespace Model
                 {
                     throw new ArgumentException("Je moet minstens achttien jaar oud zijn om te mogen regristreren");
                 }
-                
+
                 _dateOfBirth = value;
             }
         }
@@ -208,18 +208,21 @@ namespace Model
         }
 
         /// <summary>
-        /// updates user password
+        /// update de password van de gebruiker 
         /// </summary>
-        /// <param name="password"></param>
+        /// <param name="oldPassword"></param>
+        /// <param name="newPasswordField1"></param>
+        /// <param name="newPasswordField2"></param>
         /// <returns></returns>
         public bool UpdateUserPassword(string oldPassword, string newPasswordField1, string newPasswordField2) //TODO implement het database gedeelte nog
         {
             if (ComparePasswords(newPasswordField1, newPasswordField2))
             {
                 string tempPasswordFieldCombine = newPasswordField1;
-                if (Password.Equals(HashString(oldPassword)) && !Password.Equals(HashString(tempPasswordFieldCombine))){
+                if (Password.Equals(HashString(oldPassword)) && !Password.Equals(HashString(tempPasswordFieldCombine)))
+                {
                     Password = newPasswordField1;
-                    return true;  
+                    return true;
                 }
             }
             return false;
