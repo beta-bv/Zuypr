@@ -14,8 +14,8 @@ namespace Model
         public DbSet<Chat> Chats { get; set; }
         public DbSet<Drink> Drinks { get; set; }
         public DbSet<Location> Locations { get; set; }
-        public DbSet<Match> Matchs { get; set; }
-        public DbSet<Message> Message { get; set; }
+        public DbSet<Match> Matches { get; set; }
+        public DbSet<Message> Messages { get; set; }
         public DbSet<User> Users { get; set; }
 
         private string _connectionString;
