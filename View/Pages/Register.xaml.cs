@@ -18,8 +18,8 @@ public partial class Register : ContentPage
     {
         try
         {
-            string name = NameField.Text.Trim();
-            string email = EmailField.Text.Trim();
+            string name = NameField.Text?.Trim();
+            string email = EmailField.Text?.Trim();
             DateTime dateOfBirth = BirthDateField.Date;
             string password = "";
             if (User.ComparePasswords(PasswordField.Text, PasswordConfirmField.Text))
@@ -32,9 +32,13 @@ public partial class Register : ContentPage
                 }
                 catch (Exception ex)
                 {
-                    ErrorLabel.Text = ex.Message;  //note dat dit niet echt de meest veilige zooi is, misschien eigen exception klasse aanmaken om de registratie error te weergeven?
-                    ErrorFrame.IsVisible = true;
-                    return;
+
+                    if (ex is ArgumentException)
+                    {
+                        ErrorLabel.Text = ex.Message;  //note dat dit niet echt de meest veilige zooi is, misschien eigen exception klasse aanmaken om de registratie error te weergeven?
+                        ErrorFrame.IsVisible = true;
+                        return;
+                    }
                 }
                 await Navigation.PushAsync(new Profile());
             }
@@ -46,7 +50,7 @@ public partial class Register : ContentPage
         }
         catch(Exception nullEx)
         {
-            ErrorLabel.Text = nullEx.Message;  //note dat dit niet echt de meest veilige zooi is, misschien eigen exception klasse aanmaken om de registratie error te weergeven?
+            ErrorLabel.Text = "Je moet iets invullen om te regristreren";  //note dat dit niet echt de meest veilige zooi is, misschien eigen exception klasse aanmaken om de registratie error te weergeven?
             ErrorFrame.IsVisible = true;
             return;
         }
