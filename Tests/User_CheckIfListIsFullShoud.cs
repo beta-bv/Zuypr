@@ -19,7 +19,6 @@ namespace Tests
 
         public void CheckIfFavouritesIsFull(bool expected, int amount)
         {
-
             User jaap = User.GetDummyUser();
 
             for (int i = 1; i < amount; i++)
@@ -41,7 +40,6 @@ namespace Tests
 
         public void CheckIfLikesIsFull(bool expected, int amount)
         {
-
             User jaap = User.GetDummyUser();
 
             for (int i = 1; i < amount; i++)
@@ -63,7 +61,6 @@ namespace Tests
 
         public void CheckIfDislikesIsFull(bool expected, int amount)
         {
-
             User jaap = User.GetDummyUser();
 
             for (int i = 1; i < amount; i++)

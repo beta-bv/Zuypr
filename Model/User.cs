@@ -52,7 +52,6 @@ namespace Model
         public List<string> Cities { get; set; }
         public Bitmap ProfielImage { get; set; }
         public List<User> Matches { get; set; }
-
         private List<Drink> _favourites { get; set; }
         private List<Drink> _likes { get; set; }
         private List<Drink> _dislikes { get; set; }
@@ -63,9 +62,9 @@ namespace Model
             Name = name;
             Email = email;
             DateOfBirth = dateOfBirth;
-            _favourites = new List<Drink>();
-            _likes = new List<Drink>();
-            _dislikes = new List<Drink>();
+            _favourites = new List<Drink>(3);
+            _likes = new List<Drink>(5);
+            _dislikes = new List<Drink>(3);
         }
 
         public List<Drink> GetFavourites() {
@@ -88,8 +87,8 @@ namespace Model
         /// <param name="drink"></param>
         /// <param name="drinkList"></param>
         /// <returns></returns>
-        public bool CheckIfInList(Drink drink, List<Drink> drinkList) {
-
+        public bool CheckIfInList(Drink drink, List<Drink> drinkList)
+        {
             if (drinkList.Contains(drink))
             {
                 return true;
@@ -104,31 +103,18 @@ namespace Model
         /// </summary>
         /// <param name="drinkList"></param>
         /// <returns></returns>
-        public bool CheckIfListIsFull(List<Drink> drinkList) {
+        public bool CheckIfListIsFull(List<Drink> drinkList)
+        {
+            int capacity = drinkList.Capacity;
+            int size = drinkList.Count();
 
-            int listLength = 0;
-
-            if (drinkList == _favourites)
-            {
-                listLength = 3;
-            }
-            else if (drinkList == _likes)
-            {
-                listLength = 5;
-            }
-            else if (drinkList == _dislikes)
-            {
-                listLength = 3;
-            }
-
-            if (drinkList.Count() >= listLength)
+            if (size == capacity)
             {
                 return true;
             }
             else {
                 return false;
             }
-
         }
 
         /// <summary>
@@ -144,10 +130,10 @@ namespace Model
                 return false;
             }
             else {
+                RemoveFromDrinkList(drink);
                 drinkList.Add(drink);
                 return true;
             }
-
         }
 
         /// <summary>
@@ -157,17 +143,13 @@ namespace Model
         /// <returns></returns>
         public bool AddToFavourites(Drink drink)
         {
-
             if (AddToDrinkList(drink, _favourites))
             {
-                RemoveFromLikes(drink);
-                RemoveFromDislikes(drink);
                 return true;
             }
             else
             {
                 return false;
-
             }
         }
 
@@ -178,17 +160,13 @@ namespace Model
         /// <returns></returns>
         public bool AddToLikes(Drink drink)
         {
-
             if (AddToDrinkList(drink, _likes))
             {
-                RemoveFromFavourites(drink);
-                RemoveFromDislikes(drink);
                 return true;
             }
             else
             {
                 return false;
-
             }
         }
 
@@ -199,17 +177,13 @@ namespace Model
         /// <returns></returns>
         public bool AddToDislikes(Drink drink)
         {
-
             if (AddToDrinkList(drink, _dislikes))
             {
-                RemoveFromLikes(drink);
-                RemoveFromFavourites(drink);
                 return true;
             }
             else
             {
                 return false;
-
             }
         }
 
@@ -219,72 +193,25 @@ namespace Model
         /// <param name="drink"></param>
         /// <param name="drinkList"></param>
         /// <returns></returns>
-        public bool RemoveFromDrinkList(Drink drink, List<Drink> drinkList)
+        public bool RemoveFromDrinkList(Drink drink)
         {
-            if (CheckIfInList(drink, drinkList))
+            if (_favourites.Contains(drink))
             {
-                drinkList.Remove(drink);
+                _favourites.Remove(drink);
                 return true;
             }
-            else
+            else if (_likes.Contains(drink))
             {
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Remove a drink from the list _favourites.
-        /// </summary>
-        /// <param name="drink"></param>
-        /// <returns></returns>
-        public bool RemoveFromFavourites(Drink drink)
-        {
-
-            if (RemoveFromDrinkList(drink, _favourites))
-            {
+                _likes.Remove(drink);
                 return true;
             }
-            else
+            else if (_dislikes.Contains(drink))
             {
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Remove a drink from the list _likes.
-        /// </summary>
-        /// <param name="drink"></param>
-        /// <returns></returns>
-        public bool RemoveFromLikes(Drink drink)
-        {
-
-            if (RemoveFromDrinkList(drink, _likes))
-            {
+                _dislikes.Remove(drink);
                 return true;
             }
-            else
-            {
+            else {
                 return false;
-
-            }
-        }
-
-        /// <summary>
-        /// Remove a drink from the list _dislikes.
-        /// </summary>
-        /// <param name="drink"></param>
-        /// <returns></returns>
-        public bool RemoveFromDislikes(Drink drink)
-        {
-
-            if (RemoveFromDrinkList(drink, _dislikes))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-
             }
         }
 
@@ -323,7 +250,6 @@ namespace Model
         public static bool IsDateOfBirthValid(DateTime date)
         {
             DateTime dateNow = DateTime.Now;
-
             return date < dateNow;
         }
 

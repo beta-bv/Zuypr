@@ -15,7 +15,6 @@ namespace Tests
 
         public void AddToDrinkListFavourites(bool expected)
         {
-
             User jaap = User.GetDummyUser();
             bool result = jaap.AddToFavourites(new Drink());
 
@@ -28,7 +27,6 @@ namespace Tests
 
         public void AddToDrinkListLikes(bool expected)
         {
-
             User jaap = User.GetDummyUser();
             bool result = jaap.AddToLikes(new Drink());
 
@@ -41,7 +39,6 @@ namespace Tests
 
         public void AddToDrinkListDislikes(bool expected)
         {
-
             User jaap = User.GetDummyUser();
             bool result = jaap.AddToDislikes(new Drink());
 

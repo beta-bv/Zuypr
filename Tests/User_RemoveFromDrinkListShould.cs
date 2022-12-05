@@ -25,7 +25,7 @@ namespace Tests
                 jaap.AddToFavourites(drink);
             }
 
-            Assert.Equal(expected, jaap.RemoveFromFavourites(drink));
+            Assert.Equal(expected, jaap.RemoveFromDrinkList(drink));
         }
 
         [Theory]
@@ -35,7 +35,6 @@ namespace Tests
 
         public void RemoveFromDrinkListLikes(bool expected, int amount)
         {
-
             User jaap = User.GetDummyUser();
             Drink drink = Drink.GetDummyDrink();
 
@@ -44,7 +43,7 @@ namespace Tests
                 jaap.AddToLikes(drink);
             }
 
-            Assert.Equal(expected, jaap.RemoveFromLikes(drink));
+            Assert.Equal(expected, jaap.RemoveFromDrinkList(drink));
         }
 
         [Theory]
@@ -54,7 +53,6 @@ namespace Tests
 
         public void RemoveFromDrinkListDislikes(bool expected, int amount)
         {
-
             User jaap = User.GetDummyUser();
             Drink drink = Drink.GetDummyDrink();
 
@@ -63,7 +61,7 @@ namespace Tests
                 jaap.AddToDislikes(drink);
             }
 
-            Assert.Equal(expected, jaap.RemoveFromDislikes(drink));
+            Assert.Equal(expected, jaap.RemoveFromDrinkList(drink));
         }
     }
 }

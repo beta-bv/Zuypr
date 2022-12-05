@@ -17,7 +17,6 @@ namespace Tests
 
         public void CheckIfInFavourites(bool expected, int amount)
         {
-
             User jaap = User.GetDummyUser();
             Drink drink = Drink.GetDummyDrink();
 
@@ -37,7 +36,6 @@ namespace Tests
 
         public void CheckIfInLikes(bool expected, int amount)
         {
-
             User jaap = User.GetDummyUser();
             Drink drink = Drink.GetDummyDrink();
 
@@ -57,7 +55,6 @@ namespace Tests
 
         public void CheckIfInDislikes(bool expected, int amount)
         {
-
             User jaap = User.GetDummyUser();
             Drink drink = Drink.GetDummyDrink();
 
@@ -65,7 +62,6 @@ namespace Tests
             {
                 jaap.AddToDislikes(drink);
             }
-
 
             Assert.Equal(expected, jaap.AddToDislikes(drink));
         }
