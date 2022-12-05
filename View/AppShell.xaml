@@ -41,10 +41,11 @@
         </Tab>
     </FlyoutItem>
     <FlyoutItem
-        Title="Register [TEMP]" Route="Register">
+        Title="Register [TEMP]"
+        Route="Register">
         <Tab>
-            <ShellContent ContentTemplate="{DataTemplate views:Register}"/>
+            <ShellContent
+                ContentTemplate="{DataTemplate views:Register}" />
         </Tab>
     </FlyoutItem>
-
 </Shell>
