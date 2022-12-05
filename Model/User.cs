@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Layouts;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Maui.Layouts;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Security.Cryptography;
 
 namespace Model
 {
+    [PrimaryKey(nameof(Email))]
     public class User
     {
         private string _name;
@@ -79,8 +81,8 @@ namespace Model
                 _dateOfBirth = value;
             }
         }
-        public List<string> Cities { get; set; }
-        public Bitmap ProfielImage { get; set; }
+        public List<Location> Cities { get; set; }
+        public string ProfielImageURI { get; set; }
         public List<User> Matches { get; set; }
         public List<Drink> Favourites { get; set; }
         public List<Drink> Likes { get; set; }
