@@ -9,6 +9,15 @@ namespace Model
 {
     public class User
     {
+
+        public int Id { get; set; }
+        public List<string> Cities { get; set; }
+        public string ProfielImage { get; set; }
+        public List<User> Matches { get; set; }
+
+        private List<Drink> _favourites;
+        private List<Drink> _likes;
+        private List<Drink> _dislikes;
         private string _name;
         private string _email;
         private DateTime _dateOfBirth;
@@ -83,13 +92,6 @@ namespace Model
                 _dateOfBirth = value;
             }
         }
-
-        public List<string> Cities { get; set; }
-        public Bitmap ProfielImage { get; set; }
-        public List<User> Matches { get; set; }
-        private List<Drink> _favourites { get; set; }
-        private List<Drink> _likes { get; set; }
-        private List<Drink> _dislikes { get; set; }
         
         public User(string name, string email, string password, DateTime dateOfBirth)
         {

@@ -8,6 +8,7 @@ namespace Model
 {
     public class Match
     {
+        public int Id { get; set; }
         public User[] Users { get; set; }
         public Chat Chat { get; set; }
     }

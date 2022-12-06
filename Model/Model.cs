@@ -21,14 +21,7 @@ namespace Model
         private string _connectionString;
 
         public DatabaseContext() {
-            DotEnv.Load("./database.env");
-
-            string server = DotEnv.Get("DB_HOST");
-            string username = DotEnv.Get("DB_USERNAME");
-            string password = DotEnv.Get("DB_PASSWORD");
-            string database = DotEnv.Get("DB_CATALOG");
-
-            _connectionString = $"server={server};initial catalog={database};user id={username};password={password};";
+            _connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=zuypr";
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlServer(_connectionString);

@@ -8,6 +8,7 @@ namespace Model
 {
     public class Chat
     {
+        public int Id { get; set; }
         public List<Message> Messages { get; set; } // Or use a queue
     }
 }

@@ -16,7 +16,8 @@ namespace Model
     }
     public class Drink
     {
-        public Bitmap DrinkImage { get; set; }
+        public int Id { get; set; }
+        public string DrinkImage { get; set; }
         public DrinkType DrinkType { get; set;}
         public string DrinkName { get; set; }
         public float Percentage { get; set; }
