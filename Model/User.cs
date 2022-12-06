@@ -192,7 +192,6 @@ namespace Model
         /// Removes a drink from the given list Favourites, Likes or Dislikes.
         /// </summary>
         /// <param name="drink"></param>
-        /// <param name="drinkList"></param>
         /// <returns></returns>
         public bool RemoveFromDrinkList(Drink drink)
         {
