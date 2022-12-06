@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -14,9 +15,11 @@ namespace Model
         Wine,
         Liquor
     }
+
+    [PrimaryKey(nameof(DrinkType), nameof(DrinkName))]
     public class Drink
     {
-        public Bitmap DrinkImage { get; set; }
+        public string DrinkImageURI { get; set; }
         public DrinkType DrinkType { get; set;}
         public string DrinkName { get; set; }
         public float Percentage { get; set; }
