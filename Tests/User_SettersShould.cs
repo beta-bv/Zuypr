@@ -34,6 +34,7 @@ namespace Tests
         [Theory]
         [InlineData(2010, 1, 1, false)]
         [InlineData(1999, 1, 1, true)]
+        [InlineData(9999, 1, 1, false)]
         public void CheckAge(int year, int month, int day, bool expected)
         {
             DateTime date = new DateTime(year, month, day);

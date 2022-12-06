@@ -8,6 +8,8 @@ public partial class ChatScreen : ContentPage
     public ChatScreen()
     {
         InitializeComponent();
+        LabelUserName.FontSize = 20;
+        LabelUserName.Text = "User";
         //scrollviewChat.MaximumHeightRequest= DeviceDisplay.MainDisplayInfo.Height - 50;
     }
 
