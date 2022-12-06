@@ -13,9 +13,9 @@ namespace Model
             Sender = sender;
             TimeSent = timeSent;
         }
-        
         public string Text { get; set; }
         public User Sender { get; set; }
         public DateTime TimeSent { get; set; }
+        
     }
 }
