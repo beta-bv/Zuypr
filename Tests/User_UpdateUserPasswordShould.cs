@@ -29,7 +29,7 @@ namespace Tests
         {
             if (exception)
             {
-                Assert.Throws<Exception>(() => TestUser.UpdateUserPassword(passwordOld, passwordNew1, passwordNew2));
+                Assert.Throws<ArgumentException>(() => TestUser.UpdateUserPassword(passwordOld, passwordNew1, passwordNew2));
             }
             else
             {

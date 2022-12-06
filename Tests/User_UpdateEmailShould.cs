@@ -27,7 +27,7 @@ namespace Tests
         {
             if (exception)
             {
-                Assert.Throws<Exception>(() => TestUser.UpdateUserEmail(emailNew, emailOld));
+                Assert.Throws<ArgumentException>(() => TestUser.UpdateUserEmail(emailNew, emailOld));
             }
             else
             {

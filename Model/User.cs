@@ -291,7 +291,7 @@ namespace Model
         /// <returns></returns>
         public static User GetDummyUser()
         {
-            return new User("dummyUser", "123", "email@email.com", new DateTime(1999, 1, 1));
+            return new User("dummyUser", "email@a.com", "Wachtwoord!", new DateTime(1999, 1, 1));
         }
 
         /// <summary>
