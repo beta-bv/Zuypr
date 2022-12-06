@@ -11,6 +11,6 @@ public partial class Step5 : ContentPage
 
     private void Next(object sender, EventArgs e)
     {
-        if (Application.Current != null) Application.Current.MainPage = new AppShell();
+        if (Application.Current != null) Application.Current.MainPage = new AppShell(Step1.User);
     }
 }
