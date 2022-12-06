@@ -26,7 +26,8 @@
             x:Name="scrollviewChat"
             Grid.Row="1">
             <StackLayout
-                x:Name="ChatMessageView">
+                x:Name="ChatMessageView"
+                Spacing="10">
             </StackLayout>
         </ScrollView>
         

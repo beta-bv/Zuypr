@@ -19,9 +19,8 @@ public partial class ChatScreen : ContentPage
         Message Message = new Message(messageToSend, User.GetDummyUser(), DateTime.Now);
         ChatMessageView.Children.Add(new Border
         {
-            Stroke = Color.FromArgb("#FFFFFF"),
             Background = Color.FromArgb("#008000"),
-            StrokeThickness = 4,
+            StrokeThickness = 1,
             Padding = new Thickness(4, 2),
             HorizontalOptions = LayoutOptions.Start,
             Content = new Label
