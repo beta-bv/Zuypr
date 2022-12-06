@@ -6,7 +6,7 @@
     <Grid
         RowDefinitions="Auto, *, Auto">
         <HorizontalStackLayout
-            x:Name="ChatMessageInfo"
+            x:Name="ChatInfo"
             Grid.Row="0">
             <Image
                 Source="https://i1.sndcdn.com/avatars-twM1pq6gSk4YzN4F-N4zKuw-t240x240.jpg"
@@ -29,11 +29,13 @@
                 x:Name="ChatMessageView">
             </StackLayout>
         </ScrollView>
-        <HorizontalStackLayout
-            HorizontalOptions="Center"
+        
+        <Grid
+            RowDefinitions="*, Auto"
             Grid.Row="2">
             <Editor
                 x:Name="chatbox"
+                Grid.Row="0"
                 Placeholder="Enter text"
                 VerticalOptions="End"
                 WidthRequest="1000"
@@ -41,10 +43,11 @@
                 MaximumHeightRequest="150" />
             <Button
                 x:Name="sendMessage"
+                Grid.Row="1"
                 Text="Send message"
                 VerticalOptions="End"
                 Clicked="SendMessage" />
-        </HorizontalStackLayout>
+        </Grid>
     </Grid>
 
 
