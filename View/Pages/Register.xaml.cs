@@ -48,7 +48,7 @@ public partial class Register : ContentPage
                 ErrorFrame.IsVisible = true;
             }
         }
-        catch(Exception nullEx)
+        catch
         {
             ErrorLabel.Text = "Je moet iets invullen om te regristreren";  //note dat dit niet echt de meest veilige zooi is, misschien eigen exception klasse aanmaken om de registratie error te weergeven?
             ErrorFrame.IsVisible = true;
