@@ -3,36 +3,40 @@
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 x:Class="View.Pages.MyDrinks">
 
-
-    <Grid Margin="100">
-        <ScrollView>
-            <FlexLayout x:Name="flexLayout"
-                                Wrap="Wrap"
-                                JustifyContent="Start"
-                                BindableLayout.ItemsSource="{Binding AllDrinks}">
+<Grid>
+        <ScrollView Margin="0,40,0,0">
+            <FlexLayout
+                x:Name="flexLayout"
+                Wrap="Wrap"
+                JustifyContent="Start"
+                BindableLayout.ItemsSource="{Binding AllDrinks}">
 
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
-                        <Grid Margin="0,0,20,0"
-                    HeightRequest="20"
-                    HorizontalOptions="StartAndExpand">
+                        <Grid
+                            Margin="10,10,10,30"
+                            HeightRequest="450"
+                            HorizontalOptions="Center"
+                            Padding="10"
+                            BackgroundColor="White">
+
                             <StackLayout>
-                                <Image
+                                <ImageButton
                                     Source="{Binding DrinkImage}"
                                     HeightRequest="300"
-                                    WidthRequest="300"/>
+                                    WidthRequest="300" />
 
-                                <Label
-                                    Grid.Row="0"
-                                    Grid.Column="1"
-                                    FontSize="20"
-                                    HorizontalOptions="StartAndExpand"
-                                    Text="{Binding DrinkName}"/>
+                                <HorizontalStackLayout>
+                                    <Label
+                                        FontSize="20"
+                                        Margin="0,20,0,0"
+                                        TextColor="Black"
+                                        HorizontalOptions="Center"
+                                        HorizontalTextAlignment="Center"
+                                        Text="{Binding DrinkName}"/>
+                                    </HorizontalStackLayout>
 
-<Label Text="" x:Name="jow"/>
-
-                                <Grid>
-
+                                    <Grid BackgroundColor="White" Padding="0,20">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="100"/>
                                         <ColumnDefinition Width="100" />
@@ -41,8 +45,10 @@
 
                                     <Button Text="⭐"
                                             Grid.Column="0"
-                                            WidthRequest="50" HeightRequest="50"
-                                            CornerRadius="100" FontSize="20"
+                                            WidthRequest="50"
+                                            HeightRequest="50"
+                                            CornerRadius="100"
+                                            FontSize="20"
                                             BackgroundColor="White"
                                             Clicked="OnButtonFavoriteClicked"/>
 
