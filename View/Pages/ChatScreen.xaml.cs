@@ -8,6 +8,7 @@ public partial class ChatScreen : ContentPage
     public ChatScreen()
     {
         InitializeComponent();
+        //scrollviewChat.MaximumHeightRequest= DeviceDisplay.MainDisplayInfo.Height - 50;
     }
 
     private async void SendMessage(object sender, EventArgs e)
@@ -18,14 +19,13 @@ public partial class ChatScreen : ContentPage
             Stroke = Color.FromArgb("#FFFFFF"),
             Background = Color.FromArgb("#008000"),
             StrokeThickness = 4,
-            Padding = new Thickness(16, 8),
+            Padding = new Thickness(4, 2),
             HorizontalOptions = LayoutOptions.Start,
-            StrokeShape = new Rectangle,
             Content = new Label
             {
                 Text = messageToSend,
                 TextColor = Colors.White,
-                FontSize = 18,
+                FontSize = 14,
                 FontAttributes = FontAttributes.Bold
             }
         }) ;
