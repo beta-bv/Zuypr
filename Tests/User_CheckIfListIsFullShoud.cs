@@ -23,10 +23,10 @@ namespace Tests
 
             for (int i = 1; i < amount; i++)
             {
-                jaap.AddToFavourites(new Drink());  
+                jaap.AddToFavourites(Drink.GetDummyDrink());  
             }
 
-            bool result = jaap.AddToFavourites(new Drink());
+            bool result = jaap.AddToFavourites(Drink.GetDummyDrink());
 
 
             Assert.Equal(expected, result);
@@ -44,10 +44,10 @@ namespace Tests
 
             for (int i = 1; i < amount; i++)
             {
-                jaap.AddToLikes(new Drink());
+                jaap.AddToLikes(Drink.GetDummyDrink());
             }
 
-            bool result = jaap.AddToLikes(new Drink());
+            bool result = jaap.AddToLikes(Drink.GetDummyDrink());
 
 
             Assert.Equal(expected, result);
@@ -65,10 +65,10 @@ namespace Tests
 
             for (int i = 1; i < amount; i++)
             {
-                jaap.AddToDislikes(new Drink());
+                jaap.AddToDislikes(Drink.GetDummyDrink());
             }
 
-            bool result = jaap.AddToDislikes(new Drink());
+            bool result = jaap.AddToDislikes(Drink.GetDummyDrink());
 
 
             Assert.Equal(expected, result);

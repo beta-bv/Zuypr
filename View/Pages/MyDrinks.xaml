@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="View.Pages.MyDrinks">
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                x:Class="View.Pages.MyDrinks">
 
 
     <Grid Margin="100">
@@ -11,33 +11,35 @@
                                 JustifyContent="Start"
                                 BindableLayout.ItemsSource="{Binding AllDrinks}">
 
-                 <BindableLayout.ItemTemplate>
-        <DataTemplate>
-            <Grid Margin="0,0,20,0"
-                  HeightRequest="20"
-                  HorizontalOptions="StartAndExpand">
-                    <StackLayout>
-                           <Image Source="{Binding DrinkImage}"
-                                   HeightRequest="300"
-                                   WidthRequest="300"/>
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,0,20,0"
+                    HeightRequest="20"
+                    HorizontalOptions="StartAndExpand">
+                            <StackLayout>
+                                <Image
+                                    Source="{Binding DrinkImage}"
+                                    HeightRequest="300"
+                                    WidthRequest="300"/>
 
-                           <Label
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                FontSize="20"
-                                HorizontalOptions="StartAndExpand"
-                                Text="{Binding DrinkName}"/>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    FontSize="20"
+                                    HorizontalOptions="StartAndExpand"
+                                    Text="{Binding DrinkName}"/>
+
+<Label Text="" x:Name="jow"/>
 
                                 <Grid>
 
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="100" />
-                                </Grid.ColumnDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="100" />
+                                    </Grid.ColumnDefinitions>
 
                                     <Button Text="⭐"
-                                            x:Name="label"
                                             Grid.Column="0"
                                             WidthRequest="50" HeightRequest="50"
                                             CornerRadius="100" FontSize="20"
@@ -59,60 +61,12 @@
                                             CornerRadius="100"
                                             FontSize="20"
                                             Clicked="OnButtonDislikeClicked"/>
-
-
                                 </Grid>
-
-                    </StackLayout>
-                         
-            </Grid>
-        </DataTemplate>
-    </BindableLayout.ItemTemplate>
-   
+                            </StackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
             </FlexLayout>
         </ScrollView>
-        
     </Grid>
-
 </ContentPage>
-
-
-
-
-<!--
-    <ListView ItemsSource="{Binding AllDrinks}">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <StackLayout>
-
-                        <Label Text="{Binding DrinkName}"></Label>
-                        <Image Source="{Binding DrinkImage}" />
-                        
-
-                           <HorizontalStackLayout Margin="20"
-                           HeightRequest="200">
-                        <Button Text="Favorite"
-                                VerticalOptions="Start"/>
-                        <Button Text="Like"
-                                VerticalOptions="Center"/>
-                        <Button Text="Dislike"
-                                VerticalOptions="End"/>
-
-                                    </HorizontalStackLayout>
-                    </StackLayout>
-
-                </ViewCell>
-
-            </DataTemplate>
-
-        </ListView.ItemTemplate>
-
-    </ListView>
-
-
-
-
-
-
--->

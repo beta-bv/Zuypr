@@ -16,6 +16,7 @@ public partial class MyDrinks : ContentPage
         AllDrinks.Add(Drink.GetDummyDrink());
         AllDrinks.Add(Drink.GetDummyDrink());
         InitializeComponent();
+
         BindingContext = this;
     }
 
