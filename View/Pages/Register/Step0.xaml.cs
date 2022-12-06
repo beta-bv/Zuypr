@@ -1,20 +1,25 @@
 ﻿using Model;
 using System.Linq.Expressions;
 
-namespace View.Pages;
+namespace View.Pages.Register;
 
-public partial class Register : ContentPage
+public partial class Step0 : ContentPage
 {
-    public Register()
+    // int count = 0;
+
+    public User User { get; set; }
+
+    public Step0()
     {
         InitializeComponent();
     }
-    /// <summary>
-    ///  maakt de user aan
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private async void RegisterUser(object sender, EventArgs e) 
+
+    private void Back(object sender, EventArgs e)
+    {
+        if (Application.Current != null) Application.Current.MainPage = new LaunchScreen();
+    }
+
+    private async void Next(object sender, EventArgs e)
     {
         try
         {
@@ -29,6 +34,8 @@ public partial class Register : ContentPage
                 try
                 {
                     User Client = new User(name, email, password, dateOfBirth);
+
+                    await Navigation.PushAsync(new Step1(Client));
                 }
                 catch (Exception ex)
                 {
@@ -40,7 +47,7 @@ public partial class Register : ContentPage
                         return;
                     }
                 }
-                await Navigation.PushAsync(new Profile());
+                //await Navigation.PushAsync(new Profile());
             }
             else
             {
@@ -48,7 +55,7 @@ public partial class Register : ContentPage
                 ErrorFrame.IsVisible = true;
             }
         }
-        catch(Exception nullEx)
+        catch (Exception nullEx)
         {
             ErrorLabel.Text = "Je moet iets invullen om te regristreren";  //note dat dit niet echt de meest veilige zooi is, misschien eigen exception klasse aanmaken om de registratie error te weergeven?
             ErrorFrame.IsVisible = true;

@@ -10,7 +10,12 @@
 
             <Button
                 Text="Let's Zuyp!"
-                Clicked="Navigate"
+                Clicked="Login"
+                HorizontalOptions="Center" />
+            
+            <Button
+                Text="Register"
+                Clicked="Register"
                 HorizontalOptions="Center" />
 
         </VerticalStackLayout>

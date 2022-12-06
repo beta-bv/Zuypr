@@ -1,24 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="View.Pages.Settings">
+             xmlns:local="clr-namespace:View.Pages.Register"
+             x:Class="View.Pages.Register.Step1">
 
-    <ScrollView>
+    <ContentView>
         <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
             VerticalOptions="Center">
             
-            <Label
-                Text="Settings"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
+            <Label HorizontalOptions="Center"
+                    Text="{Binding User.Name}" />
             
             <Button
-                Text="Logout"
-                Clicked="Logout"
+                Text="Next"
+                Clicked="Next"
                 HorizontalOptions="Center" />
-
+            
         </VerticalStackLayout>
-    </ScrollView>
+    </ContentView>
 
 </ContentPage>
