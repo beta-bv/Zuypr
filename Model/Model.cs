@@ -10,8 +10,7 @@ namespace Model
 {
     public class DatabaseContext : DbContext
     {
-        public DbSet<Bar> Bars { get; set; }
-        public DbSet<Chat> Chats { get; set; }
+        //public DbSet<Bar> Bars { get; set; }
         public DbSet<Drink> Drinks { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Match> Matchs { get; set; }

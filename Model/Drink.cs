@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -14,6 +15,7 @@ namespace Model
         Wine,
         Liquor
     }
+
     public class Drink
     {
         public int Id { get; set; }

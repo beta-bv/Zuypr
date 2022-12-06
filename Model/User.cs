@@ -1,6 +1,5 @@
-using Microsoft.Maui.Controls.Shapes;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Maui.Layouts;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Security.Cryptography;
@@ -9,15 +8,6 @@ namespace Model
 {
     public class User
     {
-
-        public int Id { get; set; }
-        public List<string> Cities { get; set; }
-        public string ProfielImage { get; set; }
-        public List<User> Matches { get; set; }
-
-        private List<Drink> _favourites;
-        private List<Drink> _likes;
-        private List<Drink> _dislikes;
         private string _name;
         private string _email;
         private DateTime _dateOfBirth;
@@ -35,7 +25,6 @@ namespace Model
                 _name = value;
             }
         }
-        
         public string Email
         {
             get { return _email; }
@@ -48,7 +37,6 @@ namespace Model
                 _email = value;
             }
         }
-        
         /// <summary>
         /// Stores the <see cref="SHA256">SHA256</see> hash of the password
         /// <para>The getter automatically hashes the given password string</para>
@@ -74,7 +62,6 @@ namespace Model
                 }
             }
         }
-        
         public DateTime DateOfBirth
         {
             get { return _dateOfBirth; }
@@ -92,130 +79,21 @@ namespace Model
                 _dateOfBirth = value;
             }
         }
-        
+
+        public int Id {get;set;}
+        public List<Location> Cities { get; set; }
+        public string ProfielImageURI { get; set; }
+        public List<User> Matches { get; set; }
+        public List<Drink> Favourites { get; set; }
+        public List<Drink> Likes { get; set; }
+        public List<Drink> Dislikes { get; set; }
+
         public User(string name, string email, string password, DateTime dateOfBirth)
         {
             Name = name;
             Email = email;
             DateOfBirth = dateOfBirth;
             Password = password;
-            _favourites = new List<Drink>(3);
-            _likes = new List<Drink>(5);
-            _dislikes = new List<Drink>(3);
-        }
-
-        public List<Drink> GetFavourites() {
-            return _favourites;
-        }
-
-        public List<Drink> GetLikes()
-        {
-            return _likes;
-        }
-
-        public List<Drink> GetDislikes()
-        {
-            return _dislikes;
-        }
-
-        /// <summary>
-        /// Checks if a drink already is in a given list Favourites, Likes or dislikes.
-        /// </summary>
-        /// <param name="drink"></param>
-        /// <param name="drinkList"></param>
-        /// <returns></returns>
-        public bool CheckIfInList(Drink drink, List<Drink> drinkList)
-        {
-            return drinkList.Contains(drink);
-        }
-
-        /// <summary>
-        /// Checks if a given list Favourites, Likes or dislikes is full.
-        /// </summary>
-        /// <param name="drinkList"></param>
-        /// <returns></returns>
-        public bool CheckIfListIsFull(List<Drink> drinkList)
-        {
-            int capacity = drinkList.Capacity;
-            int size = drinkList.Count();
-            return size == capacity;
-        }
-
-        /// <summary>
-        /// Adds a drink to a given list Favourites, Likes or dislikes. 
-        /// </summary>
-        /// <param name="drink"></param>
-        /// <param name="drinkList"></param>
-        /// <returns></returns>
-        public bool AddToDrinkList(Drink drink, List<Drink> drinkList)
-        {
-            if (CheckIfInList(drink, drinkList) || CheckIfListIsFull(drinkList))
-            {
-                return false;
-            }
-            else {
-                RemoveFromDrinkList(drink);
-                drinkList.Add(drink);
-                return true;
-            }
-        }
-
-        /// <summary>
-        /// Add a drink to the list _favourites.
-        /// </summary>
-        /// <param name="drink"></param>
-        /// <returns></returns>
-        public bool AddToFavourites(Drink drink)
-        {
-            return AddToDrinkList(drink, _favourites);
-        }
-
-        /// <summary>
-        /// Add a drink to the list _likes.
-        /// </summary>
-        /// <param name="drink"></param>
-        /// <returns></returns>
-        public bool AddToLikes(Drink drink)
-        {
-            return AddToDrinkList(drink, _likes);
-        }
-
-        /// <summary>
-        /// Add a drink to the list _dislikes.
-        /// </summary>
-        /// <param name="drink"></param>
-        /// <returns></returns>
-        public bool AddToDislikes(Drink drink)
-        {
-            return AddToDrinkList(drink, _dislikes);
-        }
-
-        /// <summary>
-        /// Removes a drink from the given list Favourites, Likes or Dislikes.
-        /// </summary>
-        /// <param name="drink"></param>
-        /// <param name="drinkList"></param>
-        /// <returns></returns>
-        public bool RemoveFromDrinkList(Drink drink)
-        {
-            if (_favourites.Contains(drink))
-            {
-                _favourites.Remove(drink);
-                return true;
-            }
-            else if (_likes.Contains(drink))
-            {
-                _likes.Remove(drink);
-                return true;
-            }
-            else if (_dislikes.Contains(drink))
-            {
-                _dislikes.Remove(drink);
-                return true;
-            }
-            else {
-                return false;
-            }
         }
 
         /// <summary>
@@ -284,6 +162,7 @@ namespace Model
         public static bool IsDateOfBirthValid(DateTime date)
         {
             DateTime dateNow = DateTime.Now;
+
             return date < dateNow;
         }
 
@@ -293,7 +172,7 @@ namespace Model
         /// <returns></returns>
         public static User GetDummyUser()
         {
-            return new User("dummyUser", "email@hotmail.com", "Pass123!", new DateTime(1999, 1, 1));
+            return new User("dummyUser", "123", "email@email.com", new DateTime(1, 1, 1999));
         }
 
         /// <summary>
@@ -302,7 +181,17 @@ namespace Model
         /// <returns></returns>
         public User GetUserFromDatabase(User user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                DatabaseContext db = new DatabaseContext();  //maakt database context aan
+                User userFromDatabse = db.Users              
+                .Where(u => u.Email.Equals(user.Email)).First();   //query haalt de user op aan de hand van zijn/haar email
+                return userFromDatabse;                            // returned de user
+            }
+            catch (Exception ex) {
+                new Exception("Database Failure");                 // gooit een exception als er iets mis gaat met de database
+                return null;
+            }
         }
 
         /// <summary>
@@ -312,6 +201,26 @@ namespace Model
         /// <returns></returns>
         public static bool AddUserToDatabase(User user)
         {
+            try
+            {
+                // Open the database connection
+                DatabaseContext dbContext = new DatabaseContext();
+
+                // If there is already a user with this email address in the database then throw an error
+                if (dbContext.Users.Any(a => a.Email.Equals(user.Email)))
+                {
+                    throw new Exception("A user with this email address already exists in the database");
+                }
+
+                // Add the user to the database and save the changes
+                dbContext.Users.Add(user);
+                dbContext.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                throw new Exception("Database Failure");
+            }
             throw new NotImplementedException();
         }
 
@@ -325,7 +234,11 @@ namespace Model
         {
             if (emailOld.Equals(Email) && !emailNew.Equals(emailOld))
             {
+                DatabaseContext db = new DatabaseContext();
                 Email = emailNew;
+                User tempUser = GetUserFromDatabase(this);
+                tempUser.Email = emailNew;
+                db.SaveChanges();
                 return true;
             }
             return false;
@@ -342,18 +255,38 @@ namespace Model
         {
             if (ComparePasswords(newPasswordField1, newPasswordField2))
             {
-                string tempPasswordFieldCombine = newPasswordField1;
-                if (Password.Equals(HashString(oldPassword)) && !Password.Equals(HashString(tempPasswordFieldCombine)))
+                string newPassword = newPasswordField1;
+                if (Password.Equals(HashString(oldPassword)) && !Password.Equals(HashString(newPassword)))
                 {
-                    Password = newPasswordField1;
-                    return true;
+                    try
+                    {
+                        DatabaseContext db = new DatabaseContext();
+                        User tempUser = GetUserFromDatabase(this);
+                        tempUser.Password = newPassword;
+                        db.SaveChanges();
+                        return true;
+                    }
+                    catch(Exception ex)
+                    {
+                        throw new Exception("DATABASE FAILURE");
+                        return false;
+                    }
+
                 }
             }
             return false;
         }
-        public bool RemoveUser()
+
+        public bool RemoveUser(User user)
         {
-            throw new NotImplementedException();
+            DatabaseContext db = new DatabaseContext();
+            if (GetUserFromDatabase(user) != null)
+            {
+                db.Users.Remove(user);
+                return true;
+            }
+            return false;
+            }
         }
+    
     }
-}
