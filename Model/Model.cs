@@ -10,7 +10,8 @@ namespace Model
 {
     public class DatabaseContext : DbContext
     {
-        //public DbSet<Bar> Bars { get; set; }
+        public DbSet<Bar> Bars { get; set; }
+        public DbSet<Chat> Chats { get; set; }
         public DbSet<Drink> Drinks { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Match> Matchs { get; set; }
@@ -20,17 +21,12 @@ namespace Model
         private string _connectionString;
 
         public DatabaseContext() {
-            //DotEnv.Load("./database.env");
+            DotEnv.Load("./database.env");
 
-            //string server = DotEnv.Get("DB_HOST");
-            //string username = DotEnv.Get("DB_USERNAME");
-            //string password = DotEnv.Get("DB_PASSWORD");
-            //string database = DotEnv.Get("DB_CATALOG");
-
-            string server = "localhost\\";
-            string username = "sa";
-            string password = "Betaverse01!";
-            string database = "zuypr";
+            string server = DotEnv.Get("DB_HOST");
+            string username = DotEnv.Get("DB_USERNAME");
+            string password = DotEnv.Get("DB_PASSWORD");
+            string database = DotEnv.Get("DB_CATALOG");
 
             _connectionString = $"server={server};initial catalog={database};user id={username};password={password};";
         }

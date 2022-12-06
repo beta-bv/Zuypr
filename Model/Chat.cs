@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class Match
+    public class Chat
     {
-        public User[] Users { get; set; }
-        public Chat Chat { get; set; }
+        public List<Message> Messages { get; set; } // Or use a queue
     }
 }

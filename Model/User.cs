@@ -1,3 +1,4 @@
+using Microsoft.Maui.Controls.Shapes;
 using Microsoft.Maui.Layouts;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -6,7 +7,6 @@ using System.Security.Cryptography;
 
 namespace Model
 {
-    [PrimaryKey(nameof(Email))]
     public class User
     {
         private string _name;
@@ -83,6 +83,7 @@ namespace Model
                 _dateOfBirth = value;
             }
         }
+
         public List<string> Cities { get; set; }
         public Bitmap ProfielImage { get; set; }
         public List<User> Matches { get; set; }
@@ -298,17 +299,7 @@ namespace Model
         /// <returns></returns>
         public User GetUserFromDatabase(User user)
         {
-            try
-            {
-                DatabaseContext db = new DatabaseContext();  //maakt database context aan
-                User userFromDatabse = db.Users              
-                .Where(u => u.Email.Equals(user.Email)).First();   //query haalt de user op aan de hand van zijn/haar email
-                return userFromDatabse;                            // returned de user
-            }
-            catch (Exception ex) {
-                new Exception("Database Failure");                 // gooit een exception als er iets mis gaat met de database
-                return null;
-            }
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -318,26 +309,6 @@ namespace Model
         /// <returns></returns>
         public static bool AddUserToDatabase(User user)
         {
-            try
-            {
-                // Open the database connection
-                DatabaseContext dbContext = new DatabaseContext();
-
-                // If there is already a user with this email address in the database then throw an error
-                if (dbContext.Users.Any(a => a.Email.Equals(user.Email)))
-                {
-                    throw new Exception("A user with this email address already exists in the database");
-                }
-
-                // Add the user to the database and save the changes
-                dbContext.Users.Add(user);
-                dbContext.SaveChanges();
-                return true;
-            }
-            catch
-            {
-                throw new Exception("Database Failure");
-            }
             throw new NotImplementedException();
         }
 
@@ -351,11 +322,7 @@ namespace Model
         {
             if (emailOld.Equals(Email) && !emailNew.Equals(emailOld))
             {
-                DatabaseContext db = new DatabaseContext();
                 Email = emailNew;
-                User tempUser = GetUserFromDatabase(this);
-                tempUser.Email = emailNew;
-                db.SaveChanges();
                 return true;
             }
             return false;
@@ -372,38 +339,18 @@ namespace Model
         {
             if (ComparePasswords(newPasswordField1, newPasswordField2))
             {
-                string newPassword = newPasswordField1;
-                if (Password.Equals(HashString(oldPassword)) && !Password.Equals(HashString(newPassword)))
+                string tempPasswordFieldCombine = newPasswordField1;
+                if (Password.Equals(HashString(oldPassword)) && !Password.Equals(HashString(tempPasswordFieldCombine)))
                 {
-                    try
-                    {
-                        DatabaseContext db = new DatabaseContext();
-                        User tempUser = GetUserFromDatabase(this);
-                        tempUser.Password = newPassword;
-                        db.SaveChanges();
-                        return true;
-                    }
-                    catch(Exception ex)
-                    {
-                        throw new Exception("DATABASE FAILURE");
-                        return false;
-                    }
-
+                    Password = newPasswordField1;
+                    return true;
                 }
             }
             return false;
         }
-
-        public bool RemoveUser(User user)
+        public bool RemoveUser()
         {
-            DatabaseContext db = new DatabaseContext();
-            if (GetUserFromDatabase(user) != null)
-            {
-                db.Users.Remove(user);
-                return true;
-            }
-            return false;
-            }
+            throw new NotImplementedException();
         }
-    
     }
+}

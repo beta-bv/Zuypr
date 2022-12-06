@@ -40,12 +40,6 @@ public partial class Register : ContentPage
                         ErrorFrame.IsVisible = true;
                         return;
                     }
-                    else
-                    {
-                        ErrorLabel.Text = ex.Message;
-                        ErrorFrame.IsVisible = true;
-                        return;
-                    }
                 }
                 await Navigation.PushAsync(new Profile());
             }
@@ -57,7 +51,7 @@ public partial class Register : ContentPage
         }
         catch
         {
-            ErrorLabel.Text = "Je moet iets invullen om te registreren";  //note dat dit niet echt de meest veilige zooi is, misschien eigen exception klasse aanmaken om de registratie error te weergeven?
+            ErrorLabel.Text = "Je moet iets invullen om te regristreren";  //note dat dit niet echt de meest veilige zooi is, misschien eigen exception klasse aanmaken om de registratie error te weergeven?
             ErrorFrame.IsVisible = true;
             return;
         }
