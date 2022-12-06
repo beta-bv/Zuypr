@@ -23,7 +23,7 @@ namespace Tests
         {
             if (expected == false)
             {
-                Assert.Throws<Exception>(() => TestUser.Name = name);
+                Assert.Throws<ArgumentException>(() => TestUser.Name = name);
                 return;
             }
 
@@ -40,7 +40,7 @@ namespace Tests
 
             if (expected == false)
             {
-                Assert.Throws<Exception>(() => TestUser.DateOfBirth = date);
+                Assert.Throws<ArgumentException>(() => TestUser.DateOfBirth = date);
                 return;
             }
             TestUser.DateOfBirth = date;
@@ -63,7 +63,7 @@ namespace Tests
         {
             if (expected == false)
             {
-                Assert.Throws<Exception>(() => TestUser.Password = password);
+                Assert.Throws<ArgumentException>(() => TestUser.Password = password);
                 return;
             }
             TestUser.Password = password;
@@ -77,7 +77,7 @@ namespace Tests
         {
             if (expected == false)
             {
-                Assert.Throws<Exception>(() => TestUser.Email = email);
+                Assert.Throws<ArgumentException>(() => TestUser.Email = email);
                 return;
             }
             TestUser.Email = email;
