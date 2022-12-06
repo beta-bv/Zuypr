@@ -13,5 +13,6 @@ namespace Model
         public string Zipcode { get; set; }
         public int Number { get; set; }
         public string Suffix { get; set; }
+
     }
 }
