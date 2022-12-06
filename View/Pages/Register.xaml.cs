@@ -29,6 +29,7 @@ public partial class Register : ContentPage
                 try
                 {
                     User Client = new User(name, email, password, dateOfBirth);
+                    Application.Current.MainPage = new AppShell(Client);
                 }
                 catch (Exception ex)
                 {
