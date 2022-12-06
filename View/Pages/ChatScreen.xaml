@@ -31,19 +31,18 @@
         </ScrollView>
         
         <Grid
-            RowDefinitions="*, Auto"
+            ColumnDefinitions="*, Auto"
             Grid.Row="2">
             <Editor
                 x:Name="chatbox"
-                Grid.Row="0"
+                Grid.Column="0"
                 Placeholder="Enter text"
                 VerticalOptions="End"
-                WidthRequest="1000"
                 AutoSize="TextChanges"
                 MaximumHeightRequest="150" />
             <Button
                 x:Name="sendMessage"
-                Grid.Row="1"
+                Grid.Column="1"
                 Text="Send message"
                 VerticalOptions="End"
                 Clicked="SendMessage" />
