@@ -38,7 +38,7 @@ public partial class ChatScreen : ContentPage
         String messageToSend = chatbox.Text?.Trim();
         Message Message = new Message(messageToSend, User.GetDummyUser(), DateTime.Now);
         PlaceText(true, messageToSend);
-        await scrollviewChat.ScrollToAsync(0, _scrollviewY, false);
+        await scrollviewChat.ScrollToAsync(ChatMessageView, ScrollToPosition.End, false);
     }
 
     /// <summary>
