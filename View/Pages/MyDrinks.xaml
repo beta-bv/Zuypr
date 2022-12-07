@@ -4,8 +4,6 @@
                 x:Class="View.Pages.MyDrinks">
 
 <Grid>
-        <Label x:Name="TestLabel" Text="Jo"></Label>
-
         <ScrollView Margin="0,40,0,0">
             <FlexLayout
                 x:Name="flexLayout"
