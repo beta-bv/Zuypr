@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 x:Class="View.Pages.MyDrinks">
-
 <Grid>
         <ScrollView Margin="0,40,0,0">
             <FlexLayout
@@ -36,7 +35,7 @@
                                         Text="{Binding DrinkName}"/>
                                     </HorizontalStackLayout>
 
-                                    <Grid BackgroundColor="White" Padding="0,20">
+                                <Grid BackgroundColor="White" Padding="0,20">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="100"/>
                                         <ColumnDefinition Width="100" />
@@ -47,26 +46,24 @@
                                             Grid.Column="0"
                                             WidthRequest="50"
                                             HeightRequest="50"
-                                            CornerRadius="100"
                                             FontSize="20"
-                                            BackgroundColor="White"
-                                            CommandParameter="{Binding DrinksChangedArgs}"
+                                            BackgroundColor="Yellow"
                                             Clicked="OnButtonFavoriteClicked"/>
 
                                     <Button Text="✅"
                                             Grid.Column="1"
                                             WidthRequest="50"
                                             HeightRequest="50"
-                                            CornerRadius="100"
                                             FontSize="20"
+                                            BackgroundColor="Yellow"
                                             Clicked="OnButtonLikeClicked"/>
 
                                     <Button Text="❌"
                                             Grid.Column="2"
                                             WidthRequest="50"
                                             HeightRequest="50"
-                                            CornerRadius="100"
                                             FontSize="20"
+                                            BackgroundColor="Yellow"
                                             Clicked="OnButtonDislikeClicked"/>
                                 </Grid>
                             </StackLayout>
