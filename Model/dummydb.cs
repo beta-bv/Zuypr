@@ -8,19 +8,21 @@ namespace Model
 {
     public static class dummydb
     {
-        public static List<User> Users = new List<User>()
-        {
-            new User("Siem", "siem@email.nl", "EpicPassword1!", new DateTime(2004, 08, 27)),
-            new User("Dylan", "dylan@email.nl", "EpicPassword1!", new DateTime(2002, 05, 22)),
-            new User("Mark", "mark@email.nl", "EpicPassword1!", new DateTime(2001, 10, 20)),
-            new User("Niels", "niels@email.nl", "EpicPassword1!", new DateTime(2003, 02, 03)),
-            new User("Stan", "stan@email.nl", "EpicPassword1!", new DateTime(1969, 04, 20)),
-            new User("Merijn", "merijn@email.nl", "EpicPassword1!", new DateTime(2003, 04, 10)),
-            new User("Thomas", "thomas@email.nl", "EpicPassword1!", new DateTime(2002, 06, 18)),
-        };
+        public static List<User> Users = new List<User>();
 
         public static void Initialize()
         {
+            Users = new List<User>()
+            {
+                new User("Siem", "siem@email.nl", "EpicPassword1!", new DateTime(2004, 08, 27)),
+                new User("Dylan", "dylan@email.nl", "EpicPassword1!", new DateTime(2002, 05, 22)),
+                new User("Mark", "mark@email.nl", "EpicPassword1!", new DateTime(2001, 10, 20)),
+                new User("Niels", "niels@email.nl", "EpicPassword1!", new DateTime(2003, 02, 03)),
+                new User("Stan", "stan@email.nl", "EpicPassword1!", new DateTime(1969, 04, 20)),
+                new User("Merijn", "merijn@email.nl", "EpicPassword1!", new DateTime(2003, 04, 10)),
+                new User("Thomas", "thomas@email.nl", "EpicPassword1!", new DateTime(2002, 06, 18)),
+            };
+
             // Give users a matche with a random user
             foreach (User user in Users)
             {
@@ -38,7 +40,7 @@ namespace Model
                     "Mariënheem",
                 };
             }
-            
+
             // Add messages to the match
             foreach (User user in Users)
             {
@@ -54,5 +56,5 @@ namespace Model
 
     }
 
-    
+
 }
