@@ -14,7 +14,7 @@ public partial class ChatScreen : ContentPage
         LabelUserName.FontSize = 20;
         User user = dummydb.Users[0];
         Chat chat = new Chat(user.Matches);
-        LabelUserName.Text = chat.ChatMembers[1].Name;
+        LabelUserName.Text = chat.ChatMembers[1].Name;   //bij groeps chats gaat dit stuk!
         for(int i = 0; i < chat.Messages.Count; i++)
         {
             if (chat.Messages[i].Sender.Equals(chat.ChatMembers[1])){
@@ -26,6 +26,7 @@ public partial class ChatScreen : ContentPage
             }
         }
     }
+    private int _scrollviewY = 100;
 
     /// <summary>
     /// Creates a message and shows it in the message stack
@@ -37,6 +38,7 @@ public partial class ChatScreen : ContentPage
         String messageToSend = chatbox.Text?.Trim();
         Message Message = new Message(messageToSend, User.GetDummyUser(), DateTime.Now);
         PlaceText(true, messageToSend);
+        await scrollviewChat.ScrollToAsync(0, _scrollviewY, false);
     }
 
     /// <summary>
@@ -48,6 +50,7 @@ public partial class ChatScreen : ContentPage
     {
         if (userIsSender)             //deze if statement kan wss veel korter, kon er alleen niet achter komen hoe dus voor nu effe dit. Het gaat om de horizontal options
         {
+            _scrollviewY = _scrollviewY + 100;
             ChatMessageView.Children.Add(new Border
             {
                 Background = Color.FromArgb("#008000"),
@@ -62,9 +65,11 @@ public partial class ChatScreen : ContentPage
                     FontAttributes = FontAttributes.Bold
                 }
             });
+            
         }
         else
         {
+            _scrollviewY = _scrollviewY + 100;
             ChatMessageView.Children.Add(new Border
             {
                 Background = Color.FromArgb("#808080"),
