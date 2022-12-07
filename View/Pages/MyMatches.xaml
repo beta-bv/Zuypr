@@ -9,6 +9,7 @@
             <FlexLayout
                 x:Name="flexLayout"
                 Wrap="Wrap"
+                AlignContent="Start"
                 JustifyContent="Start"
                 BindableLayout.ItemsSource="{Binding AllMatches}">
 
@@ -19,6 +20,7 @@
                             Margin="10,10,10,10"
                             HeightRequest="220"
                             HorizontalOptions="Center">
+                            
                             <StackLayout>
                                 <ImageButton
                                     Source="{Binding ProfileImage}"

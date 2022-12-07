@@ -3,17 +3,74 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="View.Pages.Profile">
 
-    <ScrollView>
-        <VerticalStackLayout
-            VerticalOptions="Center">
-            
-            <Label
-                Text="Profile"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout>
+                <HorizontalStackLayout
+                    Margin="5, 5, 5, 5">
 
-        </VerticalStackLayout>
-    </ScrollView>
+                    <Image
+                        Source="{Binding MatchUser.ProfileImage}"
+                        HeightRequest="300"
+                        WidthRequest="300" />
+
+                    <VerticalStackLayout
+                        VerticalOptions="Center">
+                        <VerticalStackLayout
+                            Margin="0,120,0,100">
+
+                            <Label
+                                Text="{Binding MatchUser.Name}"
+                                VerticalOptions="Center"
+                                FontSize="25" />
+
+                            <Label
+                                Text="{Binding MatchUser.Age}"
+                                VerticalOptions="Center"
+                                FontSize="20" />
+
+                        </VerticalStackLayout>
+
+                        <ImageButton
+                            Source="chat.png"
+                            VerticalOptions="End"
+                            HorizontalOptions="Start"
+                            Clicked="ChatButton_Clicked"
+                            x:Name="chat"
+                            HeightRequest="20"
+                            WidthRequest="20" />
+
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+                <Label 
+                    Text="Favourite Beverages"
+                    FontSize="25"
+                    HorizontalOptions="Start"
+                    Margin="5, 20, 0, 10"/>
+                <HorizontalStackLayout
+                    >
+                    <Image 
+                        Source="{Binding MatchUser.ProfileImage}"
+                        HeightRequest="80"
+                        WidthRequest="80"
+                        Margin="5, 10, 0, 0"/>
+                    <Image
+                        Source="{Binding MatchUser.ProfileImage}"
+                        HeightRequest="80"
+                        WidthRequest="80"
+                        Margin="5, 10, 0, 0" />
+                    <Image
+                        Source="{Binding MatchUser.ProfileImage}"
+                        HeightRequest="80"
+                        WidthRequest="80"
+                        Margin="5, 10, 0, 0" />
+                </HorizontalStackLayout>
+                <Label 
+                    Text="Cities"
+                    Margin="5, 25, 0, 0"
+                    FontSize="25"/>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 
 </ContentPage>

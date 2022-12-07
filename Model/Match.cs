@@ -10,5 +10,6 @@ namespace Model
     {
         public User[] Users { get; set; }
         public Chat Chat { get; set; }
+
     }
 }

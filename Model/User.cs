@@ -90,7 +90,10 @@ namespace Model
         private List<Drink> _favourites { get; set; }
         private List<Drink> _likes { get; set; }
         private List<Drink> _dislikes { get; set; }
-        
+
+        public int Age => (DateTime.Now.Month<DateOfBirth.Month || (DateTime.Now.Month == DateOfBirth.Month && DateTime.Now.Day<DateOfBirth.Day)) ? (DateTime.Now.Year - DateOfBirth.Year) - 1 : DateTime.Now.Year - DateOfBirth.Year;
+
+
         public User(string name, string email, string password, DateTime dateOfBirth)
         {
             Name = name;
@@ -232,7 +235,7 @@ namespace Model
             }
             return true;
         }
-
+        
         /// <summary>
         /// compares two passwords
         /// </summary>
