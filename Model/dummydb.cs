@@ -46,8 +46,8 @@ namespace Model
 
                 for (int i = 0; i < amountOfStinky; i++)
                 {
-                    user.Matches[0].Messages.Add(new Message() { Text = "uh oh", Sender = user.Matches[0].Users[0], TimeSent = DateTime.Now });
-                    user.Matches[0].Messages.Add(new Message() { Text = "stinky", Sender = user.Matches[0].Users[1], TimeSent = DateTime.Now });
+                    user.Matches[0].Messages.Add(new Message("uh oh", user.Matches[0].Users[0], DateTime.Now));
+                    user.Matches[0].Messages.Add(new Message("stinky", user.Matches[0].Users[1], DateTime.Now));
                 }
             }
         }
