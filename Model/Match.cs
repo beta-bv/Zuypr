@@ -9,6 +9,5 @@ namespace Model
     public class Match
     {
         public User[] Users { get; set; }
-        //public Chat Chat { get; set; }
     }
 }
