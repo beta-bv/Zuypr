@@ -3,6 +3,7 @@ namespace View.Pages;
 //using Android.App;                             !!!aanzetten wanneer nodig!!! is effe uitgecomment omdat hij voor een of andere reden hierover crashde 
 using Microsoft.Maui.Controls.Shapes;
 using Model;
+using Controller;
 
 public partial class ChatScreen : ContentPage
 {
@@ -10,7 +11,21 @@ public partial class ChatScreen : ContentPage
     {
         InitializeComponent();
         LabelUserName.FontSize = 20;
-        LabelUserName.Text = "User";
+        User[] users = new User[2];
+        users[0] = new User("Testmanneke", "naam@gmail.com", "DikkeMannen1!", new DateTime(1999, 1, 1));
+        users[1] = new User("Testmanneketwee", "naam2@gmail.com", "DikkeMannen1!", new DateTime(1999, 2, 2));
+        Chat chat = new Chat(users);
+        LabelUserName.Text = chat.ChatMembers[1].Name;
+        for(int i = 0; i < chat.Messages.Count; i++)
+        {
+            if (chat.Messages[i].Sender.Equals(users[1])){
+                PlaceText(false, chat.Messages[i].Text);
+            }
+            else
+            {
+                PlaceText(true, chat.Messages[i].Text);
+            }
+        }
     }
 
     /// <summary>
