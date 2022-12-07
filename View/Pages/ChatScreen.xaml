@@ -7,14 +7,18 @@
         RowDefinitions="Auto, *, Auto">
         <HorizontalStackLayout
             x:Name="ChatInfo"
-            Grid.Row="0">
-            <Image
+            Grid.Row="0"
+            BackgroundColor="DarkGreen">
+            <ImageButton
                 Source="https://i1.sndcdn.com/avatars-twM1pq6gSk4YzN4F-N4zKuw-t240x240.jpg"
                 MaximumHeightRequest="50"
-                MaximumWidthRequest="50">
-            </Image>
+                MaximumWidthRequest="50"
+                x:Name="chatPfpImage"                                                                
+                Aspect="AspectFit">
+            </ImageButton>
             <Label
                 x:Name="LabelUserName"
+                VerticalOptions="Center"
                 HorizontalOptions="Center"
                 Text="">
             </Label>
@@ -44,7 +48,7 @@
                 Grid.Column="1"
                 Text="Send message"
                 VerticalOptions="End"
-                Clicked="SendMessage" />
+                Clicked="SendMessage"/>
         </Grid>
     </Grid>
 </ContentPage>
