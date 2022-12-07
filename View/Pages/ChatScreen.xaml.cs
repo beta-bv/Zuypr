@@ -1,4 +1,4 @@
-﻿namespace View.Pages;
+namespace View.Pages;
 
 //using Android.App;                             !!!aanzetten wanneer nodig!!! is effe uitgecomment omdat hij voor een of andere reden hierover crashde 
 using Microsoft.Maui.Controls.Shapes;
@@ -11,9 +11,13 @@ public partial class ChatScreen : ContentPage
         InitializeComponent();
         LabelUserName.FontSize = 20;
         LabelUserName.Text = "User";
-        //scrollviewChat.MaximumHeightRequest= DeviceDisplay.MainDisplayInfo.Height - 50;
     }
 
+    /// <summary>
+    /// Creates a message and shows it in the message stack
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private async void SendMessage(object sender, EventArgs e)
     {
         String messageToSend = chatbox.Text?.Trim();
