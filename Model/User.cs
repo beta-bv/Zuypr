@@ -84,9 +84,10 @@ namespace Model
         public List<Location> Cities { get; set; }
         public string ProfielImageURI { get; set; }
         public List<User> Matches { get; set; }
-        public List<Drink> Favourites { get; set; }
-        public List<Drink> Likes { get; set; }
-        public List<Drink> Dislikes { get; set; }
+
+        private List<Drink> _favourites;
+        private List<Drink> _likes;
+        private List<Drink> _dislikes;
 
         public User(string name, string email, string password, DateTime dateOfBirth)
         {
@@ -94,6 +95,127 @@ namespace Model
             Email = email;
             DateOfBirth = dateOfBirth;
             Password = password;
+
+            _favourites = new List<Drink>(3);
+            _likes = new List<Drink>(5);
+            _dislikes = new List<Drink>(3);
+        }
+
+        public List<Drink> GetFavourites()
+        {
+            return _favourites;
+        }
+
+        public List<Drink> GetLikes()
+        {
+            return _likes;
+        }
+
+        public List<Drink> GetDislikes()
+        {
+            return _dislikes;
+        }
+
+        /// <summary>
+        /// Checks if a drink already is in a given list Favourites, Likes or dislikes.
+        /// </summary>
+        /// <param name="drink"></param>
+        /// <param name="drinkList"></param>
+        /// <returns></returns>
+        public bool CheckIfInList(Drink drink, List<Drink> drinkList)
+        {
+            return drinkList.Contains(drink);
+        }
+
+        /// <summary>
+        /// Checks if a given list Favourites, Likes or dislikes is full.
+        /// </summary>
+        /// <param name="drinkList"></param>
+        /// <returns></returns>
+        public bool CheckIfListIsFull(List<Drink> drinkList)
+        {
+            int capacity = drinkList.Capacity;
+            int size = drinkList.Count();
+            return size == capacity;
+        }
+
+        /// <summary>
+        /// Adds a drink to a given list Favourites, Likes or dislikes. 
+        /// </summary>
+        /// <param name="drink"></param>
+        /// <param name="drinkList"></param>
+        /// <returns></returns>
+        public bool AddToDrinkList(Drink drink, List<Drink> drinkList)
+        {
+            if (CheckIfInList(drink, drinkList) || CheckIfListIsFull(drinkList))
+            {
+                return false;
+            }
+            else
+            {
+                RemoveFromDrinkList(drink);
+                drinkList.Add(drink);
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Add a drink to the list _favourites.
+        /// </summary>
+        /// <param name="drink"></param>
+        /// <returns></returns>
+        public bool AddToFavourites(Drink drink)
+        {
+            return AddToDrinkList(drink, _favourites);
+        }
+
+        /// <summary>
+        /// Add a drink to the list _likes.
+        /// </summary>
+        /// <param name="drink"></param>
+        /// <returns></returns>
+        public bool AddToLikes(Drink drink)
+        {
+            return AddToDrinkList(drink, _likes);
+        }
+
+        /// <summary>
+        /// Add a drink to the list _dislikes.
+        /// </summary>
+        /// <param name="drink"></param>
+        /// <returns></returns>
+        public bool AddToDislikes(Drink drink)
+        {
+            return AddToDrinkList(drink, _dislikes);
+        }
+
+        /// <summary>
+        /// Removes a drink from the given list Favourites, Likes or Dislikes.
+        /// </summary>
+        /// <param name="drink"></param>
+        /// <param name="drinkList"></param>
+        /// <returns></returns>
+        public bool RemoveFromDrinkList(Drink drink)
+        {
+            if (_favourites.Contains(drink))
+            {
+                _favourites.Remove(drink);
+                return true;
+            }
+            else if (_likes.Contains(drink))
+            {
+                _likes.Remove(drink);
+                return true;
+            }
+            else if (_dislikes.Contains(drink))
+            {
+                _dislikes.Remove(drink);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>

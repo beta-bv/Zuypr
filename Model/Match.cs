@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    [PrimaryKey(nameof(id))]
     public class Match
     {
         public int Id { get; set; }
