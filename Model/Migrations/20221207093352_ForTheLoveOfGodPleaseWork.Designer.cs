@@ -12,8 +12,8 @@ using Model;
 namespace Model.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20221205124546_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221207093352_ForTheLoveOfGodPleaseWork")]
+    partial class ForTheLoveOfGodPleaseWork
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,34 +27,25 @@ namespace Model.Migrations
 
             modelBuilder.Entity("Model.Drink", b =>
                 {
-                    b.Property<int>("DrinkType")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("DrinkName")
-                        .HasColumnType("nvarchar(450)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("DrinkImageURI")
+                    b.Property<string>("DrinkImage")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DrinkName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DrinkType")
+                        .HasColumnType("int");
 
                     b.Property<float>("Percentage")
                         .HasColumnType("real");
 
-                    b.Property<string>("UserEmail")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UserEmail1")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UserEmail2")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("DrinkType", "DrinkName");
-
-                    b.HasIndex("UserEmail");
-
-                    b.HasIndex("UserEmail1");
-
-                    b.HasIndex("UserEmail2");
+                    b.HasKey("Id");
 
                     b.ToTable("Drinks");
                 });
@@ -76,27 +67,30 @@ namespace Model.Migrations
                     b.Property<string>("Suffix")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("UserEmail")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("City", "Street", "Zipcode", "Number", "Suffix");
 
-                    b.HasIndex("UserEmail");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Locations");
                 });
 
             modelBuilder.Entity("Model.Match", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
-                    b.ToTable("Matchs");
+                    b.ToTable("Matches");
                 });
 
             modelBuilder.Entity("Model.Message", b =>
@@ -107,30 +101,39 @@ namespace Model.Migrations
                     b.Property<DateTime>("TimeSent")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("Matchid")
+                    b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.Property<string>("SenderEmail")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("MatchId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SenderId")
+                        .HasColumnType("int");
 
                     b.HasKey("Text", "TimeSent");
 
-                    b.HasIndex("Matchid");
+                    b.HasIndex("MatchId");
 
-                    b.HasIndex("SenderEmail");
+                    b.HasIndex("SenderId");
 
-                    b.ToTable("Message");
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("Model.User", b =>
                 {
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("Matchid")
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("MatchId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -142,49 +145,34 @@ namespace Model.Migrations
                     b.Property<string>("ProfielImageURI")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserEmail")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
 
-                    b.HasKey("Email");
+                    b.HasKey("Id");
 
-                    b.HasIndex("Matchid");
+                    b.HasIndex("MatchId");
 
-                    b.HasIndex("UserEmail");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("Model.Drink", b =>
-                {
-                    b.HasOne("Model.User", null)
-                        .WithMany("Dislikes")
-                        .HasForeignKey("UserEmail");
-
-                    b.HasOne("Model.User", null)
-                        .WithMany("Favourites")
-                        .HasForeignKey("UserEmail1");
-
-                    b.HasOne("Model.User", null)
-                        .WithMany("Likes")
-                        .HasForeignKey("UserEmail2");
                 });
 
             modelBuilder.Entity("Model.Location", b =>
                 {
                     b.HasOne("Model.User", null)
                         .WithMany("Cities")
-                        .HasForeignKey("UserEmail");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Model.Message", b =>
                 {
                     b.HasOne("Model.Match", null)
                         .WithMany("Chat")
-                        .HasForeignKey("Matchid");
+                        .HasForeignKey("MatchId");
 
                     b.HasOne("Model.User", "Sender")
                         .WithMany()
-                        .HasForeignKey("SenderEmail");
+                        .HasForeignKey("SenderId");
 
                     b.Navigation("Sender");
                 });
@@ -193,11 +181,11 @@ namespace Model.Migrations
                 {
                     b.HasOne("Model.Match", null)
                         .WithMany("Users")
-                        .HasForeignKey("Matchid");
+                        .HasForeignKey("MatchId");
 
                     b.HasOne("Model.User", null)
                         .WithMany("Matches")
-                        .HasForeignKey("UserEmail");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Model.Match", b =>
@@ -210,12 +198,6 @@ namespace Model.Migrations
             modelBuilder.Entity("Model.User", b =>
                 {
                     b.Navigation("Cities");
-
-                    b.Navigation("Dislikes");
-
-                    b.Navigation("Favourites");
-
-                    b.Navigation("Likes");
 
                     b.Navigation("Matches");
                 });

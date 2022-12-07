@@ -87,7 +87,7 @@ namespace Model.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Matchs");
+                    b.ToTable("Matches");
                 });
 
             modelBuilder.Entity("Model.Message", b =>
@@ -113,7 +113,7 @@ namespace Model.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("Message");
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("Model.User", b =>
