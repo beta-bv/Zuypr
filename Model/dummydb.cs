@@ -27,6 +27,7 @@ namespace Model
             foreach (User user in Users)
             {
                 // Give users a match with a random user (including themselves lol)
+                user.Matches = new List<Match>();
                 user.Matches.Add(new Match()
                 {
                     Users = new User[] { user, Users[new Random().Next(Users.Count)] },
