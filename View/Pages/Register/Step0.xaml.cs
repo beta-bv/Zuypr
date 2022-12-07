@@ -56,7 +56,7 @@ public partial class Step0 : ContentPage
             }
         }
         catch {
-            ErrorLabel.Text = "Je moet iets invullen om te regristreren";  //note dat dit niet echt de meest veilige zooi is, misschien eigen exception klasse aanmaken om de registratie error te weergeven?
+            ErrorLabel.Text = "Je moet iets invullen om te registreren";  //note dat dit niet echt de meest veilige zooi is, misschien eigen exception klasse aanmaken om de registratie error te weergeven?
             ErrorFrame.IsVisible = true;
             return;
         }
