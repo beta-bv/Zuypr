@@ -2,21 +2,52 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="View.Pages.MyMatches">
-
-    <ScrollView>
-        <VerticalStackLayout
-            VerticalOptions="Center">
             
-            <Label
-                Text="My Matches"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
-                
 
-<Button Text="" />
+    <Grid>
+        <ScrollView>
+            <FlexLayout
+                x:Name="flexLayout"
+                Wrap="Wrap"
+                JustifyContent="Start"
+                BindableLayout.ItemsSource="{Binding AllMatches}">
 
-        </VerticalStackLayout>
-    </ScrollView>
+
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Grid
+                            Margin="10,10,10,10"
+                            HeightRequest="220"
+                            HorizontalOptions="Center">
+                            <StackLayout>
+                                <ImageButton
+                                    Source="{Binding ProfileImage}"
+                                    HeightRequest="200"
+                                    WidthRequest="200" 
+                                    Clicked="ProfileImage_OnClicked"/>
+                                <HorizontalStackLayout
+                                    WidthRequest="200">
+                                    <Label
+                                        FontSize="20"
+                                        HorizontalOptions="Start"
+                                        WidthRequest="180"
+                                        Text="{Binding Name}"/>
+
+                                    <ImageButton
+                                        Source="chat.png"
+                                        HeightRequest="20"
+                                        WidthRequest="20"
+                                        HorizontalOptions="End"
+                                        Clicked="ChatButton_Clicked"/>
+                                </HorizontalStackLayout>
+                            </StackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+
+            </FlexLayout>
+        </ScrollView>
+
+    </Grid>
 
 </ContentPage>

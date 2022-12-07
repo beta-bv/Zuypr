@@ -1,4 +1,6 @@
-﻿namespace View.Pages;
+﻿using Model;
+
+namespace View.Pages;
 
 public partial class LaunchScreen : ContentPage
 {

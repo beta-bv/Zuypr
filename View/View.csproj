@@ -47,6 +47,9 @@
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="Resources\Images\chat.png" />
+	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Model\Model.csproj" />

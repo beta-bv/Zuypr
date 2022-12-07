@@ -85,7 +85,7 @@ namespace Model
         }
 
         public List<string> Cities { get; set; }
-        public Bitmap ProfielImage { get; set; }
+        public string ProfileImage { get; set; }
         public List<User> Matches { get; set; }
         private List<Drink> _favourites { get; set; }
         private List<Drink> _likes { get; set; }
@@ -100,6 +100,7 @@ namespace Model
             _favourites = new List<Drink>(3);
             _likes = new List<Drink>(5);
             _dislikes = new List<Drink>(3);
+            ProfileImage = "dotnet_bot.png";
         }
 
         public List<Drink> GetFavourites() {
