@@ -10,9 +10,13 @@ public partial class ChatScreen : ContentPage
         InitializeComponent();
         LabelUserName.FontSize = 20;
         LabelUserName.Text = "User";
-         //scrollviewChat.MaximumHeightRequest= DeviceDisplay.MainDisplayInfo.Height - 50;
     }
 
+    /// <summary>
+    /// Creates a message and shows it in the message stack
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private async void SendMessage(object sender, EventArgs e)
     {
         String messageToSend = chatbox.Text?.Trim();
@@ -31,12 +35,5 @@ public partial class ChatScreen : ContentPage
                 FontAttributes = FontAttributes.Bold
             }
         });
-    }
-    private async void Simuleer(object sender, EventArgs e)
-    {
-
-        User userB = new User("userB", "userB@gmail.com", "GROTEDIKKE1!", new DateTime(2000, 1, 1));
-        chatbox.Text = "WOW GROTE DIKKE DINGEN";
-        SendMessage(sender, e);
     }
 }
