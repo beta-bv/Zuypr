@@ -11,5 +11,12 @@ namespace Model
         public string Text { get; set; }
         public User Sender { get; set; }
         public DateTime TimeSent { get; set; }
+
+        public Message(String text, User sender, DateTime timeSent)
+        {
+            Text = text;
+            Sender = sender;
+            TimeSent = timeSent;
+        }
     }
 }

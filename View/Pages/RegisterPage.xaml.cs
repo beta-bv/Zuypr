@@ -29,6 +29,7 @@ public partial class RegisterPage : ContentPage
                 try
                 {
                     User Client = new User(name, email, password, dateOfBirth);
+                    Application.Current.MainPage = new AppShell(Client);
                 }
                 catch (Exception ex)
                 {
@@ -48,7 +49,7 @@ public partial class RegisterPage : ContentPage
                 ErrorFrame.IsVisible = true;
             }
         }
-        catch (Exception)
+        catch
         {
             ErrorLabel.Text = "Je moet iets invullen om te regristreren";  //note dat dit niet echt de meest veilige zooi is, misschien eigen exception klasse aanmaken om de registratie error te weergeven?
             ErrorFrame.IsVisible = true;
