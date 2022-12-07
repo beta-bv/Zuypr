@@ -18,6 +18,11 @@ public partial class MyDrinks : ContentPage
         AllDrinks.Add(Drink.GetDummyDrink());
         AllDrinks.Add(Drink.GetDummyDrink());
         AllDrinks.Add(Drink.GetDummyDrink());
+
+
+
+
+
         InitializeComponent();
 
         BindingContext = this;
@@ -25,7 +30,10 @@ public partial class MyDrinks : ContentPage
 
     async void OnButtonFavoriteClicked(object sender, EventArgs args)
     {
-        AllDrinks.Add(Drink.GetDummyDrink());
+        //AllDrinks.Add(Drink.GetDummyDrink());
+        Button button = (Button)sender;
+        TestLabel.Text = button.Command.ToString();
+        InitializeComponent();
     }
 
     async void OnButtonLikeClicked(object sender, EventArgs args)
