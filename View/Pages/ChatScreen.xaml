@@ -12,13 +12,11 @@
                 Source="https://i1.sndcdn.com/avatars-twM1pq6gSk4YzN4F-N4zKuw-t240x240.jpg"
                 MaximumHeightRequest="50"
                 MaximumWidthRequest="50">
-                
             </Image>
             <Label
                 x:Name="LabelUserName"
                 HorizontalOptions="Center"
                 Text="">
-                
             </Label>
         </HorizontalStackLayout>
         <ScrollView
@@ -30,7 +28,7 @@
                 Spacing="10">
             </StackLayout>
         </ScrollView>
-        
+
         <Grid
             ColumnDefinitions="*, Auto"
             Grid.Row="2">
@@ -49,6 +47,4 @@
                 Clicked="SendMessage" />
         </Grid>
     </Grid>
-
-
 </ContentPage>
