@@ -45,7 +45,15 @@
         Route="Register">
         <Tab>
             <ShellContent
-                ContentTemplate="{DataTemplate views:Register}" />
+                ContentTemplate="{DataTemplate views:RegisterPage}" />
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem
+        Title="Chat [TEMP]"
+        Route="Chat">
+        <Tab>
+            <ShellContent
+                ContentTemplate="{DataTemplate views:ChatScreen}" />
         </Tab>
     </FlyoutItem>
 </Shell>

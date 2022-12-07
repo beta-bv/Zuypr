@@ -86,7 +86,7 @@ namespace Model
 
         public List<string> Cities { get; set; }
         public string ProfileImage { get; set; }
-        public List<User> Matches { get; set; }
+        public List<Match> Matches { get; set; }
         private List<Drink> _favourites { get; set; }
         private List<Drink> _likes { get; set; }
         private List<Drink> _dislikes { get; set; }
@@ -196,7 +196,6 @@ namespace Model
         /// Removes a drink from the given list Favourites, Likes or Dislikes.
         /// </summary>
         /// <param name="drink"></param>
-        /// <param name="drinkList"></param>
         /// <returns></returns>
         public bool RemoveFromDrinkList(Drink drink)
         {
@@ -295,7 +294,7 @@ namespace Model
         /// <returns></returns>
         public static User GetDummyUser()
         {
-            return new User("dummyUser", "email@hotmail.com", "Pass123!", new DateTime(1999, 1, 1));
+            return new User("dummyUser", "email@a.com", "Wachtwoord!", new DateTime(1999, 1, 1));
         }
 
         /// <summary>
