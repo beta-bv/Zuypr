@@ -39,7 +39,7 @@ public partial class ChatScreen : ContentPage
                 Background = Color.FromArgb("#008000"),
                 StrokeThickness = 1,
                 Padding = new Thickness(4, 2),
-                HorizontalOptions = LayoutOptions.Start,
+                HorizontalOptions = LayoutOptions.End,
                 Content = new Label
                 {
                     Text = message,
@@ -56,7 +56,7 @@ public partial class ChatScreen : ContentPage
                 Background = Color.FromArgb("#808080"),
                 StrokeThickness = 1,
                 Padding = new Thickness(4, 2),
-                HorizontalOptions = LayoutOptions.End,
+                HorizontalOptions = LayoutOptions.Start,
                 Content = new Label
                 {
                     Text = message,
