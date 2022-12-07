@@ -9,16 +9,15 @@ public partial class ChatScreen : ContentPage
 {
     public ChatScreen()
     {
+        dummydb.Initialize();
         InitializeComponent();
         LabelUserName.FontSize = 20;
-        User[] users = new User[2];
-        users[0] = new User("Testmanneke", "naam@gmail.com", "DikkeMannen1!", new DateTime(1999, 1, 1));
-        users[1] = new User("Testmanneketwee", "naam2@gmail.com", "DikkeMannen1!", new DateTime(1999, 2, 2));
-        Chat chat = new Chat(users);
+        User user = dummydb.Users[0];
+        Chat chat = new Chat(user.Matches);
         LabelUserName.Text = chat.ChatMembers[1].Name;
         for(int i = 0; i < chat.Messages.Count; i++)
         {
-            if (chat.Messages[i].Sender.Equals(users[1])){
+            if (chat.Messages[i].Sender.Equals(chat.ChatMembers[1])){
                 PlaceText(false, chat.Messages[i].Text);
             }
             else
