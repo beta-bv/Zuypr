@@ -12,6 +12,7 @@ namespace Model
 
         public static void Initialize()
         {
+            // Add users
             Users = new List<User>()
             {
                 new User("Siem", "siem@email.nl", "EpicPassword1!", new DateTime(2004, 08, 27)),
@@ -23,14 +24,16 @@ namespace Model
                 new User("Thomas", "thomas@email.nl", "EpicPassword1!", new DateTime(2002, 06, 18)),
             };
 
-            // Give users a matche with a random user
             foreach (User user in Users)
             {
+                // Give users a match with a random user (including themselves lol)
                 user.Matches.Add(new Match()
                 {
                     Users = new User[] { user, Users[new Random().Next(Users.Count)] },
                     Messages = new List<Message>(),
                 });
+
+                // Give users a list of cities
                 user.Cities = new List<string>()
                 {
                     "Raalte",
@@ -44,11 +47,13 @@ namespace Model
             // Add messages to the match
             foreach (User user in Users)
             {
-                int amountOfStinky = new Random().Next(15);
-
+                // Pick random amount of "uh oh, stinky" pairs between 1 and 15
+                int amountOfStinky = new Random().Next(1, 15);
                 for (int i = 0; i < amountOfStinky; i++)
                 {
+                    // User 0 sends a message with the text "uh oh"
                     user.Matches[0].Messages.Add(new Message("uh oh", user.Matches[0].Users[0], DateTime.Now));
+                    // User 1 then responds (as expected) with "stinky"
                     user.Matches[0].Messages.Add(new Message("stinky", user.Matches[0].Users[1], DateTime.Now));
                 }
             }
