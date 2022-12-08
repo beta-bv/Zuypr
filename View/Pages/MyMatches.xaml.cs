@@ -34,7 +34,7 @@ public partial class MyMatches : ContentPage
     {
         var temp = (ImageButton) sender;
         Match match = FindMatchFromUser((User)temp.BindingContext);
-        //if (match != null) { Application.Current.MainPage.Navigation.PushAsync(new ChatScreen(match)); }
+        if (match != null) { Application.Current.MainPage.Navigation.PushAsync(new ChatScreen(match)); }
     }
 
     private Match FindMatchFromUser(User user)

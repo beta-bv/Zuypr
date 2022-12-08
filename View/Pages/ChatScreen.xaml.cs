@@ -8,13 +8,15 @@ using Message = Model.Message;
 
 public partial class ChatScreen : ContentPage
 {
-    public ChatScreen()
+    public Match MatchChatScreen { get; set; }
+
+    public ChatScreen(Match match)
     {
         dummydb.Initialize();
         InitializeComponent();
         LabelUserName.FontSize = 20;
-        User user = dummydb.Users[0];
-        Chat chat = new Chat(user.Matches);
+        MatchChatScreen = match;
+        Chat chat = new Chat(match);
         LabelUserName.Text = chat.ChatMembers[1].Name;   //bij groeps chats gaat dit stuk!
         for(int i = 0; i < chat.Messages.Count; i++)
         {
@@ -36,7 +38,8 @@ public partial class ChatScreen : ContentPage
     private async void SendMessage(object sender, EventArgs e)
     {
         String messageToSend = chatbox.Text?.Trim();
-        Message Message = new Message(messageToSend, User.GetDummyUser(), DateTime.Now);
+        Message Message = new Message(messageToSend, Controller.Auth.getUser(), DateTime.Now);
+        MatchChatScreen.Messages.Add(Message);
         PlaceText(true, messageToSend);
         chatbox.Text = "";
         await scrollviewChat.ScrollToAsync(ChatMessageView, ScrollToPosition.End, false);

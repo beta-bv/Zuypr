@@ -16,6 +16,7 @@ namespace Controller
         {
             _user = user;            
             _user.Matches = new List<Match>() { new Match(new User[] { user, dummydb.Users[1] }, new List<Message>()) };
+            _user.Matches.Add(new Match(new User[] { user, dummydb.Users[2] }, new List<Message>()));
             return _user;
         }
     }
