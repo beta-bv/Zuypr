@@ -20,7 +20,7 @@ namespace Model
         private string _connectionString;
 
         public DatabaseContext() {
-            _connectionString = "Server=localhost;Database=zuypr;User Id=sa;Password=betaverse01!";
+            _connectionString = @"Server=localhost;Database=zuypr;User Id=sa;Password=Betaverse01!;Trusted_Connection=True;";
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlServer(_connectionString);

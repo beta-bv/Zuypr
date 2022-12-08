@@ -12,7 +12,7 @@ using Model;
 namespace Model.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20221207093352_ForTheLoveOfGodPleaseWork")]
+    [Migration("20221208113754_ForTheLoveOfGodPleaseWork")]
     partial class ForTheLoveOfGodPleaseWork
     {
         /// <inheritdoc />
