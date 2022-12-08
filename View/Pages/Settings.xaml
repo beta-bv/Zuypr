@@ -6,13 +6,68 @@
     <ScrollView>
         <VerticalStackLayout
             VerticalOptions="Center">
-            
+
             <Label
-                Text="Settings"
+                Margin="0,0,0,20"
+                Text="Filteren"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
                 HorizontalOptions="Center" />
-            
+
+                        <Label
+                Text="Filter age"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="24"
+                HorizontalOptions="Center" />
+
+            <Grid HorizontalOptions="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="180" />
+                    <ColumnDefinition Width="180" />
+                </Grid.ColumnDefinitions>
+
+                <StackLayout Grid.Column="0">
+                    <Label
+                    Text="Minimum age:"
+                    SemanticProperties.HeadingLevel="Level1"
+                    FontSize="16"
+                    Margin="20"
+                    HorizontalOptions="Center" />
+
+                    <Entry
+                        Keyboard="Numeric"
+                        x:Name="MinAge"
+                        Placeholder="0"
+                        WidthRequest="10"
+                        MaxLength="3" />
+
+                </StackLayout>
+
+                <StackLayout Grid.Column="1">
+                    <Label
+                    Grid.Column="1"
+                    Text="Maximum age:"
+                    SemanticProperties.HeadingLevel="Level1"
+                    FontSize="16"
+                    Margin="20"
+                    HorizontalOptions="Center" />
+
+                    <Entry
+                    Keyboard="Numeric"
+                    x:Name="MaxAge"
+                    Placeholder="100"
+                    WidthRequest="20"
+                    MaxLength="3" />
+                </StackLayout>
+            </Grid>
+
+            <Label
+                Text="Settings"
+                Margin="0,50,0,0"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="32"
+                HorizontalOptions="Center" />
+
             <Button
                 Text="Logout"
                 Clicked="Logout"
