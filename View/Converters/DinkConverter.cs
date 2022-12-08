@@ -24,9 +24,9 @@ namespace View.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string drinkName = (string)value;
-            List<Drink> favorite = AllFavoriteDrinks.Where(x => x.DrinkName.Equals(drinkName)).ToList();
-            List<Drink> liked = AllLikes.Where(x => x.DrinkName.Equals(drinkName)).ToList();
-            List<Drink> disliked = AllDislikes.Where(x => x.DrinkName.Equals(drinkName)).ToList();
+            List<Drink> favorite = AllFavoriteDrinks.Where(x => x.Name.Equals(drinkName)).ToList();
+            List<Drink> liked = AllLikes.Where(x => x.Name.Equals(drinkName)).ToList();
+            List<Drink> disliked = AllDislikes.Where(x => x.Name.Equals(drinkName)).ToList();
 
             if (favorite.Count() == 1)
             {
