@@ -11,13 +11,12 @@
                 Wrap="Wrap"
                 AlignContent="Start"
                 JustifyContent="Start"
-                BindableLayout.ItemsSource="{Binding AllMatches}">
-
+                BindableLayout.ItemsSource="{Binding Users}">
 
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
                         <Grid
-                            Margin="10,10,10,10"
+                            Margin="10,40,10,10"
                             HeightRequest="220"
                             HorizontalOptions="Center">
                             

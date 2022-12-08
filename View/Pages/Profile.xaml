@@ -5,7 +5,8 @@
 
     <Grid>
         <ScrollView>
-            <VerticalStackLayout>
+            <VerticalStackLayout
+                Padding="0, 50, 0, 0">
                 <HorizontalStackLayout
                     Margin="5, 5, 5, 5">
 
@@ -42,33 +43,62 @@
 
                     </VerticalStackLayout>
                 </HorizontalStackLayout>
+                
                 <Label 
                     Text="Favourite Beverages"
                     FontSize="25"
                     HorizontalOptions="Start"
-                    Margin="5, 20, 0, 10"/>
-                <HorizontalStackLayout
-                    >
-                    <Image 
-                        Source="{Binding MatchUser.ProfileImage}"
-                        HeightRequest="80"
-                        WidthRequest="80"
-                        Margin="5, 10, 0, 0"/>
-                    <Image
-                        Source="{Binding MatchUser.ProfileImage}"
-                        HeightRequest="80"
-                        WidthRequest="80"
-                        Margin="5, 10, 0, 0" />
-                    <Image
-                        Source="{Binding MatchUser.ProfileImage}"
-                        HeightRequest="80"
-                        WidthRequest="80"
-                        Margin="5, 10, 0, 0" />
-                </HorizontalStackLayout>
+                    Margin="5, 20, 0, 10"
+                    x:Name="beverage"/>
+
+                <FlexLayout
+                    x:Name="flexLayout"
+                    Wrap="Wrap"
+                    AlignContent="Start"
+                    JustifyContent="Start"
+                    BindableLayout.ItemsSource="{Binding Drinks}">
+
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                Margin="10,10,10,10"
+                                HeightRequest="80"
+                                HorizontalOptions="Center">
+
+                                <StackLayout>
+                                    <Image 
+                                        Source="{Binding DrinkImage}"
+                                        HeightRequest="80"
+                                        WidthRequest="80"/>
+                                </StackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+
+                </FlexLayout>
                 <Label 
                     Text="Cities"
                     Margin="5, 25, 0, 0"
-                    FontSize="25"/>
+                    FontSize="25"
+                    x:Name="city"/>
+
+
+                <ScrollView>
+                    <ListView
+                        ItemsSource="{Binding MatchUser.Cities}"
+                        SelectionMode="None">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Label
+                                        Text="{Binding}" 
+                                        FontSize="15"
+                                        Margin="5, 10, 5, 5"/>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollView>
             </VerticalStackLayout>
         </ScrollView>
     </Grid>
