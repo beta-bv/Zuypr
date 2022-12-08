@@ -9,7 +9,7 @@ public partial class MyDrinks : ContentPage
     public List<Drink> AllDislikes => user.GetDislikes();
 
     public string Test = "test";
-    public User user { get; set; }
+    public static User user { get; set; }
 
     public MyDrinks()
     {
@@ -28,6 +28,7 @@ public partial class MyDrinks : ContentPage
         AllDrinks.Add(appelsap);
 
         user.AddToFavourites(beer);
+        user.AddToFavourites(appelsap);
         user.AddToDislikes(wine);
         user.AddToLikes(fristi);
 
@@ -36,29 +37,24 @@ public partial class MyDrinks : ContentPage
         BindingContext = this;
     }
 
-
-
     async void OnButtonFavoriteClicked(object sender, EventArgs args)
     {
-        Button button = (Button)sender;
+        RadioButton button = (RadioButton)sender;
         Drink drink = (Drink)button.BindingContext;
         user.AddToFavourites(drink);
-        button.BackgroundColor = Colors.Green;
     }
 
     async void OnButtonLikeClicked(object sender, EventArgs args)
     {
-        Button button = (Button)sender;
+        RadioButton button = (RadioButton)sender;
         Drink drink = (Drink)button.BindingContext;
         user.AddToLikes(drink);
-        button.BackgroundColor = Colors.Green;
     }
 
     async void OnButtonDislikeClicked(object sender, EventArgs args)
     {
-        Button button = (Button)sender;
+        RadioButton button = (RadioButton)sender;
         Drink drink = (Drink)button.BindingContext;
         user.AddToDislikes(drink);
-        button.BackgroundColor = Colors.Green;
     }
 }

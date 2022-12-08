@@ -163,8 +163,10 @@
 
 	<ItemGroup>
 	  <None Remove="Pages\DataTemplates\" />
+	  <None Remove="Converters\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Pages\DataTemplates\" />
+	  <Folder Include="Converters\" />
 	</ItemGroup>
 </Project>

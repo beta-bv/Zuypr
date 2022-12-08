@@ -1,9 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:local="clr-namespace:View.Converters"
                 x:Class="View.Pages.MyDrinks">
-<Grid>
-        <ScrollView Margin="0,40,0,0">
+    <ContentPage.Resources>
+        <local:DinkConverter x:Key="drinkConverter"/>
+
+        <Style TargetType="RadioButton">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CheckedStates">
+                        <VisualState x:Name="Checked">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="DarkGreen" />
+                                <Setter Property="Label.TextColor"
+                                        Value="White" />
+                                <Setter Property="Opacity"
+                                        Value="1" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Unchecked">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="DimGray"/>
+                                <Setter Property="Label.TextColor"
+                                        Value="Black" />
+                                <Setter Property="Opacity"
+                                        Value="0.6" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+
+    </ContentPage.Resources>
+    <Grid>
+        <ScrollView Margin="0,40,0,40">
             <FlexLayout
                 x:Name="flexLayout"
                 Wrap="Wrap"
@@ -13,58 +48,55 @@
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
                         <Grid
-                            Margin="10,10,10,30"
-                            HeightRequest="450"
+                            Margin="10,20,10,20"
+                            HeightRequest="480"
                             HorizontalOptions="Center"
-                            Padding="10"
+                            Padding="10,40,0,0"
                             BackgroundColor="White">
 
                             <StackLayout>
                                 <ImageButton
                                     Source="{Binding DrinkImage}"
                                     HeightRequest="300"
-                                    WidthRequest="300" />
+                                    WidthRequest="310" />
 
                                 <HorizontalStackLayout>
                                     <Label
+                                        HorizontalTextAlignment="Center"
                                         FontSize="20"
                                         Margin="0,20,0,0"
                                         TextColor="Black"
-                                        HorizontalOptions="Center"
-                                        HorizontalTextAlignment="Center"
                                         Text="{Binding DrinkName}"/>
-                                    </HorizontalStackLayout>
+                                </HorizontalStackLayout>
 
-                                <Grid BackgroundColor="White" Padding="0,20">
+                                <Grid Padding="0,20">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="100" />
                                         <ColumnDefinition Width="100" />
                                         <ColumnDefinition Width="100" />
                                     </Grid.ColumnDefinitions>
 
-                                    <Button Text="⭐"
-                                            Grid.Column="0"
-                                            WidthRequest="50"
-                                            HeightRequest="50"
-                                            FontSize="20"
-                                            BackgroundColor="Yellow"
-                                            Clicked="OnButtonFavoriteClicked"/>
+                                    <RadioButton Grid.Column="0"
+                                                 Content="Favorite"
+                                                 CheckedChanged="OnButtonFavoriteClicked"
+                                                 TextColor="Black"
+                                                 Margin="0,0,5,0"
+                                                 IsChecked="{Binding DrinkName, Converter={StaticResource drinkConverter}, ConverterParameter=0}"/>
 
-                                    <Button Text="✅"
-                                            Grid.Column="1"
-                                            WidthRequest="50"
-                                            HeightRequest="50"
-                                            FontSize="20"
-                                            BackgroundColor="Yellow"
-                                            Clicked="OnButtonLikeClicked"/>
+                                    <RadioButton Grid.Column="1"
+                                                 Content="Like"
+                                                 CheckedChanged="OnButtonLikeClicked"
+                                                 TextColor="Black"
+                                                 Margin="0,0,5,0"
+                                                 IsChecked="{Binding DrinkName, Converter={StaticResource drinkConverter}, ConverterParameter=1}"/>
 
-                                    <Button Text="❌"
-                                            Grid.Column="2"
-                                            WidthRequest="50"
-                                            HeightRequest="50"
-                                            FontSize="20"
-                                            BackgroundColor="Yellow"
-                                            Clicked="OnButtonDislikeClicked"/>
+
+                                    <RadioButton Grid.Column="2"
+                                                 Content="Dislike"
+                                                 CheckedChanged="OnButtonDislikeClicked"
+                                                 TextColor="Black"
+                                                 IsChecked="{Binding DrinkName, Converter={StaticResource drinkConverter}, ConverterParameter=2}"/>
+
                                 </Grid>
                             </StackLayout>
                         </Grid>
