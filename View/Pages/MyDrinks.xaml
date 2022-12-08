@@ -1,12 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:local="clr-namespace:View.Converters"
                 x:Class="View.Pages.MyDrinks">
     <ContentPage.Resources>
         <local:DinkConverter x:Key="drinkConverter"/>
-
         <Style TargetType="RadioButton">
             <Setter Property="VisualStateManager.VisualStateGroups">
                 <VisualStateGroupList>
@@ -35,7 +33,6 @@
                 </VisualStateGroupList>
             </Setter>
         </Style>
-
     </ContentPage.Resources>
     <Grid>
         <ScrollView Margin="0,40,0,40">
@@ -90,13 +87,11 @@
                                                  Margin="0,0,5,0"
                                                  IsChecked="{Binding DrinkName, Converter={StaticResource drinkConverter}, ConverterParameter=1}"/>
 
-
                                     <RadioButton Grid.Column="2"
                                                  Content="Dislike"
                                                  CheckedChanged="OnButtonDislikeClicked"
                                                  TextColor="Black"
                                                  IsChecked="{Binding DrinkName, Converter={StaticResource drinkConverter}, ConverterParameter=2}"/>
-
                                 </Grid>
                             </StackLayout>
                         </Grid>

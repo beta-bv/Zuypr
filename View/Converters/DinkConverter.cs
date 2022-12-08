@@ -1,4 +1,5 @@
 ﻿using Model;
+using Controller;
 using View.Pages;
 using System;
 using System.Globalization;
@@ -7,10 +8,19 @@ namespace View.Converters
 {
     public class DinkConverter : IValueConverter
     {
-        public List<Drink> AllFavoriteDrinks => MyDrinks.user.GetFavourites();
-        public List<Drink> AllLikes => MyDrinks.user.GetLikes();
-        public List<Drink> AllDislikes => MyDrinks.user.GetDislikes();
+        public List<Drink> AllFavoriteDrinks => Auth.getUser().GetFavourites();
+        public List<Drink> AllLikes => Auth.getUser().GetLikes();
+        public List<Drink> AllDislikes => Auth.getUser().GetDislikes();
 
+
+        /// <summary>
+        /// Checks if a drink is already selected for favorite, like or dislike. If that is the case then it sends back true wich means it will show selected on the screen.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string drinkName = (string)value;
@@ -59,6 +69,15 @@ namespace View.Converters
             }
         }
 
+
+        /// <summary>
+        /// Interface forces this method to be in it. Isn't used in this solution.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns></returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return true;

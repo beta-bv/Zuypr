@@ -10,6 +10,15 @@ namespace Model
     {
         public static List<User> Users = new List<User>();
 
+        public static List<Drink> Drinks = new List<Drink>()
+            {
+                new Drink("https://static.ah.nl/dam/product/AHI_43545239363438323836?revLabel=1&rendition=800x800_JPG_Q90&fileType=binary", DrinkType.Beer, "Beer", 10),
+                new Drink("https://static.ah.nl/dam/product/AHI_43545239363438323836?revLabel=1&rendition=800x800_JPG_Q90&fileType=binary", DrinkType.Beer, "Wine", 10),
+                new Drink("https://static.ah.nl/dam/product/AHI_43545239363438323836?revLabel=1&rendition=800x800_JPG_Q90&fileType=binary", DrinkType.Beer, "Fristi", 10),
+                new Drink("https://static.ah.nl/dam/product/AHI_43545239363438323836?revLabel=1&rendition=800x800_JPG_Q90&fileType=binary", DrinkType.Beer, "Cola", 10),
+                new Drink("https://static.ah.nl/dam/product/AHI_43545239363438323836?revLabel=1&rendition=800x800_JPG_Q90&fileType=binary", DrinkType.Beer, "Appelsap", 10)
+            };
+
         public static void Initialize()
         {
             // Add users
