@@ -62,16 +62,49 @@
             </Grid>
 
             <Label
-                Text="Settings"
+                Text="Filter Cities"
+                Margin="0,20,0,0"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="24"
+                HorizontalOptions="Center" />
+
+            <Picker Margin="0,20,0,0" Title="Select a city you want to zuyp in" WidthRequest="300" HorizontalTextAlignment="Center">
+                <Picker.Items>
+                    <x:String>Baboon</x:String>
+                    <x:String>Capuchin Monkey</x:String>
+                    <x:String>Blue Monkey</x:String>
+                    <x:String>Squirrel Monkey</x:String>
+                    <x:String>Golden Lion Tamarin</x:String>
+                    <x:String>Howler Monkey</x:String>
+                    <x:String>Japanese Macaque</x:String>
+                </Picker.Items>
+            </Picker>
+            
+                <Label
+                Text="Account settings"
                 Margin="0,50,0,0"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
                 HorizontalOptions="Center" />
 
-            <Button
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+
+                <Button
+                Margin="0,20,0,0"
+                Text="Delete account"
+                HorizontalOptions="Center" />
+
+                <Button
+                Margin="0,20,0,0"
+                Text="Change password"
+                HorizontalOptions="Center" />
+
+                <Button
+                Margin="0,20,0,0"
                 Text="Logout"
                 Clicked="Logout"
                 HorizontalOptions="Center" />
+            </HorizontalStackLayout>
 
         </VerticalStackLayout>
     </ScrollView>
