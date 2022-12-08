@@ -86,7 +86,7 @@ namespace Model
 
         public List<string> Cities { get; set; }
         public Bitmap ProfielImage { get; set; }
-        public List<User> Matches { get; set; }
+        public List<Match> Matches { get; set; }
         private List<Drink> _favourites { get; set; }
         private List<Drink> _likes { get; set; }
         private List<Drink> _dislikes { get; set; }
