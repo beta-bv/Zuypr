@@ -1,4 +1,6 @@
-﻿using Model;
+using Model;
+
+using View.Pages.Register;
 
 namespace View.Pages;
 
@@ -9,8 +11,16 @@ public partial class LaunchScreen : ContentPage
         InitializeComponent();
     }
 
-    private async void Navigate(object sender, EventArgs e)
+    private void Login(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new Profile());
+        if (Application.Current != null) Application.Current.MainPage = new AppShell(User.GetDummyUser());
+    }
+
+    private void Register(object sender, EventArgs e)
+    {
+        if (Application.Current != null)
+        {
+            Application.Current.MainPage = new NavigationPage(new Step0());
+        };
     }
 }
