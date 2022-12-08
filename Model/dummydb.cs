@@ -12,14 +12,14 @@ namespace Model
 
         public static List<Drink> Drinks = new List<Drink>()
         {
-            new Drink("this/is/an/url.png", DrinkType.BeerOrPilsener, "Hertog Jan", 0.05),
-            new Drink("this/is/an/url.png", DrinkType.BeerOrPilsener, "Heineken", 0.05),
-            new Drink("this/is/an/url.png", DrinkType.BeerOrPilsener, "Kornet", 0.05),
-            new Drink("this/is/an/url.png", DrinkType.BeerOrPilsener, "Amstel", 0.05),
-            new Drink("this/is/an/url.png", DrinkType.BeerOrPilsener, "Grolsch", 0.05),
-            new Drink("this/is/an/url.png", DrinkType.BeerOrPilsener, "Gladiator van de Radiator", 0.08),
-            new Drink("this/is/an/url.png", DrinkType.BeerOrPilsener, "Klok op Kamertemperatuur", 0.048),
-            new Drink("this/is/an/url.png", DrinkType.BeerOrPilsener, "Export", 0.047),
+            new Drink("https://www.voskuilverhuur.nl/wp-content/uploads/2019/09/236630-15381-heineken-bier-fles-1000x1000.png", DrinkType.BeerOrPilsener, "Hertog Jan", 0.05),
+            new Drink("https://www.voskuilverhuur.nl/wp-content/uploads/2019/09/236630-15381-heineken-bier-fles-1000x1000.png", DrinkType.BeerOrPilsener, "Heineken", 0.05),
+            new Drink("https://www.voskuilverhuur.nl/wp-content/uploads/2019/09/236630-15381-heineken-bier-fles-1000x1000.png", DrinkType.BeerOrPilsener, "Kornet", 0.05),
+            new Drink("https://www.voskuilverhuur.nl/wp-content/uploads/2019/09/236630-15381-heineken-bier-fles-1000x1000.png", DrinkType.BeerOrPilsener, "Amstel", 0.05),
+            new Drink("https://www.voskuilverhuur.nl/wp-content/uploads/2019/09/236630-15381-heineken-bier-fles-1000x1000.png", DrinkType.BeerOrPilsener, "Grolsch", 0.05),
+            new Drink("https://www.voskuilverhuur.nl/wp-content/uploads/2019/09/236630-15381-heineken-bier-fles-1000x1000.png", DrinkType.BeerOrPilsener, "Gladiator van de Radiator", 0.08),
+            new Drink("https://www.voskuilverhuur.nl/wp-content/uploads/2019/09/236630-15381-heineken-bier-fles-1000x1000.png", DrinkType.BeerOrPilsener, "Klok op Kamertemperatuur", 0.048),
+            new Drink("https://www.voskuilverhuur.nl/wp-content/uploads/2019/09/236630-15381-heineken-bier-fles-1000x1000.png", DrinkType.BeerOrPilsener, "Export", 0.047),
             new Drink("this/is/an/url.png", DrinkType.CraftBeer, "La Choufe", 0.08),
             new Drink("this/is/an/url.png", DrinkType.CraftBeer, "Tripel Karmeliet", 0.084),
             new Drink("this/is/an/url.png", DrinkType.CraftBeer, "Affligem Blond", 0.067),

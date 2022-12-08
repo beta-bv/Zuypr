@@ -3,7 +3,24 @@
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:local="clr-namespace:View.Converters"
                 x:Class="View.Pages.MyDrinks">
-    <ContentPage.Resources>
+
+    <Grid x:Name="mainGrid">
+
+        <ScrollView Margin="0,40,0,40">
+
+            <FlexLayout
+                x:Name="flexLayout"
+                BackgroundColor="Red"
+                Wrap="Wrap"
+                JustifyContent="Start">
+
+            </FlexLayout>
+
+        </ScrollView>
+    </Grid>
+
+
+    <!--<ContentPage.Resources>
         <local:DinkConverter x:Key="drinkConverter"/>
         <Style TargetType="RadioButton">
             <Setter Property="VisualStateManager.VisualStateGroups">
@@ -99,5 +116,5 @@
                 </BindableLayout.ItemTemplate>
             </FlexLayout>
         </ScrollView>
-    </Grid>
+    </Grid>-->
 </ContentPage>
