@@ -53,7 +53,7 @@
 
                             <StackLayout>
                                 <ImageButton
-                                    Source="{Binding DrinkImage}"
+                                    Source="{Binding ImageUrl}"
                                     HeightRequest="300"
                                     WidthRequest="310" />
 
@@ -63,7 +63,7 @@
                                         FontSize="20"
                                         Margin="0,20,0,0"
                                         TextColor="Black"
-                                        Text="{Binding DrinkName}"/>
+                                        Text="{Binding Name}"/>
                                 </HorizontalStackLayout>
 
                                 <Grid Padding="0,20">
@@ -78,20 +78,20 @@
                                                  CheckedChanged="OnButtonFavoriteClicked"
                                                  TextColor="Black"
                                                  Margin="0,0,5,0"
-                                                 IsChecked="{Binding DrinkName, Converter={StaticResource drinkConverter}, ConverterParameter=0}"/>
+                                                 IsChecked="{Binding Name, Converter={StaticResource drinkConverter}, ConverterParameter=0}"/>
 
                                     <RadioButton Grid.Column="1"
                                                  Content="Like"
                                                  CheckedChanged="OnButtonLikeClicked"
                                                  TextColor="Black"
                                                  Margin="0,0,5,0"
-                                                 IsChecked="{Binding DrinkName, Converter={StaticResource drinkConverter}, ConverterParameter=1}"/>
+                                                 IsChecked="{Binding Name, Converter={StaticResource drinkConverter}, ConverterParameter=1}"/>
 
                                     <RadioButton Grid.Column="2"
                                                  Content="Dislike"
                                                  CheckedChanged="OnButtonDislikeClicked"
                                                  TextColor="Black"
-                                                 IsChecked="{Binding DrinkName, Converter={StaticResource drinkConverter}, ConverterParameter=2}"/>
+                                                 IsChecked="{Binding Name, Converter={StaticResource drinkConverter}, ConverterParameter=2}"/>
                                 </Grid>
                             </StackLayout>
                         </Grid>
