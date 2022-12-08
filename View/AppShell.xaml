@@ -6,7 +6,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:View.Pages"
     FlyoutBehavior="Locked"
-    NavBarIsVisible="False">
+    NavBarIsVisible="True">
     
     <!--<ShellContent IsEnabled="False" IsVisible="False" ContentTemplate="{DataTemplate views:LaunchScreen}"/>-->
 
