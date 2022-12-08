@@ -56,4 +56,12 @@
                 ContentTemplate="{DataTemplate views:ChatScreen}" />
         </Tab>
     </FlyoutItem>
+    <FlyoutItem
+        Title="Login [TEMP]"
+        Route="Login">
+        <Tab>
+            <ShellContent
+                ContentTemplate="{DataTemplate views:Login}" />
+        </Tab>
+    </FlyoutItem>
 </Shell>
