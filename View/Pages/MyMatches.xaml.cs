@@ -30,6 +30,8 @@ public partial class MyMatches : ContentPage
     private void ChatButton_Clicked(object sender, EventArgs e)
     {
         var temp = (ImageButton) sender;
-        //Application.Current.MainPage.Navigation.PushAsync(new ChatScreen());
+        //Application.Current.MainPage.Navigation.PushAsync(new ChatScreen((User)temp.BindingContext));
+        Application.Current.MainPage.Navigation.PushAsync(new ChatScreen());
+
     }
 }
