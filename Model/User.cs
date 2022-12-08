@@ -192,7 +192,6 @@ namespace Model
         /// Removes a drink from the given list Favourites, Likes or Dislikes.
         /// </summary>
         /// <param name="drink"></param>
-        /// <param name="drinkList"></param>
         /// <returns></returns>
         public bool RemoveFromDrinkList(Drink drink)
         {
@@ -291,7 +290,7 @@ namespace Model
         /// <returns></returns>
         public static User GetDummyUser()
         {
-            return new User("dummyUser", "email@hotmail.com", "Pass123!", new DateTime(1999, 1, 1));
+            return new User("dummyUser", "email@a.com", "Wachtwoord!", new DateTime(1999, 1, 1));
         }
 
         /// <summary>
