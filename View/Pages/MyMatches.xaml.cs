@@ -4,19 +4,22 @@ namespace View.Pages;
 
 public partial class MyMatches : ContentPage
 {
-    public List<User> AllMatches { get; set; }
+    public List<Match> AllMatches { get; set; }
+    public List<User> Users { get; set; }
     public MyMatches()
     {
-        AllMatches = new List<User>
+        AllMatches = Controller.Auth.getUser().Matches;
+        Users = new List<User>();
+        foreach(Match match in AllMatches)
         {
-            new User("Mark", "hoi@gmail.com", "Neeneenee!", new DateTime(2000, 7, 15)),
-            new User("Niels", "hoi@gmail.com", "Neeneenee!", new DateTime(2001, 7, 15)),
-            new User("Stan", "hoi@gmail.com", "Neeneenee!", new DateTime(2002, 7, 15)),
-            new User("Siem", "hoi@gmail.com", "Neeneenee!", new DateTime(2003, 7, 15)),
-            new User("Dylan", "hoi@gmail.com", "Neeneenee!", new DateTime(1999, 7, 15)),
-            new User("Thomas", "hoi@gmail.com", "Neeneenee!", new DateTime(1998, 7, 15)),
-            new User("Merijn", "hoi@gmail.com", "Neeneenee!", new DateTime(1997, 7, 15))
-        };
+            foreach(User user in match.Users)
+            {
+                if(Controller.Auth.getUser() != user) 
+                { 
+                    Users.Add(user);
+                }
+            }
+        }
         InitializeComponent();
         BindingContext = this;
     }
@@ -30,6 +33,22 @@ public partial class MyMatches : ContentPage
     private void ChatButton_Clicked(object sender, EventArgs e)
     {
         var temp = (ImageButton) sender;
-        //Application.Current.MainPage.Navigation.PushAsync(new ChatScreen());
+        Match match = FindMatchFromUser((User)temp.BindingContext);
+        //if (match != null) { Application.Current.MainPage.Navigation.PushAsync(new ChatScreen(match)); }
+    }
+
+    private Match FindMatchFromUser(User user)
+    {
+        foreach(Match match in AllMatches)
+        {
+            foreach(User us in match.Users)
+            {
+                if(user == us)
+                {
+                    return match;
+                }
+            }
+        }
+        return null;
     }
 }

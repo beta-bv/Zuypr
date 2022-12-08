@@ -294,7 +294,9 @@ namespace Model
         /// <returns></returns>
         public static User GetDummyUser()
         {
-            return new User("dummyUser", "email@a.com", "Wachtwoord!", new DateTime(1999, 1, 1));
+            User dummy = new User("dummyUser", "email@a.com", "Wachtwoord!", new DateTime(1999, 1, 1));
+            dummy.Cities = new List<string>() { "Dalfsen", "Hoonhorst" };
+            return dummy;
         }
 
         /// <summary>

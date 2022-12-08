@@ -5,7 +5,8 @@
 
     <Grid>
         <ScrollView>
-            <VerticalStackLayout>
+            <VerticalStackLayout
+                Padding="0, 50, 0, 0">
                 <HorizontalStackLayout
                     Margin="5, 5, 5, 5">
 
@@ -49,16 +50,32 @@
                     HorizontalOptions="Start"
                     Margin="5, 20, 0, 10"
                     x:Name="beverage"/>
-                
-                <HorizontalStackLayout
-                    BindingContext="{Binding MatchUser.GetFavourites}">
-                    <Image
-                        Source="dotnet_bot.png"
-                        HeightRequest="80"
-                        WidthRequest="80"
-                        Margin="5, 10, 0, 0" />
-                    
-                </HorizontalStackLayout>
+
+                <FlexLayout
+                    x:Name="flexLayout"
+                    Wrap="Wrap"
+                    AlignContent="Start"
+                    JustifyContent="Start"
+                    BindableLayout.ItemsSource="{Binding Drinks}">
+
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                Margin="10,10,10,10"
+                                HeightRequest="80"
+                                HorizontalOptions="Center">
+
+                                <StackLayout>
+                                    <Image 
+                                        Source="{Binding DrinkImage}"
+                                        HeightRequest="80"
+                                        WidthRequest="80"/>
+                                </StackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+
+                </FlexLayout>
                 <Label 
                     Text="Cities"
                     Margin="5, 25, 0, 0"
@@ -68,7 +85,8 @@
 
                 <ScrollView>
                     <ListView
-                        ItemsSource="{Binding MatchUser.Cities}">
+                        ItemsSource="{Binding MatchUser.Cities}"
+                        SelectionMode="None">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
