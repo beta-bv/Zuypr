@@ -13,7 +13,6 @@
                 JustifyContent="Start"
                 BindableLayout.ItemsSource="{Binding AllMatches}">
 
-
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
                         <Grid

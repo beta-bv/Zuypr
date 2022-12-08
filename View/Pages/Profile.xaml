@@ -42,33 +42,45 @@
 
                     </VerticalStackLayout>
                 </HorizontalStackLayout>
+                
                 <Label 
                     Text="Favourite Beverages"
                     FontSize="25"
                     HorizontalOptions="Start"
-                    Margin="5, 20, 0, 10"/>
+                    Margin="5, 20, 0, 10"
+                    x:Name="beverage"/>
+                
                 <HorizontalStackLayout
-                    >
-                    <Image 
-                        Source="{Binding MatchUser.ProfileImage}"
-                        HeightRequest="80"
-                        WidthRequest="80"
-                        Margin="5, 10, 0, 0"/>
+                    BindingContext="{Binding MatchUser.GetFavourites}">
                     <Image
-                        Source="{Binding MatchUser.ProfileImage}"
+                        Source="dotnet_bot.png"
                         HeightRequest="80"
                         WidthRequest="80"
                         Margin="5, 10, 0, 0" />
-                    <Image
-                        Source="{Binding MatchUser.ProfileImage}"
-                        HeightRequest="80"
-                        WidthRequest="80"
-                        Margin="5, 10, 0, 0" />
+                    
                 </HorizontalStackLayout>
                 <Label 
                     Text="Cities"
                     Margin="5, 25, 0, 0"
-                    FontSize="25"/>
+                    FontSize="25"
+                    x:Name="city"/>
+
+
+                <ScrollView>
+                    <ListView
+                        ItemsSource="{Binding MatchUser.Cities}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Label
+                                        Text="{Binding}" 
+                                        FontSize="15"
+                                        Margin="5, 10, 5, 5"/>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollView>
             </VerticalStackLayout>
         </ScrollView>
     </Grid>
