@@ -16,14 +16,19 @@ namespace Model
     }
     public class Drink
     {
-        public Bitmap DrinkImage { get; set; }
+        public string DrinkImage { get; set; }
         public DrinkType DrinkType { get; set;}
         public string DrinkName { get; set; }
         public float Percentage { get; set; }
 
         public static Drink GetDummyDrink()
         {
-            return new Drink();
+            return new Drink("dotnet_bot.png");
+        }
+
+        public Drink(string drinkImage)
+        {
+            DrinkImage = drinkImage;
         }
     }
 

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="View.Pages.Login"
+    Shell.FlyoutBehavior="Locked">
+
+    <ScrollView>
+        <VerticalStackLayout
+            x:Name="LoginVStack"
+            VerticalOptions="Center"
+            Padding="10"
+            Spacing="20">
+
+            <Label
+                Text="Login"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="32"
+                HorizontalOptions="Center" />
+
+            <HorizontalStackLayout
+                Margin="10"
+                HorizontalOptions="Center">
+
+                <VerticalStackLayout
+                    Spacing="10"
+                    VerticalOptions="Center">
+
+                    <Entry
+                        x:Name="EmailFieldL"
+                        Placeholder="Email Address"
+                        WidthRequest="250"
+                        MaxLength="200" />
+
+                    <Entry
+                        x:Name="PasswordFieldL"
+                        Placeholder="Password"
+                        WidthRequest="250"
+                        MaxLength="200"
+                        IsPassword="True" />
+
+                </VerticalStackLayout>
+
+            </HorizontalStackLayout>
+
+            <Button
+                x:Name="LoginButton"
+                Text="Login"
+                Clicked="LoginUser"
+                HorizontalOptions="Center" />
+
+            <Frame
+                IsVisible="false"
+                x:Name="ErrorFrameL"
+                HorizontalOptions="Center"
+                BackgroundColor="#BFFF0000">
+                <Label
+                    x:Name="ErrorLabelL"
+                    HorizontalOptions="Center"
+                    Text="Error: Dit is fout gegaan" />
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

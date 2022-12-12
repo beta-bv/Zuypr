@@ -4,16 +4,19 @@ namespace View.Pages;
 using Microsoft.Maui.Controls.Shapes;
 using Model;
 using Controller;
+using Message = Model.Message;
 
 public partial class ChatScreen : ContentPage
 {
-    public ChatScreen()
+    public Match MatchChatScreen { get; set; }
+
+    public ChatScreen(Match match)
     {
         dummydb.Initialize();
         InitializeComponent();
         LabelUserName.FontSize = 20;
-        User user = dummydb.Users[0];
-        Chat chat = new Chat(user.Matches);
+        MatchChatScreen = match;
+        Chat chat = new Chat(match);
         LabelUserName.Text = chat.ChatMembers[1].Name;   //bij groeps chats gaat dit stuk!
         for(int i = 0; i < chat.Messages.Count; i++)
         {
@@ -26,7 +29,6 @@ public partial class ChatScreen : ContentPage
             }
         }
     }
-    private int _scrollviewY = 100;
 
     /// <summary>
     /// Creates a message and shows it in the message stack
@@ -36,9 +38,31 @@ public partial class ChatScreen : ContentPage
     private async void SendMessage(object sender, EventArgs e)
     {
         String messageToSend = chatbox.Text?.Trim();
-        Message Message = new Message(messageToSend, User.GetDummyUser(), DateTime.Now);
+        Message Message = new Message(messageToSend, Controller.Auth.getUser(), DateTime.Now);
+        MatchChatScreen.Messages.Add(Message);
         PlaceText(true, messageToSend);
+        chatbox.Text = "";
         await scrollviewChat.ScrollToAsync(ChatMessageView, ScrollToPosition.End, false);
+    }
+    
+    /// <summary>
+    /// Enabled en disabled de send knop
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private async void OnTextChanged(object sender, EventArgs e)
+    {
+        String messageTyped = chatbox.Text.Trim();
+        if (messageTyped != null && !messageTyped.Equals(""))
+        {
+            sendMessage.IsEnabled = true;
+            sendMessage.BackgroundColor = Color.FromArgb("#FF006400");
+        }
+        else
+        {
+            sendMessage.IsEnabled = false;
+            sendMessage.BackgroundColor = Color.FromArgb("#FFD3D3D3");
+        }
     }
 
     /// <summary>
@@ -50,7 +74,6 @@ public partial class ChatScreen : ContentPage
     {
         if (userIsSender)             //deze if statement kan wss veel korter, kon er alleen niet achter komen hoe dus voor nu effe dit. Het gaat om de horizontal options
         {
-            _scrollviewY = _scrollviewY + 100;
             ChatMessageView.Children.Add(new Border
             {
                 Background = Color.FromArgb("#008000"),
@@ -69,7 +92,6 @@ public partial class ChatScreen : ContentPage
         }
         else
         {
-            _scrollviewY = _scrollviewY + 100;
             ChatMessageView.Children.Add(new Border
             {
                 Background = Color.FromArgb("#808080"),
@@ -85,13 +107,5 @@ public partial class ChatScreen : ContentPage
                 }
             });
         }
-    }
-
-    private async void Simuleer(object sender, EventArgs e)
-    {
-
-        User userB = new User("userB", "userB@gmail.com", "GROTEDIKKE1!", new DateTime(2000, 1, 1));
-        chatbox.Text = "WOW GROTE DIKKE DINGEN";
-        SendMessage(sender, e);
     }
 }

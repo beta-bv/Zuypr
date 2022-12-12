@@ -85,12 +85,15 @@ namespace Model
         }
 
         public List<string> Cities { get; set; }
-        public Bitmap ProfielImage { get; set; }
+        public string ProfileImage { get; set; }
         public List<Match> Matches { get; set; }
         private List<Drink> _favourites { get; set; }
         private List<Drink> _likes { get; set; }
         private List<Drink> _dislikes { get; set; }
-        
+
+        public int Age => (DateTime.Now.Month<DateOfBirth.Month || (DateTime.Now.Month == DateOfBirth.Month && DateTime.Now.Day<DateOfBirth.Day)) ? (DateTime.Now.Year - DateOfBirth.Year) - 1 : DateTime.Now.Year - DateOfBirth.Year;
+
+
         public User(string name, string email, string password, DateTime dateOfBirth)
         {
             Name = name;
@@ -100,6 +103,7 @@ namespace Model
             _favourites = new List<Drink>(3);
             _likes = new List<Drink>(5);
             _dislikes = new List<Drink>(3);
+            ProfileImage = "dotnet_bot.png";
         }
 
         public List<Drink> GetFavourites() {
@@ -230,7 +234,7 @@ namespace Model
             }
             return true;
         }
-
+        
         /// <summary>
         /// compares two passwords
         /// </summary>
@@ -290,7 +294,9 @@ namespace Model
         /// <returns></returns>
         public static User GetDummyUser()
         {
-            return new User("dummyUser", "email@a.com", "Wachtwoord!", new DateTime(1999, 1, 1));
+            User dummy = new User("dummyUser", "email@a.com", "Wachtwoord!", new DateTime(1999, 1, 1));
+            dummy.Cities = new List<string>() { "Dalfsen", "Hoonhorst" };
+            return dummy;
         }
 
         /// <summary>

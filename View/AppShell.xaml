@@ -49,11 +49,11 @@
         </Tab>
     </FlyoutItem>
     <FlyoutItem
-        Title="Chat [TEMP]"
-        Route="Chat">
+        Title="Login [TEMP]"
+        Route="Login">
         <Tab>
             <ShellContent
-                ContentTemplate="{DataTemplate views:ChatScreen}" />
+                ContentTemplate="{DataTemplate views:Login}" />
         </Tab>
     </FlyoutItem>
 </Shell>

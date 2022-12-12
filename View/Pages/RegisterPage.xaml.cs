@@ -41,7 +41,7 @@ public partial class RegisterPage : ContentPage
                         return;
                     }
                 }
-                await Navigation.PushAsync(new Profile());
+                await Navigation.PushAsync(new Profile(Controller.Auth.getUser()));
             }
             else
             {
