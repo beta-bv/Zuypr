@@ -20,6 +20,7 @@
                 x:Name="LabelUserName"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
+                TextColor="White"
                 Text="">
             </Label>
         </HorizontalStackLayout>
@@ -42,13 +43,18 @@
                 Placeholder="Enter text"
                 VerticalOptions="End"
                 AutoSize="TextChanges"
-                MaximumHeightRequest="150" />
+                MaximumHeightRequest="150"
+                TextChanged="OnTextChanged"/>
             <Button
                 x:Name="sendMessage"
                 Grid.Column="1"
                 Text="Send message"
                 VerticalOptions="End"
-                Clicked="SendMessage"/>
+                Clicked="SendMessage"
+                IsEnabled="False"
+                TextColor="White"
+                BackgroundColor="LightGray"
+                />
         </Grid>
     </Grid>
 </ContentPage>
