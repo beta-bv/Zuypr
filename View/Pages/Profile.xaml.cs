@@ -42,7 +42,7 @@ public partial class Profile : ContentPage
             {
                 if(user == MatchUser)
                 {
-                    //Application.Current.MainPage.Navigation.PushAsync(new ChatScreen(match));
+                    Application.Current.MainPage.Navigation.PushAsync(new ChatScreen(match));
                 }
             }
         }

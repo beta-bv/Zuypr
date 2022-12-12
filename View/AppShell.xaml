@@ -49,14 +49,6 @@
         </Tab>
     </FlyoutItem>
     <FlyoutItem
-        Title="Chat [TEMP]"
-        Route="Chat">
-        <Tab>
-            <ShellContent
-                ContentTemplate="{DataTemplate views:ChatScreen}" />
-        </Tab>
-    </FlyoutItem>
-    <FlyoutItem
         Title="Login [TEMP]"
         Route="Login">
         <Tab>
