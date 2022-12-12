@@ -11,20 +11,12 @@
                     <VisualStateGroup x:Name="CheckedStates">
                         <VisualState x:Name="Checked">
                             <VisualState.Setters>
-                                <Setter Property="BackgroundColor"
-                                        Value="DarkGreen" />
-                                <Setter Property="Label.TextColor"
-                                        Value="White" />
                                 <Setter Property="Opacity"
                                         Value="1" />
                             </VisualState.Setters>
                         </VisualState>
                         <VisualState x:Name="Unchecked">
                             <VisualState.Setters>
-                                <Setter Property="BackgroundColor"
-                                        Value="DimGray"/>
-                                <Setter Property="Label.TextColor"
-                                        Value="Black" />
                                 <Setter Property="Opacity"
                                         Value="0.6" />
                             </VisualState.Setters>
@@ -78,6 +70,7 @@
                                                  CheckedChanged="OnButtonFavoriteClicked"
                                                  TextColor="Black"
                                                  Margin="0,0,5,0"
+                                                 BackgroundColor="DarkGreen"
                                                  IsChecked="{Binding Name, Converter={StaticResource drinkConverter}, ConverterParameter=0}"/>
 
                                     <RadioButton Grid.Column="1"
@@ -85,12 +78,14 @@
                                                  CheckedChanged="OnButtonLikeClicked"
                                                  TextColor="Black"
                                                  Margin="0,0,5,0"
+                                                 BackgroundColor="Orange"
                                                  IsChecked="{Binding Name, Converter={StaticResource drinkConverter}, ConverterParameter=1}"/>
 
                                     <RadioButton Grid.Column="2"
                                                  Content="Dislike"
                                                  CheckedChanged="OnButtonDislikeClicked"
                                                  TextColor="Black"
+                                                 BackgroundColor="Red"
                                                  IsChecked="{Binding Name, Converter={StaticResource drinkConverter}, ConverterParameter=2}"/>
                                 </Grid>
                             </StackLayout>

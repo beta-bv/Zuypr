@@ -24,6 +24,7 @@ public partial class MyDrinks : ContentPage
     async void OnButtonFavoriteClicked(object sender, EventArgs args)
     {
         RadioButton button = (RadioButton)sender;
+        //button.BackgroundColor = Colors.DarkGreen;
         Drink drink = (Drink)button.BindingContext;
         user.AddToFavourites(drink);
     }
@@ -36,6 +37,7 @@ public partial class MyDrinks : ContentPage
     async void OnButtonLikeClicked(object sender, EventArgs args)
     {
         RadioButton button = (RadioButton)sender;
+        //button.BackgroundColor = Colors.Orange;
         Drink drink = (Drink)button.BindingContext;
         user.AddToLikes(drink);
     }
@@ -48,6 +50,7 @@ public partial class MyDrinks : ContentPage
     async void OnButtonDislikeClicked(object sender, EventArgs args)
     {
         RadioButton button = (RadioButton)sender;
+        //button.BackgroundColor = Colors.Red;
         Drink drink = (Drink)button.BindingContext;
         user.AddToDislikes(drink);
     }
