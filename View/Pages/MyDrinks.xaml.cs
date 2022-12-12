@@ -12,7 +12,14 @@ public partial class MyDrinks : ContentPage
 
     public MyDrinks()
     {
-        Auth.getUser().AddToFavourites(dummydb.Drinks.First());
+        user.AddToFavourites(dummydb.Drinks[0]);
+        user.AddToFavourites(dummydb.Drinks[3]);
+        user.AddToFavourites(dummydb.Drinks[2]);
+        user.AddToLikes(dummydb.Drinks[6]);
+        user.AddToLikes(dummydb.Drinks[8]);
+        user.AddToLikes(dummydb.Drinks[4]);
+        user.AddToDislikes(dummydb.Drinks[1]);
+        user.AddToDislikes(dummydb.Drinks[5]);
 
         InitializeComponent();
         BindingContext = this;

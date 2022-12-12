@@ -28,40 +28,49 @@ namespace View.Converters
             List<Drink> liked = AllLikes.Where(x => x.Name.Equals(drinkName)).ToList();
             List<Drink> disliked = AllDislikes.Where(x => x.Name.Equals(drinkName)).ToList();
 
-            if (favorite.Count() == 1)
+            if (!drinkName.Equals("False"))
             {
-                if (Int32.Parse((string)parameter) == 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
 
-            else if (liked.Count() == 1)
-            {
-                if (Int32.Parse((string)parameter) == 1)
+                if (favorite.Count() == 1)
                 {
-                    return true;
+                    if (Int32.Parse((string)parameter) == 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
-                else
-                {
-                    return false;
-                }
-            }
 
-            else if (disliked.Count() == 1)
-            {
-                if (Int32.Parse((string)parameter) == 2)
+                else if (liked.Count() == 1)
                 {
-                    return true;
+                    if (Int32.Parse((string)parameter) == 1)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+                else if (disliked.Count() == 1)
+                {
+                    if (Int32.Parse((string)parameter) == 2)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
                     return false;
                 }
+
             }
             else
             {
