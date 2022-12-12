@@ -6,11 +6,16 @@ using System.Globalization;
 
 namespace View.Converters
 {
-    public class DinkConverter : IValueConverter
+    public class DrinkConverter : IValueConverter
     {
-        public List<Drink> AllFavoriteDrinks => Auth.getUser().GetFavourites();
-        public List<Drink> AllLikes => Auth.getUser().GetLikes();
-        public List<Drink> AllDislikes => Auth.getUser().GetDislikes();
+        private User user = Auth.getUser();
+        //public static string[] Favorites => Auth.getUser().GetFavourites().Select(x => x.Name).ToArray();
+        //public static string[] Likes => Auth.getUser().GetLikes().Select(x => x.Name).ToArray();
+        //public static string[] Dislikes => Auth.getUser().GetDislikes().Select(x => x.Name).ToArray();
+
+        public List<Drink> AllFavoriteDrinks => user.GetFavourites();
+        public List<Drink> AllLikes => user.GetLikes();
+        public List<Drink> AllDislikes => user.GetDislikes();
 
 
         /// <summary>
@@ -24,9 +29,32 @@ namespace View.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string drinkName = (string)value;
+            //Drink drink = dummydb.Drinks.Where(x => )
+
+            //Console.WriteLine(drinkName);
+
+            //Console.WriteLine(Favorites.Contains(drinkName));
+            //Console.WriteLine(Likes.Contains(drinkName));
+            //Console.WriteLine(Dislikes.Contains(drinkName));
+
             List<Drink> favorite = AllFavoriteDrinks.Where(x => x.Name.Equals(drinkName)).ToList();
             List<Drink> liked = AllLikes.Where(x => x.Name.Equals(drinkName)).ToList();
             List<Drink> disliked = AllDislikes.Where(x => x.Name.Equals(drinkName)).ToList();
+
+            //switch (Int32.Parse((string)parameter))
+            //{
+            //    case 0:
+            //        Console.WriteLine($"{drinkName} {Favorites.Contains(drinkName)}");
+            //        return Favorites.Contains(drinkName) ? true : drinkName;
+            //    case 1:
+            //        Console.WriteLine($"{drinkName} {Likes.Contains(drinkName)}");
+            //        return Likes.Contains(drinkName) ? true : drinkName;
+            //    case 2:
+            //        Console.WriteLine($"{drinkName} {Dislikes.Contains(drinkName)}");
+            //        return Dislikes.Contains(drinkName) ? true : drinkName;
+            //    default:
+            //        return false;
+            //}
 
             if (favorite.Count() == 1)
             {
@@ -83,7 +111,7 @@ namespace View.Converters
         /// <returns></returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return false;
+            return null;
         }
     }
 }

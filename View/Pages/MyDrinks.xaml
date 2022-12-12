@@ -4,7 +4,7 @@
                 xmlns:local="clr-namespace:View.Converters"
                 x:Class="View.Pages.MyDrinks">
     <ContentPage.Resources>
-        <local:DinkConverter x:Key="drinkConverter"/>
+        <local:DrinkConverter x:Key="drinkConverter"/>
         <Style TargetType="RadioButton">
             <Setter Property="VisualStateManager.VisualStateGroups">
                 <VisualStateGroupList>
@@ -65,8 +65,7 @@
                                         <ColumnDefinition Width="100" />
                                     </Grid.ColumnDefinitions>
 
-                                    <RadioButton x:Name="Favorite"
-                                                 Grid.Column="0"
+                                    <RadioButton Grid.Column="0"
                                                  Content="Favorite"
                                                  CheckedChanged="OnButtonFavoriteClicked"
                                                  TextColor="Black"

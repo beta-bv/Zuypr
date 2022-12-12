@@ -12,11 +12,18 @@ public partial class MyDrinks : ContentPage
 
     public MyDrinks()
     {
-        Auth.getUser().AddToFavourites(dummydb.Drinks.First());
+        //user.AddToFavourites(dummydb.Drinks[0]);
+        //user.AddToFavourites(dummydb.Drinks[3]);
+        //user.AddToFavourites(dummydb.Drinks[2]);
+        //user.AddToLikes(dummydb.Drinks[6]);
+        //user.AddToLikes(dummydb.Drinks[8]);
+        //user.AddToLikes(dummydb.Drinks[4]);
+        //user.AddToDislikes(dummydb.Drinks[1]);
+        //user.AddToDislikes(dummydb.Drinks[5]);
 
         InitializeComponent();
         BindingContext = this;
-        
+
     }
 
     /// <summary>
@@ -28,7 +35,8 @@ public partial class MyDrinks : ContentPage
     {
         RadioButton button = (RadioButton)sender;
         Drink drink = (Drink)button.BindingContext;
-        if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetFavourites())) {
+        if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetFavourites()))
+        {
             button.IsChecked = false;
         }
         user.AddToFavourites(drink);

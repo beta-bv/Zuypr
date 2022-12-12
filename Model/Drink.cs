@@ -31,11 +31,12 @@ namespace Model
     public class Drink
     {
         public string ImageUrl { get; set; }
-        public DrinkType Type { get; set;}
+        public DrinkType Type { get; set; }
         public string Name { get; set; }
         public double Percentage { get; set; }
 
-        public Drink(string drinkImage, DrinkType drinkType, string drinkName, double percentage) {
+        public Drink(string drinkImage, DrinkType drinkType, string drinkName, double percentage)
+        {
             ImageUrl = drinkImage;
             Type = drinkType;
             Name = drinkName;
@@ -45,11 +46,6 @@ namespace Model
         public static Drink GetDummyDrink()
         {
             return new Drink("https://static.ah.nl/dam/product/AHI_43545239363438323836?revLabel=1&rendition=800x800_JPG_Q90&fileType=binary", DrinkType.BeerOrPilsener, "Beer", 10);
-        }
-
-        public Drink(string drinkImage)
-        {
-            DrinkImage = drinkImage;
         }
     }
 
