@@ -15,7 +15,7 @@ namespace Controller
         public static User setUser(User user)
         {
             _user = user;
-            return _user;
+            return _user; 
         }
     }
 }

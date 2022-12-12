@@ -70,6 +70,9 @@ namespace View.Converters
         }
 
 
+
+
+
         /// <summary>
         /// Interface forces this method to be in it. Isn't used in this solution.
         /// </summary>
@@ -80,7 +83,7 @@ namespace View.Converters
         /// <returns></returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return true;
+            return false;
         }
     }
 }

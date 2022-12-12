@@ -161,6 +161,9 @@
 	<ItemGroup>
 	  <None Remove="Pages\DataTemplates\" />
 	  <None Remove="Converters\" />
+	  <None Remove="Resources\Images\hertog-jan.png" />
+	  <None Remove="Resources\Images\la-chouffe.png" />
+	  <None Remove="Resources\Images\Brewdog-Punk-Ipa.png" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Pages\DataTemplates\" />

@@ -97,9 +97,9 @@ namespace Model
             Email = email;
             DateOfBirth = dateOfBirth;
             Password = password;
-            _favourites = new List<Drink>(); // three 
-            _likes = new List<Drink>(); //five
-            _dislikes = new List<Drink>(); //three
+            _favourites = new List<Drink>(3);
+            _likes = new List<Drink>(5);
+            _dislikes = new List<Drink>(3);
         }
 
         public List<Drink> GetFavourites() {

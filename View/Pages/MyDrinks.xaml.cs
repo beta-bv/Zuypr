@@ -12,8 +12,11 @@ public partial class MyDrinks : ContentPage
 
     public MyDrinks()
     {
+        Auth.getUser().AddToFavourites(dummydb.Drinks.First());
+
         InitializeComponent();
         BindingContext = this;
+        
     }
 
     /// <summary>
@@ -24,8 +27,10 @@ public partial class MyDrinks : ContentPage
     async void OnButtonFavoriteClicked(object sender, EventArgs args)
     {
         RadioButton button = (RadioButton)sender;
-        //button.BackgroundColor = Colors.DarkGreen;
         Drink drink = (Drink)button.BindingContext;
+        if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetFavourites())) {
+            button.IsChecked = false;
+        }
         user.AddToFavourites(drink);
     }
 
@@ -37,8 +42,11 @@ public partial class MyDrinks : ContentPage
     async void OnButtonLikeClicked(object sender, EventArgs args)
     {
         RadioButton button = (RadioButton)sender;
-        //button.BackgroundColor = Colors.Orange;
         Drink drink = (Drink)button.BindingContext;
+        if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetLikes()))
+        {
+            button.IsChecked = false;
+        }
         user.AddToLikes(drink);
     }
 
@@ -50,8 +58,11 @@ public partial class MyDrinks : ContentPage
     async void OnButtonDislikeClicked(object sender, EventArgs args)
     {
         RadioButton button = (RadioButton)sender;
-        //button.BackgroundColor = Colors.Red;
         Drink drink = (Drink)button.BindingContext;
+        if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetDislikes()))
+        {
+            button.IsChecked = false;
+        }
         user.AddToDislikes(drink);
     }
 }
