@@ -1,17 +1,13 @@
 ﻿using Model;
-
+using Controller; 
 namespace View.Pages;
 
 public partial class Profile : ContentPage
 {
     public User MatchUser { get; set; }
     public List<Drink> Drinks { get; set; }
-    public Profile()
+    public Profile() : this(Auth.getUser())
     {
-        MatchUser = Controller.Auth.getUser();       
-        InitializeComponent();
-        chat.IsVisible = false;
-        BindingContext = this;
     }
 
     public Profile(User user)

@@ -104,6 +104,7 @@ namespace Model
             _likes = new List<Drink>(5);
             _dislikes = new List<Drink>(3);
             ProfileImage = "dotnet_bot.png";
+            Cities = new List<string>();
         }
 
         public List<Drink> GetFavourites() {

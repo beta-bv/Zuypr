@@ -15,7 +15,7 @@ public partial class MyMatches : ContentPage
             foreach(User user in match.Users)
             {
                 if(Controller.Auth.getUser() != user) 
-                { 
+                {  
                     Users.Add(user);
                 }
             }
