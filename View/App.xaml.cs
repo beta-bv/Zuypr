@@ -12,5 +12,7 @@ public partial class App : Application
         dummydb.Initialize();
 
         MainPage = new LaunchScreen();
+
+        //App.Current.UserAppTheme = AppTheme.Light;
     }
 }

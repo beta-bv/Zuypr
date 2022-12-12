@@ -67,9 +67,11 @@
 
                                 <StackLayout>
                                     <Image 
-                                        Source="{Binding DrinkImage}"
+                                        Source="{Binding ImageUrl}"
                                         HeightRequest="80"
                                         WidthRequest="80"/>
+
+                                    <Label HorizontalTextAlignment="Center" Text="{Binding Name}"/>
                                 </StackLayout>
                             </Grid>
                         </DataTemplate>
@@ -93,7 +95,7 @@
                                     <Label
                                         Text="{Binding}" 
                                         FontSize="15"
-                                        Margin="5, 10, 5, 5"/>
+                                        Margin="5, 10, 5, 5" TextColor="White"/>
                                 </ViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>

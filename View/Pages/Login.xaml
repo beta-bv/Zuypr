@@ -27,14 +27,12 @@
                     VerticalOptions="Center">
 
                     <Entry
-                        Text="dylan.k@zuypr.com"
                         x:Name="EmailFieldL"
                         Placeholder="Email Address"
                         WidthRequest="250"
                         MaxLength="200" />
 
                     <Entry
-                        Text="EpicPassword1!"
                         x:Name="PasswordFieldL"
                         Placeholder="Password"
                         WidthRequest="250"
