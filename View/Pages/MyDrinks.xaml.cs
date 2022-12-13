@@ -4,11 +4,23 @@ namespace View.Pages;
 
 public partial class MyDrinks : ContentPage
 {
-    public static User user = Auth.getUser();
+    private static readonly User User = Auth.getUser();
     public List<Drink> AllDrinks => dummydb.Drinks;
+
+    private List<Drink> Favourites = User.GetFavourites();
+    private List<Drink> Likes = User.GetLikes();
+    private List<Drink> Dislikes = User.GetDislikes();
+
+    static int AmountFavorite;
+    static int AmountLikes;
+    static int AmountDislikes;
 
     public MyDrinks()
     {
+        AmountFavorite = Favourites.Count;
+        AmountLikes = Likes.Count;
+        AmountDislikes = Dislikes.Count;
+
         InitializeComponent();
         BindingContext = this;
 
@@ -19,15 +31,25 @@ public partial class MyDrinks : ContentPage
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="args"></param>
-    async void OnButtonFavoriteClicked(object sender, EventArgs args)
+    void OnFavouriteOptionChanged(object sender, EventArgs args)
     {
         RadioButton button = (RadioButton)sender;
         Drink drink = (Drink)button.BindingContext;
-        if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetFavourites()))
+        if (AmountFavorite == 0)
         {
-            button.IsChecked = false;
+            if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetFavourites()))
+            {
+                button.IsChecked = false;
+            }
+            else
+            {
+                User.AddToFavourites(drink);
+            }
         }
-        user.AddToFavourites(drink);
+        else
+        {
+            AmountFavorite--;
+        }
     }
 
     /// <summary>
@@ -35,15 +57,25 @@ public partial class MyDrinks : ContentPage
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="args"></param>
-    async void OnButtonLikeClicked(object sender, EventArgs args)
+    void OnLikeOptionChanged(object sender, EventArgs args)
     {
         RadioButton button = (RadioButton)sender;
         Drink drink = (Drink)button.BindingContext;
-        if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetLikes()))
+        if (AmountLikes == 0)
         {
-            button.IsChecked = false;
+            if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetLikes()))
+            {
+                button.IsChecked = false;
+            }
+            else
+            {
+                User.AddToLikes(drink);
+            }
         }
-        user.AddToLikes(drink);
+        else
+        {
+            AmountLikes--;
+        }
     }
 
     /// <summary>
@@ -51,14 +83,25 @@ public partial class MyDrinks : ContentPage
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="args"></param>
-    async void OnButtonDislikeClicked(object sender, EventArgs args)
+    void OnDislikeOptionChanged(object sender, EventArgs args)
     {
         RadioButton button = (RadioButton)sender;
         Drink drink = (Drink)button.BindingContext;
-        if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetDislikes()))
+        if (AmountDislikes == 0)
         {
-            button.IsChecked = false;
+            if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetDislikes()))
+            {
+                button.IsChecked = false;
+            }
+            else
+            {
+                User.AddToDislikes(drink);
+            }
         }
-        user.AddToDislikes(drink);
+        else
+        {
+            AmountDislikes--;
+        }
     }
+
 }
