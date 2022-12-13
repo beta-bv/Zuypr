@@ -40,12 +40,14 @@ namespace Model
                     "Broekland",
                     "Mariënheem",
                 };
+                user.AddToFavourites(new Drink("dotnet_bot.png"));
             }
 
             // Add messages to the match
             foreach (User user in Users)
             {
                 // Pick random amount of "uh oh, stinky" pairs between 1 and 15
+
                 int amountOfStinky = new Random().Next(1, 15);
                 for (int i = 0; i < amountOfStinky; i++)
                 {
