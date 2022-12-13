@@ -4,7 +4,7 @@
                 xmlns:local="clr-namespace:View.Converters"
                 x:Class="View.Pages.MyDrinks">
     <ContentPage.Resources>
-        <local:DinkConverter x:Key="drinkConverter"/>
+        <local:DrinkConverter x:Key="drinkConverter"/>
         <Style TargetType="RadioButton">
             <Setter Property="VisualStateManager.VisualStateGroups">
                 <VisualStateGroupList>

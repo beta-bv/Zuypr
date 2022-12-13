@@ -110,14 +110,19 @@ namespace Model
                 new User("Thomas", "thomas@email.nl", "EpicPassword1!", new DateTime(2002, 06, 18)),
             };
 
-            Users[2].AddToFavourites(dummydb.Drinks[0]);
-            Users[2].AddToFavourites(dummydb.Drinks[1]);
-            //user.AddToFavourites(dummydb.Drinks[2]);
-            Users[2].AddToLikes(dummydb.Drinks[6]);
-            Users[2].AddToLikes(dummydb.Drinks[8]);
-            Users[2].AddToLikes(dummydb.Drinks[4]);
-            Users[2].AddToDislikes(dummydb.Drinks[3]);
-            Users[2].AddToDislikes(dummydb.Drinks[5]);
+
+            // Give users drink prefferences
+            for (int i = 0; i < Users.Count(); i++)
+            {
+
+                Users[i].AddToFavourites(dummydb.Drinks[0]);
+                Users[i].AddToFavourites(dummydb.Drinks[1]);
+                Users[i].AddToLikes(dummydb.Drinks[6]);
+                Users[i].AddToLikes(dummydb.Drinks[8]);
+                Users[i].AddToLikes(dummydb.Drinks[4]);
+                Users[i].AddToDislikes(dummydb.Drinks[3]);
+                Users[i].AddToDislikes(dummydb.Drinks[5]);
+            }
 
             foreach (User user in Users)
             {
