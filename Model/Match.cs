@@ -10,5 +10,11 @@ namespace Model
     {
         public User[] Users { get; set; }
         public List<Message> Messages { get; set; }
+
+        public Match(User[] users, List<Message> messages)
+        {
+            Users = users;
+            Messages = messages;
+        }
     }
 }

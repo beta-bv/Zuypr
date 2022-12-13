@@ -1,5 +1,6 @@
 ﻿using Model;
 using System.Linq.Expressions;
+using Controller; 
 
 namespace View.Pages;
 
@@ -29,6 +30,7 @@ public partial class RegisterPage : ContentPage
                 try
                 {
                     User Client = new User(name, email, password, dateOfBirth);
+                    Auth.setUser(Client);
                     Application.Current.MainPage = new AppShell(Client);
                 }
                 catch (Exception ex)
@@ -41,7 +43,7 @@ public partial class RegisterPage : ContentPage
                         return;
                     }
                 }
-                await Navigation.PushAsync(new Profile());
+                await Navigation.PushAsync(new Profile(Controller.Auth.getUser()));
             }
             else
             {

@@ -13,7 +13,7 @@ public partial class LaunchScreen : ContentPage
 
     private void Login(object sender, EventArgs e)
     {
-        if (Application.Current != null) Application.Current.MainPage = new AppShell(User.GetDummyUser());
+        Application.Current.MainPage = new Login();
     }
 
     private void Register(object sender, EventArgs e)
