@@ -23,7 +23,6 @@ public partial class MyDrinks : ContentPage
 
         InitializeComponent();
         BindingContext = this;
-
     }
 
     /// <summary>

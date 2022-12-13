@@ -8,7 +8,7 @@ namespace Model
 {
     public static class dummydb
     {
-        public static List<User> Users = new List<User>();
+        public static List<User> Users;
 
         public static List<Drink> Drinks;
 
@@ -101,28 +101,15 @@ namespace Model
                 new Drink("laphroaig.png", DrinkType.Whisky, "Laphroaig", 0.586),
             };
 
-            // Add users
-            //Users = new List<User>()
-            //{
-            //    new User("Siem", "siem@email.nl", "EpicPassword1!", new DateTime(2004, 08, 27)),
-            //    new User("Dylan", "dylan@email.nl", "EpicPassword1!", new DateTime(2002, 05, 22)),
-            //    new User("Mark", "mark@email.nl", "EpicPassword1!", new DateTime(2001, 10, 20)),
-            //    new User("Niels", "niels@email.nl", "EpicPassword1!", new DateTime(2003, 02, 03)),
-            //    new User("Stan", "stan@email.nl", "EpicPassword1!", new DateTime(1969, 04, 20)),
-            //    new User("Merijn", "merijn@email.nl", "EpicPassword1!", new DateTime(2003, 04, 10)),
-            //    new User("Thomas", "thomas@email.nl", "EpicPassword1!", new DateTime(2002, 06, 18)),
-            //};
-
+            // Add users WITH drink preferences
             Users = new List<User>()
             {
-                new User("Dummy", "dummy@email.nl", "EpicPassword1!", new DateTime(2004, 08, 27)),
                 GeneratePreferences(new User("Bier Hater", "ik@haat.bier", "Bi3r!H@@t", new DateTime(2000, 1, 1)), new Dictionary<string, string[]>
-                    {
+                {
                         ["favs"] = new string[] { "Apple Bandit", "Radler", "Desperados" },
                         ["like"] = new string[] { "Slurp! Chardonnay", "BaCo", "Gimlet" },
                         ["hate"] = new string[] { "Gladiator van de Radiator", "Klok op Kamertemperatuur", "Export" },
-                    }
-                ),
+                }),
                 GeneratePreferences(new User("Stan", "stan.l@zuypr.com", "EpicPassword1!", new DateTime(2000, 1, 1)), new Dictionary<string, string[]>
                 {
                     ["favs"] = new string[] { "Hertog Jan", "Licor 43", "Guinness" },
@@ -141,7 +128,6 @@ namespace Model
                     ["like"] = new string[] { "Captain Morgan", "Grolsch", "Jager Bomb", "Pina Colada", "AH Gluhwein" },
                     ["hate"] = new string[] { "Smirnoff Ice", "Bloody Mary", "Klok op Kamertemperatuur" },
                 }),
-
                 GeneratePreferences(new User("Merijn", "merijn.s@zuypr.com", "EpicPassword1!", new DateTime(2000, 1, 1)), new Dictionary<string, string[]>
                 {
                     ["favs"] = new string[] { "Klok op Kamertemperatuur", "Gladiator van de Radiator", "Absinth" },
@@ -268,6 +254,5 @@ namespace Model
             }
             return user;
         }
-
     }
 }

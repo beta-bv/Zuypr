@@ -31,7 +31,6 @@ namespace View.Converters
                 };
             }
             return (object)false;
-
         }
 
         /// <summary>
