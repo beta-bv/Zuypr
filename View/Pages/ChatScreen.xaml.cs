@@ -18,14 +18,15 @@ public partial class ChatScreen : ContentPage
         MatchChatScreen = match;
         Chat chat = new Chat(match);
         LabelUserName.Text = chat.ChatMembers[1].Name;   //bij groeps chats gaat dit stuk!
-        for(int i = 0; i < chat.Messages.Count; i++)
+        for (int i = 0; i < chat.Messages.Count; i++)
         {
-            if (chat.Messages[i].Sender.Equals(chat.ChatMembers[1])){
-                PlaceText(false, chat.Messages[i].Text);
+            if (chat.Messages[i].Sender.Equals(chat.ChatMembers[1]))
+            {
+                PlaceText(false, chat.Messages[i].Text, chat.Messages[i].TimeSent);
             }
             else
             {
-                PlaceText(true, chat.Messages[i].Text);
+                PlaceText(true, chat.Messages[i].Text, chat.Messages[i].TimeSent);
             }
         }
     }
@@ -38,13 +39,14 @@ public partial class ChatScreen : ContentPage
     private async void SendMessage(object sender, EventArgs e)
     {
         String messageToSend = chatbox.Text?.Trim();
-        Message Message = new Message(messageToSend, Controller.Auth.getUser(), DateTime.Now);
+        DateTime time = DateTime.Now;
+        Message Message = new Message(messageToSend, Controller.Auth.getUser(), time);
         MatchChatScreen.Messages.Add(Message);
-        PlaceText(true, messageToSend);
+        PlaceText(true, messageToSend, time);
         chatbox.Text = "";
         await scrollviewChat.ScrollToAsync(ChatMessageView, ScrollToPosition.End, false);
     }
-    
+
     /// <summary>
     /// Enabled en disabled de send knop
     /// </summary>
@@ -70,25 +72,32 @@ public partial class ChatScreen : ContentPage
     /// </summary>
     /// <param name="userIsSender"></param>
     /// <param name="message"></param>
-    private void PlaceText(bool userIsSender, String message)  
+    private void PlaceText(bool userIsSender, String message, DateTime time)
     {
         if (userIsSender)             //deze if statement kan wss veel korter, kon er alleen niet achter komen hoe dus voor nu effe dit. Het gaat om de horizontal options
         {
-            ChatMessageView.Children.Add(new Border
+            ChatMessageView.Children.Add(new Frame()
             {
                 Background = Color.FromArgb("#008000"),
-                StrokeThickness = 1,
                 Padding = new Thickness(4, 2),
                 HorizontalOptions = LayoutOptions.End,
-                Content = new Label
+                Content = new HorizontalStackLayout
                 {
-                    Text = message,
-                    TextColor = Colors.White,
-                    FontSize = 14,
-                    FontAttributes = FontAttributes.Bold
+                       new Label {
+                            Text = $"{message}",
+                            TextColor = Colors.White,
+                            FontSize = 14,
+                            FontAttributes = FontAttributes.Bold
+                        },
+                    new Label
+                    {
+                        Text = time.ToShortTimeString(),
+                        TextColor = Colors.LightGray,
+                        FontSize = 10,
+                        FontAttributes = FontAttributes.Bold
+                    }
                 }
-            });
-            
+            }) ;
         }
         else
         {
