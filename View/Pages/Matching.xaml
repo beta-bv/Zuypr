@@ -6,12 +6,24 @@
     <ScrollView>
         <VerticalStackLayout
             VerticalOptions="Center">
+         
             
-            <Label
-                Text="Matching"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
+            <!-- Match "card" -->
+            <VerticalStackLayout
+                WidthRequest="300"
+                BackgroundColor="White"
+                Padding="10">
+                <Image
+                    Source="dotnet_bot.png"
+                    HeightRequest="300"
+                    WidthRequest="300" />
+                <Label Text="Pieter"
+                       TextColor="Black"
+                       FontSize="26"/>
+                <Label Text="23"
+                       TextColor="Black"
+                       FontSize="16"/>
+            </VerticalStackLayout>
 
         </VerticalStackLayout>
     </ScrollView>
