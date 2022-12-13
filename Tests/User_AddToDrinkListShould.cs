@@ -16,6 +16,8 @@ namespace Tests
         public void AddToDrinkListFavourites(bool expected)
         {
             User jaap = User.GetDummyUser();
+            jaap.AddToFavourites(Drink.GetDummyDrink());
+            jaap.AddToFavourites(Drink.GetDummyDrink());
             bool result = jaap.AddToFavourites(Drink.GetDummyDrink());
 
             Assert.Equal(expected, result);

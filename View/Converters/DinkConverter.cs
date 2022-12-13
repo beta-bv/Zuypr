@@ -28,7 +28,6 @@ namespace View.Converters
             List<Drink> liked = AllLikes.Where(x => x.Name.Equals(drinkName)).ToList();
             List<Drink> disliked = AllDislikes.Where(x => x.Name.Equals(drinkName)).ToList();
 
-
             if (favorite.Count() == 1)
             {
                 if (Int32.Parse((string)parameter) == 0)
@@ -71,10 +70,6 @@ namespace View.Converters
 
 
         }
-
-
-
-
 
         /// <summary>
         /// Interface forces this method to be in it. Isn't used in this solution.

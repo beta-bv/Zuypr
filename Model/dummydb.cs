@@ -114,12 +114,12 @@ namespace Model
             // Give users drink prefferences
             for (int i = 0; i < Users.Count(); i++)
             {
-
                 Users[i].AddToFavourites(dummydb.Drinks[0]);
                 Users[i].AddToFavourites(dummydb.Drinks[1]);
                 Users[i].AddToLikes(dummydb.Drinks[6]);
                 Users[i].AddToLikes(dummydb.Drinks[8]);
                 Users[i].AddToLikes(dummydb.Drinks[4]);
+                Users[i].AddToLikes(dummydb.Drinks[10]);
                 Users[i].AddToDislikes(dummydb.Drinks[3]);
                 Users[i].AddToDislikes(dummydb.Drinks[5]);
             }
@@ -130,7 +130,6 @@ namespace Model
                 user.Matches = new List<Match>();
                 user.Matches.Add(new Match(new User[] { user, Users[new Random().Next(Users.Count)] }, new List<Message>()));
                 
-
                 // Give users a list of cities
                 user.Cities = new List<string>()
                 {
@@ -156,8 +155,5 @@ namespace Model
                 }
             }
         }
-
     }
-
-
 }

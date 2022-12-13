@@ -10,20 +10,14 @@ public partial class MyDrinks : ContentPage
     public List<Drink> AllLikes => user.GetLikes();
     public List<Drink> AllDislikes => user.GetDislikes();
 
+    static int AmountFavorite = user.GetFavourites().Count();
+    static int AmountLikes = user.GetLikes().Count();
+    static int AmountDislikes = user.GetDislikes().Count();
+
     public MyDrinks()
     {
-        //user.AddToFavourites(dummydb.Drinks[0]);
-        //user.AddToFavourites(dummydb.Drinks[1]);
-        ////user.AddToFavourites(dummydb.Drinks[2]);
-        //user.AddToLikes(dummydb.Drinks[6]);
-        //user.AddToLikes(dummydb.Drinks[8]);
-        //user.AddToLikes(dummydb.Drinks[4]);
-        //user.AddToDislikes(dummydb.Drinks[3]);
-        //user.AddToDislikes(dummydb.Drinks[5]);
-
         InitializeComponent();
         BindingContext = this;
-        
     }
 
     /// <summary>
@@ -35,10 +29,20 @@ public partial class MyDrinks : ContentPage
     {
         RadioButton button = (RadioButton)sender;
         Drink drink = (Drink)button.BindingContext;
-        if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetFavourites())) {
-            button.IsChecked = false;
+        if (AmountFavorite == 0)
+        {
+            if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetFavourites()))
+            {
+                button.IsChecked = false;
+            }
+            else
+            {
+                user.AddToFavourites(drink);
+            }
         }
-        user.AddToFavourites(drink);
+        else {
+            AmountFavorite--;
+        }
     }
 
     /// <summary>
@@ -50,11 +54,21 @@ public partial class MyDrinks : ContentPage
     {
         RadioButton button = (RadioButton)sender;
         Drink drink = (Drink)button.BindingContext;
-        if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetLikes()))
+        if (AmountLikes == 0)
         {
-            button.IsChecked = false;
+            if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetLikes()))
+            {
+                button.IsChecked = false;
+            }
+            else
+            {
+                user.AddToLikes(drink);
+            }
         }
-        user.AddToLikes(drink);
+        else
+        {
+            AmountLikes--;
+        }
     }
 
     /// <summary>
@@ -66,10 +80,20 @@ public partial class MyDrinks : ContentPage
     {
         RadioButton button = (RadioButton)sender;
         Drink drink = (Drink)button.BindingContext;
-        if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetDislikes()))
+        if (AmountDislikes == 0)
         {
-            button.IsChecked = false;
+            if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetDislikes()))
+            {
+                button.IsChecked = false;
+            }
+            else
+            {
+                user.AddToDislikes(drink);
+            }
         }
-        user.AddToDislikes(drink);
+        else
+        {
+            AmountDislikes--;
+        }
     }
 }

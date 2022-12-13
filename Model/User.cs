@@ -100,9 +100,9 @@ namespace Model
             Email = email;
             DateOfBirth = dateOfBirth;
             Password = password;
-            _favourites = new List<Drink>(3);
-            _likes = new List<Drink>(5);
-            _dislikes = new List<Drink>(3);
+            _favourites = new List<Drink>();
+            _likes = new List<Drink>();
+            _dislikes = new List<Drink>();
             ProfileImage = "dotnet_bot.png";
             Cities = new List<string>();
         }
@@ -139,9 +139,22 @@ namespace Model
         /// <returns></returns>
         public bool CheckIfListIsFull(List<Drink> drinkList)
         {
-            int capacity = drinkList.Capacity;
+            int value = 0;
+
+            if (drinkList == _favourites)
+            {
+                value = 3;
+            }
+            else if (drinkList == _likes) {
+                value = 5;
+            }
+            else if (drinkList == _dislikes)
+            {
+                value = 3;
+            }
+
             int size = drinkList.Count();
-            return size == capacity;
+            return value == size;
         }
 
         /// <summary>
