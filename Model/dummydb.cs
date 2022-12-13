@@ -50,9 +50,9 @@ namespace Model
                 for (int i = 0; i < amountOfStinky; i++)
                 {
                     // User 0 sends a message with the text "uh oh"
-                    user.Matches[0].Messages.Add(new Message("uh oh", user.Matches[0].Users[0], DateTime.Now));
+                    user.Matches[0].Messages.Add(new Message("Hallo!", user.Matches[0].Users[0], DateTime.Now));
                     // User 1 then responds (as expected) with "stinky"
-                    user.Matches[0].Messages.Add(new Message("stinky", user.Matches[0].Users[1], DateTime.Now));
+                    user.Matches[0].Messages.Add(new Message("Hoi!", user.Matches[0].Users[1], DateTime.Now));
                 }
             }
         }
