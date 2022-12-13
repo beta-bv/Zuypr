@@ -40,7 +40,7 @@
             <ShellContent ContentTemplate="{DataTemplate views:Settings}"/>
         </Tab>
     </FlyoutItem>
-    <FlyoutItem
+    <!--<FlyoutItem
         Title="Register [TEMP]"
         Route="Register">
         <Tab>
@@ -55,5 +55,5 @@
             <ShellContent
                 ContentTemplate="{DataTemplate views:Login}" />
         </Tab>
-    </FlyoutItem>
+    </FlyoutItem>-->
 </Shell>
