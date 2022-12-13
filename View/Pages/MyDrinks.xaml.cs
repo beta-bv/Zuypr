@@ -14,7 +14,6 @@ public partial class MyDrinks : ContentPage
     {
         //user.AddToFavourites(dummydb.Drinks[0]);
         //user.AddToFavourites(dummydb.Drinks[1]);
-        ////user.AddToFavourites(dummydb.Drinks[2]);
         //user.AddToLikes(dummydb.Drinks[6]);
         //user.AddToLikes(dummydb.Drinks[8]);
         //user.AddToLikes(dummydb.Drinks[4]);

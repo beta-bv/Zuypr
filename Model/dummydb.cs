@@ -135,11 +135,11 @@ namespace Model
                     ["like"] = new string[] { "Mojito", "Absinth", "Cosmopolitan", "Bombay Gin", "Smirnoff Ice" },
                     ["hate"] = new string[] { "Martini", "BaCo", "Slurp! Rose" },
                 }),
-                GeneratePreferences(new User("Mark", "mark.v.k@zuyp.com", "EpicPassword1!", new DateTime(2000, 1, 1)), new Dictionary<string, string[]>
+                GeneratePreferences(new User("Mark", "mark@zuyp.com", "EpicPassword1!", new DateTime(2000, 1, 1)), new Dictionary<string, string[]>
                 {
-                    ["favs"] = new string[] { "Heineken", "Desperados"},
-                    ["like"] = new string[] { "Captain Morgan", "Grolsch", "Jager Bomb", "Pina Colada"},
-                    ["hate"] = new string[] { "Smirnoff Ice", "Bloody Mary" },
+                    ["favs"] = new string[] { "Heineken" },
+                    ["like"] = new string[] { "Captain Morgan" },
+                    ["hate"] = new string[] { "Smirnoff Ice" }
                 }),
 
                 GeneratePreferences(new User("Merijn", "merijn.s@zuypr.com", "EpicPassword1!", new DateTime(2000, 1, 1)), new Dictionary<string, string[]>
