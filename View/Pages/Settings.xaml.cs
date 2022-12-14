@@ -1,4 +1,5 @@
-﻿using Controller;
+﻿using Android.Security;
+using Controller;
 using Model;
 using System.Linq.Expressions;
 
@@ -33,6 +34,12 @@ public partial class Settings : ContentPage
             {
                 throw new Exception("Er moet wel wat worden ingevuld om je wachtwoord te mogen aanpassen");
             }
+
+            if(EmailField.Text.Equals(Auth.getUser().Email) || RepeatEmailField.Text.Equals(Auth.getUser().Email))
+            {
+                throw new Exception("Je nieuwe emailadres kan niet je oude emailadres zijn");
+            }
+
             if (RepeatEmailField.Text.Equals(EmailField.Text))
             {
                 temp.Email = EmailField.Text.Trim();
@@ -44,7 +51,7 @@ public partial class Settings : ContentPage
                 RepeatEmailField.IsVisible = false;
                 SaveEmailBtn.IsVisible = false;
                 _editIsClicked = false;
-
+                ErrorFrameEditPage.IsVisible = false;
             }
             else
             {
