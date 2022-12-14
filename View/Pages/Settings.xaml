@@ -47,7 +47,9 @@
                         Placeholder="New email"
                         Grid.Row="0"
                         Grid.Column="1"
-                        IsEnabled="false" />
+                        IsEnabled="false" 
+                        WidthRequest="250"
+                        IsSpellCheckEnabled="False"/>
 
                     <Entry
                         x:Name="RepeatEmailField"
@@ -118,9 +120,9 @@
                     VerticalOptions="End"
                     HorizontalOptions="Center"
                     BackgroundColor="Red" />
-                
+
             </VerticalStackLayout>
-            
+
             <Frame
                 IsVisible="false"
                 x:Name="ErrorFrameEditPage"
@@ -131,6 +133,9 @@
                     HorizontalOptions="Center"
                     Text="Error: Dit is fout gegaan" />
             </Frame>
+            <Button
+                x:Name="FileOpenBtn"
+                Grid.Column="1"/>
         </Grid>
     </ScrollView>
 
