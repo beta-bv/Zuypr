@@ -21,7 +21,8 @@
                 Grid.Row="1"
                 Grid.Column="0"
                 HorizontalOptions="Center"
-                VerticalOptions="Center">
+                VerticalOptions="Center"
+                Spacing="10">
                 <Grid
                     RowSpacing="5"
                     ColumnSpacing="5"
@@ -82,26 +83,32 @@
                         Grid.Column="1"
                         Clicked ="OnEditPasswordClicked" 
                          />
-
-                    <Entry
-                        x:Name="PasswordField" 
-                        Placeholder="New password"
-                        Grid.Row="0"
-                        Grid.Column="2"
-                        IsVisible="false"/>
-                    <Entry
-                        x:Name="RepeatPasswordField"
-                        Placeholder="Repeat password"
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        IsVisible="false" />
                     <Button
                         x:Name="SavePasswordBtn"
                         Text="Save"
                         Grid.Row="1"
-                        Grid.Column="2"
-                        IsVisible="false"
+                        Grid.Column="1"
+                        IsVisible="true"
                         Clicked="OnPasswordSavedClicked" />
+                    <Entry
+                        x:Name="OldPasswordField" 
+                        Placeholder="Old password"
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        IsVisible="true"/>
+                    <Entry
+                        x:Name="PasswordField" 
+                        Placeholder="New password"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        IsVisible="true"/>
+                    <Entry
+                        x:Name="RepeatPasswordField"
+                        Placeholder="Repeat password"
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        IsVisible="false" />
+                    
                 </Grid>
 
                 <Button
