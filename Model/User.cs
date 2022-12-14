@@ -320,22 +320,6 @@ namespace Model
         }
 
         /// <summary>
-        /// Updates user email
-        /// </summary>
-        /// <param name="emailNew"></param>
-        /// <param name="emailOld"></param>
-        /// <returns></returns>
-        public bool UpdateUserEmail(string emailNew, string emailOld) //TODO implement het database gedeelte nog
-        {
-            if (emailOld.Equals(Email) && !emailNew.Equals(emailOld))
-            {
-                Email = emailNew;
-                return true;
-            }
-            return false;
-        }
-
-        /// <summary>
         /// update de password van de gebruiker 
         /// </summary>
         /// <param name="oldPassword"></param>

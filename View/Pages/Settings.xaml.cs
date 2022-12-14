@@ -6,10 +6,11 @@ namespace View.Pages;
 
 public partial class Settings : ContentPage
 {
+    private bool _editIsClicked = false;
     public Settings()
     {
         InitializeComponent();
-        EmailEditOld.Text = Auth.getUser().Email;
+        EmailField.Text = Auth.getUser().Email;
     }
 
     private void Logout(object sender, EventArgs e)
@@ -18,20 +19,71 @@ public partial class Settings : ContentPage
 
     }
 
-    private void OnEditClicked(object sender, EventArgs e)
+    /// <summary>
+    /// slaat de emailwijzigingen op
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void OnSavedClicked(object sender, EventArgs e)
     {
+        User temp = Auth.getUser();
         try
         {
-            User temp = Auth.getUser();                  //geeft alleen nog geen error message bij het invullen van niks
-            temp.Email = EmailEditNew.Text?.Trim();
-            ErrorFrameEditPage.IsVisible = false;
-            Auth.setUser(temp);
+            if(RepeatEmailField.Text == null && EmailField.Text == null)
+            {
+                throw new Exception("Er moet wel wat worden ingevuld om je wachtwoord te mogen aanpassen");
+            }
+            if (RepeatEmailField.Text.Equals(EmailField.Text))
+            {
+                temp.Email = EmailField.Text.Trim();
+                Auth.setUser(temp);
+                EditCancelBtn.Text = "Edit";
+                RepeatEmailField.Text = "";
+                EmailField.Text = Auth.getUser().Email;
+                EmailField.IsEnabled = false;
+                RepeatEmailField.IsVisible = false;
+                SaveEmailBtn.IsVisible = false;
+                _editIsClicked = false;
+
+            }
+            else
+            {
+                throw new Exception("De wachtwoorden komen niet overeen");
+            }
+
         }
-        
+
         catch (Exception ex)
         {
             ErrorLabelEditPage.Text = ex.Message;
             ErrorFrameEditPage.IsVisible = true;
+        }
+    }
+
+    /// <summary>
+    /// zorgt ervoor dat de user zijn of haar email kan aanpassen
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void OnEditClicked(object sender, EventArgs e)
+    {
+        _editIsClicked = !_editIsClicked;
+        if (_editIsClicked)
+        {
+            EditCancelBtn.Text = "Cancel";
+            EmailField.Text = "";
+            EmailField.IsEnabled = true;
+            RepeatEmailField.IsVisible = true;
+            SaveEmailBtn.IsVisible = true;
+        }
+        else
+        {
+            EditCancelBtn.Text = "Edit";
+            RepeatEmailField.Text = "";
+            EmailField.Text = Auth.getUser().Email;
+            EmailField.IsEnabled = false;
+            RepeatEmailField.IsVisible = false;
+            SaveEmailBtn.IsVisible = false;
         }
     }
 }
