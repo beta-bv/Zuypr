@@ -89,30 +89,38 @@ public partial class ChatScreen : ContentPage
                             FontSize = 14,
                             FontAttributes = FontAttributes.Bold
                         },
-                    new Label
-                    {
-                        Text = time.ToShortTimeString(),
-                        TextColor = Colors.LightGray,
-                        FontSize = 10,
-                        FontAttributes = FontAttributes.Bold
-                    }
+                    //new Label
+                    //{
+                    //    Text = time.ToShortTimeString(),
+                    //    TextColor = Colors.LightGray,
+                    //    FontSize = 10,
+                    //    FontAttributes = FontAttributes.Bold
+                    //}
                 }
             }) ;
         }
         else
         {
-            ChatMessageView.Children.Add(new Border
+            ChatMessageView.Children.Add(new Frame()
             {
                 Background = Color.FromArgb("#808080"),
-                StrokeThickness = 1,
                 Padding = new Thickness(4, 2),
                 HorizontalOptions = LayoutOptions.Start,
-                Content = new Label
+                Content = new HorizontalStackLayout
                 {
-                    Text = message,
-                    TextColor = Colors.White,
-                    FontSize = 14,
-                    FontAttributes = FontAttributes.Bold
+                       new Label {
+                            Text = $"{message}",
+                            TextColor = Colors.White,
+                            FontSize = 14,
+                            FontAttributes = FontAttributes.Bold
+                        },
+                    //new Label
+                    //{
+                    //    Text = time.ToShortTimeString(),
+                    //    TextColor = Colors.LightGray,
+                    //    FontSize = 10,
+                    //    FontAttributes = FontAttributes.Bold
+                    //}
                 }
             });
         }

@@ -29,12 +29,14 @@
                     <Entry
                         x:Name="EmailFieldL"
                         Placeholder="Email Address"
+                        Text="siem@email.nl"
                         WidthRequest="250"
                         MaxLength="200" />
 
                     <Entry
                         x:Name="PasswordFieldL"
                         Placeholder="Password"
+                        Text="EpicPassword1!"
                         WidthRequest="250"
                         MaxLength="200"
                         IsPassword="True" />
