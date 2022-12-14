@@ -23,35 +23,49 @@
                 RowSpacing="5"
                 ColumnSpacing="5"
                 RowDefinitions="Auto, Auto, Auto"
-                ColumnDefinitions="Auto, Auto"
+                ColumnDefinitions="Auto, Auto, Auto"
                 HorizontalOptions="Center"
                 VerticalOptions="Center">
                 <Label
                     Text="Email"
                     Grid.Row="0"
-                    Grid.Column="0" />
+                    Grid.Column="0" 
+                    VerticalOptions="Center"/>
                 <Button
+                    x:Name="EditCancelBtn"
                     Text="Edit"
-                    Grid.Row="1"
-                    Grid.Column="0" />
-
+                    Grid.Row="0"
+                    Grid.Column="2" />
                 <Entry
+                    x:Name="EmailField"
                     Text="siem@email.nl"
+                    Placeholder="New email"
                     Grid.Row="0"
                     Grid.Column="1"
-                    IsEnabled="False"/>
+                    IsEnabled="false"/>
+                
                 <Entry
+                    x:Name="RepeatEmailField"
                     Placeholder="Repeat new email"
                     Grid.Row="1"
-                    Grid.Column="1" />
+                    Grid.Column="1" 
+                    IsVisible="false"/>
+                <Button
+                    x:Name="SaveEmailBtn"
+                    Text="Save"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    IsVisible="false" />
 
                 <Button
+                    x:Name="LogoutBtn"
                     Text="Logout"
                     Grid.Row="2"
-                    Grid.ColumnSpan="2"
+                    Grid.ColumnSpan="3"
                     Clicked="Logout"
                     VerticalOptions="End"
-                    HorizontalOptions="Center" />
+                    HorizontalOptions="Center" 
+                    BackgroundColor="Red"/>
 
             </Grid>
 
