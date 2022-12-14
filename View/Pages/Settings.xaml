@@ -80,35 +80,33 @@
                         x:Name="PasswordEditCancelBtn"
                         Text="Edit"
                         Grid.Row="0"
-                        Grid.Column="1"
-                        Clicked ="onEditPasswordClicked" 
-                         />
+                        Grid.Column="2"
+                        Clicked ="onEditPasswordClicked" />
                     <Button
                         x:Name="SavePasswordBtn"
                         Text="Save"
                         Grid.Row="1"
-                        Grid.Column="1"
-                        IsVisible="true"
+                        Grid.Column="2"
+                        IsVisible="false"
                         Clicked="OnPasswordSavedClicked" />
                     <Entry
                         x:Name="OldPasswordField" 
                         Placeholder="Old password"
                         Grid.Row="0"
-                        Grid.Column="2"
-                        IsVisible="true"/>
+                        Grid.Column="1"
+                        IsVisible="false"/>
                     <Entry
                         x:Name="PasswordField" 
                         Placeholder="New password"
                         Grid.Row="1"
-                        Grid.Column="2"
-                        IsVisible="true"/>
+                        Grid.Column="1"
+                        IsVisible="false"/>
                     <Entry
                         x:Name="RepeatPasswordField"
                         Placeholder="Repeat password"
                         Grid.Row="2"
-                        Grid.Column="2"
+                        Grid.Column="1"
                         IsVisible="false" />
-                    
                 </Grid>
 
                 <Button
