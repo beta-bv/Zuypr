@@ -1,24 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="View.Pages.Settings">
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="View.Pages.Settings">
 
-    <ScrollView>
-        <VerticalStackLayout
-            VerticalOptions="Center">
-            
+    <ScrollView
+        Margin="0, 25, 0, 0">
+        <Grid
+            RowDefinitions="Auto, *"
+            ColumnDefinitions="*, *">
             <Label
+                Grid.Row="0"
+                Grid.ColumnSpan="2"
                 Text="Settings"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
                 HorizontalOptions="Center" />
-            
-            <Button
-                Text="Logout"
-                Clicked="Logout"
-                HorizontalOptions="Center" />
 
-        </VerticalStackLayout>
+            <Grid
+                Grid.Row="1"
+                Grid.Column="0"
+                RowSpacing="5"
+                ColumnSpacing="5"
+                RowDefinitions="Auto, Auto, Auto"
+                ColumnDefinitions="Auto, Auto"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+                <Label
+                    Text="Email"
+                    Grid.Row="0"
+                    Grid.Column="0" />
+                <Button
+                    Text="Edit"
+                    Grid.Row="1"
+                    Grid.Column="0" />
+
+                <Entry
+                    Text="siem@email.nl"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    IsEnabled="False"/>
+                <Entry
+                    Placeholder="Repeat new email"
+                    Grid.Row="1"
+                    Grid.Column="1" />
+
+                <Button
+                    Text="Logout"
+                    Grid.Row="2"
+                    Grid.ColumnSpan="2"
+                    Clicked="Logout"
+                    VerticalOptions="End"
+                    HorizontalOptions="Center" />
+
+            </Grid>
+
+
+        </Grid>
     </ScrollView>
 
 </ContentPage>
