@@ -32,17 +32,32 @@ public partial class MyDrinks : ContentPage
     /// <param name="args"></param>
     void OnFavouriteOptionChanged(object sender, EventArgs args)
     {
-        RadioButton button = (RadioButton)sender;
+        CheckBox button = (CheckBox)sender;
         Drink drink = (Drink)button.BindingContext;
         if (AmountFavorite == 0)
         {
-            if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetFavourites()))
+            if (button.IsChecked == false)
             {
-                button.IsChecked = false;
+                if (User.RemoveFromDrinkList(drink))
+                {
+                    string verwijderd = "ja";
+                }
+                else
+                {
+                    string verwijderd = "nee";
+                }
             }
             else
             {
-                User.AddToFavourites(drink);
+                if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetFavourites()))
+                {
+                    button.IsChecked = false;
+                }
+                else
+                {
+                    User.AddToFavourites(drink);
+                    button.IsChecked = true;
+                }
             }
         }
         else
@@ -58,17 +73,32 @@ public partial class MyDrinks : ContentPage
     /// <param name="args"></param>
     void OnLikeOptionChanged(object sender, EventArgs args)
     {
-        RadioButton button = (RadioButton)sender;
+        CheckBox button = (CheckBox)sender;
         Drink drink = (Drink)button.BindingContext;
         if (AmountLikes == 0)
         {
-            if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetLikes()))
+            if (button.IsChecked == false)
             {
-                button.IsChecked = false;
+                if (User.RemoveFromDrinkList(drink))
+                {
+                    string verwijderd = "ja";
+                }
+                else
+                {
+                    string verwijderd = "nee";
+                }
             }
             else
             {
-                User.AddToLikes(drink);
+                if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetLikes()))
+                {
+                    button.IsChecked = false;
+                }
+                else
+                {
+                    User.AddToLikes(drink);
+                    button.IsChecked = true;
+                }
             }
         }
         else
@@ -84,17 +114,32 @@ public partial class MyDrinks : ContentPage
     /// <param name="args"></param>
     void OnDislikeOptionChanged(object sender, EventArgs args)
     {
-        RadioButton button = (RadioButton)sender;
+        CheckBox button = (CheckBox)sender;
         Drink drink = (Drink)button.BindingContext;
         if (AmountDislikes == 0)
         {
-            if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetDislikes()))
+            if (button.IsChecked == false)
             {
-                button.IsChecked = false;
+                if (User.RemoveFromDrinkList(drink))
+                {
+                    string verwijderd = "ja";
+                }
+                else
+                {
+                    string verwijderd = "nee";
+                }
             }
             else
             {
-                User.AddToDislikes(drink);
+                if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetDislikes()))
+                {
+                    button.IsChecked = false;
+                }
+                else
+                {
+                    User.AddToDislikes(drink);
+                    button.IsChecked = true;
+                }
             }
         }
         else
@@ -102,5 +147,4 @@ public partial class MyDrinks : ContentPage
             AmountDislikes--;
         }
     }
-
 }
