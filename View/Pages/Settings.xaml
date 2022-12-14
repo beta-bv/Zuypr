@@ -39,7 +39,7 @@
                         Text="Edit"
                         Grid.Row="0"
                         Grid.Column="2"
-                        Clicked="OnEditClicked" />
+                        Clicked="OnEditEmailClicked" />
                     <Entry
                         x:Name="EmailField"
                         Text=""
@@ -80,13 +80,15 @@
                         Text="Edit"
                         Grid.Row="0"
                         Grid.Column="1"
-                        Clicked="OnEditClicked" />
+                        Clicked ="onEditPasswordClicked" 
+                         />
 
                     <Entry
                         x:Name="PasswordField" 
                         Placeholder="New password"
-                        Grid.Row="1"
-                        Grid.Column="2"/>
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        IsVisible="false"/>
                     <Entry
                         x:Name="RepeatPasswordField"
                         Placeholder="Repeat password"

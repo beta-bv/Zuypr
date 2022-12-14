@@ -7,6 +7,7 @@ namespace View.Pages;
 public partial class Settings : ContentPage
 {
     private bool _editIsClicked = false;
+    private bool _editPIsClicked = false;
     public Settings()
     {
         InitializeComponent();
@@ -18,18 +19,32 @@ public partial class Settings : ContentPage
         if (Application.Current != null) Application.Current.MainPage = new LaunchScreen();
 
     }
+    private void onDeleteClicked(Object sender, EventArgs e)
+    {
+        //make ondelete invisible, make confirm and delete visible
+    }
+    private void onDeleteConfirmClicked(Object sender, EventArgs e)
+    {
+        Auth.setUser(null);
+        Application.Current.MainPage = new LaunchScreen();
+    }
+
+    private void onCancelDeleteClicked(Object sender, EventArgs e)
+    {
+        //make confirm and cancel invisble;
+    }
 
     /// <summary>
     /// slaat de emailwijzigingen op
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void OnSavedClicked(object sender, EventArgs e)
+    private void OnEmailSavedClicked(object sender, EventArgs e)
     {
         User temp = Auth.getUser();
         try
         {
-            if(RepeatEmailField.Text == null && EmailField.Text == null)
+            if(RepeatEmailField.Text == null || EmailField.Text == null)
             {
                 throw new Exception("Er moet wel wat worden ingevuld om je wachtwoord te mogen aanpassen");
             }
@@ -43,7 +58,7 @@ public partial class Settings : ContentPage
             {
                 temp.Email = EmailField.Text.Trim();
                 Auth.setUser(temp);
-                EditCancelBtn.Text = "Edit";
+                EmailEditCancelBtn.Text = "Edit";
                 RepeatEmailField.Text = "";
                 EmailField.Text = Auth.getUser().Email;
                 EmailField.IsEnabled = false;
@@ -71,12 +86,12 @@ public partial class Settings : ContentPage
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void OnEditClicked(object sender, EventArgs e)
+    private void OnEditEmailClicked(object sender, EventArgs e)
     {
         _editIsClicked = !_editIsClicked;
         if (_editIsClicked)
         {
-            EditCancelBtn.Text = "Cancel";
+            EmailEditCancelBtn.Text = "Cancel";
             EmailField.Text = "";
             EmailField.IsEnabled = true;
             RepeatEmailField.IsVisible = true;
@@ -84,12 +99,35 @@ public partial class Settings : ContentPage
         }
         else
         {
-            EditCancelBtn.Text = "Edit";
+            EmailEditCancelBtn.Text = "Edit";
             RepeatEmailField.Text = "";
             EmailField.Text = Auth.getUser().Email;
             EmailField.IsEnabled = false;
             RepeatEmailField.IsVisible = false;
             SaveEmailBtn.IsVisible = false;
         }
+    }
+    private void onEditPasswordClicked(object sender, EventArgs e)
+    {
+        _editPIsClicked = !_editPIsClicked;
+        if (_editPIsClicked)
+        {
+            PasswordEditCancelBtn.Text = "Cancel";
+            PasswordField.IsVisible = true;
+            RepeatPasswordField.IsVisible = true;
+            SavePasswordBtn.IsVisible = true;
+        }
+        else
+        {
+            PasswordEditCancelBtn.Text = "Edit";
+            PasswordField.Text = "";
+            RepeatPasswordField.Text = "";
+            PasswordField.IsVisible = false;
+            RepeatPasswordField.IsVisible = false;
+            SavePasswordBtn.IsVisible = false;
+        }
+    }
+    private void onPasswordSavedClicked(object sender, EventArgs e)
+    {
     }
 }
