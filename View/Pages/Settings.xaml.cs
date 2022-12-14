@@ -115,6 +115,7 @@ public partial class Settings : ContentPage
             PasswordField.IsVisible = true;
             RepeatPasswordField.IsVisible = true;
             SavePasswordBtn.IsVisible = true;
+            OldPasswordField.IsVisible = true;
         }
         else
         {
@@ -124,6 +125,7 @@ public partial class Settings : ContentPage
             PasswordField.IsVisible = false;
             RepeatPasswordField.IsVisible = false;
             SavePasswordBtn.IsVisible = false;
+            OldPasswordField.IsVisible = false;
         }
     }
     private void OnPasswordSavedClicked(object sender, EventArgs e)
@@ -131,19 +133,26 @@ public partial class Settings : ContentPage
         try
         {
             User temp = Auth.getUser();
-            if(PasswordField.Text == null || RepeatPasswordField.Text == null) //TODO derde veld
+            if(PasswordField.Text == null || RepeatPasswordField.Text == null || OldPasswordField.Text == null)
             {
                 throw new Exception("Password fields cannot be empty");
             }
-            if (PasswordField.Text.Equals(RepeatPasswordField.Text))   //fix dit zie line 143
+            if (!PasswordField.Text.Equals(RepeatPasswordField.Text))
+            {
+                throw new Exception("new passwords are not the same");
+            }
+            if (OldPasswordField.Text.Equals(RepeatPasswordField.Text)) 
             {
                 throw new Exception("Your new password cannot be your old password");
             }
-            //if old password is not correct
-            //if nieuwe passwords niet overeen komen
-            if (PasswordField.Text.Equals(RepeatPasswordField.Text)) // plus nieuwe is goede
+            if(!User.ComparePasswords(User.HashString(OldPasswordField.Text), Auth.getUser().Password))
             {
-                temp.Password = PasswordField.Text;   //fix dit  
+                throw new Exception("Old password is not correct");
+            }
+
+            if (PasswordField.Text.Equals(RepeatPasswordField.Text) && User.ComparePasswords(User.HashString(OldPasswordField.Text), Auth.getUser().Password)) 
+            {
+                temp.Password = PasswordField.Text; 
                 Auth.setUser(temp);
                 PasswordEditCancelBtn.Text = "Edit";
                 PasswordField.Text = "";

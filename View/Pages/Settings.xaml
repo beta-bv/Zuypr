@@ -88,20 +88,20 @@
                         Text="Save"
                         Grid.Row="1"
                         Grid.Column="1"
-                        IsVisible="true"
+                        IsVisible="false"
                         Clicked="OnPasswordSavedClicked" />
                     <Entry
                         x:Name="OldPasswordField" 
                         Placeholder="Old password"
                         Grid.Row="0"
                         Grid.Column="2"
-                        IsVisible="true"/>
+                        IsVisible="false"/>
                     <Entry
                         x:Name="PasswordField" 
                         Placeholder="New password"
                         Grid.Row="1"
                         Grid.Column="2"
-                        IsVisible="true"/>
+                        IsVisible="false"/>
                     <Entry
                         x:Name="RepeatPasswordField"
                         Placeholder="Repeat password"
