@@ -81,7 +81,7 @@
                         Text="Edit"
                         Grid.Row="0"
                         Grid.Column="2"
-                        Clicked ="onEditPasswordClicked" />
+                        Clicked ="OnEditPasswordClicked" />
                     <Button
                         x:Name="SavePasswordBtn"
                         Text="Save"

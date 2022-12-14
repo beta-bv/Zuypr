@@ -46,12 +46,12 @@ public partial class Settings : ContentPage
         {
             if(RepeatEmailField.Text == null || EmailField.Text == null)
             {
-                throw new Exception("Er moet wel wat worden ingevuld om je wachtwoord te mogen aanpassen");
+                throw new Exception("Email adress fields cannot be empty");
             }
 
             if(EmailField.Text.Equals(Auth.getUser().Email) || RepeatEmailField.Text.Equals(Auth.getUser().Email))
             {
-                throw new Exception("Je nieuwe emailadres kan niet je oude emailadres zijn");
+                throw new Exception("Your new Email may not be your old Email");
             }
 
             if (RepeatEmailField.Text.Equals(EmailField.Text))
@@ -69,9 +69,8 @@ public partial class Settings : ContentPage
             }
             else
             {
-                throw new Exception("De wachtwoorden komen niet overeen");
+                throw new Exception("The new email and old email are not the same");
             }
-
         }
 
         catch (Exception ex)
@@ -107,7 +106,7 @@ public partial class Settings : ContentPage
             SaveEmailBtn.IsVisible = false;
         }
     }
-    private void onEditPasswordClicked(object sender, EventArgs e)
+    private void OnEditPasswordClicked(object sender, EventArgs e)
     {
         _editPIsClicked = !_editPIsClicked;
         if (_editPIsClicked)
@@ -116,6 +115,7 @@ public partial class Settings : ContentPage
             PasswordField.IsVisible = true;
             RepeatPasswordField.IsVisible = true;
             SavePasswordBtn.IsVisible = true;
+            OldPasswordField.IsVisible = true;
         }
         else
         {
@@ -125,17 +125,49 @@ public partial class Settings : ContentPage
             PasswordField.IsVisible = false;
             RepeatPasswordField.IsVisible = false;
             SavePasswordBtn.IsVisible = false;
+            OldPasswordField.IsVisible = false;
         }
     }
     private void OnPasswordSavedClicked(object sender, EventArgs e)
     {
         try
         {
+            User temp = Auth.getUser();
+            if(PasswordField.Text == null || RepeatPasswordField.Text == null || OldPasswordField.Text == null)
+            {
+                throw new Exception("Password fields cannot be empty");
+            }
+            if (!PasswordField.Text.Equals(RepeatPasswordField.Text))
+            {
+                throw new Exception("new passwords are not the same");
+            }
+            if (OldPasswordField.Text.Equals(RepeatPasswordField.Text)) 
+            {
+                throw new Exception("Your new password cannot be your old password");
+            }
+            if(!User.ComparePasswords(User.HashString(OldPasswordField.Text), Auth.getUser().Password))
+            {
+                throw new Exception("Old password is not correct");
+            }
 
+            if (PasswordField.Text.Equals(RepeatPasswordField.Text) && User.ComparePasswords(User.HashString(OldPasswordField.Text), Auth.getUser().Password)) 
+            {
+                temp.Password = PasswordField.Text; 
+                Auth.setUser(temp);
+                PasswordEditCancelBtn.Text = "Edit";
+                PasswordField.Text = "";
+                RepeatPasswordField.Text = "";
+                RepeatPasswordField.IsVisible = false;
+                PasswordField.IsVisible = false;
+                SavePasswordBtn.IsVisible = false;
+                _editPIsClicked = false;
+                ErrorFrameEditPage.IsVisible = false;
+            }
         }
         catch(Exception ex)
         {
-
+            ErrorLabelEditPage.Text = ex.Message;
+            ErrorFrameEditPage.IsVisible = true;
         }
     }
 }
