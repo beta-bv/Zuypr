@@ -60,7 +60,7 @@
                         Grid.Row="1"
                         Grid.Column="2"
                         IsVisible="false"
-                        Clicked="OnSavedClicked" />
+                        Clicked="OnEmailSavedClicked" />
                 </Grid>
 
                 <Grid
@@ -101,7 +101,7 @@
                         Grid.Row="1"
                         Grid.Column="2"
                         IsVisible="false"
-                        Clicked="OnSavedClicked" />
+                        Clicked="OnPasswordSavedClicked" />
                 </Grid>
 
                 <Button

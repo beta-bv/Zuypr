@@ -127,7 +127,7 @@ public partial class Settings : ContentPage
             SavePasswordBtn.IsVisible = false;
         }
     }
-    private void onPasswordSavedClicked(object sender, EventArgs e)
+    private void OnPasswordSavedClicked(object sender, EventArgs e)
     {
         try
         {
