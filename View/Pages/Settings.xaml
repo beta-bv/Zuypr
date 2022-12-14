@@ -135,7 +135,9 @@
             </Frame>
             <Button
                 x:Name="FileOpenBtn"
-                Grid.Column="1"/>
+                Text="upload profile picture"
+                Grid.Column="2"
+                Clicked="FileOpenBtn_Clicked"/>
         </Grid>
     </ScrollView>
 

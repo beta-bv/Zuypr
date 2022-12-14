@@ -1,7 +1,8 @@
 ﻿using Controller;
+using Microsoft.Maui.Storage;
 using Model;
 using System.Linq.Expressions;
-
+using Microsoft.Maui.Storage;
 namespace View.Pages;
 
 public partial class Settings : ContentPage
@@ -170,4 +171,32 @@ public partial class Settings : ContentPage
             ErrorFrameEditPage.IsVisible = true;
         }
     }
+
+    private async void FileOpenBtn_Clicked(object sender, EventArgs e)
+    {
+        try
+        {
+            ErrorFrameEditPage.IsVisible=false;
+            var result = await FilePicker.PickAsync(new PickOptions
+            {
+                PickerTitle = "Image Picker",
+                FileTypes = FilePickerFileType.Images,
+            });
+            if (result == null)
+            {
+                throw new Exception("could not get Image");
+            }
+            else
+            {
+                var stream = await result.OpenReadAsync();
+                ImageSource image = ImageSource.FromStream(() => stream);
+            }
+        }
+        catch(Exception ex)
+        {
+            ErrorLabelEditPage.Text = ex.Message;
+            ErrorFrameEditPage.IsVisible = true;
+        }
+    }
+
 }
