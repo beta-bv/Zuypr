@@ -35,7 +35,8 @@
                     x:Name="EditCancelBtn"
                     Text="Edit"
                     Grid.Row="0"
-                    Grid.Column="2" />
+                    Grid.Column="2" 
+                    Clicked="OnEditClicked"/>
                 <Entry
                     x:Name="EmailField"
                     Text="siem@email.nl"
@@ -68,8 +69,16 @@
                     BackgroundColor="Red"/>
 
             </Grid>
-
-
+            <Frame
+                IsVisible="false"
+                x:Name="ErrorFrameEditPage"
+                HorizontalOptions="Center"
+                BackgroundColor="#BFFF0000">
+                <Label
+                    x:Name="ErrorLabelEditPage"
+                    HorizontalOptions="Center"
+                    Text="Error: Dit is fout gegaan" />
+            </Frame>
         </Grid>
     </ScrollView>
 
