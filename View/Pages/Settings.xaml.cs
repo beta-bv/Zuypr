@@ -129,5 +129,13 @@ public partial class Settings : ContentPage
     }
     private void onPasswordSavedClicked(object sender, EventArgs e)
     {
+        try
+        {
+
+        }
+        catch(Exception ex)
+        {
+
+        }
     }
 }
