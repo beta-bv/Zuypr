@@ -17,47 +17,90 @@
                 FontSize="32"
                 HorizontalOptions="Center" />
 
-            <Grid
+            <VerticalStackLayout
                 Grid.Row="1"
                 Grid.Column="0"
-                RowSpacing="5"
-                ColumnSpacing="5"
-                RowDefinitions="Auto, Auto, Auto"
-                ColumnDefinitions="Auto, Auto, Auto"
                 HorizontalOptions="Center"
                 VerticalOptions="Center">
-                <Label
-                    Text="Email"
-                    Grid.Row="0"
-                    Grid.Column="0" 
-                    VerticalOptions="Center"/>
-                <Button
-                    x:Name="EditCancelBtn"
-                    Text="Edit"
-                    Grid.Row="0"
-                    Grid.Column="2" 
-                    Clicked="OnEditClicked"/>
-                <Entry
-                    x:Name="EmailField"
-                    Text=""
-                    Placeholder="New email"
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    IsEnabled="false"/>
-                
-                <Entry
-                    x:Name="RepeatEmailField"
-                    Placeholder="Repeat new email"
-                    Grid.Row="1"
-                    Grid.Column="1" 
-                    IsVisible="false"/>
-                <Button
-                    x:Name="SaveEmailBtn"
-                    Text="Save"
-                    Grid.Row="1"
-                    Grid.Column="2"
-                    IsVisible="false"
-                    Clicked="OnSavedClicked"/>
+                <Grid
+                    RowSpacing="5"
+                    ColumnSpacing="5"
+                    RowDefinitions="Auto, Auto, Auto"
+                    ColumnDefinitions="Auto, Auto, Auto"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                    <Label
+                        Text="Email"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        VerticalOptions="Center" />
+                    <Button
+                        x:Name="EmailEditCancelBtn"
+                        Text="Edit"
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        Clicked="OnEditClicked" />
+                    <Entry
+                        x:Name="EmailField"
+                        Text=""
+                        Placeholder="New email"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        IsEnabled="false" />
+
+                    <Entry
+                        x:Name="RepeatEmailField"
+                        Placeholder="Repeat new email"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        IsVisible="false" />
+                    <Button
+                        x:Name="SaveEmailBtn"
+                        Text="Save"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        IsVisible="false"
+                        Clicked="OnSavedClicked" />
+                </Grid>
+
+                <Grid
+                    RowSpacing="5"
+                    ColumnSpacing="5"
+                    RowDefinitions="Auto, Auto, Auto"
+                    ColumnDefinitions="Auto, Auto, Auto"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                    <Label
+                        Text="Password"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        VerticalOptions="Center" />
+                    <Button
+                        x:Name="PasswordEditCancelBtn"
+                        Text="Edit"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Clicked="OnEditClicked" />
+
+                    <Entry
+                        x:Name="PasswordField" 
+                        Placeholder="New password"
+                        Grid.Row="1"
+                        Grid.Column="2"/>
+                    <Entry
+                        x:Name="RepeatPasswordField"
+                        Placeholder="Repeat password"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        IsVisible="false" />
+                    <Button
+                        x:Name="SavePasswordBtn"
+                        Text="Save"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        IsVisible="false"
+                        Clicked="OnSavedClicked" />
+                </Grid>
 
                 <Button
                     x:Name="LogoutBtn"
@@ -66,10 +109,11 @@
                     Grid.ColumnSpan="3"
                     Clicked="Logout"
                     VerticalOptions="End"
-                    HorizontalOptions="Center" 
-                    BackgroundColor="Red"/>
-
-            </Grid>
+                    HorizontalOptions="Center"
+                    BackgroundColor="Red" />
+                
+            </VerticalStackLayout>
+            
             <Frame
                 IsVisible="false"
                 x:Name="ErrorFrameEditPage"
