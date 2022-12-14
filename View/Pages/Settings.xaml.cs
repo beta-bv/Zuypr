@@ -46,12 +46,12 @@ public partial class Settings : ContentPage
         {
             if(RepeatEmailField.Text == null || EmailField.Text == null)
             {
-                throw new Exception("Er moet wel wat worden ingevuld om je wachtwoord te mogen aanpassen");
+                throw new Exception("Email adress fields cannot be empty");
             }
 
             if(EmailField.Text.Equals(Auth.getUser().Email) || RepeatEmailField.Text.Equals(Auth.getUser().Email))
             {
-                throw new Exception("Je nieuwe emailadres kan niet je oude emailadres zijn");
+                throw new Exception("Your new Email may not be your old Email");
             }
 
             if (RepeatEmailField.Text.Equals(EmailField.Text))
@@ -69,9 +69,8 @@ public partial class Settings : ContentPage
             }
             else
             {
-                throw new Exception("De wachtwoorden komen niet overeen");
+                throw new Exception("The new email and old email are not the same");
             }
-
         }
 
         catch (Exception ex)
@@ -107,7 +106,7 @@ public partial class Settings : ContentPage
             SaveEmailBtn.IsVisible = false;
         }
     }
-    private void onEditPasswordClicked(object sender, EventArgs e)
+    private void OnEditPasswordClicked(object sender, EventArgs e)
     {
         _editPIsClicked = !_editPIsClicked;
         if (_editPIsClicked)
@@ -131,11 +130,35 @@ public partial class Settings : ContentPage
     {
         try
         {
-
+            User temp = Auth.getUser();
+            if(PasswordField.Text == null || RepeatPasswordField.Text == null) //TODO derde veld
+            {
+                throw new Exception("Password fields cannot be empty");
+            }
+            if (PasswordField.Text.Equals(RepeatPasswordField.Text))   //fix dit zie line 143
+            {
+                throw new Exception("Your new password cannot be your old password");
+            }
+            //if old password is not correct
+            //if nieuwe passwords niet overeen komen
+            if (PasswordField.Text.Equals(RepeatPasswordField.Text)) // plus nieuwe is goede
+            {
+                temp.Password = PasswordField.Text;   //fix dit  
+                Auth.setUser(temp);
+                PasswordEditCancelBtn.Text = "Edit";
+                PasswordField.Text = "";
+                RepeatPasswordField.Text = "";
+                RepeatPasswordField.IsVisible = false;
+                PasswordField.IsVisible = false;
+                SavePasswordBtn.IsVisible = false;
+                _editPIsClicked = false;
+                ErrorFrameEditPage.IsVisible = false;
+            }
         }
         catch(Exception ex)
         {
-
+            ErrorLabelEditPage.Text = ex.Message;
+            ErrorFrameEditPage.IsVisible = true;
         }
     }
 }

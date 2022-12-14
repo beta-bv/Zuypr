@@ -80,7 +80,7 @@
                         Text="Edit"
                         Grid.Row="0"
                         Grid.Column="1"
-                        Clicked ="onEditPasswordClicked" 
+                        Clicked ="OnEditPasswordClicked" 
                          />
 
                     <Entry
