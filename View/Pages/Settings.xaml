@@ -33,17 +33,20 @@
                 <Button
                     Text="Edit"
                     Grid.Row="1"
-                    Grid.Column="0" />
+                    Grid.Column="0"
+                    Clicked="OnEditClicked"/>
 
                 <Entry
-                    Text="siem@email.nl"
+                    Text=""
                     Grid.Row="0"
                     Grid.Column="1"
-                    IsEnabled="False"/>
+                    IsEnabled="False"
+                    x:Name="EmailEditOld"/>
                 <Entry
                     Placeholder="Repeat new email"
                     Grid.Row="1"
-                    Grid.Column="1" />
+                    Grid.Column="1"
+                    x:Name ="EmailEditNew"/>
 
                 <Button
                     Text="Logout"
@@ -54,8 +57,16 @@
                     HorizontalOptions="Center" />
 
             </Grid>
-
-
+            <Frame
+                IsVisible="false"
+                x:Name="ErrorFrameEditPage"
+                HorizontalOptions="Center"
+                BackgroundColor="#BFFF0000">
+                <Label
+                    x:Name="ErrorLabelEditPage"
+                    HorizontalOptions="Center"
+                    Text="Error: Dit is fout gegaan" />
+            </Frame>
         </Grid>
     </ScrollView>
 
