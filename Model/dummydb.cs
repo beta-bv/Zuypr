@@ -231,8 +231,6 @@ namespace Model
 
         public static User GeneratePreferences(User user, Dictionary<String, String[]> prefs)
         {
-            //List<Drink> drinks = Drinks;
-
             foreach ((String group, String[] list) in prefs)
             {
                 foreach (String name in list)

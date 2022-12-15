@@ -8,11 +8,7 @@ public partial class App : Application
     public App()
     {
         InitializeComponent();
-
         dummydb.Initialize();
-
         MainPage = new LaunchScreen();
-
-        //App.Current.UserAppTheme = AppTheme.Light;
     }
 }
