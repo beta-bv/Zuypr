@@ -155,7 +155,7 @@ namespace Model
                 GeneratePreferences(new User("Karen", "karen.b@zuypr.com", "EpicPassword1!", new DateTime(2000, 1, 1)), new Dictionary<string, string[]>
                 {
                     ["favs"] = new string[] { "Gladiator van de Radiator", "Klok op Kamertemperatuur", "Export" },
-                    ["like"] = new string[] { "Grolsch", "Amstel", "Kornet", "Heineken", "Hertog Jan" },
+                    ["like"] = new string[] { "Grolsch", "Amstel", "Kornuit", "Heineken", "Hertog Jan" },
                     ["hate"] = new string[] { "Apple Bandit", "Radler", "Desperados" },
                 }),
                 GeneratePreferences(new User("Bea Tricks", "b.tricks@pils.nl", "IkGaH@rdIkGaL3kker", new DateTime(2000, 1, 1)), new Dictionary<string, string[]>
