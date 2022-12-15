@@ -1,6 +1,6 @@
 namespace View.Pages;
 
-//using Android.App;                             !!!aanzetten wanneer nodig!!! is effe uitgecomment omdat hij voor een of andere reden hierover crashde 
+//using Android.App;                            // !!!aanzetten wanneer nodig!!! is effe uitgecomment omdat hij voor een of andere reden hierover crashde 
 using Microsoft.Maui.Controls.Shapes;
 using Model;
 using Controller;

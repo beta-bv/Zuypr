@@ -1,19 +1,92 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="View.Pages.MyDrinks">
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:local="clr-namespace:View.Converters"
+                x:Class="View.Pages.MyDrinks">
+    <ContentPage.Resources>
+        <local:DrinkConverter x:Key="drinkConverter"/>
+        <Style TargetType="RadioButton">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CheckedStates">
+                        <VisualState x:Name="Checked">
+                            <VisualState.Setters>
+                                <Setter Property="Opacity"
+                                        Value="1" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Unchecked">
+                            <VisualState.Setters>
+                                <Setter Property="Opacity"
+                                        Value="0.6" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    <Grid>
+        <ScrollView Margin="0,40,0,40">
+            <FlexLayout
+                x:Name="flexLayout"
+                Wrap="Wrap"
+                JustifyContent="Start"
+                BindableLayout.ItemsSource="{Binding AllDrinks}">
 
-    <ScrollView>
-        <VerticalStackLayout
-            VerticalOptions="Center">
-            
-            <Label
-                Text="My Drinks"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Grid
+                            Margin="10,20,10,20"
+                            HeightRequest="480"
+                            HorizontalOptions="Center"
+                            Padding="10,40,0,0"
+                            BackgroundColor="White">
 
-        </VerticalStackLayout>
-    </ScrollView>
+                            <StackLayout>
+                                <ImageButton
+                                    Source="{Binding ImageUrl}"
+                                    HeightRequest="300"
+                                    WidthRequest="310" />
 
+                                <HorizontalStackLayout>
+                                    <Label
+                                        HorizontalTextAlignment="Center"
+                                        FontSize="20"
+                                        Margin="0,20,0,0"
+                                        TextColor="Black"
+                                        Text="{Binding Name}"/>
+                                </HorizontalStackLayout>
+
+                                <Grid Padding="0,20">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="100" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <CheckBox Grid.Column="0"
+                                                 CheckedChanged="OnFavouriteOptionChanged"
+                                                 Margin="0,0,5,0"
+                                                 BackgroundColor="Green"
+                                                 IsChecked="{Binding Name, Converter={StaticResource drinkConverter}, ConverterParameter=0}"/>
+
+                                    <CheckBox Grid.Column="1"
+                                                 CheckedChanged="OnLikeOptionChanged"
+                                                 Margin="0,0,5,0"
+                                                 BackgroundColor="Orange"
+                                                 IsChecked="{Binding Name, Converter={StaticResource drinkConverter}, ConverterParameter=1}"/>
+
+                                    <CheckBox Grid.Column="2"
+                                                 CheckedChanged="OnDislikeOptionChanged"
+                                                 BackgroundColor="Red"
+                                                 IsChecked="{Binding Name, Converter={StaticResource drinkConverter}, ConverterParameter=2}"/>
+                                </Grid>
+                            </StackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

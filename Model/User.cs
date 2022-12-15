@@ -26,7 +26,7 @@ namespace Model
                 _name = value;
             }
         }
-        
+
         public string Email
         {
             get { return _email; }
@@ -39,7 +39,7 @@ namespace Model
                 _email = value;
             }
         }
-        
+
         /// <summary>
         /// Stores the <see cref="SHA256">SHA256</see> hash of the password
         /// <para>The getter automatically hashes the given password string</para>
@@ -65,7 +65,7 @@ namespace Model
                 }
             }
         }
-        
+
         public DateTime DateOfBirth
         {
             get { return _dateOfBirth; }
@@ -91,7 +91,7 @@ namespace Model
         private List<Drink> _likes { get; set; }
         private List<Drink> _dislikes { get; set; }
 
-        public int Age => (DateTime.Now.Month<DateOfBirth.Month || (DateTime.Now.Month == DateOfBirth.Month && DateTime.Now.Day<DateOfBirth.Day)) ? (DateTime.Now.Year - DateOfBirth.Year) - 1 : DateTime.Now.Year - DateOfBirth.Year;
+        public int Age => (DateTime.Now.Month < DateOfBirth.Month || (DateTime.Now.Month == DateOfBirth.Month && DateTime.Now.Day < DateOfBirth.Day)) ? (DateTime.Now.Year - DateOfBirth.Year) - 1 : DateTime.Now.Year - DateOfBirth.Year;
 
 
         public User(string name, string email, string password, DateTime dateOfBirth)
@@ -107,7 +107,8 @@ namespace Model
             Cities = new List<string>();
         }
 
-        public List<Drink> GetFavourites() {
+        public List<Drink> GetFavourites()
+        {
             return _favourites;
         }
 
@@ -156,7 +157,8 @@ namespace Model
             {
                 return false;
             }
-            else {
+            else
+            {
                 RemoveFromDrinkList(drink);
                 drinkList.Add(drink);
                 return true;
@@ -215,7 +217,8 @@ namespace Model
                 _dislikes.Remove(drink);
                 return true;
             }
-            else {
+            else
+            {
                 return false;
             }
         }
@@ -235,7 +238,7 @@ namespace Model
             }
             return true;
         }
-        
+
         /// <summary>
         /// compares two passwords
         /// </summary>
