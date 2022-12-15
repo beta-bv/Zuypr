@@ -32,7 +32,7 @@ namespace Model
     {
         public string ImageUrl { get; set; }
         public DrinkType Type { get; set; }
-        public string Name { get; set; }
+        public string Name { get; private set; }
         public double Percentage { get; set; }
 
         public Drink(string drinkImage, DrinkType drinkType, string drinkName, double percentage)

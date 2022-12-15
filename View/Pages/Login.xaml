@@ -28,6 +28,7 @@
 
                     <Entry
                         x:Name="EmailFieldL"
+                        Text="mark.v.k@zuyp.com"
                         Placeholder="Email Address"
                         WidthRequest="250"
                         MaxLength="200" />
@@ -35,6 +36,7 @@
                     <Entry
                         x:Name="PasswordFieldL"
                         Placeholder="Password"
+                        Text="EpicPassword1!"
                         WidthRequest="250"
                         MaxLength="200"
                         IsPassword="True" />
