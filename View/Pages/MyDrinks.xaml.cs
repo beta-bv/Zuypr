@@ -33,42 +33,38 @@ public partial class MyDrinks : ContentPage
     void OnFavouriteOptionChanged(object sender, EventArgs args)
     {
         CheckBox button = (CheckBox)sender;
-        Drink drink = (Drink)button.BindingContext;
-        drink = Favourites.FirstOrDefault(x => x.Name == drink.Name);
+        Drink drinkAdd = (Drink)button.BindingContext;
+        Drink drinkFave = Favourites.FirstOrDefault(x => x.Name == drinkAdd.Name);
+        Drink drinkLike = Likes.FirstOrDefault(x => x.Name == drinkAdd.Name);
+        Drink drinkDislike = Dislikes.FirstOrDefault(x => x.Name == drinkAdd.Name);
 
         if (AmountFavorite == 0)
         {
             if (button.IsChecked == false)
             {
-                User.RemoveFromDrinkList(drink);
+                User.RemoveFromDrinkList(drinkFave);
             }
-            else if (button.IsChecked == true) {
+            else if (button.IsChecked == true)
+            {
                 if (User.CheckIfListIsFull(User.GetFavourites()))
+                {
+                    button.IsChecked = false;
+                }
+                else if (User.CheckIfInList(drinkDislike, User.GetDislikes()) || User.CheckIfInList(drinkLike, User.GetLikes()))
                 {
                     button.IsChecked = false;
                 }
                 else
                 {
-                    User.AddToFavourites(drink);
+                    User.AddToFavourites(drinkAdd);
                 }
             }
-            //else
-            //{
-            //    if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetFavourites()))
-            //    {
-            //        //button.IsChecked = false;
-            //    }
-            //    else
-            //    {
-            //        User.AddToFavourites(drink);
-            //    }
-            //}
         }
         else
-            {
-                AmountFavorite--;
-            }
+        {
+            AmountFavorite--;
         }
+    }
 
     /// <summary>
     /// When clicked on like the selected drink gets added to the like list
@@ -78,23 +74,30 @@ public partial class MyDrinks : ContentPage
     void OnLikeOptionChanged(object sender, EventArgs args)
     {
         CheckBox button = (CheckBox)sender;
-        Drink drink = (Drink)button.BindingContext;
+        Drink drinkAdd = (Drink)button.BindingContext;
+        Drink drinkFave = Favourites.FirstOrDefault(x => x.Name == drinkAdd.Name);
+        Drink drinkLike = Likes.FirstOrDefault(x => x.Name == drinkAdd.Name);
+        Drink drinkDislike = Dislikes.FirstOrDefault(x => x.Name == drinkAdd.Name);
+
         if (AmountLikes == 0)
         {
             if (button.IsChecked == false)
             {
-                User.RemoveFromDrinkList(drink);
+                User.RemoveFromDrinkList(drinkLike);
             }
-            else
+            else if (button.IsChecked == true)
             {
-                if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetLikes()))
+                if (User.CheckIfListIsFull(User.GetLikes()))
+                {
+                    button.IsChecked = false;
+                }
+                else if (User.CheckIfInList(drinkDislike, User.GetDislikes()) || User.CheckIfInList(drinkFave, User.GetFavourites()))
                 {
                     button.IsChecked = false;
                 }
                 else
                 {
-                    User.AddToLikes(drink);
-                    button.IsChecked = true;
+                    User.AddToLikes(drinkAdd);
                 }
             }
         }
@@ -112,30 +115,30 @@ public partial class MyDrinks : ContentPage
     void OnDislikeOptionChanged(object sender, EventArgs args)
     {
         CheckBox button = (CheckBox)sender;
-        Drink drink = (Drink)button.BindingContext;
+        Drink drinkAdd = (Drink)button.BindingContext;
+        Drink drinkFave = Favourites.FirstOrDefault(x => x.Name == drinkAdd.Name);
+        Drink drinkLike = Likes.FirstOrDefault(x => x.Name == drinkAdd.Name);
+        Drink drinkDislike = Dislikes.FirstOrDefault(x => x.Name == drinkAdd.Name);
+
         if (AmountDislikes == 0)
         {
             if (button.IsChecked == false)
             {
-                if (User.RemoveFromDrinkList(drink))
-                {
-                    string verwijderd = "ja";
-                }
-                else
-                {
-                    string verwijderd = "nee";
-                }
+                User.RemoveFromDrinkList(drinkDislike);
             }
-            else
+            else if (button.IsChecked == true)
             {
-                if (Auth.getUser().CheckIfListIsFull(Auth.getUser().GetDislikes()))
+                if (User.CheckIfListIsFull(User.GetDislikes()))
+                {
+                    button.IsChecked = false;
+                }
+                else if (User.CheckIfInList(drinkLike, User.GetLikes()) || User.CheckIfInList(drinkFave, User.GetFavourites()))
                 {
                     button.IsChecked = false;
                 }
                 else
                 {
-                    User.AddToDislikes(drink);
-                    button.IsChecked = true;
+                    User.AddToDislikes(drinkAdd);
                 }
             }
         }

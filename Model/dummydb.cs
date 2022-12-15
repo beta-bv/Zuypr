@@ -110,43 +110,43 @@ namespace Model
                         ["like"] = new string[] { "Slurp! Chardonnay", "BaCo", "Gimlet" },
                         ["hate"] = new string[] { "Gladiator van de Radiator", "Klok op Kamertemperatuur", "Export" },
                 }),
-                GeneratePreferences(new User("Stan", "stan.l@zuypr.com", "EpicPassword1!", new DateTime(2000, 1, 1)), new Dictionary<string, string[]>
+                GeneratePreferences(new User("Stan", "stan@email.nl", "EpicPassword1!", new DateTime(2000, 1, 1)), new Dictionary<string, string[]>
                 {
                     ["favs"] = new string[] { "Hertog Jan", "Licor 43", "Guinness" },
                     ["like"] = new string[] { "Heineken", "Jager Bomb", "Bacardi", "Martini", "Esbjaerg" },
                     ["hate"] = new string[] { "Gin & Tonic", "Mooi Kaap Droë rooi", "Bloody Mary" },
                 }),
-                GeneratePreferences(new User("Siem", "siem.g@zuypr.com", "EpicPassword1!", new DateTime(2000, 1, 1)), new Dictionary<string, string[]>
+                GeneratePreferences(new User("Siem", "siem@email.nl", "EpicPassword1!", new DateTime(2000, 1, 1)), new Dictionary<string, string[]>
                 {
                     ["favs"] = new string[] { "Hertog Jan", "Radler" },
                     ["like"] = new string[] { "Mojito", "Absinth", "Cosmopolitan", "Bombay Gin", "Smirnoff Ice" },
                     ["hate"] = new string[] { "Martini", "BaCo", "Slurp! Rose" },
                 }),
-                GeneratePreferences(new User("Mark", "mark.v.k@zuyp.com", "EpicPassword1!", new DateTime(2000, 1, 1)), new Dictionary<string, string[]>
+                GeneratePreferences(new User("Mark", "mark@email.nl", "EpicPassword1!", new DateTime(2000, 1, 1)), new Dictionary<string, string[]>
                 {
                     ["favs"] = new string[] { "Heineken", "Desperados", "BaCo" },
                     ["like"] = new string[] { "Captain Morgan", "Grolsch", "Jager Bomb", "Pina Colada", "AH Gluhwein" },
                     ["hate"] = new string[] { "Smirnoff Ice", "Bloody Mary", "Klok op Kamertemperatuur" },
                 }),
-                GeneratePreferences(new User("Merijn", "merijn.s@zuypr.com", "EpicPassword1!", new DateTime(2000, 1, 1)), new Dictionary<string, string[]>
+                GeneratePreferences(new User("Merijn", "merijn@email.nl", "EpicPassword1!", new DateTime(2000, 1, 1)), new Dictionary<string, string[]>
                 {
                     ["favs"] = new string[] { "Klok op Kamertemperatuur", "Gladiator van de Radiator", "Absinth" },
                     ["like"] = new string[] { "Welmoed Rose", "Slurp! Rose", "Slurp! Chardonnay", "Mojito", "Brand" },
                     ["hate"] = new string[] { "Gimlet", "Gin & Tonic", "Radler" },
                 }),
-                GeneratePreferences(new User("Thomas", "thomas.l@zuypr.com", "EpicPassword1!", new DateTime(2000, 1, 1)), new Dictionary<string, string[]>
+                GeneratePreferences(new User("Thomas", "thomas@email.nl", "EpicPassword1!", new DateTime(2000, 1, 1)), new Dictionary<string, string[]>
                 {
                     ["favs"] = new string[] { "Liefmans", "Apple Bandit" },
                     ["like"] = new string[] { "Grolsch", "Hertog Jan", "Guinness", "Jager Bomb", "Smirnoff Ice" },
                     ["hate"] = new string[] { "AH Gluhwein" },
                 }),
-                GeneratePreferences(new User("Niels", "niels.e@zuypr.com", "EpicPassword1!", new DateTime(2000, 1, 1)), new Dictionary<string, string[]>
+                GeneratePreferences(new User("Niels", "niels@email.nl", "EpicPassword1!", new DateTime(2000, 1, 1)), new Dictionary<string, string[]>
                 {
                     ["favs"] = new string[] { "Hertog Jan", "Desperados" },
                     ["like"] = new string[] { "Gin & Tonic", "Smirnoff Ice", "Grolsch", "Slurp! Rose" },
                     ["hate"] = new string[] { "AH Gluhwein", "Undurraga Merlot", "Jacobs Creek Merlot" },
                 }),
-                GeneratePreferences(new User("Dylan", "dylan.k@zuypr.com", "EpicPassword1!", new DateTime(1997, 07, 25)), new Dictionary<string, string[]>
+                GeneratePreferences(new User("Dylan", "dylan@email.nl", "EpicPassword1!", new DateTime(1997, 07, 25)), new Dictionary<string, string[]>
                 {
                     ["favs"] = new string[] { "Grand Prestige", "Hibiki Harmony", "Mojito" },
                     ["like"] = new string[] { "Hertog Jan", "Brand", "Soju", "Glenlivet", "Glenfiddich" },
