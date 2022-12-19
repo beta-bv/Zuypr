@@ -24,7 +24,11 @@ namespace Model
                 {
                     throw new ArgumentException("Age is not valid");
                 }
-                if(value > MaximumPrefferedAge)
+                if (value < 18)
+                {
+                    throw new ArgumentException("The preffered age must be above 18");
+                }
+                if (value > MaximumPrefferedAge)
                 {
                     throw new ArgumentException("your minimum preffered age cannot be smaller than your maximum preffered age");
                 }
@@ -39,6 +43,10 @@ namespace Model
                 if (value! < 0 || value! > 120)
                 {
                     throw new ArgumentException("Age is not valid");
+                }
+                if(value < 18)
+                {
+                    throw new ArgumentException("The preffered age must be above 18");
                 }
                 if (value < MinimumPrefferedAge)
                 {
@@ -129,8 +137,6 @@ namespace Model
 
         public User(string name, string email, string password, DateTime dateOfBirth)
         {
-            MinimumPrefferedAge = 0;
-            MaximumPrefferedAge = 0;
             Name = name;
             Email = email;
             DateOfBirth = dateOfBirth;

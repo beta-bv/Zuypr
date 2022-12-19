@@ -223,6 +223,9 @@ public partial class Settings : ContentPage
             Auth.setUser(tempUser);
             ErrorFrameEditPage.IsVisible = false;
         }
+        catch(FormatException fe)
+        {
+        }
         catch(Exception ex)
         {
             ErrorLabelEditPage.Text = ex.Message;
@@ -239,6 +242,9 @@ public partial class Settings : ContentPage
             tempUser.MinimumPrefferedAge = minAgeParsed;
             Auth.setUser(tempUser);
             ErrorFrameEditPage.IsVisible = false;
+        }
+        catch (FormatException fe)
+        {
         }
         catch (Exception ex)
         {
