@@ -1,9 +1,7 @@
 ﻿using Model;
 using Controller;
 using System.Linq;
-
 namespace View.Pages.Register;
-
 
 public partial class Step3 : ContentPage
 {

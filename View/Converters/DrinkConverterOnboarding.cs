@@ -7,7 +7,6 @@ namespace View.Converters
 {
     public class DrinkConverterOnboarding : IValueConverter
     {
-
         public static User user = Step1.User;
         /// <summary>
         /// Checks if a drink is already selected for favorite, like or dislike. If that is the case then it sends back true wich means it will show selected on the screen.
@@ -51,4 +50,3 @@ namespace View.Converters
         }
     }
 }
-
