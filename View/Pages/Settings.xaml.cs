@@ -23,7 +23,13 @@ public partial class Settings : ContentPage
     }
     private void onDeleteClicked(Object sender, EventArgs e)
     {
-        //make ondelete invisible, make confirm and delete visible
+        _deleteAccountClicked = !_deleteAccountClicked;
+        if (_deleteAccountClicked) 
+        {
+            DestroyConfirm.IsVisible = true;
+            DestroyCancel.IsVisible = true;
+        }
+
     }
     private void onDeleteConfirmClicked(Object sender, EventArgs e)
     {
@@ -33,7 +39,12 @@ public partial class Settings : ContentPage
 
     private void onCancelDeleteClicked(Object sender, EventArgs e)
     {
-        //make confirm and cancel invisble;
+        _deleteAccountClicked = !_deleteAccountClicked;
+        if (!_deleteAccountClicked)
+        {
+            DestroyConfirm.IsVisible = false;
+            DestroyCancel.IsVisible = false;
+        }
     }
 
     /// <summary>
@@ -200,11 +211,5 @@ public partial class Settings : ContentPage
             ErrorFrameEditPage.IsVisible = true;
 
         }
-    }
-
-    private void DestroyAccountBtn_Clicked(object sender, EventArgs e)
-    {
-        _deleteAccountClicked = !_deleteAccountClicked;
-
     }
 }

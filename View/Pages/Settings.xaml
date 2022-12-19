@@ -128,17 +128,22 @@
                     Text="Destroy Account"
                     BackgroundColor="Red"
                     FontSize="Medium"
-                    Margin="0,40,0,0"/>
+                    Margin="0,40,0,0"
+                    Clicked="onDeleteClicked"/>
                 <HorizontalStackLayout
                     HorizontalOptions="Center">
                     <Button
                         x:Name="DestroyConfirm"
                         Text="Confirm"
-                        HorizontalOptions="Start"/>
+                        HorizontalOptions="Start"
+                        IsVisible="false"
+                        Clicked="onDeleteConfirmClicked"/>
                     <Button
                         x:Name="DestroyCancel" 
                         Text="Cancel"
-                        HorizontalOptions="End"/>
+                        HorizontalOptions="End"
+                        IsVisible="false"
+                        Clicked="onCancelDeleteClicked"/>
                 </HorizontalStackLayout>
             </VerticalStackLayout>
 
@@ -194,16 +199,7 @@
                 HorizontalOptions="Start"
                 BackgroundColor="Red"
                    />
-                <Button
-                    x:Name="DestroyAccountBtnYes"
-                    Text="Yes"
-                    Grid.Row="3"
-                    IsVisible="false"/>
-                <Button
-                    x:Name="DestroyAccountBtnNo"
-                    Text="No"
-                    IsVisible="false"/>
-            </Grid>
+        </Grid>
     </ScrollView>
 
 </ContentPage>
