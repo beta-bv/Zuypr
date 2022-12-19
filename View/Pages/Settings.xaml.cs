@@ -9,6 +9,7 @@ public partial class Settings : ContentPage
 {
     private bool _editIsClicked = false;
     private bool _editPIsClicked = false;
+    private bool _deleteAccountClicked = false;
     public Settings()
     {
         InitializeComponent();
@@ -190,13 +191,20 @@ public partial class Settings : ContentPage
             {
                 var stream = await result.OpenReadAsync();
                 ImageSource image = ImageSource.FromStream(() => stream);
+                
             }
         }
         catch(Exception ex)
         {
             ErrorLabelEditPage.Text = ex.Message;
             ErrorFrameEditPage.IsVisible = true;
+
         }
     }
 
+    private void DestroyAccountBtn_Clicked(object sender, EventArgs e)
+    {
+        _deleteAccountClicked = !_deleteAccountClicked;
+
+    }
 }

@@ -21,7 +21,7 @@ namespace Model
             {
                 if (!IsNameValid(value))
                 {
-                    throw new ArgumentException("Je hebt geen valide naam ingevuld");
+                    throw new ArgumentException("The name is not valid");
                 }
                 _name = value;
             }
@@ -34,7 +34,7 @@ namespace Model
             {
                 if (!new EmailAddressAttribute().IsValid(value))
                 {
-                    throw new ArgumentException("Je hebt geen valide emailadres ingevuld");
+                    throw new ArgumentException("Invalid email address");
                 }
                 _email = value;
             }
@@ -54,14 +54,14 @@ namespace Model
                     // Check for password requirements
                     if (!(value.Length >= 8 && value.Any(char.IsUpper) && value.Any(a => !char.IsLetterOrDigit(a) && !char.IsWhiteSpace(a))))
                     {
-                        throw new ArgumentException("Wachtwoord moet minstens acht tekens lang zijn, met minstens één hoofdletter en één speciaal teken");
+                        throw new ArgumentException("Password needs to be atleast 8 symbols, with atleast 1 capital letter and 1 special symbol");
                     }
                     // Hash the input string using SHA256
                     _password = HashString(value);
                 }
                 else
                 {
-                    throw new ArgumentException("Wachtwoord is ongeldig");
+                    throw new ArgumentException("Password is invalid");
                 }
             }
         }
@@ -73,11 +73,11 @@ namespace Model
             {
                 if (!IsDateOfBirthValid(value))
                 {
-                    throw new ArgumentException("Je mag geen datum selecteren uit de toekomst");
+                    throw new ArgumentException("You cannot select a date from the future");
                 }
                 else if (!CheckAge(value))
                 {
-                    throw new ArgumentException("Je moet minstens achttien jaar oud zijn om te mogen regristreren");
+                    throw new ArgumentException("You need to be atleast 18 years old to register");
                 }
 
                 _dateOfBirth = value;

@@ -142,10 +142,25 @@
                 x:Name="FileOpenBtn"
                 Text="upload profile picture"
                 Grid.Column="2"
-                Clicked="FileOpenBtn_Clicked"/>
+                Clicked="FileOpenBtn_Clicked" />
+            
             <Button
-                x:Name="DestroyAccountBtn" />
-        </Grid>
+                    x:Name="DestroyAccountBtn"
+                    Text="DeleteAccount"
+                    Grid.Row="2"
+                IsVisible="true"
+                Clicked="DestroyAccountBtn_Clicked"
+                    />
+                <Button
+                    x:Name="DestroyAccountBtnYes"
+                    Text="Yes"
+                    Grid.Row="3"
+                    IsVisible="false"/>
+                <Button
+                    x:Name="DestroyAccountBtnNo"
+                    Text="No"
+                    IsVisible="false"/>
+            </Grid>
     </ScrollView>
 
 </ContentPage>
