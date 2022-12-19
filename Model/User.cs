@@ -14,6 +14,8 @@ namespace Model
         private DateTime _dateOfBirth;
         private string _password;
 
+        public int Id { get; }
+
         public string Name
         {
             get { return _name; }
@@ -93,12 +95,15 @@ namespace Model
 
         public int Age => (DateTime.Now.Month<DateOfBirth.Month || (DateTime.Now.Month == DateOfBirth.Month && DateTime.Now.Day<DateOfBirth.Day)) ? (DateTime.Now.Year - DateOfBirth.Year) - 1 : DateTime.Now.Year - DateOfBirth.Year;
 
+        public User(string name, string email, string password, DateTime dateOfBirth):this(name, email, password, dateOfBirth, 0)
+        {}
 
-        public User(string name, string email, string password, DateTime dateOfBirth)
+        public User(string name, string email, string password, DateTime dateOfBirth, int id)
         {
             Name = name;
             Email = email;
             DateOfBirth = dateOfBirth;
+            Id = id;
             Password = password;
             _favourites = new List<Drink>(3);
             _likes = new List<Drink>(5);
