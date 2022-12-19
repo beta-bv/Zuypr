@@ -20,9 +20,14 @@
             <VerticalStackLayout
                 Grid.Row="1"
                 Grid.Column="0"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
                 Spacing="10">
+
+                <Label
+                    Text="Account" 
+                    FontSize="Header"/>
+
                 <Grid
                     RowSpacing="5"
                     ColumnSpacing="5"
@@ -74,7 +79,7 @@
                     ColumnSpacing="5"
                     RowDefinitions="Auto, Auto, Auto, Auto"
                     ColumnDefinitions="Auto, Auto, Auto"
-                    HorizontalOptions="Center"
+                    HorizontalOptions="Start"
                     VerticalOptions="Center">
                     <Label
                         Text="Password"
@@ -86,8 +91,8 @@
                         Text="Edit"
                         Grid.Row="3"
                         Grid.Column="1"
-                        Clicked ="OnEditPasswordClicked" 
-                        HorizontalOptions="Start"/>
+                        Clicked="OnEditPasswordClicked"
+                        HorizontalOptions="Start" />
                     <Button
                         x:Name="SavePasswordBtn"
                         Text="Save"
@@ -95,39 +100,73 @@
                         Grid.Column="1"
                         IsVisible="false"
                         Clicked="OnPasswordSavedClicked"
-                        HorizontalOptions="End"/>
+                        HorizontalOptions="End" />
                     <Entry
-                        x:Name="OldPasswordField" 
+                        x:Name="OldPasswordField"
                         Placeholder="Old password"
                         Grid.Row="0"
                         Grid.Column="1"
-                        IsVisible="false"/>
+                        IsVisible="false"
+                        WidthRequest="200" />
                     <Entry
-                        x:Name="PasswordField" 
+                        x:Name="PasswordField"
                         Placeholder="New password"
                         Grid.Row="1"
                         Grid.Column="1"
-                        IsVisible="false"/>
+                        IsVisible="false"
+                        WidthRequest="200" />
                     <Entry
                         x:Name="RepeatPasswordField"
                         Placeholder="Repeat password"
                         Grid.Row="2"
                         Grid.Column="1"
-                        IsVisible="false" />
+                        IsVisible="false"
+                        WidthRequest="200" />
                 </Grid>
-
                 <Button
-                    x:Name="LogoutBtn"
-                    Text="Logout"
-                    Grid.Row="2"
-                    Grid.ColumnSpan="3"
-                    Clicked="Logout"
-                    VerticalOptions="End"
-                    HorizontalOptions="Center"
-                    BackgroundColor="Red" />
-
+                    x:Name="DestroyAccountBtn" 
+                    Text="Destroy Account"
+                    BackgroundColor="Red"
+                    FontSize="Medium"
+                    Margin="0,40,0,0"/>
+                <HorizontalStackLayout
+                    HorizontalOptions="Center">
+                    <Button
+                        x:Name="DestroyConfirm"
+                        Text="Confirm"
+                        HorizontalOptions="Start"/>
+                    <Button
+                        x:Name="DestroyCancel" 
+                        Text="Cancel"
+                        HorizontalOptions="End"/>
+                </HorizontalStackLayout>
             </VerticalStackLayout>
 
+            <VerticalStackLayout
+                Grid.Column="1"
+                Grid.Row="1">
+                <Label
+                    Text="Change Filters"
+                    FontSize="Header" />
+
+                <VerticalStackLayout
+                    HorizontalOptions="Start">
+                    <Label
+                        Text="Preffered Age Range:" />
+                    <HorizontalStackLayout>
+                        <Label
+                            Text="Minimum: " />
+                        <Entry
+                            x:Name="minAge" />
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout>
+                        <Label
+                            Text="Maximum: " />
+                        <Entry
+                            x:Name="maxAge" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
             <Frame
                 IsVisible="false"
                 x:Name="ErrorFrameEditPage"
@@ -143,8 +182,17 @@
                 Text="upload profile picture"
                 Grid.Column="2"
                 Clicked="FileOpenBtn_Clicked"/>
+            
+
             <Button
-                x:Name="DestroyAccountBtn" />
+                x:Name="LogoutBtn"
+                Text="Logout"
+                FontSize="Medium"
+                Grid.Row="1"
+                Clicked="Logout"
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                BackgroundColor="Red" />
         </Grid>
     </ScrollView>
 
