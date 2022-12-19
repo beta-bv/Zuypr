@@ -5,7 +5,7 @@ namespace View.Pages.Register;
 public partial class Step2 : ContentPage
 {
     private static readonly User User = Step1.User;
-    public List<Drink> AllDrinks => dummydb.Drinks;
+    public List<Drink> AllDrinks => dummydb.Drinks.Except(User.GetLikes()).Except(User.GetDislikes()).ToList();
 
     private List<Drink> Favourites = User.GetFavourites();
     private List<Drink> Likes = User.GetLikes();

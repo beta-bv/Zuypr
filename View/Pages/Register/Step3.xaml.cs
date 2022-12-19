@@ -1,5 +1,7 @@
 ﻿using Model;
 using Controller;
+using System.Linq;
+
 namespace View.Pages.Register;
 
 
@@ -8,7 +10,7 @@ public partial class Step3 : ContentPage
     // int count = 0;
 
     private static readonly User User = Step1.User;
-    public List<Drink> AllDrinks => dummydb.Drinks;
+    public List<Drink> AllDrinks => dummydb.Drinks.Except(User.GetFavourites()).Except(User.GetDislikes()).ToList();
 
     private List<Drink> Favourites = User.GetFavourites();
     private List<Drink> Likes = User.GetLikes();
