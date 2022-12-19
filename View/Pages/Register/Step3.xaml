@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:View.Converters"
              x:Class="View.Pages.Register.Step3">
     <ContentPage.Resources>
-        <local:DrinkConverter x:Key="DrinkConverterOnboardingLike"/>
+        <local:DrinkConverterOnboarding x:Key="DrinkConverterOnboarding"/>
         <Style TargetType="RadioButton">
             <Setter Property="VisualStateManager.VisualStateGroups">
                 <VisualStateGroupList>
@@ -27,20 +27,45 @@
         </Style>
     </ContentPage.Resources>
     <Grid>
-                <Label
+        <Label
                 Text="Select up to 5 drinks that you like"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
                 Padding="0,20,0,20"
                 HorizontalOptions="Center" />
-
-                <Button
-                Text="Next"
-                Clicked="Next"
-                Margin="0,0,0,20"
-                HeightRequest="50"
+        <HorizontalStackLayout HorizontalOptions="Center">
+            <Button
+                Text="Back"
+                Clicked="Back"
+                Margin="0,0,20,20"
+                Padding="40,0,40,0"
+                HeightRequest="55"
                 VerticalOptions="End"
                 HorizontalOptions="Center" />
+
+            <Button
+                Text="Next"
+                Clicked="Next"
+                Margin="0,0,20,20"
+                Padding="40,0,40,0"
+                HeightRequest="55"
+                VerticalOptions="End"
+                HorizontalOptions="Center" />
+
+            <Frame
+                IsVisible="false"
+                x:Name="ErrorFrameL"
+                HorizontalOptions="Center"
+                VerticalOptions="End"
+                HeightRequest="55"
+                Margin="0,0,0,20"
+                BackgroundColor="#BFFF0000">
+                <Label
+                    x:Name="ErrorLabelL"
+                    HorizontalOptions="Center"
+                    Text="Error: Dit is fout gegaan" />
+            </Frame>
+        </HorizontalStackLayout>
         <ScrollView Margin="0,100,0,100">
             <FlexLayout
                 HorizontalOptions="Center"
@@ -73,11 +98,12 @@
                                         Text="{Binding Name}"/>
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout HorizontalOptions="Center">
-                                        <CheckBox 
+                                    <CheckBox 
                                                  CheckedChanged="OnLikeOptionChanged"
                                                  Color="Orange"
-                                                 Scale="1.2"/>
-                                        <Label
+                                                 Scale="1.2"
+                                                 IsChecked="{Binding Name, Converter={StaticResource DrinkConverterOnboarding}, ConverterParameter=1}"/>
+                                    <Label
                                             Text="Like"
                                             FontSize="15"
                                             TextColor="Black"

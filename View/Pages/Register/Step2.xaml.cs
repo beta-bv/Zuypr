@@ -66,8 +66,19 @@ public partial class Step2 : ContentPage
         }
     }
 
+    /// <summary>
+    /// Goes to the next page
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private async void Next(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new Step3());
+        if (User.GetFavourites().Count != 0) {
+            await Navigation.PushAsync(new Step3());
+        }
+        else {
+                ErrorFrameL.IsVisible = true;
+                ErrorLabelL.Text = "You need to select at least one drink";
+        }
     }
 }
