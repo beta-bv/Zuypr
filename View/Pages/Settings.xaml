@@ -182,9 +182,7 @@
                 Text="upload profile picture"
                 Grid.Column="2"
                 Clicked="FileOpenBtn_Clicked" />
-            
-                Clicked="FileOpenBtn_Clicked"/>
-            
+
 
             <Button
                     x:Name="LogoutBtn"
@@ -195,11 +193,7 @@
                 VerticalOptions="End"
                 HorizontalOptions="Start"
                 BackgroundColor="Red"
-                    Text="DeleteAccount"
-                    Grid.Row="2"
-                IsVisible="true"
-                Clicked="DestroyAccountBtn_Clicked"
-                    />
+                   />
                 <Button
                     x:Name="DestroyAccountBtnYes"
                     Text="Yes"
