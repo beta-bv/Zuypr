@@ -212,4 +212,38 @@ public partial class Settings : ContentPage
 
         }
     }
+
+    private void maxAge_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        try
+        {
+            User tempUser = Auth.getUser();
+            int maxAgeParsed = Int32.Parse(maxAge.Text);
+            tempUser.MaximumPrefferedAge = maxAgeParsed;
+            Auth.setUser(tempUser);
+            ErrorFrameEditPage.IsVisible = false;
+        }
+        catch(Exception ex)
+        {
+            ErrorLabelEditPage.Text = ex.Message;
+            ErrorFrameEditPage.IsVisible = true;
+        }
+    }
+
+    private void minAge_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        try
+        {
+            User tempUser = Auth.getUser();
+            int minAgeParsed = Int32.Parse(minAge.Text);
+            tempUser.MinimumPrefferedAge = minAgeParsed;
+            Auth.setUser(tempUser);
+            ErrorFrameEditPage.IsVisible = false;
+        }
+        catch (Exception ex)
+        {
+            ErrorLabelEditPage.Text = ex.Message;
+            ErrorFrameEditPage.IsVisible = true;
+        }
+    }
 }

@@ -13,6 +13,40 @@ namespace Model
         private string _email;
         private DateTime _dateOfBirth;
         private string _password;
+        private int _minimumPrefferedAge;
+        private int _maximumPrefferedAge;
+
+        public int MinimumPrefferedAge 
+        { get { return _minimumPrefferedAge; } //tests
+            set 
+            {
+                if(value !< 0 || value !> 120)
+                {
+                    throw new ArgumentException("Age is not valid");
+                }
+                if(value > MaximumPrefferedAge)
+                {
+                    throw new ArgumentException("your minimum preffered age cannot be smaller than your maximum preffered age");
+                }
+                _minimumPrefferedAge = value;
+            }
+        }
+        public int MaximumPrefferedAge
+        {
+            get { return _maximumPrefferedAge; } //tests
+            set
+            {
+                if (value! < 0 || value! > 120)
+                {
+                    throw new ArgumentException("Age is not valid");
+                }
+                if (value < MinimumPrefferedAge)
+                {
+                    throw new ArgumentException("your maximum preffered age cannot be larger than your minimum preffered age");
+                }
+                _maximumPrefferedAge = value;
+            }
+        }
 
         public string Name
         {
@@ -95,6 +129,8 @@ namespace Model
 
         public User(string name, string email, string password, DateTime dateOfBirth)
         {
+            MinimumPrefferedAge = 0;
+            MaximumPrefferedAge = 0;
             Name = name;
             Email = email;
             DateOfBirth = dateOfBirth;

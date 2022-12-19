@@ -162,13 +162,15 @@
                         <Label
                             Text="Minimum: " />
                         <Entry
-                            x:Name="minAge" />
+                            x:Name="minAge" 
+                            TextChanged="minAge_TextChanged"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout>
                         <Label
-                            Text="Maximum: " />
+                            Text="Maximum: "/>
                         <Entry
-                            x:Name="maxAge" />
+                            x:Name="maxAge" 
+                            TextChanged="maxAge_TextChanged"/>
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
             </VerticalStackLayout>
