@@ -1,7 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +10,12 @@ namespace Model
     {
         public int Id { get; set; }
         public User[] Users { get; set; }
-        public List<Message> Chat { get; set; }
+        public List<Message> Messages { get; set; }
+
+        public Match(User[] users, List<Message> messages)
+        {
+            Users = users;
+            Messages = messages;
+        }
     }
 }

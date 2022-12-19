@@ -1,5 +1,4 @@
 ﻿
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -11,29 +10,43 @@ namespace Model
 {
     public enum DrinkType
     {
-        Beer,
-        Wine,
-        Liquor
+        BeerOrPilsener,
+        CraftBeer,
+        IPA,
+        Cider,
+        WhiteWine,
+        RedWine,
+        RoseWine,
+        SparklingWine,
+        Whisky,
+        Rum,
+        SweetLiqour,
+        StrongLiqour,
+        Cocktail,
+        VodkaMix,
+        RumMix,
+        Mix
     }
 
     public class Drink
     {
         public int Id { get; set; }
-        public string DrinkImage { get; set; }
-        public DrinkType DrinkType { get; set;}
-        public string DrinkName { get; set; }
-        public float Percentage { get; set; }
+        public string ImageUrl { get; set; }
+        public DrinkType Type { get; set; }
+        public string Name { get; private set; }
+        public double Percentage { get; set; }
 
-        public Drink(string drinkImage, DrinkType drinkType, string drinkName, float percentage) {
-            DrinkImage = drinkImage;
-            DrinkType = drinkType;
-            DrinkName = drinkName;
+        public Drink(string drinkImage, DrinkType drinkType, string drinkName, double percentage)
+        {
+            ImageUrl = drinkImage;
+            Type = drinkType;
+            Name = drinkName;
             Percentage = percentage;
         }
 
         public static Drink GetDummyDrink()
         {
-            return new Drink("https://static.ah.nl/dam/product/AHI_43545239363438323836?revLabel=1&rendition=800x800_JPG_Q90&fileType=binary", DrinkType.Beer, "Beer", 10);
+            return new Drink("https://static.ah.nl/dam/product/AHI_43545239363438323836?revLabel=1&rendition=800x800_JPG_Q90&fileType=binary", DrinkType.BeerOrPilsener, "Beer", 10);
         }
     }
 

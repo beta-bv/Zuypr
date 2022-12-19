@@ -12,6 +12,11 @@
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
                 HorizontalOptions="Center" />
+            
+            <Button
+                Text="Logout"
+                Clicked="Logout"
+                HorizontalOptions="Center" />
 
         </VerticalStackLayout>
     </ScrollView>

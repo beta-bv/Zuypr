@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="View.Pages.ChatScreen">
+    <Grid
+        RowDefinitions="Auto, *, Auto">
+        <HorizontalStackLayout
+            x:Name="ChatInfo"
+            Grid.Row="0"
+            BackgroundColor="DarkGreen">
+            <ImageButton
+                Source="https://i1.sndcdn.com/avatars-twM1pq6gSk4YzN4F-N4zKuw-t240x240.jpg"
+                MaximumHeightRequest="50"
+                MaximumWidthRequest="50"
+                x:Name="chatPfpImage"                                                                
+                Aspect="AspectFit">
+            </ImageButton>
+            <Label
+                x:Name="LabelUserName"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                TextColor="White"
+                Text="">
+            </Label>
+        </HorizontalStackLayout>
+        <ScrollView
+            VerticalOptions="FillAndExpand"
+            x:Name="scrollviewChat"
+            Grid.Row="1">
+            <StackLayout
+                x:Name="ChatMessageView"
+                Spacing="10">
+            </StackLayout>
+        </ScrollView>
+
+        <Grid
+            ColumnDefinitions="*, Auto"
+            Grid.Row="2">
+            <Editor
+                x:Name="chatbox"
+                Grid.Column="0"
+                Placeholder="Enter text"
+                VerticalOptions="End"
+                AutoSize="TextChanges"
+                MaximumHeightRequest="150"
+                TextChanged="OnTextChanged"/>
+            <Button
+                x:Name="sendMessage"
+                Grid.Column="1"
+                Text="Send message"
+                VerticalOptions="End"
+                Clicked="SendMessage"
+                IsEnabled="False"
+                TextColor="White"
+                BackgroundColor="LightGray"
+                />
+        </Grid>
+    </Grid>
+</ContentPage>

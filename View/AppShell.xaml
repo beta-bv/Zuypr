@@ -6,9 +6,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:View.Pages"
     FlyoutBehavior="Locked"
-    NavBarIsVisible="False">
-    
-    <!--<ShellContent IsEnabled="False" IsVisible="False" ContentTemplate="{DataTemplate views:LaunchScreen}"/>-->
+    NavBarIsVisible="True">
 
     <FlyoutItem 
         Title="My Profile" Route="Profile">
@@ -38,30 +36,6 @@
         Title="Settings" Route="Settings">
         <Tab>
             <ShellContent ContentTemplate="{DataTemplate views:Settings}"/>
-        </Tab>
-    </FlyoutItem>
-    <FlyoutItem
-        Title="Register [TEMP]"
-        Route="Register">
-        <Tab>
-            <ShellContent
-                ContentTemplate="{DataTemplate views:Register}" />
-        </Tab>
-    </FlyoutItem>
-    <FlyoutItem
-        Title="Login [TEMP]"
-        Route="Login">
-        <Tab>
-            <ShellContent
-                ContentTemplate="{DataTemplate views:Login}" />
-        </Tab>
-    </FlyoutItem>
-    <FlyoutItem
-        Title="Logout [TEMP]"
-        Route="Logout">
-        <Tab>
-            <ShellContent
-                ContentTemplate="{DataTemplate views:Login}" />
         </Tab>
     </FlyoutItem>
 </Shell>

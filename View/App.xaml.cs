@@ -1,11 +1,14 @@
-﻿namespace View;
+﻿using Model;
+using View.Pages;
+
+namespace View;
 
 public partial class App : Application
 {
     public App()
     {
         InitializeComponent();
-
-        MainPage = new AppShell();
+        dummydb.Initialize();
+        MainPage = new LaunchScreen();
     }
 }

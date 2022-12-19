@@ -1,36 +1,150 @@
 ﻿using Model;
+using Controller;
 namespace View.Pages;
 
 public partial class MyDrinks : ContentPage
 {
-    public List<Drink> AllDrinks { get; private set; }
-    public string Test = "test";
+    private static readonly User User = Auth.getUser();
+    public List<Drink> AllDrinks => dummydb.Drinks;
+
+    private List<Drink> Favourites = User.GetFavourites();
+    private List<Drink> Likes = User.GetLikes();
+    private List<Drink> Dislikes = User.GetDislikes();
+
+    static int AmountFavorite;
+    static int AmountLikes;
+    static int AmountDislikes;
 
     public MyDrinks()
     {
-        AllDrinks = new List<Drink>();
-        AllDrinks.Add(Drink.GetDummyDrink());
-        AllDrinks.Add(Drink.GetDummyDrink());
-        AllDrinks.Add(Drink.GetDummyDrink());
-        AllDrinks.Add(Drink.GetDummyDrink());
-        AllDrinks.Add(Drink.GetDummyDrink());
-        AllDrinks.Add(Drink.GetDummyDrink());
+        AmountFavorite = Favourites.Count;
+        AmountLikes = Likes.Count;
+        AmountDislikes = Dislikes.Count;
+
         InitializeComponent();
         BindingContext = this;
     }
 
-    async void OnButtonFavoriteClicked(object sender, EventArgs args)
+    /// <summary>
+    /// When clicked on favorite the selected drink gets added to the favorite list
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
+    void OnFavouriteOptionChanged(object sender, EventArgs args)
     {
-        AllDrinks.Add(Drink.GetDummyDrink());
+        CheckBox button = (CheckBox)sender;
+        Drink drinkAdd = (Drink)button.BindingContext;
+        Drink drinkFave = Favourites.FirstOrDefault(x => x.Name == drinkAdd.Name);
+        Drink drinkLike = Likes.FirstOrDefault(x => x.Name == drinkAdd.Name);
+        Drink drinkDislike = Dislikes.FirstOrDefault(x => x.Name == drinkAdd.Name);
+
+        if (AmountFavorite == 0)
+        {
+            if (button.IsChecked == false)
+            {
+                User.RemoveFromDrinkList(drinkFave);
+            }
+            else if (button.IsChecked == true)
+            {
+                if (User.CheckIfListIsFull(User.GetFavourites()))
+                {
+                    button.IsChecked = false;
+                }
+                else if (User.CheckIfInList(drinkDislike, User.GetDislikes()) || User.CheckIfInList(drinkLike, User.GetLikes()))
+                {
+                    button.IsChecked = false;
+                }
+                else
+                {
+                    User.AddToFavourites(drinkAdd);
+                }
+            }
+        }
+        else
+        {
+            AmountFavorite--;
+        }
     }
 
-    async void OnButtonLikeClicked(object sender, EventArgs args)
+    /// <summary>
+    /// When clicked on like the selected drink gets added to the like list
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
+    void OnLikeOptionChanged(object sender, EventArgs args)
     {
-        AllDrinks.Add(Drink.GetDummyDrink());
+        CheckBox button = (CheckBox)sender;
+        Drink drinkAdd = (Drink)button.BindingContext;
+        Drink drinkFave = Favourites.FirstOrDefault(x => x.Name == drinkAdd.Name);
+        Drink drinkLike = Likes.FirstOrDefault(x => x.Name == drinkAdd.Name);
+        Drink drinkDislike = Dislikes.FirstOrDefault(x => x.Name == drinkAdd.Name);
+
+        if (AmountLikes == 0)
+        {
+            if (button.IsChecked == false)
+            {
+                User.RemoveFromDrinkList(drinkLike);
+            }
+            else if (button.IsChecked == true)
+            {
+                if (User.CheckIfListIsFull(User.GetLikes()))
+                {
+                    button.IsChecked = false;
+                }
+                else if (User.CheckIfInList(drinkDislike, User.GetDislikes()) || User.CheckIfInList(drinkFave, User.GetFavourites()))
+                {
+                    button.IsChecked = false;
+                }
+                else
+                {
+                    User.AddToLikes(drinkAdd);
+                }
+            }
+        }
+        else
+        {
+            AmountLikes--;
+        }
     }
 
-    async void OnButtonDislikeClicked(object sender, EventArgs args)
+    /// <summary>
+    /// When clicked on dislike the selected drink gets added to the dislike list
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
+    void OnDislikeOptionChanged(object sender, EventArgs args)
     {
-        AllDrinks.Add(Drink.GetDummyDrink());
+        CheckBox button = (CheckBox)sender;
+        Drink drinkAdd = (Drink)button.BindingContext;
+        Drink drinkFave = Favourites.FirstOrDefault(x => x.Name == drinkAdd.Name);
+        Drink drinkLike = Likes.FirstOrDefault(x => x.Name == drinkAdd.Name);
+        Drink drinkDislike = Dislikes.FirstOrDefault(x => x.Name == drinkAdd.Name);
+
+        if (AmountDislikes == 0)
+        {
+            if (button.IsChecked == false)
+            {
+                User.RemoveFromDrinkList(drinkDislike);
+            }
+            else if (button.IsChecked == true)
+            {
+                if (User.CheckIfListIsFull(User.GetDislikes()))
+                {
+                    button.IsChecked = false;
+                }
+                else if (User.CheckIfInList(drinkLike, User.GetLikes()) || User.CheckIfInList(drinkFave, User.GetFavourites()))
+                {
+                    button.IsChecked = false;
+                }
+                else
+                {
+                    User.AddToDislikes(drinkAdd);
+                }
+            }
+        }
+        else
+        {
+            AmountDislikes--;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Maui.Controls.Shapes;
 using Microsoft.Maui.Layouts;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
@@ -81,13 +82,14 @@ namespace Model
         }
 
         public int Id {get;set;}
-        public List<Location> Cities { get; set; }
-        public string ProfielImageURI { get; set; }
-        public List<User> Matches { get; set; }
+        public List<string> Cities { get; set; }
+        public string ProfileImage { get; set; }
+        public List<Match> Matches { get; set; }
+        private List<Drink> _favourites { get; set; }
+        private List<Drink> _likes { get; set; }
+        private List<Drink> _dislikes { get; set; }
 
-        private List<Drink> _favourites;
-        private List<Drink> _likes;
-        private List<Drink> _dislikes;
+        public int Age => (DateTime.Now.Month < DateOfBirth.Month || (DateTime.Now.Month == DateOfBirth.Month && DateTime.Now.Day < DateOfBirth.Day)) ? (DateTime.Now.Year - DateOfBirth.Year) - 1 : DateTime.Now.Year - DateOfBirth.Year;
 
         public User(string name, string email, string password, DateTime dateOfBirth)
         {
@@ -99,6 +101,8 @@ namespace Model
             _favourites = new List<Drink>(3);
             _likes = new List<Drink>(5);
             _dislikes = new List<Drink>(3);
+            ProfileImage = "dotnet_bot.png";
+            Cities = new List<string>();
         }
 
         public List<Drink> GetFavourites()
@@ -193,7 +197,6 @@ namespace Model
         /// Removes a drink from the given list Favourites, Likes or Dislikes.
         /// </summary>
         /// <param name="drink"></param>
-        /// <param name="drinkList"></param>
         /// <returns></returns>
         public bool RemoveFromDrinkList(Drink drink)
         {
@@ -294,7 +297,9 @@ namespace Model
         /// <returns></returns>
         public static User GetDummyUser()
         {
-            return new User("dummyUser", "123", "email@email.com", new DateTime(1, 1, 1999));
+            User dummy = new User("dummyUser", "email@a.com", "Wachtwoord!", new DateTime(1999, 1, 1));
+            dummy.Cities = new List<string>() { "Dalfsen", "Hoonhorst" };
+            return dummy;
         }
 
         /// <summary>
