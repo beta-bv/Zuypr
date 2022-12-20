@@ -268,5 +268,6 @@ public partial class Settings : ContentPage
         User temp = Auth.getUser();
         temp.Cities.Add(ListViewCities.SelectedItem.ToString());
         Auth.setUser(temp);
+        ListViewSelectedCities.IsRefreshing = true;
     }
 }

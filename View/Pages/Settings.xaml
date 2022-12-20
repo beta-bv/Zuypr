@@ -176,7 +176,8 @@
                 <SearchBar Placeholder="Add or Remove a preferred city..."
                            TextChanged="SearchBar_TextChanged"/>
                 <ListView
-                    x:Name ="ListViewCities">
+                    x:Name ="ListViewCities"
+                    ItemSelected="ListViewCities_ItemSelected">
                 </ListView>
                 <ListView
                     x:Name="ListViewSelectedCities"
