@@ -47,19 +47,9 @@ namespace Model
             return outputList;
         }
 
-        private static string _query = string.Empty;
         public static List<string> getCitySearchResult(string city)
-        {
-            _query = city;
-            ValidCities.Sort(LevenshteinDistance);
-            return ValidCities.Take(10).ToList();
-
-            if (ValidCities.Contains(city))
-            {
-                return ValidCities.Where(a => a.Equals(city, StringComparison.CurrentCultureIgnoreCase)).ToList();
-            }
-
-            return new List<string>();
+        {            
+            return ValidCities.OrderBy(a => LevenshteinDistance(a, city)).Take(10).ToList();
         }
 
         /// <summary>
@@ -69,7 +59,7 @@ namespace Model
         public static int LevenshteinDistance(string a, string b)
         {
             string s = (string)a;
-            string t = _query;
+            string t = (string)b;
 
             int n = s.Length;
             int m = t.Length;
