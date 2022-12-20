@@ -247,9 +247,7 @@ public partial class Settings : ContentPage
             Auth.setUser(tempUser);
             ErrorFrameEditPage.IsVisible = false;
         }
-        catch (FormatException)
-        {
-        }
+        catch (FormatException){}
         catch (Exception ex)
         {
             ErrorLabelEditPage.Text = ex.Message;
@@ -266,13 +264,17 @@ public partial class Settings : ContentPage
     private void AddButtonList_Pressed(object sender, EventArgs e)
     {
         User temp = Auth.getUser();
-        if (!temp.Cities.Contains(ListViewCities.SelectedItem.ToString()))
+        try
         {
-            temp.Cities.Add(ListViewCities.SelectedItem.ToString());
-            Auth.setUser(temp);
-            ListViewSelectedCities.ItemsSource = null;
-            ListViewSelectedCities.ItemsSource = Auth.getUser().Cities;
-        } 
+            if (!temp.Cities.Contains(ListViewCities.SelectedItem.ToString()))
+            {
+                temp.Cities.Add(ListViewCities.SelectedItem.ToString());
+                Auth.setUser(temp);
+                ListViewSelectedCities.ItemsSource = null;
+                ListViewSelectedCities.ItemsSource = Auth.getUser().Cities;
+            }
+        }
+        catch (NullReferenceException) { }
     }
 
     private void RemoveButtonList_Pressed(object sender, EventArgs e)
