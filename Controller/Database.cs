@@ -7,16 +7,16 @@ public static class Database
 {
     #region Properties
 
-    private const string ConnectionString = "Server=145.44.233.141;User ID=sa;Password=Betaverse01!;Initial Catalog=zuypr;";
     private static readonly SqlConnectionStringBuilder Builder = new()
     {
         // TODO: security for this shit
-        DataSource = "145.44.233.141",
+        DataSource = @"127.0.0.1",
         UserID = "sa",
         Password = "Betaverse01!",
-        InitialCatalog = "zuypr"
+        InitialCatalog = "zuypr",
+        TrustServerCertificate= true,
     };
-    private static readonly SqlConnection Connection = new(ConnectionString);
+    private static readonly SqlConnection Connection = new(Builder.ConnectionString);
 
     #endregion
 
@@ -34,8 +34,8 @@ public static class Database
         {
             while (reader.Read())
             {
-                user ??= new User(reader.GetString(0), reader.GetString(2), reader.GetString(3),
-                    reader.GetDateTime(4), reader.GetInt32(1));
+                user ??= new User(reader.GetString(1), reader.GetString(2), reader.GetString(4),
+                    reader.GetDateTime(3), reader.GetInt32(0));
             }
         }
         Connection.Close();
