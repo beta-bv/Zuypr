@@ -65,22 +65,47 @@
                                         <ColumnDefinition Width="100" />
                                     </Grid.ColumnDefinitions>
 
-                                    <CheckBox Grid.Column="0"
+                                    <HorizontalStackLayout Grid.Column="0">
+                                        <CheckBox 
                                                  CheckedChanged="OnFavouriteOptionChanged"
-                                                 Margin="0,0,5,0"
-                                                 BackgroundColor="Green"
+                                                 Color="Green"
+                                                 Scale="1.2"
                                                  IsChecked="{Binding Name, Converter={StaticResource drinkConverter}, ConverterParameter=0}"/>
+                                        <Label
+                                            Text="Favorite"
+                                            TextColor="Black"
+                                            FontSize="15"
+                                            VerticalTextAlignment="Center"
+                                            />
+                                    </HorizontalStackLayout>
 
-                                    <CheckBox Grid.Column="1"
+                                    <HorizontalStackLayout Grid.Column="1">
+                                        <CheckBox 
                                                  CheckedChanged="OnLikeOptionChanged"
-                                                 Margin="0,0,5,0"
-                                                 BackgroundColor="Orange"
+                                                 Color="Orange"
+                                                 Scale="1.2"
                                                  IsChecked="{Binding Name, Converter={StaticResource drinkConverter}, ConverterParameter=1}"/>
+                                        <Label
+                                            Text="Like"
+                                            FontSize="15"
+                                            TextColor="Black"
+                                            VerticalTextAlignment="Center"
+                                            />
+                                    </HorizontalStackLayout>
 
-                                    <CheckBox Grid.Column="2"
+                                    <HorizontalStackLayout Grid.Column="2">
+                                        <CheckBox
                                                  CheckedChanged="OnDislikeOptionChanged"
-                                                 BackgroundColor="Red"
+                                                 Color="Red"
+                                                 Scale="1.2"
                                                  IsChecked="{Binding Name, Converter={StaticResource drinkConverter}, ConverterParameter=2}"/>
+                                        <Label
+                                            FontSize="15"
+                                            Text="Dislike"
+                                            TextColor="Black"
+                                            VerticalTextAlignment="Center"
+                                            />
+                                    </HorizontalStackLayout>
                                 </Grid>
                             </StackLayout>
                         </Grid>

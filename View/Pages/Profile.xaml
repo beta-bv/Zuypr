@@ -93,7 +93,7 @@
                             <DataTemplate>
                                 <ViewCell>
                                     <Label
-                                        Text="{Binding}" 
+                                        Text="{Binding Name}" 
                                         FontSize="15"
                                         Margin="5, 10, 5, 5" TextColor="White"/>
                                 </ViewCell>
