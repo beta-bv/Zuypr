@@ -204,13 +204,13 @@ namespace Model
 
 
                 // Give users a list of cities
-                user.Cities = new List<string>()
+                user.Cities = new List<City>()
                 {
-                    "Raalte",
-                    "Heeten",
-                    "Zwolle",
-                    "Broekland",
-                    "Mariënheem",
+                    new ("Raalte"),
+                    new ("Heeten"),
+                    new ("Zwolle"),
+                    new ("Broekland"),
+                    new ("Mariënheem")
                 };
             }
 
