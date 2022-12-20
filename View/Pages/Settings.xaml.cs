@@ -247,7 +247,7 @@ public partial class Settings : ContentPage
             Auth.setUser(tempUser);
             ErrorFrameEditPage.IsVisible = false;
         }
-        catch (FormatException fe)
+        catch (FormatException)
         {
         }
         catch (Exception ex)
@@ -263,11 +263,26 @@ public partial class Settings : ContentPage
         ListViewCities.ItemsSource = Model.Location.getCitySearchResult(searchBar.Text);
     }
 
-    private void ListViewCities_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+    private void AddButtonList_Pressed(object sender, EventArgs e)
     {
         User temp = Auth.getUser();
-        temp.Cities.Add(ListViewCities.SelectedItem.ToString());
-        Auth.setUser(temp);
-        ListViewSelectedCities.IsRefreshing = true;
+        if (!temp.Cities.Contains(ListViewCities.SelectedItem.ToString()))
+        {
+            temp.Cities.Add(ListViewCities.SelectedItem.ToString());
+            Auth.setUser(temp);
+            ListViewSelectedCities.ItemsSource = null;
+            ListViewSelectedCities.ItemsSource = Auth.getUser().Cities;
+        } 
+    }
+
+    private void RemoveButtonList_Pressed(object sender, EventArgs e)
+    {
+        User temp = Auth.getUser();
+        if (temp.Cities.Remove(ListViewCities.SelectedItem.ToString()))
+        {
+            Auth.setUser(temp);
+            ListViewSelectedCities.ItemsSource = null;
+            ListViewSelectedCities.ItemsSource = Auth.getUser().Cities;
+        }
     }
 }

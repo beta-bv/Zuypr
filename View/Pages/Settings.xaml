@@ -176,9 +176,22 @@
                 <SearchBar Placeholder="Add or Remove a preferred city..."
                            TextChanged="SearchBar_TextChanged"/>
                 <ListView
-                    x:Name ="ListViewCities"
-                    ItemSelected="ListViewCities_ItemSelected">
+                    x:Name ="ListViewCities">
                 </ListView>
+                <HorizontalStackLayout>
+                    <Button
+                        x:Name="AddButtonList"
+                        Text="Add"
+                        Pressed="AddButtonList_Pressed"
+                        >
+                    </Button>
+                    <Button
+                        x:Name="RemoveButtonList"
+                        Text="Remove"
+                        Pressed="RemoveButtonList_Pressed"
+                        >
+                    </Button>
+                </HorizontalStackLayout>
                 <ListView
                     x:Name="ListViewSelectedCities"
                     Header="Your preferred cities"
