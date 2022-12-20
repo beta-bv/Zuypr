@@ -49,7 +49,7 @@ namespace Model
 
         public static List<string> getCitySearchResult(string city)
         {            
-            return ValidCities.OrderBy(a => LevenshteinDistance(a, city)).Take(10).ToList();
+            return ValidCities.OrderBy(a => LevenshteinDistance(a.ToLower(), city.ToLower())).Take(10).ToList();
         }
 
         /// <summary>
