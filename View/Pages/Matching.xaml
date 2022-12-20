@@ -3,12 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="View.Pages.Matching">
 
-    <ScrollView>
+                            <Grid HorizontalOptions="Center" VerticalOptions="Center">
+
         <VerticalStackLayout
             VerticalOptions="Center">
-
-
-
                 <!-- Match "card" -->
             <VerticalStackLayout
                 WidthRequest="300"
@@ -99,6 +97,21 @@
                 </HorizontalStackLayout>
             </VerticalStackLayout>
         </VerticalStackLayout>
-    </ScrollView>
+        <Frame WidthRequest="10000"
+               HeightRequest="10000"
+               IsVisible="false"
+               x:Name="PopDieShitUp">
+        <Frame
+                HorizontalOptions="Center"
+                HeightRequest="100"
+                BackgroundColor="#BFFF0000">
+               
+                <Label
+                    x:Name="ErrorLabelL"
+                    HorizontalOptions="Center"
+                    Text="Error: Dit is fout gegaan" />
+            </Frame>
+            </Frame>
+        </Grid>
 
 </ContentPage>

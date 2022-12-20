@@ -1,5 +1,6 @@
 ﻿using Model;
 using System.Text.RegularExpressions;
+//using static Java.Util.Jar.Attributes;
 
 namespace View.Pages;
 
@@ -44,10 +45,12 @@ public partial class Matching : ContentPage
     private void Yes_Clicked(object sender, EventArgs e)
     {
         var temp = (Button)sender;
-        if (Application.Current != null)
-        {
-            Application.Current.MainPage.Navigation.PushAsync(new PopUp());
-        };
+        //if (Application.Current != null)
+        //{
+        //    Application.Current.MainPage.Navigation.PushAsync(new PopUp());
+        //};
+
+        PopDieShitUp.IsVisible = true;
         // Show next person
         // If match show Profile card and chat button
         // Update List
