@@ -40,11 +40,11 @@ public partial class Step4 : ContentPage
 
         if (AmountDislikes == 0)
         {
-            if (button.IsChecked == false)
+            if (!button.IsChecked)
             {
                 User.RemoveFromDrinkList(drinkDislike);
             }
-            else if (button.IsChecked == true)
+            else
             {
                 if (User.CheckIfListIsFull(User.GetDislikes()))
                 {

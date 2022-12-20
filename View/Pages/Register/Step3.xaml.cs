@@ -41,11 +41,11 @@ public partial class Step3 : ContentPage
 
         if (AmountLikes == 0)
         {
-            if (button.IsChecked == false)
+            if (!button.IsChecked)
             {
                 User.RemoveFromDrinkList(drinkLike);
             }
-            else if (button.IsChecked == true)
+            else
             {
                 if (User.CheckIfListIsFull(User.GetLikes()))
                 {

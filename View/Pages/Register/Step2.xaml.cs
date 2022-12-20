@@ -40,11 +40,11 @@ public partial class Step2 : ContentPage
 
         if (AmountFavorite == 0)
         {
-            if (button.IsChecked == false)
+            if (!button.IsChecked)
             {
                 User.RemoveFromDrinkList(drinkFave);
             }
-            else if (button.IsChecked == true)
+            else
             {
                 if (User.CheckIfListIsFull(User.GetFavourites()))
                 {
