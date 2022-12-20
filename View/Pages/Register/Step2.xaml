@@ -5,7 +5,6 @@
              x:Class="View.Pages.Register.Step2">
     <ContentPage.Resources>
         <local:DrinkConverterOnboarding x:Key="DrinkConverterOnboarding"/>
-        <local:DrinkConverterOnboardingFavorite x:Key="DrinkConverterOnboardingFavorite"/>
         <Style TargetType="RadioButton">
             <Setter Property="VisualStateManager.VisualStateGroups">
                 <VisualStateGroupList>
