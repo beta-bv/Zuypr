@@ -20,7 +20,7 @@ public class DatabaseContext : DbContext
         {
             // TODO: security for this shit (voor nu prima)
             // NOTE: "localhost" werkt dus niet.. ffs
-            DataSource = @"127.0.0.1",
+            DataSource = "127.0.0.1",
             UserID = "sa",
             Password = "Betaverse01!",
             InitialCatalog = "zuypr",

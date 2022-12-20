@@ -1,33 +1,17 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Model
 {
-    public enum DrinkType
-    {
-        BeerOrPilsener,
-        CraftBeer,
-        IPA,
-        Cider,
-        WhiteWine,
-        RedWine,
-        RoseWine,
-        SparklingWine,
-        Whisky,
-        Rum,
-        SweetLiqour,
-        StrongLiqour,
-        Cocktail,
-        VodkaMix,
-        RumMix,
-        Mix
-    }
-
+    [Table("drinks")]
+    [PrimaryKey("Id")]
     public class Drink
     {
         public int Id { get; set; }
@@ -35,6 +19,11 @@ namespace Model
         public DrinkType Type { get; set; }
         public string Name { get; private set; }
         public double Percentage { get; set; }
+        
+        // Exists for EF
+        public Drink()
+        {
+        }
 
         public Drink(string imageUrl, DrinkType type, string name, double percentage)
         {

@@ -2,11 +2,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Maui.Controls.Shapes;
 using Microsoft.Maui.Layouts;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Security.Cryptography;
 
 namespace Model
 {
+    [Table("users")]
+    [PrimaryKey("Id")]
     public class User
     {
         private string _name;
@@ -82,7 +86,7 @@ namespace Model
         }
 
         public int Id {get;set;}
-        public List<string> Cities { get; set; }
+        public List<City> Cities { get; set; }
         public string ProfileImage { get; set; }
         public List<Match> Matches { get; set; }
         private List<Drink> _favourites { get; set; }
@@ -91,6 +95,8 @@ namespace Model
 
         public int Age => (DateTime.Now.Month < DateOfBirth.Month || (DateTime.Now.Month == DateOfBirth.Month && DateTime.Now.Day < DateOfBirth.Day)) ? (DateTime.Now.Year - DateOfBirth.Year) - 1 : DateTime.Now.Year - DateOfBirth.Year;
 
+        // Exists for EF
+        public User(){}
         public User(string name, string email, string password, DateTime dateOfBirth)
         {
             Name = name;
@@ -102,7 +108,7 @@ namespace Model
             _likes = new List<Drink>(5);
             _dislikes = new List<Drink>(3);
             ProfileImage = "dotnet_bot.png";
-            Cities = new List<string>();
+            Cities = new List<City>();
         }
 
         public List<Drink> GetFavourites()
@@ -298,7 +304,7 @@ namespace Model
         public static User GetDummyUser()
         {
             User dummy = new User("dummyUser", "email@a.com", "Wachtwoord!", new DateTime(1999, 1, 1));
-            dummy.Cities = new List<string>() { "Dalfsen", "Hoonhorst" };
+            dummy.Cities = new List<City>() { new ("Dalfsen"), new("Hoonhorst") };
             return dummy;
         }
 
