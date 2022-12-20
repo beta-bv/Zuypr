@@ -104,13 +104,13 @@ namespace Model
             // Add users WITH drink preferences
             Users = new List<User>()
             {
-                GeneratePreferences(new User("Bier Hater", "ik@haat.bier", "Bi3r!H@@t", new DateTime(2000, 1, 1)), new Dictionary<string, string[]>
+                GeneratePreferences(new User("Bier Hater", "ik@haat.bier", "Bi3r!H@@t", new DateTime(1990, 1, 1)), new Dictionary<string, string[]>
                 {
                         ["favs"] = new string[] { "Apple Bandit", "Radler", "Desperados" },
                         ["like"] = new string[] { "Slurp! Chardonnay", "BaCo", "Gimlet" },
                         ["hate"] = new string[] { "Gladiator van de Radiator", "Klok op Kamertemperatuur", "Export" },
                 }),
-                GeneratePreferences(new User("Stan", "stan@email.nl", "EpicPassword1!", new DateTime(2000, 1, 1)), new Dictionary<string, string[]>
+                GeneratePreferences(new User("Stan", "stan@email.nl", "EpicPassword1!", new DateTime(2004, 1, 1)), new Dictionary<string, string[]>
                 {
                     ["favs"] = new string[] { "Hertog Jan", "Licor 43", "Guinness" },
                     ["like"] = new string[] { "Heineken", "Jager Bomb", "Bacardi", "Martini", "Esbjaerg" },

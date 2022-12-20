@@ -7,11 +7,36 @@
         <VerticalStackLayout
             VerticalOptions="Center">
             
-            <Label
+            <!--<Label
                 Text="Matching"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center" />-->
+
+                        <StackLayout
+                x:Name="flexLayout"
+                BindableLayout.ItemsSource="{Binding FilterAge}">
+
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout>
+                                    <Label
+                                        HorizontalTextAlignment="Center"
+                                        FontSize="20"
+                                        Margin="0,20,0,0"
+                                        TextColor="Green"
+                                        Text="{Binding Name}"/>
+
+                                    <Label
+                                        HorizontalTextAlignment="Center"
+                                        FontSize="20"
+                                        Margin="0,20,0,0"
+                                        TextColor="Green"
+                                        Text="{Binding Age}"/>
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
 
         </VerticalStackLayout>
     </ScrollView>

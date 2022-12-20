@@ -85,6 +85,8 @@ namespace Model
         }
 
         public List<string> Cities { get; set; }
+        public int MinimalAge = 20;
+        public int MaximalAge = 30;
         public string ProfileImage { get; set; }
         public List<Match> Matches { get; set; }
         private List<Drink> _favourites { get; set; }
