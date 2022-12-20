@@ -18,6 +18,7 @@ public partial class Settings : ContentPage
         InitializeComponent();
         EmailField.Text = Auth.getUser().Email;
         ValidCities = Model.Location.GetValidCities();
+        ListViewSelectedCities.IsEnabled = false;
         ListViewSelectedCities.ItemsSource = Auth.getUser().Cities;
     }
 
@@ -270,6 +271,7 @@ public partial class Settings : ContentPage
         {
             temp.Cities.Add(ListViewCities.SelectedItem.ToString());
             Auth.setUser(temp);
+            ListViewSelectedCities.IsEnabled = false;
             ListViewSelectedCities.ItemsSource = null;
             ListViewSelectedCities.ItemsSource = Auth.getUser().Cities;
         } 
@@ -283,6 +285,7 @@ public partial class Settings : ContentPage
             if (temp.Cities.Remove(ListViewCities.SelectedItem.ToString()))
             {
                 Auth.setUser(temp);
+                ListViewSelectedCities.IsEnabled = false;
                 ListViewSelectedCities.ItemsSource = null;
                 ListViewSelectedCities.ItemsSource = Auth.getUser().Cities;
             }
