@@ -3,8 +3,6 @@ using Microsoft.Maui.Storage;
 using Model;
 using System.Linq.Expressions;
 using Microsoft.Maui.Storage;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
 using System.Net;
 
 namespace View.Pages;
@@ -19,35 +17,8 @@ public partial class Settings : ContentPage
     {
         InitializeComponent();
         EmailField.Text = Auth.getUser().Email;
-        ValidCities = GetValidCities();
+        ValidCities = Model.Location.GetValidCities();
         ListViewCities.ItemsSource = ValidCities;
-    }
-
-    private List<string> GetValidCities()
-    {
-        string output = string.Empty;
-        string url = @"https://opendata.cbs.nl/ODataApi/OData/84734NED/Woonplaatsen";
-
-        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-        request.AutomaticDecompression = DecompressionMethods.GZip;
-
-        using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-        using (Stream stream = response.GetResponseStream())
-        using (StreamReader reader = new StreamReader(stream))
-        {
-            output = reader.ReadToEnd();
-        }
-
-        dynamic deserialized = JsonConvert.DeserializeObject(output);
-        JArray array = deserialized.value;
-
-        List<string> outputList = new List<string>();
-        foreach (var item in array.ToList().Select(a => a["Title"]))
-        {
-            outputList.Add((string)item);
-        }
-
-        return outputList;
     }
 
     private void Logout(object sender, EventArgs e)
@@ -284,5 +255,11 @@ public partial class Settings : ContentPage
             ErrorLabelEditPage.Text = ex.Message;
             ErrorFrameEditPage.IsVisible = true;
         }
+    }
+
+    private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        SearchBar searchBar = (SearchBar)sender;
+        ListViewCities.ItemsSource = Model.Location.getCitySearchResult(searchBar.Text);
     }
 }

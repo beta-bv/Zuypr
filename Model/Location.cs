@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace Model
 {
@@ -13,5 +16,36 @@ namespace Model
         public string Zipcode { get; set; }
         public int Number { get; set; }
         public string Suffix { get; set; }
+
+        public static List<string> GetValidCities()
+        {
+            string output = string.Empty;
+            string url = @"https://opendata.cbs.nl/ODataApi/OData/84734NED/Woonplaatsen";
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.AutomaticDecompression = DecompressionMethods.GZip;
+
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (Stream stream = response.GetResponseStream())
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                output = reader.ReadToEnd();
+            }
+
+            dynamic deserialized = JsonConvert.DeserializeObject(output);
+            JArray array = deserialized.value;
+
+            List<string> outputList = new List<string>();
+            foreach (var item in array.ToList().Select(a => a["Title"]))
+            {
+                outputList.Add((string)item);
+            }
+
+            return outputList;
+        }
+        public static string getCitySearchResult(string city) 
+        {
+            throw new NotImplementedException();   //go go siem
+        }
     }
 }
