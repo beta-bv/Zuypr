@@ -173,6 +173,10 @@
                             TextChanged="maxAge_TextChanged"/>
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
+                <SearchBar Placeholder="Select your preffered city..." />
+                <ListView
+                    x:Name ="ListViewCities">
+                </ListView>
             </VerticalStackLayout>
             <Frame
                 IsVisible="false"

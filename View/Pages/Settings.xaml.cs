@@ -20,7 +20,7 @@ public partial class Settings : ContentPage
         InitializeComponent();
         EmailField.Text = Auth.getUser().Email;
         ValidCities = GetValidCities();
-
+        ListViewCities.ItemsSource = ValidCities;
     }
 
     private List<string> GetValidCities()
