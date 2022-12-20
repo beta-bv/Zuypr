@@ -278,11 +278,15 @@ public partial class Settings : ContentPage
     private void RemoveButtonList_Pressed(object sender, EventArgs e)
     {
         User temp = Auth.getUser();
-        if (temp.Cities.Remove(ListViewCities.SelectedItem.ToString()))
+        try
         {
-            Auth.setUser(temp);
-            ListViewSelectedCities.ItemsSource = null;
-            ListViewSelectedCities.ItemsSource = Auth.getUser().Cities;
+            if (temp.Cities.Remove(ListViewCities.SelectedItem.ToString()))
+            {
+                Auth.setUser(temp);
+                ListViewSelectedCities.ItemsSource = null;
+                ListViewSelectedCities.ItemsSource = Auth.getUser().Cities;
+            }
         }
+        catch (NullReferenceException) { }
     }
 }
