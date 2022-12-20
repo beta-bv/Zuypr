@@ -17,6 +17,8 @@ namespace Model
         public int Number { get; set; }
         public string Suffix { get; set; }
 
+        public static List<string> ValidCities { get; set; }
+
         public static List<string> GetValidCities()
         {
             string output = string.Empty;
@@ -40,12 +42,17 @@ namespace Model
             {
                 outputList.Add((string)item);
             }
-
+            ValidCities = outputList;
             return outputList;
         }
-        public static string getCitySearchResult(string city) 
+        public static List<string> getCitySearchResult(string city) 
         {
-            throw new NotImplementedException();   //go go siem
+            if (ValidCities.Contains(city))
+            {
+                return ValidCities.Where(a => a.Equals(city)).ToList();
+            }
+
+            return new List<string>();
         }
     }
 }
