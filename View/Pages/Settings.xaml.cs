@@ -3,6 +3,10 @@ using Microsoft.Maui.Storage;
 using Model;
 using System.Linq.Expressions;
 using Microsoft.Maui.Storage;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using System.Net;
+
 namespace View.Pages;
 
 public partial class Settings : ContentPage
@@ -10,10 +14,40 @@ public partial class Settings : ContentPage
     private bool _editIsClicked = false;
     private bool _editPIsClicked = false;
     private bool _deleteAccountClicked = false;
+    private List<string> ValidCities;
     public Settings()
     {
         InitializeComponent();
         EmailField.Text = Auth.getUser().Email;
+        ValidCities = GetValidCities();
+
+    }
+
+    private List<string> GetValidCities()
+    {
+        string output = string.Empty;
+        string url = @"https://opendata.cbs.nl/ODataApi/OData/84734NED/Woonplaatsen";
+
+        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+        request.AutomaticDecompression = DecompressionMethods.GZip;
+
+        using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+        using (Stream stream = response.GetResponseStream())
+        using (StreamReader reader = new StreamReader(stream))
+        {
+            output = reader.ReadToEnd();
+        }
+
+        dynamic deserialized = JsonConvert.DeserializeObject(output);
+        JArray array = deserialized.value;
+
+        List<string> outputList = new List<string>();
+        foreach (var item in array.ToList().Select(a => a["Title"]))
+        {
+            outputList.Add((string)item);
+        }
+
+        return outputList;
     }
 
     private void Logout(object sender, EventArgs e)
