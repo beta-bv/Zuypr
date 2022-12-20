@@ -3,10 +3,6 @@ using Microsoft.Maui.Storage;
 using Model;
 using System.Linq.Expressions;
 using Microsoft.Maui.Storage;
-using System.Net;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-
 namespace View.Pages;
 
 public partial class Settings : ContentPage
@@ -14,41 +10,10 @@ public partial class Settings : ContentPage
     private bool _editIsClicked = false;
     private bool _editPIsClicked = false;
     private bool _deleteAccountClicked = false;
-    private List<string> ValidCities;
     public Settings()
     {
         InitializeComponent();
         EmailField.Text = Auth.getUser().Email;
-
-        ValidCities = GetValidCities();
-
-    }
-
-    private List<string> GetValidCities()
-    {
-        string output = string.Empty;
-        string url = @"https://opendata.cbs.nl/ODataApi/OData/84734NED/Woonplaatsen";
-
-        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-        request.AutomaticDecompression = DecompressionMethods.GZip;
-
-        using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-        using (Stream stream = response.GetResponseStream())
-        using (StreamReader reader = new StreamReader(stream))
-        {
-            output = reader.ReadToEnd();
-        }
-
-        dynamic deserialized = JsonConvert.DeserializeObject(output);
-        JArray array = deserialized.value;
-
-        List<string> outputList = new List<string>();
-        foreach (var item in array.ToList().Select(a => a["Title"]))
-        {
-            outputList.Add((string)item);
-        }
-
-        return outputList;
     }
 
     private void Logout(object sender, EventArgs e)
@@ -223,23 +188,22 @@ public partial class Settings : ContentPage
     {
         try
         {
-            ErrorFrameEditPage.IsVisible=false;
-            var result = await FilePicker.PickAsync(new PickOptions
             {
-                PickerTitle = "Image Picker",
-                FileTypes = FilePickerFileType.Images,
-            });
-            if (result == null)
-            {
-                throw new Exception("could not get Image");
+                    FileResult photo = await MediaPicker.Default.PickPhotoAsync();
+
+                    if (photo != null)
+                    {
+                    // save the file into local storage
+                    string wanted_path = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+                    string localFilePath = Path.Combine(Path.Combine(wanted_path, "Zuypr\\Assets"), photo.FileName);    //path om in op te slaan werkt niet, en moet naar de db gaan pushen
+
+                        using Stream sourceStream = await photo.OpenReadAsync();
+                        using FileStream localFileStream = File.OpenWrite(localFilePath);
+
+                        await sourceStream.CopyToAsync(localFileStream);
+                    }
+                }
             }
-            else
-            {
-                var stream = await result.OpenReadAsync();
-                ImageSource image = ImageSource.FromStream(() => stream);
-                
-            }
-        }
         catch(Exception ex)
         {
             ErrorLabelEditPage.Text = ex.Message;
