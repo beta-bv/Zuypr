@@ -49,7 +49,7 @@ namespace Model
         {
             if (ValidCities.Contains(city))
             {
-                return ValidCities.Where(a => a.Equals(city)).ToList();
+                return ValidCities.Where(a => a.Equals(city, StringComparison.CurrentCultureIgnoreCase)).ToList();
             }
 
             return new List<string>();

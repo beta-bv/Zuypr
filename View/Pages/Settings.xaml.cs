@@ -18,7 +18,6 @@ public partial class Settings : ContentPage
         InitializeComponent();
         EmailField.Text = Auth.getUser().Email;
         ValidCities = Model.Location.GetValidCities();
-        ListViewCities.ItemsSource = ValidCities;
     }
 
     private void Logout(object sender, EventArgs e)
