@@ -85,7 +85,7 @@
                     BackgroundColor="Maroon"
                     TextColor="White"
                     MinimumWidthRequest="150"
-                    Clicked="No"
+                    Clicked="No_Clicked"
                 HorizontalOptions="Center" />
                     <Button
                 x:Name="Yes"
@@ -93,7 +93,7 @@
                     MinimumWidthRequest="150"
                     BackgroundColor="LightGreen"
                     TextColor="Black"
-                    Clicked="Yes"
+                    Clicked="Yes_Clicked"
                 HorizontalOptions="Center" />
 
                 </HorizontalStackLayout>

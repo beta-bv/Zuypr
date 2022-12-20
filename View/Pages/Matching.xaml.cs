@@ -1,4 +1,5 @@
 ﻿using Model;
+using System.Text.RegularExpressions;
 
 namespace View.Pages;
 
@@ -40,15 +41,21 @@ public partial class Matching : ContentPage
         }
         BindingContext = this;
     }
-    private void Yes(object sender, EventArgs e)
+    private void Yes_Clicked(object sender, EventArgs e)
     {
+        var temp = (Button)sender;
+        if (Application.Current != null)
+        {
+            Application.Current.MainPage.Navigation.PushAsync(new PopUp());
+        };
         // Show next person
         // If match show Profile card and chat button
         // Update List
         // Set Database Match and Chat
     }
-    private void No(object sender, EventArgs e)
+    private void No_Clicked(object sender, EventArgs e)
     {
+        var temp = (Button)sender;
         // Show next person
         // Update List
     }
