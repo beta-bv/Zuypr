@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using Microsoft.Data.SqlClient;
 
 namespace Model
 {
@@ -17,12 +18,21 @@ namespace Model
         public DbSet<Message> Messages { get; set; }
         public DbSet<User> Users { get; set; }
 
-        private string _connectionString;
+        private SqlConnectionStringBuilder _builder;
 
         public DatabaseContext() {
-            _connectionString = @"Server=localhost;Database=zuypr;User Id=sa;Password=Betaverse01!;Trusted_Connection=True;";
+            _builder = new()
+            {
+                // TODO: security for this shit
+                // NOTE: "localhost" werkt dus niet.. ffs
+                DataSource = @"127.0.0.1", 
+                UserID = "sa",
+                Password = "Betaverse01!",
+                InitialCatalog = "zuypr",
+                TrustServerCertificate = true,
+            };
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlServer(_connectionString);
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlServer(_builder.ConnectionString);
     }
 }
