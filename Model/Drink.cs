@@ -36,11 +36,11 @@ namespace Model
         public string Name { get; private set; }
         public double Percentage { get; set; }
 
-        public Drink(string drinkImage, DrinkType drinkType, string drinkName, double percentage)
+        public Drink(string imageUrl, DrinkType type, string name, double percentage)
         {
-            ImageUrl = drinkImage;
-            Type = drinkType;
-            Name = drinkName;
+            ImageUrl = imageUrl;
+            Type = type;
+            Name = name;
             Percentage = percentage;
         }
 
