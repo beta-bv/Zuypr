@@ -13,11 +13,11 @@ namespace Model
         private string _email;
         private DateTime _dateOfBirth;
         private string _password;
-        private int _minimumPrefferedAge;
-        private int _maximumPrefferedAge;
+        private int _minimumpreferredAge;
+        private int _maximumpreferredAge;
 
-        public int MinimumPrefferedAge 
-        { get { return _minimumPrefferedAge; } //tests
+        public int MinimumpreferredAge 
+        { get { return _minimumpreferredAge; } //tests
             set 
             {
                 if(value !< 0 || value !> 120)
@@ -26,18 +26,18 @@ namespace Model
                 }
                 if (value < 18)
                 {
-                    throw new ArgumentException("The preffered age must be above 18");
+                    throw new ArgumentException("The preferred age must be above 18");
                 }
-                if (value > MaximumPrefferedAge)
+                if (value > MaximumpreferredAge)
                 {
-                    throw new ArgumentException("your minimum preffered age cannot be smaller than your maximum preffered age");
+                    throw new ArgumentException("your minimum preferred age cannot be smaller than your maximum preferred age");
                 }
-                _minimumPrefferedAge = value;
+                _minimumpreferredAge = value;
             }
         }
-        public int MaximumPrefferedAge
+        public int MaximumpreferredAge
         {
-            get { return _maximumPrefferedAge; } //tests
+            get { return _maximumpreferredAge; } //tests
             set
             {
                 if (value! < 0 || value! > 120)
@@ -46,13 +46,13 @@ namespace Model
                 }
                 if(value < 18)
                 {
-                    throw new ArgumentException("The preffered age must be above 18");
+                    throw new ArgumentException("The preferred age must be above 18");
                 }
-                if (value < MinimumPrefferedAge)
+                if (value < MinimumpreferredAge)
                 {
-                    throw new ArgumentException("your maximum preffered age cannot be larger than your minimum preffered age");
+                    throw new ArgumentException("your maximum preferred age cannot be larger than your minimum preferred age");
                 }
-                _maximumPrefferedAge = value;
+                _maximumpreferredAge = value;
             }
         }
 

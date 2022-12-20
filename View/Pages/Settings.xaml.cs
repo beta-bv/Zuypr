@@ -18,6 +18,7 @@ public partial class Settings : ContentPage
         InitializeComponent();
         EmailField.Text = Auth.getUser().Email;
         ValidCities = Model.Location.GetValidCities();
+        ListViewSelectedCities.ItemsSource = Auth.getUser().Cities;
     }
 
     private void Logout(object sender, EventArgs e)
@@ -222,7 +223,7 @@ public partial class Settings : ContentPage
         {
             User tempUser = Auth.getUser();
             int maxAgeParsed = Int32.Parse(maxAge.Text);
-            tempUser.MaximumPrefferedAge = maxAgeParsed;
+            tempUser.MaximumpreferredAge = maxAgeParsed;
             Auth.setUser(tempUser);
             ErrorFrameEditPage.IsVisible = false;
         }
@@ -242,7 +243,7 @@ public partial class Settings : ContentPage
         {
             User tempUser = Auth.getUser();
             int minAgeParsed = Int32.Parse(minAge.Text);
-            tempUser.MinimumPrefferedAge = minAgeParsed;
+            tempUser.MinimumpreferredAge = minAgeParsed;
             Auth.setUser(tempUser);
             ErrorFrameEditPage.IsVisible = false;
         }
