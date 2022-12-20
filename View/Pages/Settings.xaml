@@ -157,7 +157,7 @@
                 <VerticalStackLayout
                     HorizontalOptions="Start">
                     <Label
-                        Text="Preffered Age Range:" />
+                        Text="preferred Age Range:" />
                     <HorizontalStackLayout>
                         <Label
                             Text="Minimum: " />
@@ -173,11 +173,15 @@
                             TextChanged="maxAge_TextChanged"/>
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
-                <SearchBar Placeholder="Select your preffered city..."
+                <SearchBar Placeholder="Add or Remove a preferred city..."
                            TextChanged="SearchBar_TextChanged"/>
                 <ListView
                     x:Name ="ListViewCities">
                 </ListView>
+                <ListView
+                    x:Name="ListViewSelectedCities"
+                    Header="Your preferred cities"
+                    SelectionMode="None"/>
             </VerticalStackLayout>
             <Frame
                 IsVisible="false"
