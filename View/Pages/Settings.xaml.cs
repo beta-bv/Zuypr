@@ -262,4 +262,11 @@ public partial class Settings : ContentPage
         SearchBar searchBar = (SearchBar)sender;
         ListViewCities.ItemsSource = Model.Location.getCitySearchResult(searchBar.Text);
     }
+
+    private void ListViewCities_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+    {
+        User temp = Auth.getUser();
+        temp.Cities.Add(ListViewCities.SelectedItem.ToString());
+        Auth.setUser(temp);
+    }
 }
