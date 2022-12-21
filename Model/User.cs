@@ -85,6 +85,8 @@ namespace Model
             }
         }
 
+        public int MinimalAge { get; set; }
+        public int MaximalAge { get; set; }
         public int Id {get;set;}
         public List<City> Cities { get; set; }
         public string ProfileImage { get; set; }
@@ -109,6 +111,9 @@ namespace Model
             _dislikes = new List<Drink>(3);
             ProfileImage = "dotnet_bot.png";
             Cities = new List<City>();
+
+            MinimalAge = 18;
+            MaximalAge = 200;
         }
 
         public List<Drink> GetFavourites()
