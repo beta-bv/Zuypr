@@ -8,27 +8,19 @@ using Message = Model.Message;
 
 public partial class ChatScreen : ContentPage
 {
-    public Match MatchChatScreen { get; set; }
+    private Match _matchChatScreen;
 
     public ChatScreen(Match match)
     {
-        dummydb.Initialize();
         InitializeComponent();
-        MatchChatScreen = match;
-        Chat chat = new(match);
-        
-        LabelUserName.Text = chat.ChatMembers[1].Name; //bij groeps chats gaat dit stuk!
-        ChatPfp.Source = chat.ChatMembers[1].ProfileImage;
-        
-        foreach (Message t in chat.Messages)
+        _matchChatScreen = match;
+
+        LabelUserName.Text = match.Users[1].Name; //bij groeps chats gaat dit stuk!
+        ChatPfp.Source = match.Users[1].ProfileImage;
+
+        foreach (Message message in match.Messages)
         {
-            if (t.Sender.Equals(chat.ChatMembers[1])){
-                PlaceText(false, t.Text);
-            }
-            else
-            {
-                PlaceText(true, t.Text);
-            }
+            PlaceText(message);
         }
     }
 
@@ -37,17 +29,28 @@ public partial class ChatScreen : ContentPage
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
+    /// <exception cref="ArgumentNullException"></exception>
     private async void SendMessage(object sender, EventArgs e)
     {
         string messageToSend = chatbox.Text?.Trim();
-        Message message = new(messageToSend, Auth.getUser(), DateTime.Now);
-        if (message == null) throw new ArgumentNullException(nameof(message));
-        MatchChatScreen.Messages.Add(message);
-        PlaceText(true, messageToSend);
+        Message message = new(messageToSend, Auth.getUser(), DateTime.Now, _matchChatScreen.Users[1]);
+
+        if (message == null)
+        {
+            throw new ArgumentNullException(nameof(message));
+        }
+
+        _matchChatScreen.Messages.Add(message);
+
+        await Database.DB.SaveChangesAsync();
+
+        PlaceText(message);
+
         chatbox.Text = "";
+
         await scrollviewChat.ScrollToAsync(ChatMessageView, ScrollToPosition.End, false);
     }
-    
+
     /// <summary>
     /// Enabled en disabled de send knop
     /// </summary>
@@ -71,44 +74,34 @@ public partial class ChatScreen : ContentPage
     /// <summary>
     /// Plaats de text op het chat scherm
     /// </summary>
-    /// <param name="userIsSender"></param>
-    /// <param name="message"></param>
-    private void PlaceText(bool userIsSender, string message)  
+    /// <param name="message"><see cref="Message">Message</see> to be placed on screen</param>
+    private void PlaceText(Message message)
     {
-        if (userIsSender)             //deze if statement kan wss veel korter, kon er alleen niet achter komen hoe dus voor nu effe dit. Het gaat om de horizontal options
+        Border renderableMessage = new()
         {
-            ChatMessageView.Children.Add(new Border
+            StrokeThickness = 1,
+            Padding = new Thickness(4, 2),
+            Content = new Label
             {
-                Background = Color.FromArgb("#008000"),
-                StrokeThickness = 1,
-                Padding = new Thickness(4, 2),
-                HorizontalOptions = LayoutOptions.End,
-                Content = new Label
-                {
-                    Text = message,
-                    TextColor = Colors.White,
-                    FontSize = 14,
-                    FontAttributes = FontAttributes.Bold
-                }
-            });
-            
+                Text = message.Text,
+                TextColor = Colors.White,
+                FontSize = 14,
+                FontAttributes = FontAttributes.Bold,
+                Padding = 10
+            }
+        };
+
+        if (message.Sender.Equals(Auth.getUser()))
+        {
+            renderableMessage.BackgroundColor = Color.FromArgb("#008000");
+            renderableMessage.HorizontalOptions = LayoutOptions.End;
         }
         else
         {
-            ChatMessageView.Children.Add(new Border
-            {
-                Background = Color.FromArgb("#808080"),
-                StrokeThickness = 1,
-                Padding = new Thickness(4, 2),
-                HorizontalOptions = LayoutOptions.Start,
-                Content = new Label
-                {
-                    Text = message,
-                    TextColor = Colors.White,
-                    FontSize = 14,
-                    FontAttributes = FontAttributes.Bold
-                }
-            });
+            renderableMessage.BackgroundColor = Color.FromArgb("#808080");
+            renderableMessage.HorizontalOptions = LayoutOptions.Start;
         }
+
+        ChatMessageView.Children.Add(renderableMessage);
     }
 }

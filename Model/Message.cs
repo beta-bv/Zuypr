@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace Model
@@ -12,21 +7,27 @@ namespace Model
     [PrimaryKey("Id")]
     public class Message
     {
-        public int Id { get; set; }
-        public string Text { get; set; }
-        public User Sender { get; set; }
-        public DateTime TimeSent { get; set; }
+        public int Id { get; }
+        public string Text { get; }
+        public User Sender { get; }
+        public DateTime TimeSent { get; }
+        public User Match { get; }
 
         // Exists for EF
         public Message()
         {
         }
 
-        public Message(String text, User sender, DateTime timeSent)
+        public Message(string text, User sender, DateTime timeSent)
         {
             Text = text;
             Sender = sender;
             TimeSent = timeSent;
+        }
+
+        public Message(string text, User sender, DateTime timeSent, User match) : this(text, sender, timeSent)
+        {
+            Match = match;
         }
     }
 }

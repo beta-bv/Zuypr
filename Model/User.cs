@@ -107,7 +107,7 @@ namespace Model
             _favourites = new List<Drink>(3);
             _likes = new List<Drink>(5);
             _dislikes = new List<Drink>(3);
-            ProfileImage = "dotnet_bot.png";
+            ProfileImage = $"https://avatars.dicebear.com/api/identicon/{name}.png?scale=80";
             Cities = new List<City>();
         }
 

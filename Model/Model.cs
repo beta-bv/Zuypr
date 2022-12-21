@@ -5,6 +5,8 @@ namespace Model;
 
 public class DatabaseContext : DbContext
 {
+    public static DatabaseContext Database { get; } = new();
+
     public DbSet<Bar> Bars { get; set; }
     public DbSet<Drink> Drinks { get; set; }
     public DbSet<Location> Locations { get; set; }
