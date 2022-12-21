@@ -7,36 +7,11 @@
         <VerticalStackLayout
             VerticalOptions="Center">
             
-            <!--<Label
+            <Label
                 Text="Matching"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
-                HorizontalOptions="Center" />-->
-
-                        <StackLayout
-                x:Name="flexLayout"
-                BindableLayout.ItemsSource="{Binding FilterPlace}">
-
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <HorizontalStackLayout>
-                                    <Label
-                                        HorizontalTextAlignment="Center"
-                                        FontSize="20"
-                                        Margin="0,20,0,0"
-                                        TextColor="Green"
-                                        Text="{Binding Name}"/>
-
-                                    <Label
-                                        HorizontalTextAlignment="Center"
-                                        FontSize="20"
-                                        Margin="0,20,0,0"
-                                        TextColor="Green"
-                                        Text="{Binding City}"/>
-                        </HorizontalStackLayout>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </StackLayout>
+                HorizontalOptions="Center" />
 
         </VerticalStackLayout>
     </ScrollView>
