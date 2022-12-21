@@ -33,7 +33,7 @@ public partial class ChatScreen : ContentPage
     private async void SendMessage(object sender, EventArgs e)
     {
         string messageToSend = chatbox.Text?.Trim();
-        Message message = new(messageToSend, Auth.User, DateTime.Now, _matchChatScreen.Users[1]);
+        Message message = new(messageToSend, Auth.getUser(), DateTime.Now, _matchChatScreen.Users[1]);
 
         if (message == null)
         {
@@ -91,7 +91,7 @@ public partial class ChatScreen : ContentPage
             }
         };
 
-        if (message.Sender.Equals(Auth.User))
+        if (message.Sender.Equals(Auth.getUser()))
         {
             renderableMessage.BackgroundColor = Color.FromArgb("#008000");
             renderableMessage.HorizontalOptions = LayoutOptions.End;

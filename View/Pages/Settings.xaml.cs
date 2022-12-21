@@ -16,17 +16,10 @@ public partial class Settings : ContentPage
     public Settings()
     {
         InitializeComponent();
-<<<<<<< Updated upstream
         EmailField.Text = Auth.getUser().Email;
         ValidCities = Model.City.GetValidCities();
         ListViewSelectedCities.IsEnabled = false;
         ListViewSelectedCities.ItemsSource = Auth.getUser().Cities.Select(a => a.Name);
-=======
-        EmailField.Text = Auth.User.Email;
-        ValidCities = Model.Location.GetValidCities();
-        ListViewSelectedCities.IsEnabled = false;
-        ListViewSelectedCities.ItemsSource = Auth.User.Cities;
->>>>>>> Stashed changes
     }
 
     private void Logout(object sender, EventArgs e)
@@ -46,7 +39,7 @@ public partial class Settings : ContentPage
     }
     private void onDeleteConfirmClicked(Object sender, EventArgs e)
     {
-        Auth.User = null;
+        Auth.setUser(null);
         Application.Current.MainPage = new LaunchScreen();
     }
 
@@ -67,7 +60,7 @@ public partial class Settings : ContentPage
     /// <param name="e"></param>
     private void OnEmailSavedClicked(object sender, EventArgs e)
     {
-        User temp = Auth.User;
+        User temp = Auth.getUser();
         try
         {
             if(RepeatEmailField.Text == null || EmailField.Text == null)
@@ -75,7 +68,7 @@ public partial class Settings : ContentPage
                 throw new Exception("Email adress fields cannot be empty");
             }
 
-            if(EmailField.Text.Equals(Auth.User.Email) || RepeatEmailField.Text.Equals(Auth.User.Email))
+            if(EmailField.Text.Equals(Auth.getUser().Email) || RepeatEmailField.Text.Equals(Auth.getUser().Email))
             {
                 throw new Exception("Your new Email may not be your old Email");
             }
@@ -83,10 +76,10 @@ public partial class Settings : ContentPage
             if (RepeatEmailField.Text.Equals(EmailField.Text))
             {
                 temp.Email = EmailField.Text.Trim();
-                Auth.User = temp;
+                Auth.setUser(temp);
                 EmailEditCancelBtn.Text = "Edit";
                 RepeatEmailField.Text = "";
-                EmailField.Text = Auth.User.Email;
+                EmailField.Text = Auth.getUser().Email;
                 EmailField.IsEnabled = false;
                 RepeatEmailField.IsVisible = false;
                 SaveEmailBtn.IsVisible = false;
@@ -126,7 +119,7 @@ public partial class Settings : ContentPage
         {
             EmailEditCancelBtn.Text = "Edit";
             RepeatEmailField.Text = "";
-            EmailField.Text = Auth.User.Email;
+            EmailField.Text = Auth.getUser().Email;
             EmailField.IsEnabled = false;
             RepeatEmailField.IsVisible = false;
             SaveEmailBtn.IsVisible = false;
@@ -158,7 +151,7 @@ public partial class Settings : ContentPage
     {
         try
         {
-            User temp = Auth.User;
+            User temp = Auth.getUser();
             if(PasswordField.Text == null || RepeatPasswordField.Text == null || OldPasswordField.Text == null)
             {
                 throw new Exception("Password fields cannot be empty");
@@ -171,15 +164,15 @@ public partial class Settings : ContentPage
             {
                 throw new Exception("Your new password cannot be your old password");
             }
-            if(!User.ComparePasswords(User.HashString(OldPasswordField.Text), Auth.User.Password))
+            if(!User.ComparePasswords(User.HashString(OldPasswordField.Text), Auth.getUser().Password))
             {
                 throw new Exception("Old password is not correct");
             }
 
-            if (PasswordField.Text.Equals(RepeatPasswordField.Text) && User.ComparePasswords(User.HashString(OldPasswordField.Text), Auth.User.Password)) 
+            if (PasswordField.Text.Equals(RepeatPasswordField.Text) && User.ComparePasswords(User.HashString(OldPasswordField.Text), Auth.getUser().Password)) 
             {
                 temp.Password = PasswordField.Text; 
-                Auth.User = temp;
+                Auth.setUser(temp);
                 PasswordEditCancelBtn.Text = "Edit";
                 PasswordField.Text = "";
                 RepeatPasswordField.Text = "";
@@ -229,10 +222,10 @@ public partial class Settings : ContentPage
     {
         try
         {
-            User tempUser = Auth.User;
+            User tempUser = Auth.getUser();
             int maxAgeParsed = Int32.Parse(maxAge.Text);
             tempUser.MaximumpreferredAge = maxAgeParsed;
-            Auth.User = tempUser;
+            Auth.setUser(tempUser);
             ErrorFrameEditPage.IsVisible = false;
         }
         catch(FormatException fe)
@@ -249,10 +242,10 @@ public partial class Settings : ContentPage
     {
         try
         {
-            User tempUser = Auth.User;
+            User tempUser = Auth.getUser();
             int minAgeParsed = Int32.Parse(minAge.Text);
             tempUser.MinimumpreferredAge = minAgeParsed;
-            Auth.User = tempUser;
+            Auth.setUser(tempUser);
             ErrorFrameEditPage.IsVisible = false;
         }
         catch (FormatException){}
@@ -271,24 +264,16 @@ public partial class Settings : ContentPage
 
     private void AddButtonList_Pressed(object sender, EventArgs e)
     {
-        User temp = Auth.User;
+        User temp = Auth.getUser();
         try
         {
             if (!temp.Cities.Select(a => a.Name).Contains(ListViewCities.SelectedItem.ToString()))
             {
-<<<<<<< Updated upstream
                 temp.Cities.Add(new City(ListViewCities.SelectedItem.ToString()));
                 Auth.setUser(temp);
                 ListViewSelectedCities.IsEnabled = false;
                 ListViewSelectedCities.ItemsSource = null;
                 ListViewSelectedCities.ItemsSource = Auth.getUser().Cities.Select(a => a.Name);
-=======
-                temp.Cities.Add(ListViewCities.SelectedItem.ToString());
-                Auth.User = temp;
-                ListViewSelectedCities.IsEnabled = false;
-                ListViewSelectedCities.ItemsSource = null;
-                ListViewSelectedCities.ItemsSource = Auth.User.Cities;
->>>>>>> Stashed changes
             }
         }
         catch (NullReferenceException) { }
@@ -296,19 +281,15 @@ public partial class Settings : ContentPage
 
     private void RemoveButtonList_Pressed(object sender, EventArgs e)
     {
-        User temp = Auth.User;
+        User temp = Auth.getUser();
         try
         {
             if (temp.Cities.Remove(temp.Cities.Where(a => a.Name.Equals(ListViewCities.SelectedItem.ToString())).FirstOrDefault()))
             {
-                Auth.User = temp;
+                Auth.setUser(temp);
                 ListViewSelectedCities.IsEnabled = false;
                 ListViewSelectedCities.ItemsSource = null;
-<<<<<<< Updated upstream
                 ListViewSelectedCities.ItemsSource = Auth.getUser().Cities.Select(a => a.Name);
-=======
-                ListViewSelectedCities.ItemsSource = Auth.User.Cities;
->>>>>>> Stashed changes
             }
         }
         catch (NullReferenceException) { }

@@ -17,14 +17,9 @@ public partial class LaunchScreen : ContentPage
         ErrorFrameL.IsVisible = false;
         String password = PasswordFieldL?.Text;
         String Email = EmailFieldL.Text?.Trim();
-        if(Model.Database.DB.Users.Any(u => Email == u.Email) && User.HashString(password) == Model.Database.DB.Users.Where(u => Email == u.Email).First().Password)
-        {
-            User temp = Auth.User = (Model.Database.DB.Users.Where(u => Email == u.Email).First());
-            Application.Current.MainPage = new AppShell(temp);
-        }
         if (dummydb.Users.Any(u => Email == u.Email) && User.HashString(password) == dummydb.Users.Where(u => Email == u.Email).First().Password)
         {
-            User temp = Auth.User = (dummydb.Users.Where(u => Email == u.Email).First());
+            User temp = Auth.setUser(dummydb.Users.Where(u => Email == u.Email).First());
             Application.Current.MainPage = new AppShell(temp);
         }
         else

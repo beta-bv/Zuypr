@@ -4,7 +4,7 @@ namespace View.Pages;
 
 public partial class MyDrinks : ContentPage
 {
-    private static readonly User User = Auth.User;
+    private static readonly User User = Auth.getUser();
     public List<Drink> AllDrinks => dummydb.Drinks;
 
     private List<Drink> Favourites = User.GetFavourites();
