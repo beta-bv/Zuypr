@@ -37,23 +37,17 @@ public partial class RegisterPage : ContentPage
                     User Client = new User(name, email, password, dateOfBirth);
                     using (SqlConnection connection = new SqlConnection("Data Source=127.0.0.1;Initial Catalog=zuypr;User ID=sa;Password=Betaverse01!;Trust Server Certificate=True"))
                     {
-                        String query = "INSERT INTO dbo.users (id,Name,Email,Password, DateOfBirth, ProfielImage) VALUES (@id,@Name,@Email,@Password, @DateOfBirth, ProfielImage)";
+                        string query = $"INSERT INTO users (Name,Email,Password, DateOfBirth, ProfielImage) VALUES ({name},{email},{password}, {dateOfBirth}, dotnet_bot.png)";
 
                         using (SqlCommand command = new SqlCommand(query, connection))
                         {
-                            command.Parameters.AddWithValue("@Id", "2");
-                            command.Parameters.AddWithValue("@Name", name);
-                            command.Parameters.AddWithValue("@Email", email);
-                            command.Parameters.AddWithValue("@Password", password);
-                            command.Parameters.AddWithValue("@DateOfBirth", dateOfBirth);
-                            command.Parameters.AddWithValue("@ProfielImage", "dotnet_bot.png");
-
                             connection.Open();
                             int result = command.ExecuteNonQuery();
 
                             // Check Error
                             if (result < 0)
                                 throw new Exception("Error inserting data into Database!");
+                            connection.Close();
                         }
                     }
                     Auth.User = Client;
