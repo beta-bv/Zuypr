@@ -212,7 +212,7 @@ namespace Model
                     new ("Broekland"),
                     new ("Mariënheem")
                 };
-                user.AddToFavourites(new Drink("dotnet_bot.png"));
+                user.AddToFavourites(new Drink("dotnet_bot.png", DrinkType.CraftBeer, 5.0));
             }
 
             // Add messages to the match

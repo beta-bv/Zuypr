@@ -14,6 +14,7 @@ namespace Model
 {
     [Table("locations")]
     [PrimaryKey("Id")]
+    // Exists for EF
     public class Location
     {
         public int Id { get; set; }
@@ -53,7 +54,7 @@ namespace Model
         }
 
         public static List<string> getCitySearchResult(string city)
-        {            
+        {
             return ValidCities.OrderBy(a => LevenshteinDistance(a.ToLower(), city.ToLower())).Take(10).ToList();
         }
 
@@ -107,11 +108,9 @@ namespace Model
             }
             // Step 7
             return d[n, m];
-        // Exists for EF
+        }
         public Location()
         {
         }
     }
-
-
 }
