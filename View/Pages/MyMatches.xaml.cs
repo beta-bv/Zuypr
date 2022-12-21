@@ -8,13 +8,13 @@ public partial class MyMatches : ContentPage
     public List<User> Users { get; set; }
     public MyMatches()
     {
-        AllMatches = Controller.Auth.User.Matches;
+        AllMatches = Controller.Auth.getUser().Matches;
         Users = new List<User>();
         foreach(Match match in AllMatches)
         {
             foreach(User user in match.Users)
             {
-                if(Controller.Auth.User != user) 
+                if(Controller.Auth.getUser() != user) 
                 {  
                     Users.Add(user);
                 }
