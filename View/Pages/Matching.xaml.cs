@@ -14,7 +14,7 @@ public partial class Matching : ContentPage
     public List<User> FilterPlace { get; set; } = new List<User>();
 
     //De uiteindelijke lijst potentiele matches die zijn gefilterd op plaats/dorp en leeftijd (Output filter).
-    public List<User> FilteredPotentionalMatches => FilterPlace.Where(x => x.Age > user.MinimalAge).Where(x => x.Age < user.MaximalAge).ToList();
+    public List<User> FilteredPotentionalMatches => FilterPlace.Where(x => x.Age >= user.MinimalAge).Where(x => x.Age <= user.MaximalAge).ToList();
 
     public Matching()
     {

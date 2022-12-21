@@ -111,6 +111,9 @@ namespace Model
             _dislikes = new List<Drink>(3);
             ProfileImage = "dotnet_bot.png";
             Cities = new List<City>();
+
+            MinimalAge = 18;
+            MaximalAge = 200;
         }
 
         public List<Drink> GetFavourites()
