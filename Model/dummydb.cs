@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+//using static Android.Provider.Telephony.Mms;
 
 namespace Model
 {
@@ -196,6 +197,12 @@ namespace Model
                 })
             };
 
+            City raalte = new City("Raalte");
+            City Heeten = new City("Heeten");
+            City Zwolle = new City("Zwolle");
+            City Broekland = new City("Broekland");
+            City Marienheem = new City("Mariënheem");
+
             foreach (User user in Users)
             {
                 // Give users a match with a random user (including themselves lol)
@@ -203,14 +210,14 @@ namespace Model
                 user.Matches.Add(new Match(new User[] { user, Users[new Random().Next(Users.Count)] }, new List<Message>()));
 
 
-                // Give users a list of cities
+                //Give users a list of cities
                 user.Cities = new List<City>()
                 {
-                    new ("Raalte"),
-                    new ("Heeten"),
-                    new ("Zwolle"),
-                    new ("Broekland"),
-                    new ("Mariënheem")
+                    raalte,
+                    Heeten,
+                    Zwolle,
+                    Broekland,
+                    Marienheem
                 };
             }
 
