@@ -52,25 +52,30 @@ public partial class Matching : ContentPage
 
     private void Yes_Clicked(object sender, EventArgs e)
     {
-        var temp = (Button)sender;
-        MsgAndBackPopUp.IsVisible = true;
-        // Show next person
-        // If match show Profile card and chat button
-        // Update List
-        // Make Match
-        Model.Match NewMatch = new Model.Match(new User[] {Auth.getUser(), Match}, new List<Message>());
-        Auth.getUser().Matches.Add(NewMatch);
-        Match.Matches.Add(NewMatch);
-        //Array.Clear(MatchUsers, 0, MatchUsers.Length);
-        // Set Database Match and Chat
-        if (Users is null || Users.Count() == 1)
+        if (MatchAdded())
         {
-            NoMatches.IsVisible = true;
-        }
-        else {
-            NextUser(Users);
+            var temp = (Button)sender;
+            MsgAndBackPopUp.IsVisible = true;
+            // Show next person
+            // If match show Profile card and chat button
+            // Update List
+            // Make Match
+            Model.Match NewMatch = new Model.Match(new User[] { Auth.getUser(), Match }, new List<Message>());
+            Auth.getUser().Matches.Add(NewMatch);
+            Match.Matches.Add(NewMatch);
+            //Array.Clear(MatchUsers, 0, MatchUsers.Length);
+            // Set Database Match and Chat
+            if (Users is null || Users.Count() == 1)
+            {
+                NoMatches.IsVisible = true;
+            }
+            else
+            {
+                NextUser(Users);
+            }
         }
     }
+
     private void No_Clicked(object sender, EventArgs e)
     {
         var temp = (Button)sender;
@@ -86,19 +91,13 @@ public partial class Matching : ContentPage
         // Update List
     }
     private void Back_Clicked(object sender, EventArgs e){
-        if (MatchAdded())
-        {
             MsgAndBackPopUp.IsVisible = false;
-        }
     }
     private void Message_Clicked(object sender, EventArgs e) {
-        if (MatchAdded())
-        {
             MsgAndBackPopUp.IsVisible = false;
-        }
     }
     public bool MatchAdded()
     {
-
+        throw new Exception("matchadded is nog niet implemented");
     }
 }
