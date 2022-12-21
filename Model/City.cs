@@ -18,4 +18,15 @@ public class City
     {
         Name = name;
     }
+
+    public override bool Equals(object obj)
+    {
+        City city = obj as City;
+        return this.Name == city.Name;
+    }
+
+    public override int GetHashCode()
+    {
+        return Name.GetHashCode();
+    }
 }
