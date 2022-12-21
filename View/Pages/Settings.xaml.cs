@@ -12,14 +12,14 @@ public partial class Settings : ContentPage
     private bool _editIsClicked = false;
     private bool _editPIsClicked = false;
     private bool _deleteAccountClicked = false;
-    private List<string> ValidCities;
+    private List<City> ValidCities;
     public Settings()
     {
         InitializeComponent();
         EmailField.Text = Auth.getUser().Email;
-        ValidCities = Model.Location.GetValidCities();
+        ValidCities = Model.City.GetValidCities();
         ListViewSelectedCities.IsEnabled = false;
-        ListViewSelectedCities.ItemsSource = Auth.getUser().Cities;
+        ListViewSelectedCities.ItemsSource = Auth.getUser().Cities.Select(a => a.Name);
     }
 
     private void Logout(object sender, EventArgs e)
@@ -259,7 +259,7 @@ public partial class Settings : ContentPage
     private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
     {
         SearchBar searchBar = (SearchBar)sender;
-        ListViewCities.ItemsSource = Model.Location.getCitySearchResult(searchBar.Text);
+        ListViewCities.ItemsSource = Model.City.getCitySearchResult(searchBar.Text).Select(a => a.Name);
     }
 
     private void AddButtonList_Pressed(object sender, EventArgs e)
@@ -267,13 +267,13 @@ public partial class Settings : ContentPage
         User temp = Auth.getUser();
         try
         {
-            if (!temp.Cities.Contains(ListViewCities.SelectedItem.ToString()))
+            if (!temp.Cities.Select(a => a.Name).Contains(ListViewCities.SelectedItem.ToString()))
             {
-                temp.Cities.Add(ListViewCities.SelectedItem.ToString());
+                temp.Cities.Add(new City(ListViewCities.SelectedItem.ToString()));
                 Auth.setUser(temp);
                 ListViewSelectedCities.IsEnabled = false;
                 ListViewSelectedCities.ItemsSource = null;
-                ListViewSelectedCities.ItemsSource = Auth.getUser().Cities;
+                ListViewSelectedCities.ItemsSource = Auth.getUser().Cities.Select(a => a.Name);
             }
         }
         catch (NullReferenceException) { }
@@ -284,12 +284,12 @@ public partial class Settings : ContentPage
         User temp = Auth.getUser();
         try
         {
-            if (temp.Cities.Remove(ListViewCities.SelectedItem.ToString()))
+            if (temp.Cities.Remove(temp.Cities.Where(a => a.Name.Equals(ListViewCities.SelectedItem.ToString())).FirstOrDefault()))
             {
                 Auth.setUser(temp);
                 ListViewSelectedCities.IsEnabled = false;
                 ListViewSelectedCities.ItemsSource = null;
-                ListViewSelectedCities.ItemsSource = Auth.getUser().Cities;
+                ListViewSelectedCities.ItemsSource = Auth.getUser().Cities.Select(a => a.Name);
             }
         }
         catch (NullReferenceException) { }

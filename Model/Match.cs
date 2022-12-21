@@ -17,7 +17,8 @@ namespace Model
         public Match(User[] users)
         {
             Users = users;
-            Messages = Database.DB.Messages.Where(m => users.Contains(m.Sender) && users.Contains(m.Match)).ToList();
+            //Messages = Database.DB.Messages.Where(m => users.Contains(m.Sender) && users.Contains(m.Match)).ToList();
+            Messages = new List<Message>();
         }
     }
 }
