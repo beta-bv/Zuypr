@@ -15,7 +15,7 @@
 
                         <StackLayout
                 x:Name="flexLayout"
-                BindableLayout.ItemsSource="{Binding FilterPlace}">
+                BindableLayout.ItemsSource="{Binding FilterAge}">
 
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
@@ -32,7 +32,7 @@
                                         FontSize="20"
                                         Margin="0,20,0,0"
                                         TextColor="Green"
-                                        Text="{Binding City}"/>
+                                        Text="{Binding Age}"/>
                         </HorizontalStackLayout>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
