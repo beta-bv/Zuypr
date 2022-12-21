@@ -10,7 +10,7 @@ public partial class AppShell : Shell
     {
         dummydb.Initialize();
 
-        Auth.setUser(user);
+        Auth.User = user;
 
         InitializeComponent();
 

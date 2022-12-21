@@ -33,7 +33,7 @@ public partial class RegisterPage : ContentPage
                     User Client = new User(name, email, password, dateOfBirth);
                     Model.Database.DB.Add(Client);
                     Model.Database.DB.SaveChanges();
-                    Auth.setUser(Client);
+                    Auth.User = Client;
                     Application.Current.MainPage = new AppShell(Client);
                 }
                 catch (Exception ex)

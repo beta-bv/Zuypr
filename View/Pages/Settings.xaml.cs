@@ -16,17 +16,10 @@ public partial class Settings : ContentPage
     public Settings()
     {
         InitializeComponent();
-<<<<<<< Updated upstream
-        EmailField.Text = Auth.getUser().Email;
+        EmailField.Text = Auth.User.Email;
         ValidCities = Model.City.GetValidCities();
         ListViewSelectedCities.IsEnabled = false;
-        ListViewSelectedCities.ItemsSource = Auth.getUser().Cities.Select(a => a.Name);
-=======
-        EmailField.Text = Auth.User.Email;
-        ValidCities = Model.Location.GetValidCities();
-        ListViewSelectedCities.IsEnabled = false;
-        ListViewSelectedCities.ItemsSource = Auth.User.Cities;
->>>>>>> Stashed changes
+        ListViewSelectedCities.ItemsSource = Auth.User.Cities.Select(a => a.Name);
     }
 
     private void Logout(object sender, EventArgs e)
@@ -276,19 +269,11 @@ public partial class Settings : ContentPage
         {
             if (!temp.Cities.Select(a => a.Name).Contains(ListViewCities.SelectedItem.ToString()))
             {
-<<<<<<< Updated upstream
                 temp.Cities.Add(new City(ListViewCities.SelectedItem.ToString()));
-                Auth.setUser(temp);
-                ListViewSelectedCities.IsEnabled = false;
-                ListViewSelectedCities.ItemsSource = null;
-                ListViewSelectedCities.ItemsSource = Auth.getUser().Cities.Select(a => a.Name);
-=======
-                temp.Cities.Add(ListViewCities.SelectedItem.ToString());
                 Auth.User = temp;
                 ListViewSelectedCities.IsEnabled = false;
                 ListViewSelectedCities.ItemsSource = null;
-                ListViewSelectedCities.ItemsSource = Auth.User.Cities;
->>>>>>> Stashed changes
+                ListViewSelectedCities.ItemsSource = Auth.User.Cities.Select(a => a.Name);
             }
         }
         catch (NullReferenceException) { }
@@ -304,11 +289,7 @@ public partial class Settings : ContentPage
                 Auth.User = temp;
                 ListViewSelectedCities.IsEnabled = false;
                 ListViewSelectedCities.ItemsSource = null;
-<<<<<<< Updated upstream
-                ListViewSelectedCities.ItemsSource = Auth.getUser().Cities.Select(a => a.Name);
-=======
-                ListViewSelectedCities.ItemsSource = Auth.User.Cities;
->>>>>>> Stashed changes
+                ListViewSelectedCities.ItemsSource = Auth.User.Cities.Select(a => a.Name);
             }
         }
         catch (NullReferenceException) { }

@@ -7,18 +7,7 @@ namespace Controller
     {
         // TODO: Dit veranderen naar een public property met get;set;?
 
-        private static User _user;
-
-        public static User getUser()
-        {
-            return _user;
-        }
-
-        public static User setUser(User user)
-        {
-            _user = user;      
-            return _user;
-        }
+        public static User User { get; set; }
     }
 }
 
