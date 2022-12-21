@@ -1,4 +1,5 @@
 using Model;
+using Controller;
 
 using View.Pages.Register;
 
@@ -11,9 +12,21 @@ public partial class LaunchScreen : ContentPage
         InitializeComponent();
     }
 
-    private void Login(object sender, EventArgs e)
+    private async void LoginUser(object sender, EventArgs e)
     {
-        Application.Current.MainPage = new Login();
+        ErrorFrameL.IsVisible = false;
+        String password = PasswordFieldL?.Text;
+        String Email = EmailFieldL.Text?.Trim();
+        if (dummydb.Users.Any(u => Email == u.Email) && User.HashString(password) == dummydb.Users.Where(u => Email == u.Email).First().Password)
+        {
+            User temp = Auth.setUser(dummydb.Users.Where(u => Email == u.Email).First());
+            Application.Current.MainPage = new AppShell(temp);
+        }
+        else
+        {
+            ErrorFrameL.IsVisible = true;
+            ErrorLabelL.Text = "de ingevulde gegevens zijn niet correct";
+        }
     }
 
     private void Register(object sender, EventArgs e)
