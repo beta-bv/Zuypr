@@ -113,7 +113,7 @@
         <Frame 
              IsVisible="false"
                BackgroundColor="Black"
-               x:Name="PopDieShitUp">
+            x:Name="MsgAndBackPopUp">
             <Frame
                 HorizontalOptions="Center">
                 <VerticalStackLayout                

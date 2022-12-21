@@ -53,7 +53,7 @@ public partial class Matching : ContentPage
     private void Yes_Clicked(object sender, EventArgs e)
     {
         var temp = (Button)sender;
-        PopDieShitUp.IsVisible = true;
+        MsgAndBackPopUp.IsVisible = true;
         // Show next person
         // If match show Profile card and chat button
         // Update List
@@ -86,20 +86,19 @@ public partial class Matching : ContentPage
         // Update List
     }
     private void Back_Clicked(object sender, EventArgs e){
-        PopDieShitUp.IsVisible = false;
+        if (MatchAdded())
+        {
+            MsgAndBackPopUp.IsVisible = false;
+        }
     }
     private void Message_Clicked(object sender, EventArgs e) {
-        PopDieShitUp.IsVisible = false;
-        foreach (Model.Match match in Controller.Auth.getUser().Matches)
+        if (MatchAdded())
         {
-            foreach (User user in match.Users)
-            {
-                if (user == MatchUsers[1])
-                {
-                    Application.Current.MainPage.Navigation.PushAsync(new ChatScreen(match));
-                }
-            }
+            MsgAndBackPopUp.IsVisible = false;
         }
-        MatchUsers = new User[1];
+    }
+    public bool MatchAdded()
+    {
+
     }
 }
