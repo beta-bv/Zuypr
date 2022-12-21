@@ -16,11 +16,13 @@
                     WidthRequest="300"
                     BackgroundColor="White">
                     <Image
+                        x:Name="MatchImage"
                         Source="{Binding Match.ProfileImage}"
                         HeightRequest="300"
                         WidthRequest="300" />
 
                     <Label
+                        x:Name="MatchName"
                        Text="{Binding Match.Name}"
                        TextColor="Black"
                        FontSize="26" />
@@ -97,21 +99,54 @@
                 </HorizontalStackLayout>
             </VerticalStackLayout>
         </VerticalStackLayout>
-        <Frame WidthRequest="10000"
-               HeightRequest="10000"
-               IsVisible="false"
-               x:Name="PopDieShitUp">
-        <Frame
-                HorizontalOptions="Center"
-                HeightRequest="100"
-                BackgroundColor="#BFFF0000">
-               
+        <Frame 
+             IsVisible="false"
+               BackgroundColor="Black"
+               x:Name="NoMatches">
+            <Frame
+                HorizontalOptions="Center">
                 <Label
-                    x:Name="ErrorLabelL"
-                    HorizontalOptions="Center"
-                    Text="Error: Dit is fout gegaan" />
+                    Text="U heeft geen verdere matches meer voor nu. &#x0a;
+                    Kijk binnenkort weer eens!"/>
             </Frame>
+        </Frame>
+        <Frame 
+             IsVisible="false"
+               BackgroundColor="Black"
+               x:Name="PopDieShitUp">
+            <Frame
+                HorizontalOptions="Center">
+                <VerticalStackLayout                
+                    WidthRequest="300">
+                    <Label
+                        Text="It's a match!"
+                        FontSize="53"
+                        Margin="0,0,0,10"/>
+                    <Image
+                        x:Name="MatchFoundImage"
+                        BackgroundColor="White"
+                        Source="{Binding Match.ProfileImage}"
+                        HeightRequest="300"
+                        WidthRequest="300" />
+                    <Label
+                        x:Name="MatchFoundName"
+                       Text="{Binding Match.Name}"
+                       TextColor="White"
+                       FontSize="26" 
+                        Margin="0,0,0,12"/>
+                    <HorizontalStackLayout>
+                        <Button
+                        Text="Back"
+                        WidthRequest="150"
+                        Clicked="Back_Clicked"/>
+                        <Button
+                        Text="Message"
+                        WidthRequest="150"
+                        Clicked="Message_Clicked"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
             </Frame>
-        </Grid>
+        </Frame>
+    </Grid>
 
 </ContentPage>
