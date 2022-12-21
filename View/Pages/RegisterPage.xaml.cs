@@ -1,6 +1,7 @@
 ﻿using Model;
 using System.Linq.Expressions;
-using Controller; 
+using Controller;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace View.Pages;
 
@@ -30,6 +31,8 @@ public partial class RegisterPage : ContentPage
                 try
                 {
                     User Client = new User(name, email, password, dateOfBirth);
+                    Model.Database.DB.Add(Client);
+                    Model.Database.DB.SaveChanges();
                     Auth.setUser(Client);
                     Application.Current.MainPage = new AppShell(Client);
                 }
@@ -43,7 +46,7 @@ public partial class RegisterPage : ContentPage
                         return;
                     }
                 }
-                await Navigation.PushAsync(new Profile(Controller.Auth.getUser()));
+                await Navigation.PushAsync(new Profile(Controller.Auth.User));
             }
             else
             {

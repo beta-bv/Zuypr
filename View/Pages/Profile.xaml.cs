@@ -6,7 +6,7 @@ public partial class Profile : ContentPage
 {
     public User MatchUser { get; set; }
     public List<Drink> Drinks { get; set; }
-    public Profile() : this(Auth.getUser())
+    public Profile() : this(Auth.User)
     {
     }
 
@@ -23,7 +23,7 @@ public partial class Profile : ContentPage
         {
             beverage.Text = "Favourite Beverage";
         }
-        if (user.Equals(Controller.Auth.getUser()))
+        if (user.Equals(Controller.Auth.User))
         {
             chat.IsVisible = false;
         }
@@ -32,7 +32,7 @@ public partial class Profile : ContentPage
 
     private void ChatButton_Clicked(object sender, EventArgs e)
     {
-        foreach(Match match in Controller.Auth.getUser().Matches)
+        foreach(Match match in Controller.Auth.User.Matches)
         {
             foreach(User user in match.Users)
             {
