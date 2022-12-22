@@ -30,7 +30,6 @@ namespace Model
                 _name = value;
             }
         }
-
         public string Email
         {
             get { return _email; }
@@ -43,7 +42,6 @@ namespace Model
                 _email = value;
             }
         }
-
         /// <summary>
         /// Stores the <see cref="SHA256">SHA256</see> hash of the password
         /// <para>The getter automatically hashes the given password string</para>
@@ -69,7 +67,6 @@ namespace Model
                 }
             }
         }
-
         public DateTime DateOfBirth
         {
             get { return _dateOfBirth; }
@@ -90,7 +87,7 @@ namespace Model
 
         public int MinimalAge { get; set; }
         public int MaximalAge { get; set; }
-        public int Id {get;set;}
+        public int Id { get; set; }
         public List<City> Cities { get; set; }
         public string ProfileImage { get; set; }
         public List<Match> Matches { get; set; }
@@ -101,7 +98,7 @@ namespace Model
         public int Age => (DateTime.Now.Month < DateOfBirth.Month || (DateTime.Now.Month == DateOfBirth.Month && DateTime.Now.Day < DateOfBirth.Day)) ? (DateTime.Now.Year - DateOfBirth.Year) - 1 : DateTime.Now.Year - DateOfBirth.Year;
 
         // Exists for EF
-        public User(){}
+        public User() { }
         public User(string name, string email, string password, DateTime dateOfBirth)
         {
             Name = name;
@@ -312,7 +309,7 @@ namespace Model
         public static User GetDummyUser()
         {
             User dummy = new User("dummyUser", "email@a.com", "Wachtwoord!", new DateTime(1999, 1, 1));
-            dummy.Cities = new List<City>() { new ("Dalfsen"), new("Hoonhorst") };
+            dummy.Cities = new List<City>() { new("Dalfsen"), new("Hoonhorst") };
             return dummy;
         }
 
@@ -325,11 +322,12 @@ namespace Model
             try
             {
                 DatabaseContext db = new DatabaseContext();  //maakt database context aan
-                User userFromDatabse = db.Users              
+                User userFromDatabse = db.Users
                 .Where(u => u.Email.Equals(user.Email)).First();   //query haalt de user op aan de hand van zijn/haar email
                 return userFromDatabse;                            // returned de user
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 new Exception("Database Failure");                 // gooit een exception als er iets mis gaat met de database
                 return null;
             }
@@ -407,7 +405,7 @@ namespace Model
                         db.SaveChanges();
                         return true;
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         throw new Exception("DATABASE FAILURE");
                         return false;
@@ -427,7 +425,6 @@ namespace Model
                 return true;
             }
             return false;
-            }
         }
-    
     }
+}
