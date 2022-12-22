@@ -27,9 +27,12 @@ namespace Model
             foreach (User user in Users)
             {
                 // Give users a match with a random user (including themselves lol)
-                user.Matches = new List<Match>();
-                user.Matches.Add(new Match(new User[] { user, Users[new Random().Next(Users.Count)] }, new List<Message>()));
-                
+                user.Matches = new List<Match>
+                {
+                    new Match(new User[] { user, Users[2] }, new List<Message>()),
+                    new Match(new User[] { user, Users[1] }, new List<Message>())
+                };
+
 
                 // Give users a list of cities
                 user.Cities = new List<string>()

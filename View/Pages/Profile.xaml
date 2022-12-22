@@ -1,14 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="View.Pages.Profile">
+             x:Class="View.Pages.Profile"
+             >
 
-    <Grid>
-        <ScrollView>
+    <Grid
+        HorizontalOptions="Fill">
+        <ScrollView
+            HorizontalOptions="Fill">
             <VerticalStackLayout
-                Padding="0, 50, 0, 0">
+                Padding="0, 50, 0, 0"
+                HorizontalOptions="Fill">
                 <HorizontalStackLayout
-                    Margin="5, 5, 5, 5">
+                    Margin="5, 5, 5, 5"
+                    HorizontalOptions="Fill">
 
                     <Image
                         Source="{Binding MatchUser.ProfileImage}"

@@ -2,9 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="View.Pages.MyMatches">
-            
+
 
     <Grid>
+
         <ScrollView>
             <FlexLayout
                 x:Name="flexLayout"
@@ -31,8 +32,15 @@
                                     <Label
                                         FontSize="20"
                                         HorizontalOptions="Start"
-                                        WidthRequest="180"
+                                        WidthRequest="160"
                                         Text="{Binding Name}"/>
+                                    
+                                    <ImageButton
+                                        Source="delete_button.png"
+                                        WidthRequest="20"
+                                        HeightRequest="20"
+                                        HorizontalOptions="End"
+                                        Clicked="DeleteButton_Clicked"/>
 
                                     <ImageButton
                                         Source="chat.png"
@@ -48,7 +56,63 @@
 
             </FlexLayout>
         </ScrollView>
+        <Frame
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            IsVisible="false"
+            BackgroundColor="Black"
+            x:Name="deleteFrame">
 
+            <Frame
+                WidthRequest="500"
+                HeightRequest="500">
+
+                <VerticalStackLayout>
+                    <Image 
+                        HeightRequest="300"
+                        WidthRequest="300"
+                        x:Name="photo"
+                        Source="{Binding ProfileImage}"/>
+
+                    <Label 
+                        x:Name="sure"
+                        HeightRequest="25"
+                        HorizontalOptions="Center"
+                        Margin="10,10,10,10"/>
+
+                    <HorizontalStackLayout
+                        HorizontalOptions="Center">
+                        <Button
+                            x:Name="no"
+                            HeightRequest="40"
+                            WidthRequest="100"
+                            Text="No" 
+                            Clicked="no_Clicked"
+                            Margin="0,0,50,0"/>
+
+                        <Button
+                            x:Name="yes"
+                            HeightRequest="40"
+                            WidthRequest="100"
+                            Text="Yes"
+                            Clicked="yes_Clicked"/>
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+
+            </Frame>
+
+
+        </Frame>
+
+        <Label
+            Text="No matches found"
+            FontSize="50"
+            x:Name="no_found"
+            IsVisible="false" 
+            HorizontalOptions="Center"
+            VerticalOptions="Center"/>
+        
     </Grid>
 
 </ContentPage>

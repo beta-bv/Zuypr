@@ -166,6 +166,7 @@
 
 	<ItemGroup>
 	  <None Remove="Pages\DataTemplates\" />
+	  <None Remove="Resources\Images\delete_button.png" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Pages\DataTemplates\" />

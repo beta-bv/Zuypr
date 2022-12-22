@@ -21,6 +21,10 @@ public partial class MyMatches : ContentPage
             }
         }
         InitializeComponent();
+        if (Users.Count < 1)
+        {
+            no_found.IsVisible = true;
+        }
         BindingContext = this;
     }
 
@@ -50,5 +54,32 @@ public partial class MyMatches : ContentPage
             }
         }
         return null;
+    }
+
+    private void DeleteButton_Clicked(object sender, EventArgs e)
+    {
+        ImageButton temp = (ImageButton)sender;
+        User usr = (User) temp.BindingContext;
+        deleteFrame.IsVisible = true;
+        deleteFrame.BindingContext = null;
+        deleteFrame.BindingContext = usr;
+        sure.Text = "Are you sure you want to delete " + usr.Name + "?";
+    }
+
+    private void no_Clicked(object sender, EventArgs e)
+    {
+        deleteFrame.IsVisible = false;
+    }
+
+    private void yes_Clicked(object sender, EventArgs e)
+    {
+        Button temp = (Button)sender;
+        Users.Remove((User)temp.BindingContext);
+        deleteFrame.IsVisible = false;
+        InitializeComponent();
+        if (Users.Count < 1)
+        {
+            no_found.IsVisible = true;
+        }
     }
 }
