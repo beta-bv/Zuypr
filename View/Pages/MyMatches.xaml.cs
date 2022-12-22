@@ -60,9 +60,9 @@ public partial class MyMatches : ContentPage
     {
         ImageButton temp = (ImageButton)sender;
         User usr = (User) temp.BindingContext;
-        deleteFrame.IsVisible = true;
-        deleteFrame.BindingContext = null;
         deleteFrame.BindingContext = usr;
+        deleteFrame.IsVisible = true;
+        photo.Source = usr.ProfileImage;
         sure.Text = "Are you sure you want to delete " + usr.Name + "?";
     }
 
@@ -75,6 +75,7 @@ public partial class MyMatches : ContentPage
     {
         Button temp = (Button)sender;
         Users.Remove((User)temp.BindingContext);
+        temp.BindingContext = new BindingContext();
         deleteFrame.IsVisible = false;
         InitializeComponent();
         if (Users.Count < 1)
