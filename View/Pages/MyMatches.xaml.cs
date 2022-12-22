@@ -15,7 +15,7 @@ public partial class MyMatches : ContentPage
             foreach(User user in match.Users)
             {
                 if(Controller.Auth.getUser() != user) 
-                { 
+                {  
                     Users.Add(user);
                 }
             }
@@ -26,15 +26,15 @@ public partial class MyMatches : ContentPage
 
     private void ProfileImage_OnClicked(object sender, EventArgs e)
     {
-        var temp = (ImageButton) sender;
-        Application.Current.MainPage.Navigation.PushAsync(new Profile((User)temp.BindingContext));
+        ImageButton temp = (ImageButton) sender;
+        Application.Current?.MainPage?.Navigation.PushAsync(new Profile((User)temp.BindingContext));
     }
 
     private void ChatButton_Clicked(object sender, EventArgs e)
     {
-        var temp = (ImageButton) sender;
+        ImageButton temp = (ImageButton) sender;
         Match match = FindMatchFromUser((User)temp.BindingContext);
-        if (match != null) { Application.Current.MainPage.Navigation.PushAsync(new ChatScreen(match)); }
+        if (match != null) { Application.Current?.MainPage?.Navigation.PushAsync(new ChatScreen(match)); }
     }
 
     private Match FindMatchFromUser(User user)

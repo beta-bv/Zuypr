@@ -1,5 +1,6 @@
 ﻿using Model;
 using Controller;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 //using static Java.Util.Jar.Attributes;
@@ -16,6 +17,10 @@ public partial class Matching : ContentPage
     public List<Message> messages { get; set; } 
     public User[] MatchUsers { get; set; } = new User[2];
     public bool YesBool = false;
+
+public partial class Matching : ContentPage
+{
+    public List<User> PotentionalMatches => Filter.FilteredPotentionalMatches;
 
     public Matching()
     {

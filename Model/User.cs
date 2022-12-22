@@ -1,12 +1,16 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Maui.Controls.Shapes;
 using Microsoft.Maui.Layouts;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Security.Cryptography;
 
 namespace Model
 {
+    [Table("users")]
+    [PrimaryKey("Id")]
     public class User
     {
         private string _name;
@@ -26,7 +30,6 @@ namespace Model
                 _name = value;
             }
         }
-        
         public string Email
         {
             get { return _email; }
@@ -39,7 +42,6 @@ namespace Model
                 _email = value;
             }
         }
-        
         /// <summary>
         /// Stores the <see cref="SHA256">SHA256</see> hash of the password
         /// <para>The getter automatically hashes the given password string</para>
@@ -65,7 +67,6 @@ namespace Model
                 }
             }
         }
-        
         public DateTime DateOfBirth
         {
             get { return _dateOfBirth; }
@@ -84,29 +85,39 @@ namespace Model
             }
         }
 
-        public List<string> Cities { get; set; }
+        public int MinimalAge { get; set; }
+        public int MaximalAge { get; set; }
+        public int Id {get;set;}
+        public List<City> Cities { get; set; }
         public string ProfileImage { get; set; }
         public List<Match> Matches { get; set; }
         private List<Drink> _favourites { get; set; }
         private List<Drink> _likes { get; set; }
         private List<Drink> _dislikes { get; set; }
 
-        public int Age => (DateTime.Now.Month<DateOfBirth.Month || (DateTime.Now.Month == DateOfBirth.Month && DateTime.Now.Day<DateOfBirth.Day)) ? (DateTime.Now.Year - DateOfBirth.Year) - 1 : DateTime.Now.Year - DateOfBirth.Year;
+        public int Age => (DateTime.Now.Month < DateOfBirth.Month || (DateTime.Now.Month == DateOfBirth.Month && DateTime.Now.Day < DateOfBirth.Day)) ? (DateTime.Now.Year - DateOfBirth.Year) - 1 : DateTime.Now.Year - DateOfBirth.Year;
 
-
+        // Exists for EF
+        public User(){}
         public User(string name, string email, string password, DateTime dateOfBirth)
         {
             Name = name;
             Email = email;
             DateOfBirth = dateOfBirth;
             Password = password;
+
             _favourites = new List<Drink>(3);
             _likes = new List<Drink>(5);
             _dislikes = new List<Drink>(3);
             ProfileImage = "dotnet_bot.png";
+            Cities = new List<City>();
+
+            MinimalAge = 18;
+            MaximalAge = 200;
         }
 
-        public List<Drink> GetFavourites() {
+        public List<Drink> GetFavourites()
+        {
             return _favourites;
         }
 
@@ -155,7 +166,8 @@ namespace Model
             {
                 return false;
             }
-            else {
+            else
+            {
                 RemoveFromDrinkList(drink);
                 drinkList.Add(drink);
                 return true;
@@ -214,7 +226,8 @@ namespace Model
                 _dislikes.Remove(drink);
                 return true;
             }
-            else {
+            else
+            {
                 return false;
             }
         }
@@ -234,7 +247,7 @@ namespace Model
             }
             return true;
         }
-        
+
         /// <summary>
         /// compares two passwords
         /// </summary>
@@ -285,6 +298,7 @@ namespace Model
         public static bool IsDateOfBirthValid(DateTime date)
         {
             DateTime dateNow = DateTime.Now;
+
             return date < dateNow;
         }
 
@@ -295,7 +309,7 @@ namespace Model
         public static User GetDummyUser()
         {
             User dummy = new User("dummyUser", "email@a.com", "Wachtwoord!", new DateTime(1999, 1, 1));
-            dummy.Cities = new List<string>() { "Dalfsen", "Hoonhorst" };
+            dummy.Cities = new List<City>() { new ("Dalfsen"), new("Hoonhorst") };
             return dummy;
         }
 
@@ -305,7 +319,17 @@ namespace Model
         /// <returns></returns>
         public User GetUserFromDatabase(User user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                DatabaseContext db = new DatabaseContext();  //maakt database context aan
+                User userFromDatabse = db.Users              
+                .Where(u => u.Email.Equals(user.Email)).First();   //query haalt de user op aan de hand van zijn/haar email
+                return userFromDatabse;                            // returned de user
+            }
+            catch (Exception ex) {
+                new Exception("Database Failure");                 // gooit een exception als er iets mis gaat met de database
+                return null;
+            }
         }
 
         /// <summary>
@@ -315,6 +339,26 @@ namespace Model
         /// <returns></returns>
         public static bool AddUserToDatabase(User user)
         {
+            try
+            {
+                // Open the database connection
+                DatabaseContext dbContext = new DatabaseContext();
+
+                // If there is already a user with this email address in the database then throw an error
+                if (dbContext.Users.Any(a => a.Email.Equals(user.Email)))
+                {
+                    throw new Exception("A user with this email address already exists in the database");
+                }
+
+                // Add the user to the database and save the changes
+                dbContext.Users.Add(user);
+                dbContext.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                throw new Exception("Database Failure");
+            }
             throw new NotImplementedException();
         }
 
@@ -328,7 +372,11 @@ namespace Model
         {
             if (emailOld.Equals(Email) && !emailNew.Equals(emailOld))
             {
+                DatabaseContext db = new DatabaseContext();
                 Email = emailNew;
+                User tempUser = GetUserFromDatabase(this);
+                tempUser.Email = emailNew;
+                db.SaveChanges();
                 return true;
             }
             return false;
@@ -345,18 +393,38 @@ namespace Model
         {
             if (ComparePasswords(newPasswordField1, newPasswordField2))
             {
-                string tempPasswordFieldCombine = newPasswordField1;
-                if (Password.Equals(HashString(oldPassword)) && !Password.Equals(HashString(tempPasswordFieldCombine)))
+                string newPassword = newPasswordField1;
+                if (Password.Equals(HashString(oldPassword)) && !Password.Equals(HashString(newPassword)))
                 {
-                    Password = newPasswordField1;
-                    return true;
+                    try
+                    {
+                        DatabaseContext db = new DatabaseContext();
+                        User tempUser = GetUserFromDatabase(this);
+                        tempUser.Password = newPassword;
+                        db.SaveChanges();
+                        return true;
+                    }
+                    catch(Exception ex)
+                    {
+                        throw new Exception("DATABASE FAILURE");
+                        return false;
+                    }
+
                 }
             }
             return false;
         }
-        public bool RemoveUser()
+
+        public bool RemoveUser(User user)
         {
-            throw new NotImplementedException();
+            DatabaseContext db = new DatabaseContext();
+            if (GetUserFromDatabase(user) != null)
+            {
+                db.Users.Remove(user);
+                return true;
+            }
+            return false;
+            }
         }
+    
     }
-}

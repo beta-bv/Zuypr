@@ -1,6 +1,6 @@
 namespace View.Pages;
 
-//using Android.App;                             !!!aanzetten wanneer nodig!!! is effe uitgecomment omdat hij voor een of andere reden hierover crashde 
+//using Android.App;                            // !!!aanzetten wanneer nodig!!! is effe uitgecomment omdat hij voor een of andere reden hierover crashde 
 using Microsoft.Maui.Controls.Shapes;
 using Model;
 using Controller;
@@ -14,18 +14,20 @@ public partial class ChatScreen : ContentPage
     {
         dummydb.Initialize();
         InitializeComponent();
-        LabelUserName.FontSize = 20;
         MatchChatScreen = match;
-        Chat chat = new Chat(match);
-        LabelUserName.Text = chat.ChatMembers[1].Name;   //bij groeps chats gaat dit stuk!
-        for(int i = 0; i < chat.Messages.Count; i++)
+        Chat chat = new(match);
+        
+        LabelUserName.Text = chat.ChatMembers[1].Name; //bij groeps chats gaat dit stuk!
+        ChatPfp.Source = chat.ChatMembers[1].ProfileImage;
+        
+        foreach (Message t in chat.Messages)
         {
-            if (chat.Messages[i].Sender.Equals(chat.ChatMembers[1])){
-                PlaceText(false, chat.Messages[i].Text);
+            if (t.Sender.Equals(chat.ChatMembers[1])){
+                PlaceText(false, t.Text);
             }
             else
             {
-                PlaceText(true, chat.Messages[i].Text);
+                PlaceText(true, t.Text);
             }
         }
     }
@@ -37,9 +39,10 @@ public partial class ChatScreen : ContentPage
     /// <param name="e"></param>
     private async void SendMessage(object sender, EventArgs e)
     {
-        String messageToSend = chatbox.Text?.Trim();
-        Message Message = new Message(messageToSend, Controller.Auth.getUser(), DateTime.Now);
-        MatchChatScreen.Messages.Add(Message);
+        string messageToSend = chatbox.Text?.Trim();
+        Message message = new(messageToSend, Auth.getUser(), DateTime.Now);
+        if (message == null) throw new ArgumentNullException(nameof(message));
+        MatchChatScreen.Messages.Add(message);
         PlaceText(true, messageToSend);
         chatbox.Text = "";
         await scrollviewChat.ScrollToAsync(ChatMessageView, ScrollToPosition.End, false);
@@ -52,8 +55,8 @@ public partial class ChatScreen : ContentPage
     /// <param name="e"></param>
     private async void OnTextChanged(object sender, EventArgs e)
     {
-        String messageTyped = chatbox.Text.Trim();
-        if (messageTyped != null && !messageTyped.Equals(""))
+        string messageTyped = chatbox.Text.Trim();
+        if (!messageTyped.Equals(""))
         {
             sendMessage.IsEnabled = true;
             sendMessage.BackgroundColor = Color.FromArgb("#FF006400");
@@ -70,7 +73,7 @@ public partial class ChatScreen : ContentPage
     /// </summary>
     /// <param name="userIsSender"></param>
     /// <param name="message"></param>
-    private void PlaceText(bool userIsSender, String message)  
+    private void PlaceText(bool userIsSender, string message)  
     {
         if (userIsSender)             //deze if statement kan wss veel korter, kon er alleen niet achter komen hoe dus voor nu effe dit. Het gaat om de horizontal options
         {
