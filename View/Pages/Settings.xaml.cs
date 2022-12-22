@@ -1,9 +1,11 @@
 ﻿using Controller;
 using Microsoft.Maui.Storage;
 using Model;
+using Controller;
 using System.Linq.Expressions;
 using Microsoft.Maui.Storage;
 using System.Net;
+using Controller.Platforms;
 
 namespace View.Pages;
 
@@ -39,8 +41,8 @@ public partial class Settings : ContentPage
     }
     private void onDeleteConfirmClicked(Object sender, EventArgs e)
     {
-        Auth.User = null;
         Application.Current.MainPage = new LaunchScreen();
+        UserDatabaseOperations.RemoveUserFromDatabase();
     }
 
     private void onCancelDeleteClicked(Object sender, EventArgs e)
@@ -76,7 +78,7 @@ public partial class Settings : ContentPage
             if (RepeatEmailField.Text.Equals(EmailField.Text))
             {
                 temp.Email = EmailField.Text.Trim();
-                Auth.User = temp;
+                UserDatabaseOperations.UpdateUserInDatabase(temp);
                 EmailEditCancelBtn.Text = "Edit";
                 RepeatEmailField.Text = "";
                 EmailField.Text = Auth.User.Email;
@@ -171,8 +173,8 @@ public partial class Settings : ContentPage
 
             if (PasswordField.Text.Equals(RepeatPasswordField.Text) && User.ComparePasswords(User.HashString(OldPasswordField.Text), Auth.User.Password)) 
             {
-                temp.Password = PasswordField.Text; 
-                Auth.User = temp;
+                temp.Password = PasswordField.Text;
+                UserDatabaseOperations.UpdateUserInDatabase(temp);
                 PasswordEditCancelBtn.Text = "Edit";
                 PasswordField.Text = "";
                 RepeatPasswordField.Text = "";
@@ -225,7 +227,7 @@ public partial class Settings : ContentPage
             User tempUser = Auth.User;
             int maxAgeParsed = Int32.Parse(maxAge.Text);
             tempUser.MaximumpreferredAge = maxAgeParsed;
-            Auth.User = tempUser;
+            UserDatabaseOperations.UpdateUserInDatabase(tempUser);
             ErrorFrameEditPage.IsVisible = false;
         }
         catch(FormatException fe)
@@ -245,7 +247,7 @@ public partial class Settings : ContentPage
             User tempUser = Auth.User;
             int minAgeParsed = Int32.Parse(minAge.Text);
             tempUser.MinimumpreferredAge = minAgeParsed;
-            Auth.User = tempUser;
+            UserDatabaseOperations.UpdateUserInDatabase(tempUser);
             ErrorFrameEditPage.IsVisible = false;
         }
         catch (FormatException){}
@@ -270,7 +272,7 @@ public partial class Settings : ContentPage
             if (!temp.Cities.Select(a => a.Name).Contains(ListViewCities.SelectedItem.ToString()))
             {
                 temp.Cities.Add(new City(ListViewCities.SelectedItem.ToString()));
-                Auth.User = temp;
+                UserDatabaseOperations.UpdateUserInDatabase(temp);
                 ListViewSelectedCities.IsEnabled = false;
                 ListViewSelectedCities.ItemsSource = null;
                 ListViewSelectedCities.ItemsSource = Auth.User.Cities.Select(a => a.Name);
@@ -286,7 +288,7 @@ public partial class Settings : ContentPage
         {
             if (temp.Cities.Remove(temp.Cities.Where(a => a.Name.Equals(ListViewCities.SelectedItem.ToString())).FirstOrDefault()))
             {
-                Auth.User = temp;
+                UserDatabaseOperations.UpdateUserInDatabase(temp);
                 ListViewSelectedCities.IsEnabled = false;
                 ListViewSelectedCities.ItemsSource = null;
                 ListViewSelectedCities.ItemsSource = Auth.User.Cities.Select(a => a.Name);

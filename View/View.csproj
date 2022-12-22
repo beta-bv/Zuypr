@@ -47,9 +47,6 @@
 	  <MauiXaml Update="Pages\ChatScreen.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\RegisterPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Pages\LaunchScreen.xaml">
 	    <SubType>Designer</SubType>
 	  </MauiXaml>

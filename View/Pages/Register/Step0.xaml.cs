@@ -1,4 +1,6 @@
-﻿using Model;
+﻿using Controller.Platforms;
+using Microsoft.Data.SqlClient;
+using Model;
 using System.Linq.Expressions;
 
 namespace View.Pages.Register;
@@ -34,7 +36,7 @@ public partial class Step0 : ContentPage
                 try
                 {
                     User Client = new User(name, email, password, dateOfBirth);
-
+                    UserDatabaseOperations.AddUserToDatabase(Client);
                     await Navigation.PushAsync(new Step1(Client));
                 }
                 catch (Exception ex)
@@ -51,12 +53,12 @@ public partial class Step0 : ContentPage
             }
             else
             {
-                ErrorLabel.Text = "Wachtwoorden komen niet overeen";
+                ErrorLabel.Text = "Both password fields must be the same";
                 ErrorFrame.IsVisible = true;
             }
         }
         catch {
-            ErrorLabel.Text = "Je moet iets invullen om te registreren";  //note dat dit niet echt de meest veilige zooi is, misschien eigen exception klasse aanmaken om de registratie error te weergeven?
+            ErrorLabel.Text = "You need to fill in information to register";  //note dat dit niet echt de meest veilige zooi is, misschien eigen exception klasse aanmaken om de registratie error te weergeven?
             ErrorFrame.IsVisible = true;
             return;
         }
