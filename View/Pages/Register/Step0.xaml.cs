@@ -42,12 +42,10 @@ public partial class Step0 : ContentPage
                 catch (Exception ex)
                 {
 
-                    if (ex is ArgumentException)
-                    {
-                        ErrorLabel.Text = ex.Message;  //note dat dit niet echt de meest veilige zooi is, misschien eigen exception klasse aanmaken om de registratie error te weergeven?
-                        ErrorFrame.IsVisible = true;
-                        return;
-                    }
+                    ErrorLabel.Text = ex.Message;  //note dat dit niet echt de meest veilige zooi is, misschien eigen exception klasse aanmaken om de registratie error te weergeven?
+                    ErrorFrame.IsVisible = true;
+                    return;
+
                 }
                 //await Navigation.PushAsync(new Profile());
             }
@@ -57,7 +55,8 @@ public partial class Step0 : ContentPage
                 ErrorFrame.IsVisible = true;
             }
         }
-        catch {
+        catch
+        {
             ErrorLabel.Text = "You need to fill in information to register";  //note dat dit niet echt de meest veilige zooi is, misschien eigen exception klasse aanmaken om de registratie error te weergeven?
             ErrorFrame.IsVisible = true;
             return;
