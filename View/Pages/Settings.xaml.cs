@@ -199,7 +199,7 @@ public partial class Settings : ContentPage
             {
                     FileResult photo = await MediaPicker.Default.PickPhotoAsync();
 
-                    if (photo != null)
+                    if (photo != null)  
                     {
                     // save the file into local storage
                     string wanted_path = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
