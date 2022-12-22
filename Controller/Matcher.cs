@@ -27,8 +27,7 @@ namespace Controller
         public double SemiNegativeMatchScore { get; private set; }
 
         /// <summary>
-        /// FOR TESTING ONLY
-        /// 
+        /// Constructor using mostly default values
         /// </summary>
         /// <param name="user"></param>
         /// <param name="passingScore">Score needed for a user to be added to the MatchList</param>
@@ -43,7 +42,8 @@ namespace Controller
             {
                 throw new Exception("No user!");
             }
-
+            // Excluding the logged-in user from all users
+            // HACK: Should stil be fixed for official DB
             UserList = dummydb.Users.Where(u => u.Name != User.Name).ToList();
 
             MyFavouriteDrinks = User.GetFavourites().Select(d => d.Name).ToArray();
@@ -54,11 +54,16 @@ namespace Controller
             MyLikedTypes = User.GetLikes().Select(d => d.Type).ToArray();
             MyDislikedTypes = User.GetDislikes().Select(d => d.Type).ToArray();
 
+            if (passingScore > 1)
+            {
+                throw new Exception("Passing score should be below 1!");
+            }
             PassingScore = passingScore;
 
             ExactMatchInfluence = exactMatchInfluence;
             TypeMatchInfluence = 1.0 - exactMatchInfluence;
 
+            // Some default values
             PositiveMatchScore = 4.0;
             NegativeMatchScore = -2.0;
             SemiPositiveMatchScore = 1.5;
@@ -66,14 +71,14 @@ namespace Controller
         }
 
         /// <summary>
-        /// 
+        /// Constructor using all custom values
         /// </summary>
-        /// <param name="passingScore">Score needed for a user to be added to the MatchList</param>
+        /// <param name="passingScore">Score needed for a user to be added to the MatchList. Between 0.0 and 1.0</param>
         /// <param name="exactMatchInfluence">How much impact exact matches have on the final score, type matches are based on this value</param>
-        /// <param name="positiveMatchScore"></param>
-        /// <param name="negativeMatchScore"></param>
-        /// <param name="semiPositiveMatchScore"></param>
-        /// <param name="semiNegativeMatchScore"></param>
+        /// <param name="positiveMatchScore">How many points a positive match receives</param>
+        /// <param name="negativeMatchScore">How many points a negative match receives</param>
+        /// <param name="semiPositiveMatchScore">How many points a semi positive match receives</param>
+        /// <param name="semiNegativeMatchScore">How many points a semi negative match receives</param>
         /// <exception cref="Exception"></exception>
         public Matcher(double passingScore, double exactMatchInfluence, double positiveMatchScore, double negativeMatchScore, double semiPositiveMatchScore, double semiNegativeMatchScore)
         {
@@ -85,7 +90,8 @@ namespace Controller
             {
                 throw new Exception("No user!");
             }
-
+            // Excluding the logged-in user from all users
+            // HACK: Should stil be fixed for official DB
             UserList = dummydb.Users.Where(u => u.Name != User.Name).ToList();
 
             MyFavouriteDrinks = User.GetFavourites().Select(d => d.Name).ToArray();
@@ -96,6 +102,11 @@ namespace Controller
             MyLikedTypes = User.GetLikes().Select(d => d.Type).ToArray();
             MyDislikedTypes = User.GetDislikes().Select(d => d.Type).ToArray();
 
+
+            if (passingScore > 1)
+            {
+                throw new Exception("Passing score should be below 1!");
+            }
             PassingScore = passingScore;
 
             ExactMatchInfluence = exactMatchInfluence;
@@ -111,7 +122,7 @@ namespace Controller
         {
             foreach (User user in UserList)
             {
-                // HACK: Holy fuck this is broken
+                // HACK: Good enough
                 double exactMatchScore = this.GetExactMatchScore(user);
                 double typeMatchScore = this.GetTypeMatchScore(user);
 
@@ -126,7 +137,7 @@ namespace Controller
         }
 
         /// <summary>
-        /// Checks how allike the logged in user is to the provided user. Checking the Exact matches
+        /// Checks how alike the logged in user is to the provided user. Checking the Exact matches
         /// </summary>
         /// <param name="potentialMatch">The user to match against</param>
         /// <returns>Returns the earned points</returns>
@@ -138,39 +149,36 @@ namespace Controller
             double score = 0;
 
             // Grabbing the lowest array count to make matching more fair
-            int lowest_f_type = Math.Min(MyFavouriteDrinks.Length, theirFavouriteDrinks.Length);
-            int lowest_l_type = Math.Min(MyLikedDrinks.Length, theirLikedDrinks.Length);
-            int lowest_d_type = Math.Min(MyDislikedDrinks.Length, theirDislikedDrinks.Length);
-            double possible_score = lowest_f_type * PositiveMatchScore +
-                                    lowest_l_type * PositiveMatchScore +
-                                    lowest_d_type * SemiPositiveMatchScore;
+            int lowestFavoCount = Math.Min(MyFavouriteDrinks.Length, theirFavouriteDrinks.Length);
+            int lowestLikeCount = Math.Min(MyLikedDrinks.Length, theirLikedDrinks.Length);
+            int lowestHateCount = Math.Min(MyDislikedDrinks.Length, theirDislikedDrinks.Length);
+            double possibleScore = lowestFavoCount * PositiveMatchScore +
+                                   lowestLikeCount * PositiveMatchScore +
+                                   lowestHateCount * SemiPositiveMatchScore;
 
             // Get All drink match counts
-            double f_f_matches = GetMatches(MyFavouriteDrinks, theirFavouriteDrinks) * PositiveMatchScore;
-            double f_l_matches = GetMatches(MyFavouriteDrinks, theirLikedDrinks) * SemiPositiveMatchScore;
-            double f_d_matches = GetMatches(MyFavouriteDrinks, theirDislikedDrinks) * NegativeMatchScore;
-            double f_score = f_f_matches + f_l_matches + f_d_matches;
+            double favoFavoMatches = GetMatches(MyFavouriteDrinks, theirFavouriteDrinks) * PositiveMatchScore;
+            double favoLikeMatches = GetMatches(MyFavouriteDrinks, theirLikedDrinks) * SemiPositiveMatchScore;
+            double favoHateMatches = GetMatches(MyFavouriteDrinks, theirDislikedDrinks) * NegativeMatchScore;
+            double favoScore = favoFavoMatches + favoLikeMatches + favoHateMatches;
 
-            double l_f_matches = GetMatches(MyLikedDrinks, theirFavouriteDrinks) * SemiPositiveMatchScore;
-            double l_l_matches = GetMatches(MyLikedDrinks, theirLikedDrinks) * PositiveMatchScore;
-            double l_d_matches = GetMatches(MyLikedDrinks, theirDislikedDrinks) * SemiNegativeMatchScore;
-            double l_score = l_f_matches + l_l_matches + l_d_matches;
+            double likeFavoMatches = GetMatches(MyLikedDrinks, theirFavouriteDrinks) * SemiPositiveMatchScore;
+            double likeLikeMatches = GetMatches(MyLikedDrinks, theirLikedDrinks) * PositiveMatchScore;
+            double likeHateMatches = GetMatches(MyLikedDrinks, theirDislikedDrinks) * SemiNegativeMatchScore;
+            double likeScore = likeFavoMatches + likeLikeMatches + likeHateMatches;
 
-            double d_f_matches = GetMatches(MyDislikedDrinks, theirFavouriteDrinks) * NegativeMatchScore;
-            double d_l_matches = GetMatches(MyDislikedDrinks, theirLikedDrinks) * SemiNegativeMatchScore;
-            double d_d_matches = GetMatches(MyDislikedDrinks, theirDislikedDrinks) * SemiPositiveMatchScore;
-            double d_score = d_f_matches + d_l_matches + d_d_matches;
+            double hateFavoMatches = GetMatches(MyDislikedDrinks, theirFavouriteDrinks) * NegativeMatchScore;
+            double hateLikeMatches = GetMatches(MyDislikedDrinks, theirLikedDrinks) * SemiNegativeMatchScore;
+            double hateHateMatches = GetMatches(MyDislikedDrinks, theirDislikedDrinks) * SemiPositiveMatchScore;
+            double hateScore = hateFavoMatches + hateLikeMatches + hateHateMatches;
 
-            //Console.WriteLine($"{f_f_matches,3}, {f_l_matches,3}, {f_d_matches,3} = {f_score}");
-            //Console.WriteLine($"{l_f_matches,3}, {l_l_matches,3}, {l_d_matches,3} = {l_score}");
-            //Console.WriteLine($"{d_f_matches,3}, {d_l_matches,3}, {d_d_matches,3} = {d_score}");
-
-            score += f_score + l_score + d_score;
-            return score < 0 ? 0 : 1 / possible_score * score;
+            score += favoScore + likeScore + hateScore;
+            // If the score is negative return 0, otherwise return the calculated score
+            return score < 0 ? 0 : 1 / possibleScore * score;
         }
 
         /// <summary>
-        /// Checks how allike the logged in user is to the provided user. Checking the DrinkType matches
+        /// Checks how alike the logged in user is to the provided user. Checking the DrinkType matches
         /// </summary>
         /// <param name="potentialMatch">The user to match against</param>
         /// <returns>Returns the earned points</returns>
@@ -182,43 +190,53 @@ namespace Controller
             double score = 0;
 
             // Grabbing the lowest array count to make matching more fair
-            int lowest_f_type = Math.Min(MyFavouriteTypes.Length, theirFavouriteTypes.Length);
-            int lowest_l_type = Math.Min(MyLikedTypes.Length, theirLikedTypes.Length);
-            int lowest_d_type = Math.Min(MyDislikedTypes.Length, theirDislikedTypes.Length);
-            double possible_score = (lowest_f_type * PositiveMatchScore + lowest_l_type * SemiPositiveMatchScore) +
-                                    (lowest_l_type * PositiveMatchScore + lowest_f_type * SemiPositiveMatchScore) +
-                                    (lowest_d_type * SemiPositiveMatchScore);
+            int lowestFavoCount = Math.Min(MyFavouriteTypes.Length, theirFavouriteTypes.Length);
+            int lowestLikeCount = Math.Min(MyLikedTypes.Length, theirLikedTypes.Length);
+            int lowestHateCount = Math.Min(MyDislikedTypes.Length, theirDislikedTypes.Length);
+            double possibleScore = (lowestFavoCount * PositiveMatchScore + lowestLikeCount * SemiPositiveMatchScore) +
+                                    (lowestLikeCount * PositiveMatchScore + lowestFavoCount * SemiPositiveMatchScore) +
+                                    (lowestHateCount * SemiPositiveMatchScore);
 
             //// Get All drink match counts
-            double f_f_matches = GetMatches(MyFavouriteTypes, theirFavouriteTypes) * PositiveMatchScore;
-            double f_l_matches = GetMatches(MyFavouriteTypes, theirLikedTypes) * SemiPositiveMatchScore;
-            double f_d_matches = GetMatches(MyFavouriteTypes, theirDislikedTypes) * NegativeMatchScore;
-            double f_score = f_f_matches + f_l_matches + f_d_matches;
+            double favoFavoMatches = GetMatches(MyFavouriteTypes, theirFavouriteTypes) * PositiveMatchScore;
+            double favoLikeMatches = GetMatches(MyFavouriteTypes, theirLikedTypes) * SemiPositiveMatchScore;
+            double favoHateMatches = GetMatches(MyFavouriteTypes, theirDislikedTypes) * NegativeMatchScore;
+            double favoScore = favoFavoMatches + favoLikeMatches + favoHateMatches;
 
-            double l_f_matches = GetMatches(MyLikedTypes, theirFavouriteTypes) * SemiPositiveMatchScore;
-            double l_l_matches = GetMatches(MyLikedTypes, theirLikedTypes) * PositiveMatchScore;
-            double l_d_matches = GetMatches(MyLikedTypes, theirDislikedTypes) * SemiNegativeMatchScore;
-            double l_score = l_f_matches + l_l_matches + l_d_matches;
+            double likeFavoMatches = GetMatches(MyLikedTypes, theirFavouriteTypes) * SemiPositiveMatchScore;
+            double likeLikeMatches = GetMatches(MyLikedTypes, theirLikedTypes) * PositiveMatchScore;
+            double likeHateMatches = GetMatches(MyLikedTypes, theirDislikedTypes) * SemiNegativeMatchScore;
+            double likeScore = likeFavoMatches + likeLikeMatches + likeHateMatches;
 
-            double d_f_matches = GetMatches(MyDislikedTypes, theirFavouriteTypes) * NegativeMatchScore;
-            double d_l_matches = GetMatches(MyDislikedTypes, theirLikedTypes) * SemiNegativeMatchScore;
-            double d_d_matches = GetMatches(MyDislikedTypes, theirDislikedTypes) * SemiPositiveMatchScore;
-            double d_score = d_f_matches + d_l_matches + d_d_matches;
+            double hateFavoMatches = GetMatches(MyDislikedTypes, theirFavouriteTypes) * NegativeMatchScore;
+            double hateLikeMatches = GetMatches(MyDislikedTypes, theirLikedTypes) * SemiNegativeMatchScore;
+            double hateHateMatches = GetMatches(MyDislikedTypes, theirDislikedTypes) * SemiPositiveMatchScore;
+            double hateScore = hateFavoMatches + hateLikeMatches + hateHateMatches;
 
-            //Console.WriteLine($"{f_f_matches,3}, {f_l_matches,3}, {f_d_matches,3} = {f_score}");
-            //Console.WriteLine($"{l_f_matches,3}, {l_l_matches,3}, {l_d_matches,3} = {l_score}");
-            //Console.WriteLine($"{d_f_matches,3}, {d_l_matches,3}, {d_d_matches,3} = {d_score}");
-
-            score += f_score + l_score + d_score;
-
-            return score < 0 ? 0 : 1 / possible_score * score;
+            score += favoScore + likeScore + hateScore;
+            // If the score is negative return 0, otherwise return the calculated score
+            return score < 0 ? 0 : 1 / possibleScore * score;
         }
 
+
+        /// <summary>
+        /// Returns the count of similar items between 2 arrays
+        /// </summary>
+        /// <param name="myList">An array of drinknames</param>
+        /// <param name="theirList">An array of drinknames</param>
+        /// <returns></returns>
         private static int GetMatches(string[] myList, string[] theirList)
         {
             return myList.Intersect(theirList).Count();
         }
 
+        /// <summary>
+        /// Returns the count of similar items between 2 arrays
+        /// Overload for drinkTypes
+        /// </summary>
+        /// <param name="myList">An array of drinkTypes</param>
+        /// <param name="theirList">An array of drinkTypes</param>
+        /// <returns></returns>
         private static int GetMatches(DrinkType[] myList, DrinkType[] theirList)
         {
             return myList.Where(i => theirList.Contains(i)).Count();
