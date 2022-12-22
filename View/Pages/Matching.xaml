@@ -65,6 +65,7 @@
                 <ScrollView>
                     <ListView
                         ItemsSource="{Binding Match.Cities}"
+                        x:Name="CitiesName"
                         SelectionMode="None">
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -78,7 +79,9 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </ScrollView>
-            <HorizontalStackLayout>
+            <HorizontalStackLayout
+
+                    Margin="0,100,0,0">
                     <Button
                 x:Name="No"
                 Text="No"
