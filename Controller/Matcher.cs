@@ -161,9 +161,9 @@ namespace Controller
             double d_d_matches = GetMatches(MyDislikedDrinks, theirDislikedDrinks) * SemiPositiveMatchScore;
             double d_score = d_f_matches + d_l_matches + d_d_matches;
 
-            Console.WriteLine($"{f_f_matches,3}, {f_l_matches,3}, {f_d_matches,3} = {f_score}");
-            Console.WriteLine($"{l_f_matches,3}, {l_l_matches,3}, {l_d_matches,3} = {l_score}");
-            Console.WriteLine($"{d_f_matches,3}, {d_l_matches,3}, {d_d_matches,3} = {d_score}");
+            //Console.WriteLine($"{f_f_matches,3}, {f_l_matches,3}, {f_d_matches,3} = {f_score}");
+            //Console.WriteLine($"{l_f_matches,3}, {l_l_matches,3}, {l_d_matches,3} = {l_score}");
+            //Console.WriteLine($"{d_f_matches,3}, {d_l_matches,3}, {d_d_matches,3} = {d_score}");
 
             score += f_score + l_score + d_score;
             return score < 0 ? 0 : 1 / possible_score * score;
@@ -205,9 +205,9 @@ namespace Controller
             double d_d_matches = GetMatches(MyDislikedTypes, theirDislikedTypes) * SemiPositiveMatchScore;
             double d_score = d_f_matches + d_l_matches + d_d_matches;
 
-            Console.WriteLine($"{f_f_matches,3}, {f_l_matches,3}, {f_d_matches,3} = {f_score}");
-            Console.WriteLine($"{l_f_matches,3}, {l_l_matches,3}, {l_d_matches,3} = {l_score}");
-            Console.WriteLine($"{d_f_matches,3}, {d_l_matches,3}, {d_d_matches,3} = {d_score}");
+            //Console.WriteLine($"{f_f_matches,3}, {f_l_matches,3}, {f_d_matches,3} = {f_score}");
+            //Console.WriteLine($"{l_f_matches,3}, {l_l_matches,3}, {l_d_matches,3} = {l_score}");
+            //Console.WriteLine($"{d_f_matches,3}, {d_l_matches,3}, {d_d_matches,3} = {d_score}");
 
             score += f_score + l_score + d_score;
 
@@ -222,34 +222,6 @@ namespace Controller
         private static int GetMatches(DrinkType[] myList, DrinkType[] theirList)
         {
             return myList.Where(i => theirList.Contains(i)).Count();
-        }
-
-        /// <summary>
-        /// Checks whether a list of drinkstypes of another user includes the drinktypes from your own list
-        /// </summary>
-        /// <param name="myTypes">A list of drinks</param>
-        /// <param name="theirTypes">A list of drinks</param>
-        /// <param name="multiplier">Defines how many points the type match should be multiplied with</param>
-        /// <returns>Returns the earned points</returns>
-        private static double GetTypeDrinkMatches(Dictionary<DrinkType, int> myTypes, Dictionary<DrinkType, int> theirTypes, double multiplier)
-        {
-            double score = 0;
-            foreach ((DrinkType type, int myCount) in myTypes)
-            {
-                if (theirTypes.ContainsKey(type))
-                {
-                    int theirCount = theirTypes[type];
-                    if (myCount <= theirCount)
-                    {
-                        score += myCount * multiplier;
-                    }
-                    else
-                    {
-                        score += theirCount * multiplier;
-                    }
-                }
-            }
-            return score;
         }
     }
 }
