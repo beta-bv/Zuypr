@@ -19,7 +19,7 @@ namespace Controller.Platforms
             {
                 DatabaseContext db = new DatabaseContext();  //maakt database context aan
                 User userFromDatabse = db.Users
-                .Where(u => u.Email.Equals(user.Email)).First();   //query haalt de user op aan de hand van zijn/haar email
+                .First(u => u.Email.Equals(user.Email));   //query haalt de user op aan de hand van zijn/haar email
                 return userFromDatabse;                            // returned de user
             }
             catch (Exception ex)
@@ -39,17 +39,17 @@ namespace Controller.Platforms
             try
             {
                 // Open the database connection
-                DatabaseContext dbContext = new DatabaseContext();
+                DatabaseContext db = new DatabaseContext();
 
                 // If there is already a user with this email address in the database then throw an error
-                if (dbContext.Users.Any(a => a.Email.Equals(user.Email)))
+                if (db.Users.Any(a => a.Email.Equals(user.Email)))
                 {
                     throw new Exception("A user with this email address already exists in the database");
                 }
 
                 //Add the user to the database and save the changes
-            dbContext.Users.Add(user);
-                dbContext.SaveChanges();
+            db.Users.Add(user);
+                db.SaveChanges();
                 return true;
             }
             catch
@@ -63,24 +63,36 @@ namespace Controller.Platforms
 
         public static bool RemoveUserFromDatabase()
         {
-            Auth.User = null;
-            dummydb.Users.Remove(Auth.User);
-            //database spul
-            return true;
-            //DatabaseContext db = new DatabaseContext();
-            //if (GetUserFromDatabase(user) != null)
-            //{
-            //    db.Users.Remove(user);
-            //    return true;
-            //}
-            //return false;
-            //}
+            DatabaseContext db = new DatabaseContext();
+            if (GetUserFromDatabase(Auth.User) != null)
+            {
+                db.Users.Remove(Auth.User);
+                db.SaveChanges();
+                Auth.User = null;
+                return true;
+            }
+            return false;
         }
-        public static bool UpdateUserInDatabase(User user)
+        public static bool RemoveUserFromDatabase(User userToDelete)
         {
-            Auth.User = user;
-            //database spul
-            return true;
+            DatabaseContext db = new DatabaseContext();
+            if (GetUserFromDatabase(userToDelete) != null)
+            {
+                db.Users.Remove(userToDelete);
+                db.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+        public static bool UpdateUserInDatabase(User userNewInfo, User userOldInfo)
+        {
+            RemoveUserFromDatabase(userOldInfo);    //het spijt me
+            AddUserToDatabase(userNewInfo);
+            if (GetUserFromDatabase(userOldInfo) == null)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
