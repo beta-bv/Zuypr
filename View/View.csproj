@@ -47,9 +47,6 @@
 	  <MauiXaml Update="Pages\ChatScreen.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\Login.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Pages\RegisterPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -99,9 +96,6 @@
 	<ItemGroup>
 	  <Compile Update="Pages\ChatScreen.xaml.cs">
 	    <DependentUpon>ChatScreen.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Pages\Login.xaml.cs">
-	    <DependentUpon>Login.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Pages\Register.xaml.cs">
 	    <DependentUpon>Register.xaml</DependentUpon>
@@ -170,9 +164,14 @@
 	  <None Remove="Resources\Images\hertog-jan.png" />
 	  <None Remove="Resources\Images\la-chouffe.png" />
 	  <None Remove="Resources\Images\Brewdog-Punk-Ipa.png" />
+	  <None Remove="Converters\DrinkConverterOnboardingDislike" />
+	  <None Remove="Resources\Images\logo.png" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Pages\DataTemplates\" />
 	  <Folder Include="Converters\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <BundleResource Include="Resources\Images\logo.png" />
 	</ItemGroup>
 </Project>
