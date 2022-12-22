@@ -24,7 +24,7 @@ namespace Controller.Platforms
             }
             catch (Exception ex)
             {
-                new Exception("Database Failure");                 // gooit een exception als er iets mis gaat met de database
+                new Exception(ex.Message);                 // gooit een exception als er iets mis gaat met de database
                 return null;
             }
         }
@@ -86,8 +86,13 @@ namespace Controller.Platforms
         }
         public static bool UpdateUserInDatabase(User userNewInfo, User userOldInfo)
         {
-            RemoveUserFromDatabase(userOldInfo);    //het spijt me
-            AddUserToDatabase(userNewInfo);
+            DatabaseContext db = new DatabaseContext();
+            db.Users.Remove(userOldInfo);
+            db.Users.Add(userNewInfo);
+            db.SaveChanges();
+
+            //RemoveUserFromDatabase(userOldInfo);    //het spijt me
+            //AddUserToDatabase(userNewInfo);
             if (GetUserFromDatabase(userOldInfo) == null)
             {
                 return true;
