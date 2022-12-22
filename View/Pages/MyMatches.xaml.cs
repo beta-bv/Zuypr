@@ -75,7 +75,7 @@ public partial class MyMatches : ContentPage
     {
         Button temp = (Button)sender;
         Users.Remove((User)temp.BindingContext);
-        temp.BindingContext = new BindingContext();
+        temp.BindingContext = null;
         deleteFrame.IsVisible = false;
         InitializeComponent();
         if (Users.Count < 1)
