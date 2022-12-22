@@ -3,11 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="View.Pages.Matching">
 
-                            <Grid HorizontalOptions="Center" VerticalOptions="Center">
+    <Grid HorizontalOptions="Center" VerticalOptions="Center">
 
         <VerticalStackLayout
             VerticalOptions="Center">
-                <!-- Match "card" -->
+            <!-- Match "card" -->
             <VerticalStackLayout
                 WidthRequest="300"
 
@@ -39,7 +39,7 @@
                     Wrap="Wrap"
                     AlignContent="Start"
                     JustifyContent="Start"
-                    BindableLayout.ItemsSource="{Binding Drinks}">
+                    BindableLayout.ItemsSource="{Binding Match.Drinks}">
 
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
@@ -79,7 +79,7 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </ScrollView>
-            <HorizontalStackLayout
+                <HorizontalStackLayout
 
                     Margin="0,100,0,0">
                     <Button

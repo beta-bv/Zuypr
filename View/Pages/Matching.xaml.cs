@@ -42,6 +42,8 @@ public partial class Matching : ContentPage
             Match = UsersQue.Dequeue();
             MatchName.Text = Match.Name;
             MatchImage.Source = Match.ProfileImage;
+            CitiesName.ItemsSource = Match.Cities;
+            flexLayout.BindingContext = Match.GetFavourites();
 
             //Changes the labels on the MsgAndBackPopUp
             MatchFoundImage.Source = Match.ProfileImage;
