@@ -12,6 +12,7 @@ public partial class Matching : ContentPage
     public List<User> Users { get; set; }
     public List<Message> messages { get; set; } 
     public User[] MatchUsers { get; set; } = new User[2];
+    public bool YesBool = false;
     public Matching()
     {
         InitializeComponent();
@@ -45,6 +46,14 @@ public partial class Matching : ContentPage
         {
             favorite.Text = "Favourite beverage:";
         }
+        if (YesBool) {
+            MsgAndBackPopUp.IsVisible = true;
+        }
+        if (Users is null || Users.Count() == 1)
+        {
+            NoMatches.IsVisible = true;
+        }
+        YesBool = false;
         BindingContext = this;
         //MatchName.SetBinding(Label.TextProperty, nameof(Match.Name));
     }
@@ -52,10 +61,9 @@ public partial class Matching : ContentPage
 
     private void Yes_Clicked(object sender, EventArgs e)
     {
-        if (MatchAdded())
-        {
+        //if (MatchAdded())
+        //{
             var temp = (Button)sender;
-            MsgAndBackPopUp.IsVisible = true;
             // Show next person
             // If match show Profile card and chat button
             // Update List
@@ -71,9 +79,10 @@ public partial class Matching : ContentPage
             }
             else
             {
+                YesBool = true;
                 NextUser(Users);
             }
-        }
+        // }
     }
 
     private void No_Clicked(object sender, EventArgs e)
@@ -87,17 +96,31 @@ public partial class Matching : ContentPage
         {
             NextUser(Users);
         }
+        InitializeComponent();
         // Show next person
         // Update List
     }
     private void Back_Clicked(object sender, EventArgs e){
-            MsgAndBackPopUp.IsVisible = false;
+        MsgAndBackPopUp.IsVisible = false;
+        InitializeComponent();
     }
     private void Message_Clicked(object sender, EventArgs e) {
-            MsgAndBackPopUp.IsVisible = false;
+        MsgAndBackPopUp.IsVisible = false;
+        InitializeComponent();
+        foreach (Model.Match match in Controller.Auth.getUser().Matches)
+        {
+            foreach (User user in match.Users)
+            {
+                if (user == Match)
+                {
+                    Application.Current.MainPage.Navigation.PushAsync(new ChatScreen(match));
+                }
+            }
+        }
     }
     public bool MatchAdded()
     {
-        throw new Exception("matchadded is nog niet implemented");
+        return true;
+        //throw new Exception("matchadded is nog niet implemented");
     }
 }
