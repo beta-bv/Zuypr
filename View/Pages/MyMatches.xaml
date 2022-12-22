@@ -72,7 +72,7 @@
                         HeightRequest="300"
                         WidthRequest="300"
                         x:Name="photo"
-                        Source="{Binding ProfileImage}"/>
+                        Source=""/>
 
                     <Label 
                         x:Name="sure"
