@@ -14,12 +14,10 @@ public partial class Matching : ContentPage
     public User Match { get; set; }
 
     public List<Drink> Drinks { get; set; }
-    public List<Message> messages { get; set; } 
+    public List<Message> messages { get; set; }
     public User[] MatchUsers { get; set; } = new User[2];
     public bool YesBool = false;
 
-public partial class Matching : ContentPage
-{
     public List<User> PotentionalMatches => Filter.FilteredPotentionalMatches;
 
     public Matching()
@@ -35,7 +33,8 @@ public partial class Matching : ContentPage
         BindingContext = this;
     }
 
-    private void NextUser() {
+    private void NextUser()
+    {
 
         if (UsersQue.Count() > 0)
         {
@@ -48,7 +47,8 @@ public partial class Matching : ContentPage
             MatchFoundImage.Source = Match.ProfileImage;
             MatchFoundName.Text = Match.Name;
         }
-        else {
+        else
+        {
             NoMatches.IsVisible = true;
         }
     }
@@ -68,12 +68,14 @@ public partial class Matching : ContentPage
         NextUser();
     }
 
-    private void Back_Clicked(object sender, EventArgs e){
+    private void Back_Clicked(object sender, EventArgs e)
+    {
         MsgAndBackPopUp.IsVisible = false;
         NextUser();
     }
 
-    private void Message_Clicked(object sender, EventArgs e) {
+    private void Message_Clicked(object sender, EventArgs e)
+    {
         foreach (Model.Match match in Controller.Auth.getUser().Matches)
         {
             foreach (User user in match.Users)
