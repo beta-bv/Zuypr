@@ -99,22 +99,22 @@
                 </HorizontalStackLayout>
             </VerticalStackLayout>
         </VerticalStackLayout>
-        <Frame 
+        <StackLayout 
              IsVisible="false"
                BackgroundColor="Black"
                x:Name="NoMatches">
-            <Frame
+            <StackLayout
                 HorizontalOptions="Center">
                 <Label
                     Text="U heeft geen verdere matches meer voor nu. &#x0a;
                     Kijk binnenkort weer eens!"/>
-            </Frame>
-        </Frame>
-        <Frame 
+            </StackLayout>
+        </StackLayout>
+        <StackLayout 
              IsVisible="false"
                BackgroundColor="Black"
             x:Name="MsgAndBackPopUp">
-            <Frame
+            <StackLayout
                 HorizontalOptions="Center">
                 <VerticalStackLayout                
                     WidthRequest="300">
@@ -145,8 +145,8 @@
                         Clicked="Message_Clicked"/>
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
-            </Frame>
-        </Frame>
+            </StackLayout>
+        </StackLayout>
     </Grid>
 
 </ContentPage>

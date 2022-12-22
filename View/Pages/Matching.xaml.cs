@@ -17,10 +17,6 @@ public partial class Matching : ContentPage
     {
         InitializeComponent();
         Users = dummydb.Users;
-        if (Users is null || Users.Count() == 1)
-        {
-            NoMatches.IsVisible = true;
-        }
         Users.Insert(0, Auth.getUser());
         NextUser(Users);
     }
@@ -30,6 +26,10 @@ public partial class Matching : ContentPage
         Match = Users[0];
         Drinks = Match.GetFavourites();
         InitializeComponent();
+        if (Users is null || Users.Count() == 0)
+        {
+            NoMatches.IsVisible = true;
+        }
         if (Drinks.Count < 2)
         {
             favorite.Text = "Favourite beverage:";
@@ -39,23 +39,24 @@ public partial class Matching : ContentPage
 
     private void NextUser(List<User> users) {
         users.RemoveAt(0);
+        Application.Current.MainPage = new Matching(users);
         Users = users;
         Match = users[0];
         Drinks = Match.GetFavourites();
+        Thread.Sleep(100);
         if (Drinks.Count < 2)
         {
-            favorite.Text = "Favourite beverage:";
+            favorite.Text = "Favorite beverage:";
         }
-        if (YesBool) {
-            MsgAndBackPopUp.IsVisible = true;
-        }
+        //if (YesBool) {
+        //    MsgAndBackPopUp.IsVisible = true;
+        //}
         if (Users is null || Users.Count() == 1)
         {
             NoMatches.IsVisible = true;
         }
         YesBool = false;
         BindingContext = this;
-        //MatchName.SetBinding(Label.TextProperty, nameof(Match.Name));
     }
 
 
@@ -71,6 +72,7 @@ public partial class Matching : ContentPage
             Model.Match NewMatch = new Model.Match(new User[] { Auth.getUser(), Match }, new List<Message>());
             Auth.getUser().Matches.Add(NewMatch);
             Match.Matches.Add(NewMatch);
+            MsgAndBackPopUp.IsVisible = true;
             //Array.Clear(MatchUsers, 0, MatchUsers.Length);
             // Set Database Match and Chat
             if (Users is null || Users.Count() == 1)
@@ -80,13 +82,13 @@ public partial class Matching : ContentPage
             else
             {
                 YesBool = true;
-                NextUser(Users);
             }
         // }
     }
 
     private void No_Clicked(object sender, EventArgs e)
     {
+        
         var temp = (Button)sender;
         if (Users is null || Users.Count() == 1)
         {
@@ -96,17 +98,15 @@ public partial class Matching : ContentPage
         {
             NextUser(Users);
         }
-        InitializeComponent();
+
         // Show next person
         // Update List
     }
     private void Back_Clicked(object sender, EventArgs e){
         MsgAndBackPopUp.IsVisible = false;
-        InitializeComponent();
+        NextUser(Users);
     }
     private void Message_Clicked(object sender, EventArgs e) {
-        MsgAndBackPopUp.IsVisible = false;
-        InitializeComponent();
         foreach (Model.Match match in Controller.Auth.getUser().Matches)
         {
             foreach (User user in match.Users)
