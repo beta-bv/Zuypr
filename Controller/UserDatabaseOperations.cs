@@ -48,7 +48,8 @@ namespace Controller.Platforms
                 }
 
                 //Add the user to the database and save the changes
-            db.Users.Add(user);
+                db.Users.Add(user);
+                Auth.User = user;
                 db.SaveChanges();
                 return true;
             }

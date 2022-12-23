@@ -26,13 +26,12 @@ public partial class Step1 : ContentPage
     }
     private void AddButtonList_Pressed_S1(object sender, EventArgs e)
     {
-        User temp = Auth.User;
         try
         {
-            if (!temp.Cities.Select(a => a.Name).Contains(ListViewCities_S1.SelectedItem.ToString()))
+            if (!Auth.User.Cities.Select(a => a.Name).Contains(ListViewCities_S1.SelectedItem.ToString()))
             {
-                temp.Cities.Add(new City(ListViewCities_S1.SelectedItem.ToString()));
-                UserDatabaseOperations.UpdateUserInDatabase(temp, Auth.User);
+                Auth.User.Cities.Add(new City(ListViewCities_S1.SelectedItem.ToString()));
+                //UserDatabaseOperations.UpdateUserInDatabase(Auth.User, Auth.User);   //fix dit jonguh
                 ListViewSelectedCities_S1.IsEnabled = false;
                 ListViewSelectedCities_S1.ItemsSource = null;
                 ListViewSelectedCities_S1.ItemsSource = Auth.User.Cities.Select(a => a.Name);
