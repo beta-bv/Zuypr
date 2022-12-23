@@ -176,8 +176,10 @@ public partial class Settings : ContentPage
                 temp.Password = PasswordField.Text;
                 UserDatabaseOperations.UpdateUserInDatabase(temp, Auth.User);
                 PasswordEditCancelBtn.Text = "Edit";
+                OldPasswordField.Text = "";
                 PasswordField.Text = "";
                 RepeatPasswordField.Text = "";
+                OldPasswordField.IsVisible = false;
                 RepeatPasswordField.IsVisible = false;
                 PasswordField.IsVisible = false;
                 SavePasswordBtn.IsVisible = false;

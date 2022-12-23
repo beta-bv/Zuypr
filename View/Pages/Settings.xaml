@@ -107,6 +107,7 @@
                         Grid.Row="0"
                         Grid.Column="1"
                         IsVisible="false"
+                        IsPassword="True"
                         WidthRequest="200" />
                     <Entry
                         x:Name="PasswordField"
@@ -114,6 +115,7 @@
                         Grid.Row="1"
                         Grid.Column="1"
                         IsVisible="false"
+                        IsPassword="True"
                         WidthRequest="200" />
                     <Entry
                         x:Name="RepeatPasswordField"
@@ -121,6 +123,7 @@
                         Grid.Row="2"
                         Grid.Column="1"
                         IsVisible="false"
+                        IsPassword="True"
                         WidthRequest="200" />
                 </Grid>
                 <Button
