@@ -15,11 +15,11 @@ public partial class Profile : ContentPage
         MatchUser = user;
         Drinks = MatchUser.GetFavourites();
         InitializeComponent();
-        if (MatchUser.Cities.Count < 2)
+        if (MatchUser.Cities == null || MatchUser.Cities.Count < 2) //hier effe MatchUser.Cities == null toegevoegd zodat het uberhaupt werkte, geen idee hoe dit hoort te zijn
         {
             city.Text = "City";
         }
-        if(Drinks.Count < 2)
+        if(Drinks == null || Drinks.Count < 2)   //hier effe Drinks == null toegevoegd zodat het uberhaupt werkte, geen idee hoe dit hoort te zijn
         {
             beverage.Text = "Favourite Beverage";
         }
