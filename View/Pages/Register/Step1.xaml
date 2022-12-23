@@ -15,7 +15,8 @@
                 <ListView
                     x:Name ="ListViewCities_S1">
                 </ListView>
-                <HorizontalStackLayout>
+                <HorizontalStackLayout
+                    HorizontalOptions="Center">
                     <Button
                         x:Name="AddButtonList"
                         Text="Add"

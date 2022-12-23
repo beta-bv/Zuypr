@@ -47,7 +47,7 @@ public partial class Step1 : ContentPage
         {
             if (temp.Cities.Remove(temp.Cities.Where(a => a.Name.Equals(ListViewCities_S1.SelectedItem.ToString())).FirstOrDefault()))
             {
-                UserDatabaseOperations.UpdateUserInDatabase(temp, Auth.User);
+                //UserDatabaseOperations.UpdateUserInDatabase(temp, Auth.User); //fixung
                 ListViewSelectedCities_S1.IsEnabled = false;
                 ListViewSelectedCities_S1.ItemsSource = null;
                 ListViewSelectedCities_S1.ItemsSource = Auth.User.Cities.Select(a => a.Name);
