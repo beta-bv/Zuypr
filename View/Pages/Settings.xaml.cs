@@ -14,12 +14,12 @@ public partial class Settings : ContentPage
     private bool _editIsClicked = false;
     private bool _editPIsClicked = false;
     private bool _deleteAccountClicked = false;
-    private List<City> ValidCities;
+    private List<City> _validCities;
     public Settings()
     {
         InitializeComponent();
         EmailField.Text = Auth.User.Email;
-        ValidCities = Model.City.GetValidCities();
+        _validCities = Model.City.ValidCities;
         ListViewSelectedCities.IsEnabled = false;
         ListViewSelectedCities.ItemsSource = Auth.User.Cities.Select(a => a.Name);
     }
