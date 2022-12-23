@@ -9,31 +9,67 @@
             Spacing="25"
             Padding="30,0"
             VerticalOptions="Center">
+            <Frame
+                IsVisible="false"
+                x:Name="ErrorFrameEditPage"
+                HorizontalOptions="Center"
+                BackgroundColor="#BFFF0000">
+                <Label
+                    x:Name="ErrorLabelEditPage"
+                    HorizontalOptions="Center"
+                    Text="Error: Dit is fout gegaan" />
+            </Frame>
             <VerticalStackLayout>
-                <SearchBar Placeholder="Add or Remove a preferred city..."
+                <Grid>
+                    <VerticalStackLayout
+                        HorizontalOptions="Center"
+                            Grid.Row="0">
+                        <Label
+                        Text="preferred Age Range:"/>
+                        <HorizontalStackLayout>
+                            <Label
+                            Text="Minimum: " />
+                            <Entry
+                            x:Name="minAge" 
+                            TextChanged="minAge_TextChanged_S1"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout>
+                            <Label
+                            Text="Maximum: "/>
+                            <Entry
+                            x:Name="maxAge" 
+                            TextChanged="maxAge_TextChanged_S1"/>
+                        </HorizontalStackLayout>
+                        <VerticalStackLayout
+                            Grid.Row="1">
+                            <SearchBar Placeholder="Add or Remove a preferred city..."
                            TextChanged="SearchBar_TextChanged_S1"/>
-                <ListView
-                    x:Name ="ListViewCities_S1">
-                </ListView>
-                <HorizontalStackLayout
+                            <ListView
+                    x:Name ="ListViewCities_S1"
+                            >
+                            </ListView>
+                            <HorizontalStackLayout
                     HorizontalOptions="Center">
-                    <Button
+                                <Button
                         x:Name="AddButtonList"
                         Text="Add"
                         Pressed="AddButtonList_Pressed_S1"
                         >
-                    </Button>
-                    <Button
+                                </Button>
+                                <Button
                         x:Name="RemoveButtonList"
                         Text="Remove"
                         Pressed="RemoveButtonList_Pressed_S1"
                         >
-                    </Button>
-                </HorizontalStackLayout>
-                <ListView
+                                </Button>
+                            </HorizontalStackLayout>
+                            <ListView
                     x:Name="ListViewSelectedCities_S1"
                     Header="Your preferred cities"
                     SelectionMode="None"/>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Grid>
             </VerticalStackLayout>
 
             <Label HorizontalOptions="Center"
@@ -43,8 +79,8 @@
                 Text="Next"
                 Clicked="Next"
                 HorizontalOptions="Center" />
-
         </VerticalStackLayout>
+
     </ContentView>
 
 </ContentPage>

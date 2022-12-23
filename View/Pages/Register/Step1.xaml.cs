@@ -10,9 +10,9 @@ public partial class Step1 : ContentPage
 
     public Step1(User user)
     {
-        User = user;
         InitializeComponent();
         BindingContext = this;
+        User = user;
     }
 
     private async void Next(object sender, EventArgs e)
@@ -55,4 +55,40 @@ public partial class Step1 : ContentPage
         }
         catch (NullReferenceException) { }
     }
+    private void maxAge_TextChanged_S1(object sender, TextChangedEventArgs e)
+    {
+        try
+        {
+            int maxAgeParsed = Int32.Parse(maxAge.Text);
+            Auth.User.MaximumpreferredAge = maxAgeParsed;
+            //UserDatabaseOperations.UpdateUserInDatabase(tempUser, Auth.User);    //fixuh
+            ErrorFrameEditPage.IsVisible = false;
+        }
+        catch (FormatException fe)
+        {
+        }
+        catch (Exception ex)
+        {
+            ErrorLabelEditPage.Text = ex.Message;
+            ErrorFrameEditPage.IsVisible = true;
+        }
+    }
+
+    private void minAge_TextChanged_S1(object sender, TextChangedEventArgs e)
+    {
+        try
+        {
+            int minAgeParsed = Int32.Parse(minAge.Text);
+            Auth.User.MinimumpreferredAge = minAgeParsed;
+            //UserDatabaseOperations.UpdateUserInDatabase(tempUser, Auth.User); //fixxuh
+            ErrorFrameEditPage.IsVisible = false;
+        }
+        catch (FormatException) { }
+        catch (Exception ex)
+        {
+            ErrorLabelEditPage.Text = ex.Message;
+            ErrorFrameEditPage.IsVisible = true;
+        }
+    }
+
 }
