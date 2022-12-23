@@ -13,7 +13,7 @@ public partial class Matching : ContentPage
     public static Queue<User> UsersQue = new Queue<User>(Users);
     public User Match { get; set; }
 
-    public List<Drink> Drinks { get; set; }
+    public List<Drink> Drinks { get; set; } 
     public List<Message> messages { get; set; }
     public User[] MatchUsers { get; set; } = new User[2];
     public bool YesBool = false;
@@ -28,6 +28,7 @@ public partial class Matching : ContentPage
         }
 
         Match = UsersQue.Dequeue();
+        Drinks = Match.GetFavourites();
 
         InitializeComponent();
         BindingContext = this;
@@ -40,10 +41,12 @@ public partial class Matching : ContentPage
         {
             //Changes the labels on the screen to the current user
             Match = UsersQue.Dequeue();
+            Drinks = Match.GetFavourites();
+
             MatchName.Text = Match.Name;
             MatchImage.Source = Match.ProfileImage;
             CitiesName.ItemsSource = Match.Cities;
-            flexLayout.BindingContext = Match.GetFavourites();
+            //flexLayout.BindableLayout.SetItemsSource = Drinks;
 
             //Changes the labels on the MsgAndBackPopUp
             MatchFoundImage.Source = Match.ProfileImage;
