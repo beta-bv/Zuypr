@@ -4,7 +4,8 @@
              xmlns:local="clr-namespace:View.Pages.Register"
              x:Class="View.Pages.Register.Step1">
 
-    <ContentView>
+    <ContentView
+        NavigationPage.HasNavigationBar="False">
         <VerticalStackLayout
             Spacing="25"
             Padding="30,0"
@@ -25,15 +26,23 @@
                         HorizontalOptions="Center"
                             Grid.Row="0">
                         <Label
-                        Text="preferred Age Range:"/>
-                        <HorizontalStackLayout>
+                        Text="preferred Age Range:"
+                            HorizontalOptions="Center"/>
+                        <VerticalStackLayout
+                            Grid.Row="1"
+                            HeightRequest="20">
+                        </VerticalStackLayout>
+                        <HorizontalStackLayout
+                            HorizontalOptions="Center">
                             <Label
-                            Text="Minimum: " />
+                            Text="Minimum: "
+                                />
                             <Entry
                             x:Name="minAge" 
                             TextChanged="minAge_TextChanged_S1"/>
                         </HorizontalStackLayout>
-                        <HorizontalStackLayout>
+                        <HorizontalStackLayout
+                            HorizontalOptions="Center">
                             <Label
                             Text="Maximum: "/>
                             <Entry
@@ -41,12 +50,19 @@
                             TextChanged="maxAge_TextChanged_S1"/>
                         </HorizontalStackLayout>
                         <VerticalStackLayout
-                            Grid.Row="1">
+                            Grid.Row="2"
+                            HeightRequest="20">
+                        </VerticalStackLayout>
+                        <VerticalStackLayout
+                            Grid.Row="3"
+                            Spacing="5">
                             <SearchBar Placeholder="Add or Remove a preferred city..."
+                            WidthRequest="500"
                            TextChanged="SearchBar_TextChanged_S1"/>
                             <ListView
                     x:Name ="ListViewCities_S1"
-                            >
+                            HeightRequest="100"
+                             WidthRequest="500">
                             </ListView>
                             <HorizontalStackLayout
                     HorizontalOptions="Center">
@@ -64,6 +80,8 @@
                                 </Button>
                             </HorizontalStackLayout>
                             <ListView
+                                HeightRequest="100"
+                             WidthRequest="500"
                     x:Name="ListViewSelectedCities_S1"
                     Header="Your preferred cities"
                     SelectionMode="None"/>

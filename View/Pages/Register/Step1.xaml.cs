@@ -22,7 +22,7 @@ public partial class Step1 : ContentPage
     private void SearchBar_TextChanged_S1(object sender, TextChangedEventArgs e)
     {
         SearchBar searchBar = (SearchBar)sender;
-        ListViewCities_S1.ItemsSource = Model.City.getCitySearchResult(searchBar.Text).Select(a => a.Name); 
+        ListViewCities_S1.ItemsSource = Model.City.getCitySearchResult(searchBar.Text, 10).Select(a => a.Name); 
     }
     private void AddButtonList_Pressed_S1(object sender, EventArgs e)
     {

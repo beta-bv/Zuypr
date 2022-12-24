@@ -263,7 +263,7 @@ public partial class Settings : ContentPage
     private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
     {
         SearchBar searchBar = (SearchBar)sender;
-        ListViewCities.ItemsSource = Model.City.getCitySearchResult(searchBar.Text).Select(a => a.Name);
+        ListViewCities.ItemsSource = Model.City.getCitySearchResult(searchBar.Text, 10).Select(a => a.Name);
     }
 
     private void AddButtonList_Pressed(object sender, EventArgs e)

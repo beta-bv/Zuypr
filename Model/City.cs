@@ -50,9 +50,9 @@ public class City
         return outputList;
     }
 
-    public static List<City> getCitySearchResult(string city)
+    public static List<City> getCitySearchResult(string city, int amountOfResults)
     {
-        return ValidCities.OrderBy(a => LevenshteinDistance(a.Name.ToLower(), city.ToLower())).Take(10).ToList();
+        return ValidCities.OrderBy(a => LevenshteinDistance(a.Name.ToLower(), city.ToLower())).Take(amountOfResults).ToList();
     }
 
     /// <summary>
