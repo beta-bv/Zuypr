@@ -61,7 +61,7 @@ public partial class Matching : ContentPage
         PotentionalMatch.Matches.Add(CurrentMatch);
 
         //Enables the matched pop-up
-        this.MsgAndBackPopUp.IsVisible = true;
+        MsgAndBackPopUp.IsVisible = true;
     }
 
     private void No_Clicked(object sender, EventArgs e)
@@ -72,7 +72,7 @@ public partial class Matching : ContentPage
 
     private void Back_Clicked(object sender, EventArgs e)
     {
-        this.MsgAndBackPopUp.IsVisible = false;
+        MsgAndBackPopUp.IsVisible = false;
         NextUser();
         InitializeComponent();
     }
