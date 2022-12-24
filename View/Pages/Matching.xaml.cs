@@ -3,7 +3,6 @@ using Controller;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
-//using static Java.Util.Jar.Attributes;
 
 namespace View.Pages;
 
@@ -11,11 +10,10 @@ public partial class Matching : ContentPage
 {
     public static List<User> PotentionalMatches => Filter.FilteredPotentionalMatches;
     public static Queue<User> UsersQue = new Queue<User>(PotentionalMatches);
-    public User Match { get; set; }
+    public List<Drink> Drinks { get; set; }
 
-    public List<Drink> Drinks { get; set; } 
-    public List<Message> messages { get; set; }
-    public User[] MatchUsers { get; set; } = new User[2];
+    public User PotentionalMatch { get; set; }
+    public static Model.Match CurrentMatch;
 
     public Matching()
     {
@@ -23,9 +21,11 @@ public partial class Matching : ContentPage
         {
             NoMatches.IsVisible = true;
         }
-
-        Match = UsersQue.Dequeue();
-        Drinks = Match.GetFavourites();
+        else
+        {
+            PotentionalMatch = UsersQue.Dequeue();
+            Drinks = PotentionalMatch.GetFavourites();
+        }
 
         InitializeComponent();
         BindingContext = this;
@@ -33,21 +33,19 @@ public partial class Matching : ContentPage
 
     private void NextUser()
     {
-
         if (UsersQue.Count() > 0)
         {
-            Match = UsersQue.Dequeue();
-            Drinks = Match.GetFavourites();
+            PotentionalMatch = UsersQue.Dequeue();
+            Drinks = PotentionalMatch.GetFavourites();
 
             //Changes the labels on the screen to the current user
-            MatchName.Text = Match.Name;
-            MatchImage.Source = Match.ProfileImage;
-            CitiesName.ItemsSource = Match.Cities;
-            //flexLayout.BindableLayout.SetItemsSource = Drinks;
+            MatchName.Text = PotentionalMatch.Name;
+            MatchImage.Source = PotentionalMatch.ProfileImage;
+            CitiesName.ItemsSource = PotentionalMatch.Cities;
 
             //Changes the labels on the MsgAndBackPopUp
-            MatchFoundImage.Source = Match.ProfileImage;
-            MatchFoundName.Text = Match.Name;
+            MatchFoundImage.Source = PotentionalMatch.ProfileImage;
+            MatchFoundName.Text = PotentionalMatch.Name;
         }
         else
         {
@@ -58,10 +56,12 @@ public partial class Matching : ContentPage
     private void Yes_Clicked(object sender, EventArgs e)
     {
         //Adds a match to the users.
-        Model.Match NewMatch = new Model.Match(new User[] { Auth.getUser(), Match }, new List<Message>());
-        Auth.getUser().Matches.Add(NewMatch);
-        Match.Matches.Add(NewMatch);
-        MsgAndBackPopUp.IsVisible = true;
+        CurrentMatch = new Model.Match(new User[] { Auth.getUser(), PotentionalMatch }, new List<Message>());
+        Auth.getUser().Matches.Add(CurrentMatch);
+        PotentionalMatch.Matches.Add(CurrentMatch);
+
+        //Enables the matched pop-up
+        this.MsgAndBackPopUp.IsVisible = true;
     }
 
     private void No_Clicked(object sender, EventArgs e)
@@ -72,23 +72,13 @@ public partial class Matching : ContentPage
 
     private void Back_Clicked(object sender, EventArgs e)
     {
-        MsgAndBackPopUp.IsVisible = false;
+        this.MsgAndBackPopUp.IsVisible = false;
         NextUser();
         InitializeComponent();
     }
 
     private void Message_Clicked(object sender, EventArgs e)
     {
-        foreach (Model.Match match in Controller.Auth.getUser().Matches)
-        {
-            foreach (User user in match.Users)
-            {
-                if (user == Match)
-                {
-                    Application.Current.MainPage.Navigation.PushAsync(new ChatScreen(match));
-                }
-            }
-        }
+      Application.Current.MainPage.Navigation.PushAsync(new ChatScreen(CurrentMatch));
     }
-
 }
