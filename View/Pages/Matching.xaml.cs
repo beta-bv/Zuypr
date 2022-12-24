@@ -68,14 +68,14 @@ public partial class Matching : ContentPage
     private void No_Clicked(object sender, EventArgs e)
     {
         NextUser();
-        //InitializeComponent();
+        InitializeComponent();
     }
 
     private void Back_Clicked(object sender, EventArgs e)
     {
         MsgAndBackPopUp.IsVisible = false;
         NextUser();
-        //InitializeComponent();
+        InitializeComponent();
     }
 
     private void Message_Clicked(object sender, EventArgs e)
