@@ -61,7 +61,6 @@ public partial class Matching : ContentPage
         Model.Match NewMatch = new Model.Match(new User[] { Auth.getUser(), Match }, new List<Message>());
         Auth.getUser().Matches.Add(NewMatch);
         Match.Matches.Add(NewMatch);
-
         MsgAndBackPopUp.IsVisible = true;
     }
 
