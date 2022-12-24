@@ -9,16 +9,13 @@ namespace View.Pages;
 
 public partial class Matching : ContentPage
 {
-    public static List<User> Users { get; set; } = dummydb.Users;
-    public static Queue<User> UsersQue = new Queue<User>(Users);
+    public static List<User> PotentionalMatches => Filter.FilteredPotentionalMatches;
+    public static Queue<User> UsersQue = new Queue<User>(PotentionalMatches);
     public User Match { get; set; }
 
     public List<Drink> Drinks { get; set; } 
     public List<Message> messages { get; set; }
     public User[] MatchUsers { get; set; } = new User[2];
-    public bool YesBool = false;
-
-    public List<User> PotentionalMatches => Filter.FilteredPotentionalMatches;
 
     public Matching()
     {
@@ -39,10 +36,10 @@ public partial class Matching : ContentPage
 
         if (UsersQue.Count() > 0)
         {
-            //Changes the labels on the screen to the current user
             Match = UsersQue.Dequeue();
             Drinks = Match.GetFavourites();
 
+            //Changes the labels on the screen to the current user
             MatchName.Text = Match.Name;
             MatchImage.Source = Match.ProfileImage;
             CitiesName.ItemsSource = Match.Cities;
@@ -71,12 +68,14 @@ public partial class Matching : ContentPage
     private void No_Clicked(object sender, EventArgs e)
     {
         NextUser();
+        //InitializeComponent();
     }
 
     private void Back_Clicked(object sender, EventArgs e)
     {
         MsgAndBackPopUp.IsVisible = false;
         NextUser();
+        //InitializeComponent();
     }
 
     private void Message_Clicked(object sender, EventArgs e)

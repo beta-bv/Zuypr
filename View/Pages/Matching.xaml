@@ -2,12 +2,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="View.Pages.Matching">
-
+    <ScrollView>
     <Grid HorizontalOptions="Center" VerticalOptions="Center">
 
         <VerticalStackLayout
             VerticalOptions="Center">
-            <!-- Match "card" -->
             <VerticalStackLayout
                 WidthRequest="300"
 
@@ -44,7 +43,7 @@
 
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
-                                        <Image 
+                                <Image 
                                         Source="{Binding ImageUrl}"
                                         HeightRequest="50"
                                         WidthRequest="50"/>
@@ -118,7 +117,7 @@
             x:Name="MsgAndBackPopUp">
             <StackLayout
                 HorizontalOptions="Center">
-                
+
                 <VerticalStackLayout                
                     WidthRequest="300">
                     <Label
@@ -152,5 +151,5 @@
             </StackLayout>
         </StackLayout>
     </Grid>
-
+    </ScrollView>
 </ContentPage>
