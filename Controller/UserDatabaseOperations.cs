@@ -18,8 +18,8 @@ namespace Controller.Platforms
             try
             {
                 DatabaseContext db = new DatabaseContext();  //maakt database context aan
-                User userFromDatabse = db.Users
-                .First(u => u.Email.Equals(user.Email));   //query haalt de user op aan de hand van zijn/haar email
+                db.Database.CurrentTransaction.
+                User userFromDatabse = db.Users.First(u => u.Email.Equals(user.Email));   //query haalt de user op aan de hand van zijn/haar email
                 return userFromDatabse;                            // returned de user
             }
             catch (Exception ex)

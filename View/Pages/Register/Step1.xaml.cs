@@ -30,6 +30,7 @@ public partial class Step1 : ContentPage
         {
             if (!Auth.User.Cities.Select(a => a.Name).Contains(ListViewCities_S1.SelectedItem.ToString()))
             {
+                ErrorFrameEditPage.IsVisible = false;
                 Auth.User.Cities.Add(new City(ListViewCities_S1.SelectedItem.ToString()));
                 //UserDatabaseOperations.UpdateUserInDatabase(Auth.User, Auth.User);   //fix dit jonguh
                 ListViewSelectedCities_S1.IsEnabled = false;
@@ -37,7 +38,10 @@ public partial class Step1 : ContentPage
                 ListViewSelectedCities_S1.ItemsSource = Auth.User.Cities.Select(a => a.Name);
             }
         }
-        catch (NullReferenceException) { }
+        catch (NullReferenceException nre) {
+            ErrorFrameEditPage.IsVisible = true;
+            ErrorLabelEditPage.Text = "You need to select a city before you can add or remove it";
+        }
     }
 
     private void RemoveButtonList_Pressed_S1(object sender, EventArgs e)
