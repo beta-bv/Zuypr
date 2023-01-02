@@ -36,7 +36,7 @@ public partial class Step0 : ContentPage
                 try
                 {
                     User Client = new User(name, email, password, dateOfBirth);
-                    if (UserDatabaseOperations.GetUserFromDatabase(Client).Email != EmailField.Text)
+                    if (UserDatabaseOperations.GetUserFromDatabase(Client) == null || UserDatabaseOperations.GetUserFromDatabase(Client).Email != EmailField.Text)
                     {
                         UserDatabaseOperations.AddUserToDatabase(Client);
                         await Navigation.PushAsync(new Step1(Client));
