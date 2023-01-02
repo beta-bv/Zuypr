@@ -36,8 +36,16 @@ public partial class Step0 : ContentPage
                 try
                 {
                     User Client = new User(name, email, password, dateOfBirth);
-                    UserDatabaseOperations.AddUserToDatabase(Client);
-                    await Navigation.PushAsync(new Step1(Client));
+                    if (UserDatabaseOperations.GetUserFromDatabase(Client).Email != EmailField.Text)
+                    {
+                        UserDatabaseOperations.AddUserToDatabase(Client);
+                        await Navigation.PushAsync(new Step1(Client));
+                    }
+                    else
+                    {
+                        ErrorLabel.Text = "there is already an account with this email address";
+                        ErrorLabel.IsVisible = true;
+                    }
                 }
                 catch (Exception ex)
                 {
