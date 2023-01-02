@@ -87,12 +87,14 @@ namespace Controller.Platforms
         public static bool UpdateUserInDatabase(User userNewInfo, User userOldInfo)
         {
             DatabaseContext db = new DatabaseContext();
-            db.Users.Remove(userOldInfo);
-            db.Users.Add(userNewInfo);
+            //db.Users.Remove(userOldInfo);
+            //db.Users.Add(userNewInfo);
+            //db.SaveChanges();
+
+            User UserToUpdate = db.Users.Where(a => a.Id == userOldInfo.Id).FirstOrDefault();
+            UserToUpdate = userNewInfo;
             db.SaveChanges();
 
-            //RemoveUserFromDatabase(userOldInfo);    //het spijt me
-            //AddUserToDatabase(userNewInfo);
             if (GetUserFromDatabase(userOldInfo) == null)
             {
                 return true;
