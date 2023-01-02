@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Model;
 
 namespace Controller.Platforms
@@ -19,7 +20,10 @@ namespace Controller.Platforms
             {
                 DatabaseContext db = new DatabaseContext();  //maakt database context aan
                 //db.Database.CurrentTransaction.
-                User userFromDatabse = db.Users.First(u => u.Email.Equals(user.Email));   //query haalt de user op aan de hand van zijn/haar email
+                User userFromDatabse = db.Users
+                    .Include(u => u.Cities)
+                    .Include(u => u.Matches)
+                    .First(u => u.Email.Equals(user.Email));   //query haalt de user op aan de hand van zijn/haar email
                 return userFromDatabse;                            // returned de user
             }
             catch (Exception ex)
@@ -92,7 +96,7 @@ namespace Controller.Platforms
             //db.Users.Add(userNewInfo);
             //db.SaveChanges();
 
-            User UserToUpdate = db.Users.Where(a => a.GetHashCode() == oldUserHash).FirstOrDefault();
+            User UserToUpdate = db.Users.ToList().Where(a => a.GetHashCode() == oldUserHash).FirstOrDefault();
             UserToUpdate = newUser;
             db.SaveChanges();
 
