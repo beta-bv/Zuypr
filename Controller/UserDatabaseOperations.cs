@@ -18,7 +18,7 @@ namespace Controller.Platforms
             try
             {
                 DatabaseContext db = new DatabaseContext();  //maakt database context aan
-                db.Database.CurrentTransaction.
+                //db.Database.CurrentTransaction.
                 User userFromDatabse = db.Users.First(u => u.Email.Equals(user.Email));   //query haalt de user op aan de hand van zijn/haar email
                 return userFromDatabse;                            // returned de user
             }
@@ -85,22 +85,18 @@ namespace Controller.Platforms
             }
             return false;
         }
-        public static bool UpdateUserInDatabase(User userNewInfo, User userOldInfo)
+        public static bool UpdateUserInDatabase(int oldUserHash, User newUser)
         {
             DatabaseContext db = new DatabaseContext();
             //db.Users.Remove(userOldInfo);
             //db.Users.Add(userNewInfo);
             //db.SaveChanges();
 
-            User UserToUpdate = db.Users.Where(a => a.Id == userOldInfo.Id).FirstOrDefault();
-            UserToUpdate = userNewInfo;
+            User UserToUpdate = db.Users.Where(a => a.GetHashCode() == oldUserHash).FirstOrDefault();
+            UserToUpdate = newUser;
             db.SaveChanges();
 
-            if (GetUserFromDatabase(userOldInfo) == null)
-            {
-                return true;
-            }
-            return false;
+            return true;
         }
     }
 }
