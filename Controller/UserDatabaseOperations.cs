@@ -18,7 +18,7 @@ namespace Controller.Platforms
             try
             {
                 DatabaseContext db = new DatabaseContext();  //maakt database context aan
-                db.Database.CurrentTransaction.
+                //db.Database.CurrentTransaction.
                 User userFromDatabse = db.Users.First(u => u.Email.Equals(user.Email));   //query haalt de user op aan de hand van zijn/haar email
                 return userFromDatabse;                            // returned de user
             }
