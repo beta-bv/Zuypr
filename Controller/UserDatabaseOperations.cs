@@ -18,8 +18,27 @@ namespace Controller.Platforms
             try
             {
                 DatabaseContext db = new DatabaseContext();  //maakt database context aan
-                //db.Database.CurrentTransaction.
                 User userFromDatabse = db.Users.First(u => u.Email.Equals(user.Email));   //query haalt de user op aan de hand van zijn/haar email
+                return userFromDatabse;                            // returned de user
+            }
+            catch (Exception ex)
+            {
+                new Exception(ex.Message);                 // gooit een exception als er iets mis gaat met de database
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// finds users by email
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public static User GetUserFromDatabaseByEmail(String email)
+        {
+            try
+            {
+                DatabaseContext db = new DatabaseContext();  //maakt database context aan
+                User userFromDatabse = db.Users.First(u => u.Email.Equals(email));   //query haalt de user op aan de hand van zijn/haar email
                 return userFromDatabse;                            // returned de user
             }
             catch (Exception ex)
