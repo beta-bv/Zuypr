@@ -110,45 +110,6 @@
                     Kijk binnenkort weer eens!"/>
                 </StackLayout>
             </StackLayout>
-            <StackLayout 
-             IsVisible="false"
-               BackgroundColor="Black"
-            x:Name="MsgAndBackPopUp">
-                <StackLayout
-                HorizontalOptions="Center">
-
-                    <VerticalStackLayout                
-                    WidthRequest="300">
-                        <Label
-                        Text="It's a match!"
-                        FontSize="53"
-                        Margin="0,0,0,10"/>
-                        <Image
-                        x:Name="MatchFoundImage"
-                        BackgroundColor="White"
-                        Source="{Binding PotentionalMatch.ProfileImage}"
-                        HeightRequest="300"
-                        WidthRequest="300" />
-                        <Label
-                        x:Name="MatchFoundName"
-                       Text="{Binding PotentionalMatch.Name}"
-                       TextColor="White"
-                       FontSize="26" 
-                        Margin="0,10,0,20"/>
-                        <HorizontalStackLayout>
-                            <Button
-                        Text="Back"
-                        WidthRequest="140"
-                        Clicked="Back_Clicked"/>
-                            <Button
-                        Text="Message"
-                        WidthRequest="140"
-                        Margin="20,0,0,0"
-                        Clicked="Message_Clicked"/>
-                        </HorizontalStackLayout>
-                    </VerticalStackLayout>
-                </StackLayout>
-            </StackLayout>
         </Grid>
     </ScrollView>
 </ContentPage>

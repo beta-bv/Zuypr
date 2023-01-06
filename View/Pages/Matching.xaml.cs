@@ -42,10 +42,6 @@ public partial class Matching : ContentPage
             MatchName.Text = PotentionalMatch.Name;
             MatchImage.Source = PotentionalMatch.ProfileImage;
             CitiesName.ItemsSource = PotentionalMatch.Cities;
-
-            //Changes the labels on the MsgAndBackPopUp
-            MatchFoundImage.Source = PotentionalMatch.ProfileImage;
-            MatchFoundName.Text = PotentionalMatch.Name;
         }
         else
         {
@@ -60,8 +56,81 @@ public partial class Matching : ContentPage
         Auth.getUser().Matches.Add(CurrentMatch);
         PotentionalMatch.Matches.Add(CurrentMatch);
 
-        //Enables the matched pop-up
-        MsgAndBackPopUp.IsVisible = true;
+        //Shows PopUp
+        PopUp();
+    }
+
+    public void PopUp()
+    {
+        StackLayout stackLayout = new StackLayout
+        {
+            BackgroundColor = Colors.Black
+        };
+
+        StackLayout stackLayoutTwo = new StackLayout
+        {
+            HorizontalOptions = LayoutOptions.Center
+        };
+
+        VerticalStackLayout verticalStackLayout = new VerticalStackLayout
+        {
+            WidthRequest = 300
+        };
+
+        Label label = new Label
+        {
+            Text = "It's a match!",
+            FontSize = 26,
+            Margin = new Thickness(0, 0, 0, 10)
+        };
+
+        Image image = new Image
+        {
+            BackgroundColor = Colors.White,
+            Source = PotentionalMatch.ProfileImage,
+            HeightRequest = 300,
+            WidthRequest = 300
+        };
+
+        Label labelName = new Label
+        {
+            Text = PotentionalMatch.Name,
+            TextColor = Colors.White,
+            FontSize = 26,
+            Margin = new Thickness(0, 10, 0, 20)
+        };
+
+        HorizontalStackLayout horizontalStackLayout = new HorizontalStackLayout
+        {
+
+        };
+
+        Button buttonBack = new Button
+        {
+            Text = "Back",
+            WidthRequest = 140
+        };
+
+        Button buttonMessage = new Button
+        {
+            Text = "Message",
+            WidthRequest = 140,
+            Margin = new Thickness(20, 0, 0, 0)
+        };
+
+        buttonBack.Clicked += Back_Clicked;
+        buttonMessage.Clicked += Message_Clicked;
+
+        stackLayout.Add(stackLayoutTwo);
+        stackLayoutTwo.Add(verticalStackLayout);
+        verticalStackLayout.Add(label);
+        verticalStackLayout.Add(image);
+        verticalStackLayout.Add(labelName);
+        verticalStackLayout.Add(horizontalStackLayout);
+        horizontalStackLayout.Add(buttonBack);
+        horizontalStackLayout.Add(buttonMessage);
+
+        Content = stackLayout;
     }
 
     private void No_Clicked(object sender, EventArgs e)
@@ -72,7 +141,6 @@ public partial class Matching : ContentPage
 
     private void Back_Clicked(object sender, EventArgs e)
     {
-        MsgAndBackPopUp.IsVisible = false;
         NextUser();
         InitializeComponent();
     }
