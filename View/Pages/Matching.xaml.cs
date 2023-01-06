@@ -31,6 +31,9 @@ public partial class Matching : ContentPage
         BindingContext = this;
     }
 
+    /// <summary>
+    /// Loads in the next potentional match
+    /// </summary>
     private void NextUser()
     {
         if (UsersQue.Count() > 0)
@@ -49,6 +52,11 @@ public partial class Matching : ContentPage
         }
     }
 
+    /// <summary>
+    /// When clicked on yes checks if both users liked each other if yes than shows popUp if no then loads in next potentional match
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Yes_Clicked(object sender, EventArgs e)
     {
         //Adds a match to the users.
@@ -56,10 +64,19 @@ public partial class Matching : ContentPage
         Auth.getUser().Matches.Add(CurrentMatch);
         PotentionalMatch.Matches.Add(CurrentMatch);
 
-        //Shows PopUp
-        PopUp();
+        //Checks if both users liked each other
+        if (false)
+        {
+            PopUp();
+        }
+        else {
+            NextUser();
+        }
     }
 
+    /// <summary>
+    /// Creates popUp when both users liked each other
+    /// </summary>
     public void PopUp()
     {
         StackLayout stackLayout = new StackLayout
@@ -100,10 +117,7 @@ public partial class Matching : ContentPage
             Margin = new Thickness(0, 10, 0, 20)
         };
 
-        HorizontalStackLayout horizontalStackLayout = new HorizontalStackLayout
-        {
-
-        };
+        HorizontalStackLayout horizontalStackLayout = new HorizontalStackLayout{};
 
         Button buttonBack = new Button
         {
@@ -133,20 +147,35 @@ public partial class Matching : ContentPage
         Content = stackLayout;
     }
 
+    /// <summary>
+    /// Loads next potentional match when clicked on no button
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void No_Clicked(object sender, EventArgs e)
     {
         NextUser();
         InitializeComponent();
     }
 
+    /// <summary>
+    /// Loads next potentional match when clicked on back button
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Back_Clicked(object sender, EventArgs e)
     {
         NextUser();
         InitializeComponent();
     }
 
+    /// <summary>
+    /// Goes to the message screen of the matched users
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Message_Clicked(object sender, EventArgs e)
     {
-      Application.Current.MainPage.Navigation.PushAsync(new ChatScreen(CurrentMatch));
+        Application.Current.MainPage.Navigation.PushAsync(new ChatScreen(CurrentMatch));
     }
 }

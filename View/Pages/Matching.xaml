@@ -9,11 +9,9 @@
             VerticalOptions="Center">
                 <VerticalStackLayout
                 WidthRequest="300"
-
                 Padding="0,30,0,0">
                     <VerticalStackLayout                
-                    WidthRequest="300"
-                    >
+                    WidthRequest="300">
                         <Image
                         x:Name="MatchImage"
                         Source="{Binding PotentionalMatch.ProfileImage}"
