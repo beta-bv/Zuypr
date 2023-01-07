@@ -8,6 +8,7 @@ namespace View.Pages;
 
 public partial class Matching : ContentPage
 {
+    public static User User = Auth.getUser();
     public static List<User> PotentionalMatches => Filter.FilteredPotentionalMatches;
     public static Queue<User> UsersQue = new Queue<User>(PotentionalMatches);
     public List<Drink> Drinks { get; set; }
@@ -52,6 +53,8 @@ public partial class Matching : ContentPage
         }
     }
 
+    public List<User> HasUserInLikedList => User.LikedUsers.Where(a => a.Name.Equals(PotentionalMatch.Name)).ToList();
+
     /// <summary>
     /// When clicked on yes checks if both users liked each other if yes than shows popUp if no then loads in next potentional match
     /// </summary>
@@ -59,18 +62,28 @@ public partial class Matching : ContentPage
     /// <param name="e"></param>
     private void Yes_Clicked(object sender, EventArgs e)
     {
-        //Adds a match to the users.
-        CurrentMatch = new Model.Match(new User[] { Auth.getUser(), PotentionalMatch }, new List<Message>());
-        Auth.getUser().Matches.Add(CurrentMatch);
-        PotentionalMatch.Matches.Add(CurrentMatch);
 
-        //Checks if both users liked each other
-        if (false)
+        //Checks if other user liked the auth user
+        if (HasUserInLikedList.Count() > 0)
         {
+            //Remove Liked of other user who liked auth user
+            PotentionalMatch.LikedUsers.Remove(User);
+
+            //Add match on both users
+            CurrentMatch = new Model.Match(new User[] { User, PotentionalMatch }, new List<Message>());
+            User.Matches.Add(CurrentMatch);
+            PotentionalMatch.Matches.Add(CurrentMatch);
+
+            //matched pop up
             PopUp();
         }
         else {
+            //Add other user to auth user liked list
+            User.LikedUsers.Add(PotentionalMatch);
+
+            //Next user
             NextUser();
+            InitializeComponent();
         }
     }
 
@@ -81,12 +94,14 @@ public partial class Matching : ContentPage
     {
         StackLayout stackLayout = new StackLayout
         {
-            BackgroundColor = Colors.Black
+            BackgroundColor = Colors.Black,
+            VerticalOptions =  LayoutOptions.Center
         };
 
         StackLayout stackLayoutTwo = new StackLayout
         {
-            HorizontalOptions = LayoutOptions.Center
+            HorizontalOptions = LayoutOptions.Center,
+            VerticalOptions = LayoutOptions.Center
         };
 
         VerticalStackLayout verticalStackLayout = new VerticalStackLayout
