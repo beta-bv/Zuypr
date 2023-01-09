@@ -207,7 +207,7 @@ namespace Model
             {
                 // Give users a match with a random user (including themselves lol)
                 user.Matches = new List<Match>();
-                user.Matches.Add(new Match(new User[] { user, Users[new Random().Next(Users.Count)] }));
+                user.Matches.Add(new Match(new List<User> { user, Users[new Random().Next(Users.Count)] }));
 
                 //Give users a list of cities
                 user.Cities = new List<City>()

@@ -2,6 +2,7 @@ using Model;
 using Controller;
 
 using View.Pages.Register;
+using Controller.Platforms;
 
 namespace View.Pages;
 
@@ -22,7 +23,7 @@ public partial class LaunchScreen : ContentPage
             DatabaseContext db = new DatabaseContext();
             if (db.Users.Any(u => Email == u.Email) && User.HashString(password) == db.Users.Where(u => Email == u.Email).First().Password)
             {
-                User temp = Auth.User = (db.Users.Where(u => Email == u.Email).First());
+                User temp = Auth.User = UserDatabaseOperations.GetUserFromDatabaseByEmail(Email);
                 Application.Current.MainPage = new AppShell(temp);
             }
             else

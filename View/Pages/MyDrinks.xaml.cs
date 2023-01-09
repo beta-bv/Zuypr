@@ -5,11 +5,11 @@ namespace View.Pages;
 public partial class MyDrinks : ContentPage
 {
     private static readonly User User = Auth.User;
-    public List<Drink> AllDrinks => dummydb.Drinks;
+    public List<Drink> AllDrinks => DrinksDatabaseOperations.GetAllDrinksFromDatabase();
 
-    private List<Drink> Favourites = User.GetFavourites();
-    private List<Drink> Likes = User.GetLikes();
-    private List<Drink> Dislikes = User.GetDislikes();
+    public List<Drink> Favourites = User.GetFavourites();
+    public List<Drink> Likes = User.GetLikes();
+    public List<Drink> Dislikes = User.GetDislikes();
 
     static int AmountFavorite;
     static int AmountLikes;
