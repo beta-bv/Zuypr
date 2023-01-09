@@ -31,7 +31,7 @@ namespace Model
                 }
                 if (value < 18)
                 {
-                    throw new ArgumentException("The preferred age must be above 18");
+                    throw new ArgumentException("The preferred age must be 18 or above");
                 }
                 if (value > MaximumpreferredAge)
                 {
