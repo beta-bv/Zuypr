@@ -10,16 +10,15 @@
                 AlignContent="Start"
                 JustifyContent="Start"
                 BindableLayout.ItemsSource="{Binding Users}">
-
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
                         <Grid
                             Margin="10,40,10,10"
                             HeightRequest="220"
                             HorizontalOptions="Center">
-                            
                             <StackLayout>
                                 <ImageButton
+                                    x:Name="profileImage"
                                     Source="{Binding ProfileImage}"
                                     HeightRequest="200"
                                     WidthRequest="200" 
@@ -29,9 +28,14 @@
                                     <Label
                                         FontSize="20"
                                         HorizontalOptions="Start"
-                                        WidthRequest="180"
+                                        WidthRequest="160"
                                         Text="{Binding Name}"/>
-
+                                    <ImageButton
+                                        Source="delete_button.png"
+                                        WidthRequest="20"
+                                        HeightRequest="20"
+                                        HorizontalOptions="End"
+                                        Clicked="DeleteButton_Clicked"/>
                                     <ImageButton
                                         Source="chat.png"
                                         HeightRequest="20"
@@ -43,10 +47,7 @@
                         </Grid>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
-
             </FlexLayout>
         </ScrollView>
-
     </Grid>
-
 </ContentPage>
