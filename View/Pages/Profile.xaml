@@ -72,9 +72,11 @@
 
                                 <StackLayout>
                                     <Image 
-                                        Source="{Binding DrinkImage}"
+                                        Source="{Binding ImageUrl}"
                                         HeightRequest="80"
                                         WidthRequest="80"/>
+
+                                    <Label HorizontalTextAlignment="Center" Text="{Binding Name}"/>
                                 </StackLayout>
                             </Grid>
                         </DataTemplate>
@@ -91,14 +93,15 @@
                 <ScrollView>
                     <ListView
                         ItemsSource="{Binding MatchUser.Cities}"
+                        x:Name="ListViewProfileCities"
                         SelectionMode="None">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
                                     <Label
-                                        Text="{Binding}" 
+                                        Text="{Binding Name}" 
                                         FontSize="15"
-                                        Margin="5, 10, 5, 5"/>
+                                        Margin="5, 10, 5, 5" TextColor="White"/>
                                 </ViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>

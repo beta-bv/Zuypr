@@ -47,12 +47,6 @@
 	  <MauiXaml Update="Pages\ChatScreen.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\Login.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Pages\RegisterPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Pages\LaunchScreen.xaml">
 	    <SubType>Designer</SubType>
 	  </MauiXaml>
@@ -99,9 +93,6 @@
 	<ItemGroup>
 	  <Compile Update="Pages\ChatScreen.xaml.cs">
 	    <DependentUpon>ChatScreen.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Pages\Login.xaml.cs">
-	    <DependentUpon>Login.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Pages\Register.xaml.cs">
 	    <DependentUpon>Register.xaml</DependentUpon>
@@ -167,8 +158,21 @@
 	<ItemGroup>
 	  <None Remove="Pages\DataTemplates\" />
 	  <None Remove="Resources\Images\delete_button.png" />
+	  <None Remove="Converters\" />
+	  <None Remove="Resources\Images\hertog-jan.png" />
+	  <None Remove="Resources\Images\la-chouffe.png" />
+	  <None Remove="Resources\Images\Brewdog-Punk-Ipa.png" />
+	  <None Remove="Converters\DrinkConverterOnboardingDislike" />
+	  <None Remove="Resources\Images\logo.png" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Pages\DataTemplates\" />
+	  <Folder Include="Converters\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <BundleResource Include="Resources\Images\logo.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
 	</ItemGroup>
 </Project>

@@ -1,24 +1,233 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="View.Pages.Settings">
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="View.Pages.Settings">
 
-    <ScrollView>
-        <VerticalStackLayout
-            VerticalOptions="Center">
-            
+    <ScrollView
+        Margin="0, 25, 0, 0">
+        <Grid
+            RowDefinitions="Auto, *"
+            ColumnDefinitions="*, *">
             <Label
+                Grid.Row="0"
+                Grid.ColumnSpan="2"
                 Text="Settings"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
                 HorizontalOptions="Center" />
-            
-            <Button
-                Text="Logout"
-                Clicked="Logout"
-                HorizontalOptions="Center" />
 
-        </VerticalStackLayout>
+            <VerticalStackLayout
+                Grid.Row="1"
+                Grid.Column="0"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                Spacing="10">
+
+                <Label
+                    Text="Account" 
+                    FontSize="Header"/>
+
+                <Grid
+                    RowSpacing="5"
+                    ColumnSpacing="5"
+                    RowDefinitions="Auto, Auto, Auto"
+                    ColumnDefinitions="Auto, Auto, Auto"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                    <Label
+                        Text="Email"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        VerticalOptions="Center" />
+                    <Button
+                        x:Name="EmailEditCancelBtn"
+                        Text="Edit"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Clicked="OnEditEmailClicked"
+                        HorizontalOptions="Start"/>
+                    <Entry
+                        x:Name="EmailField"
+                        Text=""
+                        Placeholder="New email"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        IsEnabled="false" 
+                        WidthRequest="200"
+                        IsSpellCheckEnabled="False"/>
+
+                    <Entry
+                        x:Name="RepeatEmailField"
+                        Placeholder="Repeat new email"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        IsVisible="false"
+                        WidthRequest="200" />
+                    <Button
+                        x:Name="SaveEmailBtn"
+                        Text="Save"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        IsVisible="false"
+                        Clicked="OnEmailSavedClicked"
+                        HorizontalOptions="End"/>
+                </Grid>
+
+                <Grid
+                    RowSpacing="5"
+                    ColumnSpacing="5"
+                    RowDefinitions="Auto, Auto, Auto, Auto"
+                    ColumnDefinitions="Auto, Auto, Auto"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center">
+                    <Label
+                        Text="Password"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        VerticalOptions="Center" />
+                    <Button
+                        x:Name="PasswordEditCancelBtn"
+                        Text="Edit"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Clicked="OnEditPasswordClicked"
+                        HorizontalOptions="Start" />
+                    <Button
+                        x:Name="SavePasswordBtn"
+                        Text="Save"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        IsVisible="false"
+                        Clicked="OnPasswordSavedClicked"
+                        HorizontalOptions="End" />
+                    <Entry
+                        x:Name="OldPasswordField"
+                        Placeholder="Old password"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        IsVisible="false"
+                        IsPassword="True"
+                        WidthRequest="200" />
+                    <Entry
+                        x:Name="PasswordField"
+                        Placeholder="New password"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        IsVisible="false"
+                        IsPassword="True"
+                        WidthRequest="200" />
+                    <Entry
+                        x:Name="RepeatPasswordField"
+                        Placeholder="Repeat password"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        IsVisible="false"
+                        IsPassword="True"
+                        WidthRequest="200" />
+                </Grid>
+                <Button
+                    x:Name="DestroyAccountBtn" 
+                    Text="Destroy Account"
+                    BackgroundColor="Red"
+                    FontSize="Medium"
+                    Margin="0,40,0,0"
+                    Clicked="onDeleteClicked"/>
+                <HorizontalStackLayout
+                    HorizontalOptions="Center">
+                    <Button
+                        x:Name="DestroyConfirm"
+                        Text="Confirm"
+                        HorizontalOptions="Start"
+                        IsVisible="false"
+                        Clicked="onDeleteConfirmClicked"/>
+                    <Button
+                        x:Name="DestroyCancel" 
+                        Text="Cancel"
+                        HorizontalOptions="End"
+                        IsVisible="false"
+                        Clicked="onCancelDeleteClicked"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout
+                Grid.Column="1"
+                Grid.Row="1">
+                <Label
+                    Text="Change Filters"
+                    FontSize="Header" />
+
+                <VerticalStackLayout
+                    HorizontalOptions="Start">
+                    <Label
+                        Text="preferred Age Range:" />
+                    <HorizontalStackLayout>
+                        <Label
+                            Text="Minimum: " />
+                        <Entry
+                            x:Name="minAge" 
+                            TextChanged="minAge_TextChanged"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout>
+                        <Label
+                            Text="Maximum: "/>
+                        <Entry
+                            x:Name="maxAge" 
+                            TextChanged="maxAge_TextChanged"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+                <SearchBar Placeholder="Add or Remove a preferred city..."
+                           TextChanged="SearchBar_TextChanged"/>
+                <ListView
+                    x:Name ="ListViewCities">
+                </ListView>
+                <HorizontalStackLayout>
+                    <Button
+                        x:Name="AddButtonList"
+                        Text="Add"
+                        Pressed="AddButtonList_Pressed"
+                        >
+                    </Button>
+                    <Button
+                        x:Name="RemoveButtonList"
+                        Text="Remove"
+                        Pressed="RemoveButtonList_Pressed"
+                        >
+                    </Button>
+                </HorizontalStackLayout>
+                <ListView
+                    x:Name="ListViewSelectedCities"
+                    Header="Your preferred cities"
+                    SelectionMode="None"/>
+            </VerticalStackLayout>
+            <Frame
+                IsVisible="false"
+                x:Name="ErrorFrameEditPage"
+                HorizontalOptions="Center"
+                BackgroundColor="#BFFF0000">
+                <Label
+                    x:Name="ErrorLabelEditPage"
+                    HorizontalOptions="Center"
+                    Text="Error: Dit is fout gegaan" />
+            </Frame>
+            <Button
+                x:Name="FileOpenBtn"
+                Text="upload profile picture"
+                Grid.Column="2"
+                Clicked="FileOpenBtn_Clicked" />
+
+
+            <Button
+                    x:Name="LogoutBtn"
+                Text="Logout"
+                FontSize="Medium"
+                Grid.Row="1"
+                Clicked="Logout"
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                BackgroundColor="Red"
+                   />
+        </Grid>
     </ScrollView>
 
 </ContentPage>

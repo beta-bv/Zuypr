@@ -14,15 +14,15 @@ public partial class MyMatches : ContentPage
     public User CurrentUser { get; set; }
     public MyMatches()
     {
-        AllMatches = Controller.Auth.getUser().Matches;
+        AllMatches = Controller.Auth.User.Matches;
         Users = new List<User>();
         Queue<User> users = new Queue<User>();
         foreach (Match match in AllMatches)
         {
             foreach (User user in match.Users)
             {
-                if (Controller.Auth.getUser() != user)
-                {
+                if(Controller.Auth.User != user) 
+                {  
                     Users.Add(user);
                     users.Enqueue(user);
                 }
@@ -38,17 +38,15 @@ public partial class MyMatches : ContentPage
 
     private void ProfileImage_OnClicked(object sender, EventArgs e)
     {
-        var temp = (ImageButton) sender;
-        Microsoft.Maui.Controls.Application.Current.MainPage.Navigation.PushAsync(new Profile((User)temp.BindingContext));
+        ImageButton temp = (ImageButton) sender;
+        Application.Current?.MainPage?.Navigation.PushAsync(new Profile((User)temp.BindingContext));
     }
 
     private void ChatButton_Clicked(object sender, EventArgs e)
     {
-        var temp = (ImageButton) sender;
+        ImageButton temp = (ImageButton) sender;
         Match match = FindMatchFromUser((User)temp.BindingContext);
-        if (match != null) {
-            Microsoft.Maui.Controls.Application.Current.MainPage.Navigation.PushAsync(new ChatScreen(match)); 
-        }
+        if (match != null) { Application.Current?.MainPage?.Navigation.PushAsync(new ChatScreen(match)); }
     }
 
     private Match FindMatchFromUser(User user)
