@@ -16,8 +16,6 @@ public partial class Login : ContentPage
         ErrorFrameL.IsVisible= false;
         String password = PasswordFieldL?.Text;
         String Email = EmailFieldL.Text?.Trim();
-        password = "EpicPassword1!";
-        Email = "stan@email.nl";
         if (dummydb.Users.Any(u => Email == u.Email) && User.HashString(password) == dummydb.Users.Where(u => Email == u.Email).First().Password)
         {
             User temp = Auth.setUser(dummydb.Users.Where(u => Email == u.Email).First());
