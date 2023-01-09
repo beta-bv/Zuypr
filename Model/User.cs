@@ -127,9 +127,6 @@ namespace Model
                 _dateOfBirth = value;
             }
         }
-        
-        public int MinimalAge { get; set; }
-        public int MaximalAge { get; set; }
         public int Id {get;set;}
 
         public List<City> Cities { get; set; }
@@ -158,8 +155,8 @@ namespace Model
             Cities = new List<City>();
             LikedUsers = new List<User>();
 
-            MinimalAge = 18;
-            MaximalAge = 200;
+            //MinimumpreferredAge = MinimumpreferredAge;
+            //MaximumpreferredAge = MaximumpreferredAge;
         }
 
         public List<Drink> GetFavourites()

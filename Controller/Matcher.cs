@@ -36,7 +36,7 @@ namespace Controller
         {
             try
             {
-                User = Auth.getUser();
+                User = Auth.User;
             }
             catch
             {
@@ -84,7 +84,7 @@ namespace Controller
         {
             try
             {
-                User = Auth.getUser();
+                User = Auth.User;
             }
             catch
             {
