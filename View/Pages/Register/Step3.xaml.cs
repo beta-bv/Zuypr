@@ -6,11 +6,11 @@ namespace View.Pages.Register;
 public partial class Step3 : ContentPage
 {
     private static readonly User User = Step1.User;
-    public List<Drink> AllDrinks => dummydb.Drinks.Except(User.GetFavourites()).Except(User.GetDislikes()).ToList();
+    public List<Drink> AllDrinks => dummydb.Drinks.Except(User.Favourites).Except(User.Dislikes).ToList();
 
-    private List<Drink> Favourites = User.GetFavourites();
-    private List<Drink> Likes = User.GetLikes();
-    private List<Drink> Dislikes = User.GetDislikes();
+    private List<Drink> Favourites = User.Favourites;
+    private List<Drink> Likes = User.Likes;
+    private List<Drink> Dislikes = User.Dislikes;
 
     static int AmountFavorite;
     static int AmountLikes;
@@ -47,11 +47,11 @@ public partial class Step3 : ContentPage
             }
             else
             {
-                if (User.CheckIfListIsFull(User.GetLikes()))
+                if (User.CheckIfListIsFull(User.Likes))
                 {
                     button.IsChecked = false;
                 }
-                else if (User.CheckIfInList(drinkDislike, User.GetDislikes()) || User.CheckIfInList(drinkFave, User.GetFavourites()))
+                else if (User.CheckIfInList(drinkDislike, User.Dislikes) || User.CheckIfInList(drinkFave, User.Favourites))
                 {
                     button.IsChecked = false;
                 }
@@ -84,7 +84,7 @@ public partial class Step3 : ContentPage
     /// <param name="e"></param>
     private async void Next(object sender, EventArgs e)
     {
-        if (User.GetLikes().Count != 0)
+        if (User.Likes.Count != 0)
         {
             await Navigation.PushAsync(new Step4());
         }

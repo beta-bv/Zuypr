@@ -5,11 +5,11 @@ namespace View.Pages;
 public partial class MyDrinks : ContentPage
 {
     private static readonly User User = Auth.User;
-    public List<Drink> AllDrinks => DrinksDatabaseOperations.GetAllDrinksFromDatabase();
+    public List<Drink> AllDrinks = DrinksDatabaseOperations.GetAllDrinksFromDatabase();
 
-    public List<Drink> Favourites = User.GetFavourites();
-    public List<Drink> Likes = User.GetLikes();
-    public List<Drink> Dislikes = User.GetDislikes();
+    private List<Drink> Favourites = User.Favourites ?? new List<Drink>();
+    private List<Drink> Likes = User.Likes ?? new List<Drink>();
+    private List<Drink> Dislikes = User.Dislikes ?? new List<Drink>();
 
     static int AmountFavorite;
     static int AmountLikes;
@@ -46,11 +46,11 @@ public partial class MyDrinks : ContentPage
             }
             else if (button.IsChecked == true)
             {
-                if (User.CheckIfListIsFull(User.GetFavourites()))
+                if (User.CheckIfListIsFull(User.Favourites))
                 {
                     button.IsChecked = false;
                 }
-                else if (User.CheckIfInList(drinkDislike, User.GetDislikes()) || User.CheckIfInList(drinkLike, User.GetLikes()))
+                else if (User.CheckIfInList(drinkDislike, User.Dislikes) || User.CheckIfInList(drinkLike, User.Likes))
                 {
                     button.IsChecked = false;
                 }
@@ -87,11 +87,11 @@ public partial class MyDrinks : ContentPage
             }
             else if (button.IsChecked == true)
             {
-                if (User.CheckIfListIsFull(User.GetLikes()))
+                if (User.CheckIfListIsFull(User.Likes))
                 {
                     button.IsChecked = false;
                 }
-                else if (User.CheckIfInList(drinkDislike, User.GetDislikes()) || User.CheckIfInList(drinkFave, User.GetFavourites()))
+                else if (User.CheckIfInList(drinkDislike, User.Dislikes) || User.CheckIfInList(drinkFave, User.Favourites))
                 {
                     button.IsChecked = false;
                 }
@@ -128,11 +128,11 @@ public partial class MyDrinks : ContentPage
             }
             else if (button.IsChecked == true)
             {
-                if (User.CheckIfListIsFull(User.GetDislikes()))
+                if (User.CheckIfListIsFull(User.Dislikes))
                 {
                     button.IsChecked = false;
                 }
-                else if (User.CheckIfInList(drinkLike, User.GetLikes()) || User.CheckIfInList(drinkFave, User.GetFavourites()))
+                else if (User.CheckIfInList(drinkLike, User.Likes) || User.CheckIfInList(drinkFave, User.Favourites))
                 {
                     button.IsChecked = false;
                 }

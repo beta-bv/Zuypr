@@ -1,5 +1,5 @@
 ﻿using Model;
-using Controller; 
+using Controller;
 namespace View.Pages;
 
 public partial class Profile : ContentPage
@@ -13,13 +13,13 @@ public partial class Profile : ContentPage
     public Profile(User user)
     {
         MatchUser = user;
-        Drinks = MatchUser.GetFavourites();
+        Drinks = MatchUser.Favourites;
         InitializeComponent();
         if (MatchUser.Cities == null || MatchUser.Cities.Count < 2) //hier effe MatchUser.Cities == null toegevoegd zodat het uberhaupt werkte, geen idee hoe dit hoort te zijn
         {
             city.Text = "City";
         }
-        if(Drinks == null || Drinks.Count < 2)   //hier effe Drinks == null toegevoegd zodat het uberhaupt werkte, geen idee hoe dit hoort te zijn
+        if (Drinks == null || Drinks.Count < 2)   //hier effe Drinks == null toegevoegd zodat het uberhaupt werkte, geen idee hoe dit hoort te zijn
         {
             beverage.Text = "Favourite Beverage";
         }
@@ -32,11 +32,11 @@ public partial class Profile : ContentPage
 
     private void ChatButton_Clicked(object sender, EventArgs e)
     {
-        foreach(Match match in Controller.Auth.User.Matches)
+        foreach (Match match in Controller.Auth.User.Matches)
         {
-            foreach(User user in match.Users)
+            foreach (User user in match.Users)
             {
-                if(user == MatchUser)
+                if (user == MatchUser)
                 {
                     Application.Current.MainPage.Navigation.PushAsync(new ChatScreen(match));
                 }

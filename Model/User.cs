@@ -127,15 +127,15 @@ namespace Model
                 _dateOfBirth = value;
             }
         }
-        public int Id {get;set;}
+        public int Id { get; set; }
 
         public List<City> Cities { get; set; }
         public string ProfileImage { get; set; }
         public List<Match> Matches { get; set; }
         public List<User> LikedUsers { get; set; }
-        private List<Drink> _favourites { get; set; }
-        private List<Drink> _likes { get; set; }
-        private List<Drink> _dislikes { get; set; }
+        public List<Drink> Favourites { get; set; }
+        public List<Drink> Likes { get; set; }
+        public List<Drink> Dislikes { get; set; }
 
         public int Age => (DateTime.Now.Month < DateOfBirth.Month || (DateTime.Now.Month == DateOfBirth.Month && DateTime.Now.Day < DateOfBirth.Day)) ? (DateTime.Now.Year - DateOfBirth.Year) - 1 : DateTime.Now.Year - DateOfBirth.Year;
 
@@ -148,30 +148,15 @@ namespace Model
             DateOfBirth = dateOfBirth;
             Password = password;
 
-            _favourites = new List<Drink>(3);
-            _likes = new List<Drink>(5);
-            _dislikes = new List<Drink>(3);
+            Favourites = new List<Drink>(3);
+            Likes = new List<Drink>(5);
+            Dislikes = new List<Drink>(3);
             ProfileImage = $"https://avatars.dicebear.com/api/identicon/{name}.png?scale=80";
             Cities = new List<City>();
             Matches = new List<Match>();
             LikedUsers = new List<User>();
             MaximumpreferredAge = 120;
             MinimumpreferredAge = 18;
-        }
-
-        public List<Drink> GetFavourites()
-        {
-            return _favourites;
-        }
-
-        public List<Drink> GetLikes()
-        {
-            return _likes;
-        }
-
-        public List<Drink> GetDislikes()
-        {
-            return _dislikes;
         }
 
         /// <summary>
@@ -224,7 +209,7 @@ namespace Model
         /// <returns></returns>
         public bool AddToFavourites(Drink drink)
         {
-            return AddToDrinkList(drink, _favourites);
+            return AddToDrinkList(drink, Favourites);
         }
 
         /// <summary>
@@ -234,7 +219,7 @@ namespace Model
         /// <returns></returns>
         public bool AddToLikes(Drink drink)
         {
-            return AddToDrinkList(drink, _likes);
+            return AddToDrinkList(drink, Likes);
         }
 
         /// <summary>
@@ -244,7 +229,7 @@ namespace Model
         /// <returns></returns>
         public bool AddToDislikes(Drink drink)
         {
-            return AddToDrinkList(drink, _dislikes);
+            return AddToDrinkList(drink, Dislikes);
         }
 
         /// <summary>
@@ -254,19 +239,19 @@ namespace Model
         /// <returns></returns>
         public bool RemoveFromDrinkList(Drink drink)
         {
-            if (_favourites.Contains(drink))
+            if (Favourites.Contains(drink))
             {
-                _favourites.Remove(drink);
+                Favourites.Remove(drink);
                 return true;
             }
-            else if (_likes.Contains(drink))
+            else if (Likes.Contains(drink))
             {
-                _likes.Remove(drink);
+                Likes.Remove(drink);
                 return true;
             }
-            else if (_dislikes.Contains(drink))
+            else if (Dislikes.Contains(drink))
             {
-                _dislikes.Remove(drink);
+                Dislikes.Remove(drink);
                 return true;
             }
             else
@@ -344,7 +329,7 @@ namespace Model
 
             return date < dateNow;
         }
-        
+
         public static User GetDummyUser()
         {
             User dummy = new User("dummyUser", "email@a.com", "Wachtwoord!", new DateTime(1999, 1, 1));
@@ -352,5 +337,5 @@ namespace Model
             return dummy;
         }
     }
-    
+
 }
