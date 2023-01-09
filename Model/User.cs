@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Maui.Controls.Shapes;
 using Microsoft.Maui.Layouts;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
@@ -133,9 +135,74 @@ namespace Model
         public string ProfileImage { get; set; }
         public List<Match> Matches { get; set; }
         public List<User> LikedUsers { get; set; }
-        public List<Drink> Favourites { get; set; }
-        public List<Drink> Likes { get; set; }
-        public List<Drink> Dislikes { get; set; }
+        //public List<Drink> Favourites { get; set; }
+        //public List<Drink> Likes { get; set; }
+        //public List<Drink> Dislikes { get; set; }
+
+        // HACK: Holy fuck this is broken
+        //--- START FUCKERY ---//
+        private string _favouriteList;
+        private string _likeList;
+        private string _dislikeList;
+
+        [NotMapped]
+        public int[] FavouriteList
+        {
+            set
+            {
+                _favouriteList = String.Join(",", value);
+            }
+        }
+        [NotMapped]
+        public int[] LikeList
+        {
+            set
+            {
+                _likeList = String.Join(",", value);
+            }
+        }
+        [NotMapped]
+        public int[] DislikeList
+        {
+            set
+            {
+                _dislikeList = String.Join(",", value);
+            }
+        }
+
+        [NotMapped]
+        public List<Drink> Favourites
+        {
+            get => generateList(_favouriteList, new List<Drink>(3));
+        }
+
+        [NotMapped]
+        public List<Drink> Likes
+        {
+            get => generateList(_likeList, new List<Drink>(5));
+        }
+
+        [NotMapped]
+        public List<Drink> Dislikes
+        {
+            get => generateList(_dislikeList, new List<Drink>(3));
+        }
+
+        private List<Drink> generateList(string indexStr, List<Drink> drinks)
+        {
+            if (indexStr != null)
+            {
+                foreach (int i in indexStr.Split(",").Select(i => Int32.Parse(i)).ToArray())
+                {
+                    if (!CheckIfListIsFull(drinks))
+                    {
+                        drinks.Add(dummydb.Drinks.ElementAt(i));
+                    }
+                }
+            }
+            return drinks;
+        }
+        //--- END FUCKERY ---//
 
         public int Age => (DateTime.Now.Month < DateOfBirth.Month || (DateTime.Now.Month == DateOfBirth.Month && DateTime.Now.Day < DateOfBirth.Day)) ? (DateTime.Now.Year - DateOfBirth.Year) - 1 : DateTime.Now.Year - DateOfBirth.Year;
 
@@ -148,9 +215,10 @@ namespace Model
             DateOfBirth = dateOfBirth;
             Password = password;
 
-            Favourites = new List<Drink>(3);
-            Likes = new List<Drink>(5);
-            Dislikes = new List<Drink>(3);
+            //DrinkList = new JObject();
+            //Favourites = new List<Drink>(3);
+            //Likes = new List<Drink>(5);
+            //Dislikes = new List<Drink>(3);
             ProfileImage = $"https://avatars.dicebear.com/api/identicon/{name}.png?scale=80";
             Cities = new List<City>();
             Matches = new List<Match>();

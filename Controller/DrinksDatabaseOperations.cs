@@ -125,11 +125,13 @@ namespace Controller
             try
             {
                 DatabaseContext db = new DatabaseContext();
-                return db.Drinks.ToList();
+                List<Drink> drinks = db.Drinks.ToList();
+                return drinks;
             }
             catch (Exception ex)
             {
-                new Exception(ex.Message);                 // gooit een exception als er iets mis gaat met de database
+                //new Exception(ex.Message);                 // gooit een exception als er iets mis gaat met de database
+                Console.WriteLine(ex.Message);
                 return null;
             }
         }
