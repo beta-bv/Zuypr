@@ -143,42 +143,10 @@ namespace Controller.Platforms
         }
         public static bool UpdateUserInDatabase(int oldUserHash, User newUser)
         {
-            //DatabaseContext db = new DatabaseContext();
-
-
-            //User UserToUpdate = db.Users.Include(u => u.Cities).Include(u => u.Matches).Where(a => a.Id == newUser.Id).FirstOrDefault();
-            //if (UserToUpdate != null)
-            //{
-            //    UserToUpdate.Name = newUser.Name;
-            //    UserToUpdate.Email = newUser.Email;
-
-            //    UserToUpdate.Cities = new List<City>() { new City("City A"), new City("City B") };
-            //    //foreach (City city in newUser.Cities)
-            //    //{
-            //    //    UserToUpdate.Cities.Add(city);
-            //    //}
-
-            //    //UserToUpdate.Matches.Clear();
-            //    //foreach (Match match in newUser.Matches)
-            //    //{
-            //    //    UserToUpdate.Matches.Add(match);
-            //    //}
-
-
-            //    //// Leeftijd cringe wordt gefixt door merijn
-            //    ////UserToUpdate.MinimumpreferredAge = newUser.MinimumpreferredAge;
-            //    ////UserToUpdate.MaximumpreferredAge = newUser.MaximumpreferredAge;
-            //    //UserToUpdate.LikedUsers = newUser.LikedUsers;
-
-            //    db.Entry(newUser).State = EntityState.Detached;
-
-            //    db.SaveChanges();
-            //}
-
             DatabaseContext db = new DatabaseContext();
 
-            User UserToUpdate = db.Users.Include(u => u.Cities).Include(u => u.Matches).Where(a => a.Id == Auth.User.Id).FirstOrDefault();
-            UserToUpdate = newUser;
+            db.Attach(newUser);
+            db.Entry(newUser).State = EntityState.Modified;
             db.SaveChanges();
 
             return true;
