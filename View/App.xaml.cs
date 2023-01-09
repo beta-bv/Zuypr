@@ -1,6 +1,6 @@
 ﻿using Model;
 using View.Pages;
-
+using Controller;
 namespace View;
 
 public partial class App : Application
@@ -9,7 +9,7 @@ public partial class App : Application
     {
         InitializeComponent();
         dummydb.Initialize();
-         Model.City.GetValidCities();
+        Model.City.GetValidCities();
         MainPage = new LaunchScreen();
     }
 }
