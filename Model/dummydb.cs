@@ -207,7 +207,7 @@ namespace Model
             {
                 // Give users a match with a random user (including themselves lol)
                 user.Matches = new List<Match>();
-                user.Matches.Add(new Match(new List<User> { user, Users[new Random().Next(Users.Count)] }));
+                user.Matches.Add(new Match(user, Users[new Random().Next(Users.Count)]));
 
                 //Give users a list of cities
                 user.Cities = new List<City>()
@@ -230,9 +230,9 @@ namespace Model
                 for (int i = 0; i < amountOfStinky; i++)
                 {
                     // User 0 sends a message with the text "uh oh"
-                    user.Matches[0].Messages.Add(new Message("Hallo!", user.Matches[0].Users[0], DateTime.Now));
+                    user.Matches[0].Messages.Add(new Message("Hallo!", user.Matches[0].UserA, DateTime.Now));
                     // User 1 then responds (as expected) with "stinky"
-                    user.Matches[0].Messages.Add(new Message("Hoi!", user.Matches[0].Users[1], DateTime.Now));
+                    user.Matches[0].Messages.Add(new Message("Hoi!", user.Matches[0].UserB, DateTime.Now));
                 }
             }
         }
