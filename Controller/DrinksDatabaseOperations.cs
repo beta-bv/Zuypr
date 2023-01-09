@@ -122,16 +122,7 @@ namespace Controller
         /// <returns></returns>
         public static List<Drink> GetAllDrinksFromDatabase()
         {
-            try
-            {
-                DatabaseContext db = new DatabaseContext();
-                return db.Drinks.ToList();
-            }
-            catch (Exception ex)
-            {
-                new Exception(ex.Message);                 // gooit een exception als er iets mis gaat met de database
-                return null;
-            }
+            return dummydb.Drinks.ToList();
         }
 
         /// <summary>
@@ -141,21 +132,7 @@ namespace Controller
         /// <returns></returns>
         public static bool AddSingleDrinkToDatabase(Drink drink)
         {
-            try
-            {
-                DatabaseContext db = new DatabaseContext();
-                if (db.Drinks.Any(a => a.Equals(drink)))
-                {
-                    throw new Exception("this drink already exists in t");
-                }
-                db.Drinks.Add(drink);
-                db.SaveChanges();
-                return true;
-            }
-            catch
-            {
-                throw new Exception("Database Failure");
-            }
+            return false;
         }
     }
 }
