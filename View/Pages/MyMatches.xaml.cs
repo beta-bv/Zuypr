@@ -4,6 +4,7 @@ using Model;
 using Controller;
 using System.Drawing.Printing;
 using static System.Net.Mime.MediaTypeNames;
+using Application = Microsoft.Maui.Controls.Application;
 
 namespace View.Pages;
 
@@ -135,7 +136,7 @@ public partial class MyMatches : ContentPage
         };
         buttonYes.Clicked += (sender,e) => {
             Users.Remove(CurrentUser);
-            Auth.removeMatch(CurrentUser);
+            //Auth.removeMatch(CurrentUser);
             InitializeComponent();
             if (Users.Count < 1)
             {
