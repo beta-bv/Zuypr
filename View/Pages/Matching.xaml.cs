@@ -11,6 +11,7 @@ public partial class Matching : ContentPage
     public static User User = Auth.getUser();
     public static List<User> PotentionalMatches => Filter.FilteredPotentionalMatches;
     public static Queue<User> UsersQue = new Queue<User>(PotentionalMatches);
+    public List<User> HasUserInLikedList => User.LikedUsers.Where(a => a.Name.Equals(PotentionalMatch.Name)).ToList();
     public List<Drink> Drinks { get; set; }
 
     public User PotentionalMatch { get; set; }
@@ -18,9 +19,11 @@ public partial class Matching : ContentPage
 
     public Matching()
     {
+        InitializeComponent();
+
         if (UsersQue.Count() == 0)
-        {
-            NoMatches.IsVisible = true;
+        { 
+            NoMatchesPopUp();
         }
         else
         {
@@ -28,7 +31,6 @@ public partial class Matching : ContentPage
             Drinks = PotentionalMatch.GetFavourites();
         }
 
-        InitializeComponent();
         BindingContext = this;
     }
 
@@ -49,11 +51,9 @@ public partial class Matching : ContentPage
         }
         else
         {
-            NoMatches.IsVisible = true;
+            NoMatchesPopUp();
         }
     }
-
-    public List<User> HasUserInLikedList => User.LikedUsers.Where(a => a.Name.Equals(PotentionalMatch.Name)).ToList();
 
     /// <summary>
     /// When clicked on yes checks if both users liked each other if yes than shows popUp if no then loads in next potentional match
@@ -62,7 +62,6 @@ public partial class Matching : ContentPage
     /// <param name="e"></param>
     private void Yes_Clicked(object sender, EventArgs e)
     {
-
         //Checks if other user liked the auth user
         if (HasUserInLikedList.Count() > 0)
         {
@@ -75,7 +74,7 @@ public partial class Matching : ContentPage
             PotentionalMatch.Matches.Add(CurrentMatch);
 
             //matched pop up
-            PopUp();
+            MatchedPopUp();
         }
         else {
             //Add other user to auth user liked list
@@ -88,9 +87,45 @@ public partial class Matching : ContentPage
     }
 
     /// <summary>
+    /// Pop up with the text no matches found
+    /// </summary>
+    public void NoMatchesPopUp()
+    {
+        StackLayout stackLayout = new StackLayout
+        {
+            BackgroundColor = Colors.Black,
+            VerticalOptions = LayoutOptions.Center
+        };
+
+        StackLayout stackLayoutTwo = new StackLayout
+        {
+            HorizontalOptions = LayoutOptions.Center,
+            VerticalOptions = LayoutOptions.Center
+        };
+
+        VerticalStackLayout verticalStackLayout = new VerticalStackLayout
+        {
+            WidthRequest = 300
+        };
+
+        Label label = new Label
+        {
+            Text = "U heeft geen verdere matches meer voor nu. Kijk binnenkort weer eens!",
+            FontSize = 26,
+            Margin = new Thickness(0, 0, 0, 10)
+        };
+
+        stackLayout.Add(stackLayoutTwo);
+        stackLayoutTwo.Add(verticalStackLayout);
+        verticalStackLayout.Add(label);
+
+        Content = stackLayout;
+    }
+
+    /// <summary>
     /// Creates popUp when both users liked each other
     /// </summary>
-    public void PopUp()
+    public void MatchedPopUp()
     {
         StackLayout stackLayout = new StackLayout
         {
@@ -155,6 +190,7 @@ public partial class Matching : ContentPage
         verticalStackLayout.Add(label);
         verticalStackLayout.Add(image);
         verticalStackLayout.Add(labelName);
+
         verticalStackLayout.Add(horizontalStackLayout);
         horizontalStackLayout.Add(buttonBack);
         horizontalStackLayout.Add(buttonMessage);
