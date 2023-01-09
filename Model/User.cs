@@ -127,7 +127,8 @@ namespace Model
                 _dateOfBirth = value;
             }
         }
-
+        public int MinimalAge { get; set; }
+        public int MaximalAge { get; set; }
         public int Id { get; set; }
         public List<City> Cities { get; set; }
         public string ProfileImage { get; set; }

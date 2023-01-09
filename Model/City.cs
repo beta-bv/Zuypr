@@ -106,4 +106,15 @@ public class City
         // Step 7
         return d[n, m];
     }
+
+    public override bool Equals(object obj)
+    {
+        City city = obj as City;
+        return this.Name == city.Name;
+    }
+
+    public override int GetHashCode()
+    {
+        return Name.GetHashCode();
+    }
 }
