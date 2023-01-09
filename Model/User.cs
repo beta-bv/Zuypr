@@ -17,6 +17,49 @@ namespace Model
         private string _email;
         private DateTime _dateOfBirth;
         private string _password;
+        private int _minimumpreferredAge;
+        private int _maximumpreferredAge;
+
+        public int MinimumpreferredAge
+        {
+            get { return _minimumpreferredAge; } //tests
+            set
+            {
+                if (value! < 0 || value! > 120)
+                {
+                    throw new ArgumentException("Age is not valid");
+                }
+                if (value < 18)
+                {
+                    throw new ArgumentException("The preferred age must be above 18");
+                }
+                if (value > MaximumpreferredAge)
+                {
+                    throw new ArgumentException("your minimum preferred age cannot be smaller than your maximum preferred age");
+                }
+                _minimumpreferredAge = value;
+            }
+        }
+        public int MaximumpreferredAge
+        {
+            get { return _maximumpreferredAge; } //tests
+            set
+            {
+                if (value! < 0 || value! > 120)
+                {
+                    throw new ArgumentException("Age is not valid");
+                }
+                if (value < 18)
+                {
+                    throw new ArgumentException("The preferred age must be above 18");
+                }
+                if (value < MinimumpreferredAge)
+                {
+                    throw new ArgumentException("your maximum preferred age cannot be larger than your minimum preferred age");
+                }
+                _maximumpreferredAge = value;
+            }
+        }
 
         public string Name
         {
@@ -25,7 +68,7 @@ namespace Model
             {
                 if (!IsNameValid(value))
                 {
-                    throw new ArgumentException("Je hebt geen valide naam ingevuld");
+                    throw new ArgumentException("The name is not valid");
                 }
                 _name = value;
             }
@@ -37,7 +80,7 @@ namespace Model
             {
                 if (!new EmailAddressAttribute().IsValid(value))
                 {
-                    throw new ArgumentException("Je hebt geen valide emailadres ingevuld");
+                    throw new ArgumentException("Invalid email address");
                 }
                 _email = value;
             }
@@ -56,14 +99,14 @@ namespace Model
                     // Check for password requirements
                     if (!(value.Length >= 8 && value.Any(char.IsUpper) && value.Any(a => !char.IsLetterOrDigit(a) && !char.IsWhiteSpace(a))))
                     {
-                        throw new ArgumentException("Wachtwoord moet minstens acht tekens lang zijn, met minstens één hoofdletter en één speciaal teken");
+                        throw new ArgumentException("Password needs to be atleast 8 symbols, with atleast 1 capital letter and 1 special symbol");
                     }
                     // Hash the input string using SHA256
                     _password = HashString(value);
                 }
                 else
                 {
-                    throw new ArgumentException("Wachtwoord is ongeldig");
+                    throw new ArgumentException("Password is invalid");
                 }
             }
         }
@@ -74,20 +117,21 @@ namespace Model
             {
                 if (!IsDateOfBirthValid(value))
                 {
-                    throw new ArgumentException("Je mag geen datum selecteren uit de toekomst");
+                    throw new ArgumentException("You cannot select a date from the future");
                 }
                 else if (!CheckAge(value))
                 {
-                    throw new ArgumentException("Je moet minstens achttien jaar oud zijn om te mogen regristreren");
+                    throw new ArgumentException("You need to be atleast 18 years old to register");
                 }
 
                 _dateOfBirth = value;
             }
         }
-
+        
         public int MinimalAge { get; set; }
         public int MaximalAge { get; set; }
         public int Id {get;set;}
+
         public List<City> Cities { get; set; }
         public string ProfileImage { get; set; }
         public List<Match> Matches { get; set; }
@@ -99,7 +143,7 @@ namespace Model
         public int Age => (DateTime.Now.Month < DateOfBirth.Month || (DateTime.Now.Month == DateOfBirth.Month && DateTime.Now.Day < DateOfBirth.Day)) ? (DateTime.Now.Year - DateOfBirth.Year) - 1 : DateTime.Now.Year - DateOfBirth.Year;
 
         // Exists for EF
-        public User(){}
+        public User() { }
         public User(string name, string email, string password, DateTime dateOfBirth)
         {
             Name = name;
@@ -110,7 +154,7 @@ namespace Model
             _favourites = new List<Drink>(3);
             _likes = new List<Drink>(5);
             _dislikes = new List<Drink>(3);
-            ProfileImage = "dotnet_bot.png";
+            ProfileImage = $"https://avatars.dicebear.com/api/identicon/{name}.png?scale=80";
             Cities = new List<City>();
             LikedUsers = new List<User>();
 
@@ -303,130 +347,13 @@ namespace Model
 
             return date < dateNow;
         }
-
-        /// <summary>
-        /// Creates a dummy user
-        /// </summary>
-        /// <returns></returns>
+        
         public static User GetDummyUser()
         {
             User dummy = new User("dummyUser", "email@a.com", "Wachtwoord!", new DateTime(1999, 1, 1));
-            dummy.Cities = new List<City>() { new ("Dalfsen"), new("Hoonhorst") };
+            dummy.Cities = new List<City>() { new("Dalfsen"), new("Hoonhorst") };
             return dummy;
         }
-
-        /// <summary>
-        /// Gets User from the database
-        /// </summary>
-        /// <returns></returns>
-        public User GetUserFromDatabase(User user)
-        {
-            try
-            {
-                DatabaseContext db = new DatabaseContext();  //maakt database context aan
-                User userFromDatabse = db.Users              
-                .Where(u => u.Email.Equals(user.Email)).First();   //query haalt de user op aan de hand van zijn/haar email
-                return userFromDatabse;                            // returned de user
-            }
-            catch (Exception ex) {
-                new Exception("Database Failure");                 // gooit een exception als er iets mis gaat met de database
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Adds user to the database
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
-        public static bool AddUserToDatabase(User user)
-        {
-            try
-            {
-                // Open the database connection
-                DatabaseContext dbContext = new DatabaseContext();
-
-                // If there is already a user with this email address in the database then throw an error
-                if (dbContext.Users.Any(a => a.Email.Equals(user.Email)))
-                {
-                    throw new Exception("A user with this email address already exists in the database");
-                }
-
-                // Add the user to the database and save the changes
-                dbContext.Users.Add(user);
-                dbContext.SaveChanges();
-                return true;
-            }
-            catch
-            {
-                throw new Exception("Database Failure");
-            }
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Updates user email
-        /// </summary>
-        /// <param name="emailNew"></param>
-        /// <param name="emailOld"></param>
-        /// <returns></returns>
-        public bool UpdateUserEmail(string emailNew, string emailOld) //TODO implement het database gedeelte nog
-        {
-            if (emailOld.Equals(Email) && !emailNew.Equals(emailOld))
-            {
-                DatabaseContext db = new DatabaseContext();
-                Email = emailNew;
-                User tempUser = GetUserFromDatabase(this);
-                tempUser.Email = emailNew;
-                db.SaveChanges();
-                return true;
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// update de password van de gebruiker 
-        /// </summary>
-        /// <param name="oldPassword"></param>
-        /// <param name="newPasswordField1"></param>
-        /// <param name="newPasswordField2"></param>
-        /// <returns></returns>
-        public bool UpdateUserPassword(string oldPassword, string newPasswordField1, string newPasswordField2) //TODO implement het database gedeelte nog
-        {
-            if (ComparePasswords(newPasswordField1, newPasswordField2))
-            {
-                string newPassword = newPasswordField1;
-                if (Password.Equals(HashString(oldPassword)) && !Password.Equals(HashString(newPassword)))
-                {
-                    try
-                    {
-                        DatabaseContext db = new DatabaseContext();
-                        User tempUser = GetUserFromDatabase(this);
-                        tempUser.Password = newPassword;
-                        db.SaveChanges();
-                        return true;
-                    }
-                    catch(Exception ex)
-                    {
-                        throw new Exception("DATABASE FAILURE");
-                        return false;
-                    }
-
-                }
-            }
-            return false;
-        }
-
-        public bool RemoveUser(User user)
-        {
-            DatabaseContext db = new DatabaseContext();
-            if (GetUserFromDatabase(user) != null)
-            {
-                db.Users.Remove(user);
-                return true;
-            }
-            return false;
-            }
-        }
-    
     }
+    
+}

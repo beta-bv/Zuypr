@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace Model
@@ -19,10 +14,11 @@ namespace Model
         // Exists for EF
         public Match(){}
 
-        public Match(User[] users, List<Message> messages)
+        public Match(User[] users)
         {
             Users = users;
-            Messages = messages;
+            //Messages = Database.DB.Messages.Where(m => users.Contains(m.Sender) && users.Contains(m.Match)).ToList();
+            Messages = new List<Message>();
         }
     }
 }
