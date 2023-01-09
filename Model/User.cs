@@ -154,9 +154,6 @@ namespace Model
             ProfileImage = $"https://avatars.dicebear.com/api/identicon/{name}.png?scale=80";
             Cities = new List<City>();
             LikedUsers = new List<User>();
-
-            //MinimumpreferredAge = MinimumpreferredAge;
-            //MaximumpreferredAge = MaximumpreferredAge;
         }
 
         public List<Drink> GetFavourites()
