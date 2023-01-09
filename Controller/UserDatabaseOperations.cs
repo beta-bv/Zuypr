@@ -25,6 +25,15 @@ namespace Controller.Platforms
                     .Include(u => u.Matches)
                     .First(u => u.Email.Equals(user.Email));   //query haalt de user op aan de hand van zijn/haar email
                 db.SaveChanges();
+
+                List<Match> matches = new List<Match>();
+                foreach (Match match in userFromDatabse.Matches)
+                {
+                    List<Match> matchfromuser = db.Matches.Where(a => a.Id == match.Id).ToList();
+                    matches.Add(new Match(new List<User> { matchfromuser[0].Users.First(), matchfromuser[1].Users.First() }));
+                }
+                userFromDatabse.Matches = matches;
+
                 return userFromDatabse;                            // returned de user
             }
             catch (Exception ex)
@@ -141,12 +150,12 @@ namespace Controller.Platforms
             }
             return false;
         }
-        public static bool UpdateUserInDatabase(int oldUserHash, User newUser)
+        public static bool UpdateUserInDatabase(User user)
         {
             DatabaseContext db = new DatabaseContext();
 
-            db.Attach(newUser);
-            db.Entry(newUser).State = EntityState.Modified;
+            db.Attach(user);
+            db.Entry(user).State = EntityState.Modified;
             db.SaveChanges();
 
             return true;
