@@ -16,7 +16,7 @@ namespace Controller.Platforms
         /// <returns></returns>
         public static User GetUserFromDatabase(User user)
         {
-            return dummydb.Users.Where(a => a.Email == user.Email).First();
+            return dummydb.Users.Where(a => a.Email == user.Email).FirstOrDefault();
         }
 
         /// <summary>
@@ -26,8 +26,8 @@ namespace Controller.Platforms
         /// <returns></returns>
         public static User GetUserFromDatabaseByEmail(String email)
         {
-            return dummydb.Users.Where(a => a.Email == email).First();
-
+            Auth.User = dummydb.Users.Where(a => a.Email == email).FirstOrDefault();
+            return Auth.User;
         }
 
         /// <summary>
@@ -38,6 +38,7 @@ namespace Controller.Platforms
         public static bool AddUserToDatabase(User user)
         {
             dummydb.Users.Add(user);
+            Auth.User = user;
             return true; 
         }
 
@@ -53,7 +54,7 @@ namespace Controller.Platforms
         public static bool UpdateUserInDatabase(int oldUserHash, User newUser)
         {
 
-            User olduser = dummydb.Users.Where(a => a.GetHashCode() == oldUserHash).First();
+            User olduser = dummydb.Users.Where(a => a.GetHashCode() == oldUserHash).FirstOrDefault();
             dummydb.Users.Remove(olduser);
             dummydb.Users.Add(newUser);
             Auth.User = newUser;

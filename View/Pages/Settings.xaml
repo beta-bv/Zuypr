@@ -210,11 +210,11 @@
                     HorizontalOptions="Center"
                     Text="Error: Dit is fout gegaan" />
             </Frame>
-            <Button
+            <!--<Button
                 x:Name="FileOpenBtn"
                 Text="upload profile picture"
                 Grid.Column="2"
-                Clicked="FileOpenBtn_Clicked" />
+                Clicked="FileOpenBtn_Clicked" />-->
 
 
             <Button

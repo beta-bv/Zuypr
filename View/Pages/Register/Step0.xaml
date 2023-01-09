@@ -28,10 +28,10 @@
                         x:Name="NameField"
                         Placeholder="Name"
                         WidthRequest="250"
-                        MaxLength="200" Text="Henk"/>
+                        MaxLength="200"/>
                     <DatePicker
                         x:Name="BirthDateField"
-                        WidthRequest="250" Date="2000/02/02"/>
+                        WidthRequest="250"/>
 
                 </VerticalStackLayout>
 
@@ -43,21 +43,21 @@
                         x:Name="EmailField"
                         Placeholder="Email Address"
                         WidthRequest="250"
-                        MaxLength="200" Text="a@a.a"/>
+                        MaxLength="200"/>
 
                     <Entry
                         x:Name="PasswordField"
                         Placeholder="Password"
                         WidthRequest="250"
                         MaxLength="200"
-                        IsPassword="True" Text="w8Woord!"/>
+                        IsPassword="True"/>
 
                     <Entry
                         x:Name="PasswordConfirmField"
                         Placeholder="Repeat Password"
                         WidthRequest="250"
                         MaxLength="200"
-                        IsPassword="True" Text="w8Woord!" />
+                        IsPassword="True"/>
 
                 </VerticalStackLayout>
 
