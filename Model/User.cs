@@ -91,6 +91,7 @@ namespace Model
         public List<City> Cities { get; set; }
         public string ProfileImage { get; set; }
         public List<Match> Matches { get; set; }
+        public List<User> LikedUsers { get; set; }
         private List<Drink> _favourites { get; set; }
         private List<Drink> _likes { get; set; }
         private List<Drink> _dislikes { get; set; }
@@ -111,6 +112,7 @@ namespace Model
             _dislikes = new List<Drink>(3);
             ProfileImage = "dotnet_bot.png";
             Cities = new List<City>();
+            LikedUsers = new List<User>();
 
             MinimalAge = 18;
             MaximalAge = 200;
