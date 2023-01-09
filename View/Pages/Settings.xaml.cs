@@ -82,7 +82,7 @@ public partial class Settings : ContentPage
             if (RepeatEmailField.Text.Equals(EmailField.Text))
             {
                 temp.Email = EmailField.Text.Trim();
-                UserDatabaseOperations.UpdateUserInDatabase(temp);
+                UserDatabaseOperations.UpdateUserInDatabase(Auth.User.GetHashCode(), temp);
                 EmailEditCancelBtn.Text = "Edit";
                 RepeatEmailField.Text = "";
                 EmailField.Text = Auth.User.Email;
@@ -178,7 +178,7 @@ public partial class Settings : ContentPage
             if (PasswordField.Text.Equals(RepeatPasswordField.Text) && User.ComparePasswords(User.HashString(OldPasswordField.Text), Auth.User.Password)) 
             {
                 temp.Password = PasswordField.Text;
-                UserDatabaseOperations.UpdateUserInDatabase(temp);
+                UserDatabaseOperations.UpdateUserInDatabase(Auth.User.GetHashCode(), temp);
                 PasswordEditCancelBtn.Text = "Edit";
                 OldPasswordField.Text = "";
                 PasswordField.Text = "";
@@ -272,7 +272,7 @@ public partial class Settings : ContentPage
             if (!temp.Cities.Select(a => a.Name).Contains(ListViewCities.SelectedItem.ToString()))
             {
                 temp.Cities.Add(new City(ListViewCities.SelectedItem.ToString()));
-                UserDatabaseOperations.UpdateUserInDatabase(temp);
+                UserDatabaseOperations.UpdateUserInDatabase(Auth.User.GetHashCode(), temp);
                 ListViewSelectedCities.IsEnabled = false;
                 ListViewSelectedCities.ItemsSource = null;
                 ListViewSelectedCities.ItemsSource = Auth.User.Cities.Select(a => a.Name);
@@ -288,7 +288,7 @@ public partial class Settings : ContentPage
         {
             if (temp.Cities.Remove(temp.Cities.Where(a => a.Name.Equals(ListViewCities.SelectedItem.ToString())).FirstOrDefault()))
             {
-                UserDatabaseOperations.UpdateUserInDatabase(temp);
+                UserDatabaseOperations.UpdateUserInDatabase(Auth.User.GetHashCode(), temp);
                 ListViewSelectedCities.IsEnabled = false;
                 ListViewSelectedCities.ItemsSource = null;
                 ListViewSelectedCities.ItemsSource = Auth.User.Cities.Select(a => a.Name);
@@ -306,7 +306,7 @@ public partial class Settings : ContentPage
             _maxAgeParsed = Int32.Parse(maxAge.Text);
             tempUser.MinimumpreferredAge = _minAgeParsed;
             tempUser.MaximumpreferredAge = _maxAgeParsed;
-            UserDatabaseOperations.UpdateUserInDatabase(tempUser);
+            UserDatabaseOperations.UpdateUserInDatabase(Auth.User.GetHashCode(), tempUser);
         }
         catch(ArgumentNullException ane)
         {

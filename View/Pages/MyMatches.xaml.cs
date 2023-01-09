@@ -20,15 +20,13 @@ public partial class MyMatches : ContentPage
         Queue<User> users = new Queue<User>();
         foreach (Match match in AllMatches)
         {
-            if (Controller.Auth.User != match.UserA)
+            foreach (User user in match.Users)
             {
-                Users.Add(match.UserA);
-                users.Enqueue(match.UserA);
-            }
-            else if (Controller.Auth.User != match.UserB)
-            {
-                Users.Add(match.UserB);
-                users.Enqueue(match.UserB);
+                if(Controller.Auth.User != user) 
+                {  
+                    Users.Add(user);
+                    users.Enqueue(user);
+                }
             }
         }
         InitializeComponent();
@@ -41,24 +39,27 @@ public partial class MyMatches : ContentPage
 
     private void ProfileImage_OnClicked(object sender, EventArgs e)
     {
-        ImageButton temp = (ImageButton)sender;
+        ImageButton temp = (ImageButton) sender;
         Application.Current?.MainPage?.Navigation.PushAsync(new Profile((User)temp.BindingContext));
     }
 
     private void ChatButton_Clicked(object sender, EventArgs e)
     {
-        ImageButton temp = (ImageButton)sender;
+        ImageButton temp = (ImageButton) sender;
         Match match = FindMatchFromUser((User)temp.BindingContext);
         if (match != null) { Application.Current?.MainPage?.Navigation.PushAsync(new ChatScreen(match)); }
     }
 
     private Match FindMatchFromUser(User user)
     {
-        foreach (Match match in AllMatches)
+        foreach(Match match in AllMatches)
         {
-            if (user == match.UserA || user == match.UserB)
+            foreach(User us in match.Users)
             {
-                return match;
+                if(user == us)
+                {
+                    return match;
+                }
             }
         }
         return null;
@@ -67,12 +68,11 @@ public partial class MyMatches : ContentPage
     private void DeleteButton_Clicked(object sender, EventArgs e)
     {
         ImageButton temp = (ImageButton)sender;
-        CurrentUser = (User)temp.BindingContext;
+        CurrentUser = (User) temp.BindingContext;
         MatchedPopUp();
     }
 
-    public void NoMatchesPopUp()
-    {
+    public void NoMatchesPopUp() {
         Label labelNoMatches = new Label
         {
             Text = "No matches found",
@@ -130,12 +130,11 @@ public partial class MyMatches : ContentPage
             Text = "Yes"
         };
 
-        buttonNo.Clicked += (sender, e) =>
+        buttonNo.Clicked += (sender, e) => 
         {
             InitializeComponent();
         };
-        buttonYes.Clicked += (sender, e) =>
-        {
+        buttonYes.Clicked += (sender,e) => {
             Users.Remove(CurrentUser);
             //Auth.removeMatch(CurrentUser);
             InitializeComponent();

@@ -15,8 +15,8 @@ public partial class ChatScreen : ContentPage
         InitializeComponent();
         _matchChatScreen = match;
 
-        LabelUserName.Text = match.UserB.Name; //bij groeps chats gaat dit stuk!
-        ChatPfp.Source = match.UserB.ProfileImage;
+        LabelUserName.Text = match.Users[1].Name; //bij groeps chats gaat dit stuk!
+        ChatPfp.Source = match.Users[1].ProfileImage;
 
         foreach (Message message in match.Messages)
         {
@@ -33,7 +33,7 @@ public partial class ChatScreen : ContentPage
     private async void SendMessage(object sender, EventArgs e)
     {
         string messageToSend = chatbox.Text?.Trim();
-        Message message = new(messageToSend, Auth.User, DateTime.Now, _matchChatScreen.UserB);
+        Message message = new(messageToSend, Auth.User, DateTime.Now, _matchChatScreen.Users[1]);
 
         if (message == null)
         {

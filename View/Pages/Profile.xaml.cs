@@ -34,10 +34,13 @@ public partial class Profile : ContentPage
     {
         foreach(Match match in Controller.Auth.User.Matches)
         {
-                if(match.UserB == MatchUser || match.UserA == MatchUser)
+            foreach(User user in match.Users)
+            {
+                if(user == MatchUser)
                 {
                     Application.Current.MainPage.Navigation.PushAsync(new ChatScreen(match));
                 }
             }
         }
     }
+}

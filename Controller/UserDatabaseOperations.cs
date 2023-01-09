@@ -141,12 +141,12 @@ namespace Controller.Platforms
             }
             return false;
         }
-        public static bool UpdateUserInDatabase(User user)
+        public static bool UpdateUserInDatabase(int oldUserHash, User newUser)
         {
             DatabaseContext db = new DatabaseContext();
 
-            db.Attach(user);
-            db.Entry(user).State = EntityState.Modified;
+            db.Attach(newUser);
+            db.Entry(newUser).State = EntityState.Modified;
             db.SaveChanges();
 
             return true;
