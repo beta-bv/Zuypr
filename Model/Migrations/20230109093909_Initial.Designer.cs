@@ -12,7 +12,7 @@ using Model;
 namespace Model.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20221220120223_Initial")]
+    [Migration("20230109093909_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -114,8 +114,8 @@ namespace Model.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("CityName")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Number")
                         .HasColumnType("int");
@@ -130,6 +130,8 @@ namespace Model.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CityName");
 
                     b.ToTable("locations");
                 });
@@ -158,20 +160,9 @@ namespace Model.Migrations
                     b.Property<int?>("MatchId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SenderId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("TimeSent")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
 
                     b.HasIndex("MatchId");
-
-                    b.HasIndex("SenderId");
 
                     b.ToTable("messages");
                 });
@@ -190,6 +181,12 @@ namespace Model.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("MaximumpreferredAge")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MinimumpreferredAge")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -199,7 +196,12 @@ namespace Model.Migrations
                     b.Property<string>("ProfileImage")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("users");
                 });
@@ -242,17 +244,27 @@ namespace Model.Migrations
                         .HasForeignKey("BarId");
                 });
 
+            modelBuilder.Entity("Model.Location", b =>
+                {
+                    b.HasOne("Model.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityName");
+
+                    b.Navigation("City");
+                });
+
             modelBuilder.Entity("Model.Message", b =>
                 {
                     b.HasOne("Model.Match", null)
                         .WithMany("Messages")
                         .HasForeignKey("MatchId");
+                });
 
-                    b.HasOne("Model.User", "Sender")
-                        .WithMany()
-                        .HasForeignKey("SenderId");
-
-                    b.Navigation("Sender");
+            modelBuilder.Entity("Model.User", b =>
+                {
+                    b.HasOne("Model.User", null)
+                        .WithMany("LikedUsers")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Model.Bar", b =>
@@ -268,6 +280,8 @@ namespace Model.Migrations
             modelBuilder.Entity("Model.User", b =>
                 {
                     b.Navigation("Cities");
+
+                    b.Navigation("LikedUsers");
                 });
 #pragma warning restore 612, 618
         }
