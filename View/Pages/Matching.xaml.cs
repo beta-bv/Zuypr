@@ -8,7 +8,7 @@ namespace View.Pages;
 
 public partial class Matching : ContentPage
 {
-    public static User User = Auth.getUser();
+    public static User User = Auth.User;
     public static List<User> PotentionalMatches => Filter.FilteredPotentionalMatches;
     public static Queue<User> UsersQue = new Queue<User>(PotentionalMatches);
     public List<User> HasUserInLikedList => User.LikedUsers.Where(a => a.Name.Equals(PotentionalMatch.Name)).ToList();
@@ -69,7 +69,7 @@ public partial class Matching : ContentPage
             PotentionalMatch.LikedUsers.Remove(User);
 
             //Add match on both users
-            CurrentMatch = new Model.Match(new User[] { User, PotentionalMatch }, new List<Message>());
+            CurrentMatch = new Model.Match(new User[] { User, PotentionalMatch });
             User.Matches.Add(CurrentMatch);
             PotentionalMatch.Matches.Add(CurrentMatch);
 

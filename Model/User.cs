@@ -127,9 +127,6 @@ namespace Model
                 _dateOfBirth = value;
             }
         }
-        
-        public int MinimalAge { get; set; }
-        public int MaximalAge { get; set; }
         public int Id {get;set;}
 
         public List<City> Cities { get; set; }
@@ -157,9 +154,6 @@ namespace Model
             ProfileImage = $"https://avatars.dicebear.com/api/identicon/{name}.png?scale=80";
             Cities = new List<City>();
             LikedUsers = new List<User>();
-
-            MinimalAge = 18;
-            MaximalAge = 200;
         }
 
         public List<Drink> GetFavourites()
