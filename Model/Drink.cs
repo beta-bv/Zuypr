@@ -38,5 +38,4 @@ namespace Model
             return new Drink("https://static.ah.nl/dam/product/AHI_43545239363438323836?revLabel=1&rendition=800x800_JPG_Q90&fileType=binary", DrinkType.BeerOrPilsener, "Beer", 10);
         }
     }
-
 }
