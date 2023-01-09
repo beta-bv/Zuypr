@@ -1,4 +1,8 @@
-﻿using Model;
+﻿using Microsoft.Maui.Layouts;
+using Microsoft.VisualBasic;
+using Model;
+using System.Drawing.Printing;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace View.Pages;
 
@@ -6,24 +10,27 @@ public partial class MyMatches : ContentPage
 {
     public List<Match> AllMatches { get; set; }
     public List<User> Users { get; set; }
+    public User CurrentUser { get; set; }
     public MyMatches()
     {
         AllMatches = Controller.Auth.getUser().Matches;
         Users = new List<User>();
-        foreach(Match match in AllMatches)
+        Queue<User> users = new Queue<User>();
+        foreach (Match match in AllMatches)
         {
-            foreach(User user in match.Users)
+            foreach (User user in match.Users)
             {
-                if(Controller.Auth.getUser() != user) 
-                {  
+                if (Controller.Auth.getUser() != user)
+                {
                     Users.Add(user);
+                    users.Enqueue(user);
                 }
             }
         }
         InitializeComponent();
         if (Users.Count < 1)
         {
-            no_found.IsVisible = true;
+            NoMatchesPopUp();
         }
         BindingContext = this;
     }
@@ -31,14 +38,16 @@ public partial class MyMatches : ContentPage
     private void ProfileImage_OnClicked(object sender, EventArgs e)
     {
         var temp = (ImageButton) sender;
-        Application.Current.MainPage.Navigation.PushAsync(new Profile((User)temp.BindingContext));
+        Microsoft.Maui.Controls.Application.Current.MainPage.Navigation.PushAsync(new Profile((User)temp.BindingContext));
     }
 
     private void ChatButton_Clicked(object sender, EventArgs e)
     {
         var temp = (ImageButton) sender;
         Match match = FindMatchFromUser((User)temp.BindingContext);
-        if (match != null) { Application.Current.MainPage.Navigation.PushAsync(new ChatScreen(match)); }
+        if (match != null) {
+            Microsoft.Maui.Controls.Application.Current.MainPage.Navigation.PushAsync(new ChatScreen(match)); 
+        }
     }
 
     private Match FindMatchFromUser(User user)
@@ -59,28 +68,89 @@ public partial class MyMatches : ContentPage
     private void DeleteButton_Clicked(object sender, EventArgs e)
     {
         ImageButton temp = (ImageButton)sender;
-        User usr = (User) temp.BindingContext;
-        deleteFrame.BindingContext = usr;
-        deleteFrame.IsVisible = true;
-        photo.Source = usr.ProfileImage;
-        sure.Text = "Are you sure you want to delete " + usr.Name + "?";
+        CurrentUser = (User) temp.BindingContext;
+        MatchedPopUp();
     }
 
-    private void no_Clicked(object sender, EventArgs e)
-    {
-        deleteFrame.IsVisible = false;
-    }
-
-    private void yes_Clicked(object sender, EventArgs e)
-    {
-        Button temp = (Button)sender;
-        Users.Remove((User)temp.BindingContext);
-        temp.BindingContext = null;
-        deleteFrame.IsVisible = false;
-        InitializeComponent();
-        if (Users.Count < 1)
+    public void NoMatchesPopUp() {
+        Label labelNoMatches = new Label
         {
-            no_found.IsVisible = true;
-        }
+            Text = "No matches found",
+            FontSize = 50,
+            HorizontalOptions = LayoutOptions.Center,
+            VerticalOptions = LayoutOptions.Center
+        };
+        Content = labelNoMatches;
+    }
+    public void MatchedPopUp()
+    {
+        StackLayout stackLayout = new StackLayout
+        {
+            BackgroundColor = Colors.Black,
+            VerticalOptions = LayoutOptions.Center
+        };
+
+        StackLayout stackLayoutTwo = new StackLayout
+        {
+            HorizontalOptions = LayoutOptions.Center,
+            VerticalOptions = LayoutOptions.Center
+        };
+
+        VerticalStackLayout verticalStackLayout = new VerticalStackLayout { };
+
+        Microsoft.Maui.Controls.Image image = new Microsoft.Maui.Controls.Image
+        {
+            Source = CurrentUser.ProfileImage,
+            HeightRequest = 300,
+            WidthRequest = 300
+        };
+
+        Label labelName = new Label
+        {
+            Text = "Are you sure you want to delete " + CurrentUser.Name + "?",
+            Margin = new Thickness(10, 10, 10, 10),
+            HeightRequest = 25,
+            HorizontalOptions = LayoutOptions.Center
+        };
+
+        HorizontalStackLayout horizontalStackLayout = new HorizontalStackLayout { HorizontalOptions = LayoutOptions.Center };
+
+        Button buttonNo = new Button
+        {
+            HeightRequest = 40,
+            WidthRequest = 100,
+            Text = "No",
+            Margin = new Thickness(0, 0, 50, 0)
+        };
+
+        Button buttonYes = new Button
+        {
+            HeightRequest = 40,
+            WidthRequest = 100,
+            Text = "Yes"
+        };
+
+        buttonNo.Clicked += (sender, e) => 
+        {
+            InitializeComponent();
+        };
+        buttonYes.Clicked += (sender,e) => {
+            Users.Remove(CurrentUser);
+            InitializeComponent();
+            if (Users.Count < 1)
+            {
+                NoMatchesPopUp();
+            }
+        };
+
+        stackLayout.Add(stackLayoutTwo);
+        stackLayoutTwo.Add(verticalStackLayout);
+        verticalStackLayout.Add(image);
+        verticalStackLayout.Add(labelName);
+        verticalStackLayout.Add(horizontalStackLayout);
+        horizontalStackLayout.Add(buttonNo);
+        horizontalStackLayout.Add(buttonYes);
+
+        Content = stackLayout;
     }
 }
