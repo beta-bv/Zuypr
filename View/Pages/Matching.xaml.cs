@@ -9,7 +9,7 @@ namespace View.Pages;
 public partial class Matching : ContentPage
 {
     public static User User = Auth.User;
-    public static List<User> PotentionalMatches => Filter.FilteredPotentionalMatches;
+    public static List<User> PotentionalMatches { get; set; }
     public static Queue<User> UsersQue = new Queue<User>(PotentionalMatches);
     public List<User> HasUserInLikedList => User.LikedUsers.Where(a => a.Name.Equals(PotentionalMatch.Name)).ToList();
     public List<Drink> Drinks { get; set; }
@@ -19,6 +19,10 @@ public partial class Matching : ContentPage
 
     public Matching()
     {
+        Matcher matcher = new Matcher();
+        matcher.GeneratePotentialMatches();
+        PotentionalMatches = Filter.FilteredPotentionalMatches; 
+
         InitializeComponent();
 
         if (UsersQue.Count() == 0)
