@@ -341,13 +341,5 @@ namespace Model
 
             return date < dateNow;
         }
-        
-        public static User GetDummyUser()
-        {
-            User dummy = new User("dummyUser", "email@a.com", "Wachtwoord!", new DateTime(1999, 1, 1));
-            dummy.Cities = new List<City>() { new("Dalfsen"), new("Hoonhorst") };
-            return dummy;
-        }
     }
-    
 }
