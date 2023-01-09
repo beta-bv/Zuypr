@@ -153,7 +153,10 @@ namespace Model
             _dislikes = new List<Drink>(3);
             ProfileImage = $"https://avatars.dicebear.com/api/identicon/{name}.png?scale=80";
             Cities = new List<City>();
+            Matches = new List<Match>();
             LikedUsers = new List<User>();
+            MaximumpreferredAge = 120;
+            MinimumpreferredAge = 18;
         }
 
         public List<Drink> GetFavourites()

@@ -7,9 +7,10 @@ using Newtonsoft.Json;
 namespace Model;
 
 [Table("cities")]
-[PrimaryKey("Name")]
+[PrimaryKey("Id")]
 public class City
 {
+    public int Id { get; set; }
     public string Name { get; set; }
     public static List<City> ValidCities { get; set; }
 
