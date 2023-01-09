@@ -10,6 +10,5 @@ public partial class AppShell : Shell
     {
         Auth.User = user;
         InitializeComponent();
-
     }
 }
