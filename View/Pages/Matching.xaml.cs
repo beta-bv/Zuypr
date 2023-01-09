@@ -9,8 +9,8 @@ namespace View.Pages;
 public partial class Matching : ContentPage
 {
     public static User User = Auth.User;
-    public static List<User> PotentionalMatches { get; set; }
-    public static Queue<User> UsersQue = new Queue<User>(PotentionalMatches);
+    public List<User> PotentionalMatches;
+    public Queue<User> UsersQue;
     public List<User> HasUserInLikedList => User.LikedUsers.Where(a => a.Name.Equals(PotentionalMatch.Name)).ToList();
     public List<Drink> Drinks { get; set; }
 
@@ -21,12 +21,13 @@ public partial class Matching : ContentPage
     {
         Matcher matcher = new Matcher();
         matcher.GeneratePotentialMatches();
-        PotentionalMatches = Filter.FilteredPotentionalMatches; 
+        PotentionalMatches = Filter.FilteredPotentionalMatches;
+        UsersQue = new Queue<User>(PotentionalMatches);
 
         InitializeComponent();
 
         if (UsersQue.Count() == 0)
-        { 
+        {
             NoMatchesPopUp();
         }
         else
@@ -80,7 +81,8 @@ public partial class Matching : ContentPage
             //matched pop up
             MatchedPopUp();
         }
-        else {
+        else
+        {
             //Add other user to auth user liked list
             User.LikedUsers.Add(PotentionalMatch);
 
@@ -134,7 +136,7 @@ public partial class Matching : ContentPage
         StackLayout stackLayout = new StackLayout
         {
             BackgroundColor = Colors.Black,
-            VerticalOptions =  LayoutOptions.Center
+            VerticalOptions = LayoutOptions.Center
         };
 
         StackLayout stackLayoutTwo = new StackLayout
@@ -171,7 +173,7 @@ public partial class Matching : ContentPage
             Margin = new Thickness(0, 10, 0, 20)
         };
 
-        HorizontalStackLayout horizontalStackLayout = new HorizontalStackLayout{};
+        HorizontalStackLayout horizontalStackLayout = new HorizontalStackLayout { };
 
         Button buttonBack = new Button
         {
