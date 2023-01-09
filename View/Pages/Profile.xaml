@@ -88,6 +88,7 @@
                 <ScrollView>
                     <ListView
                         ItemsSource="{Binding MatchUser.Cities}"
+                        x:Name="ListViewProfileCities"
                         SelectionMode="None">
                         <ListView.ItemTemplate>
                             <DataTemplate>

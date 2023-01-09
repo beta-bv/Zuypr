@@ -17,15 +17,24 @@ public partial class LaunchScreen : ContentPage
         ErrorFrameL.IsVisible = false;
         String password = PasswordFieldL?.Text;
         String Email = EmailFieldL.Text?.Trim();
-        if (dummydb.Users.Any(u => Email == u.Email) && User.HashString(password) == dummydb.Users.Where(u => Email == u.Email).First().Password)
+        try
         {
-            User temp = Auth.setUser(dummydb.Users.Where(u => Email == u.Email).First());
-            Application.Current.MainPage = new AppShell(temp);
+            DatabaseContext db = new DatabaseContext();
+            if (db.Users.Any(u => Email == u.Email) && User.HashString(password) == db.Users.Where(u => Email == u.Email).First().Password)
+            {
+                User temp = Auth.User = (db.Users.Where(u => Email == u.Email).First());
+                Application.Current.MainPage = new AppShell(temp);
+            }
+            else
+            {
+                ErrorFrameL.IsVisible = true;
+                ErrorLabelL.Text = "de ingevulde gegevens zijn niet correct";
+            }
         }
-        else
+        catch (Exception E)
         {
             ErrorFrameL.IsVisible = true;
-            ErrorLabelL.Text = "de ingevulde gegevens zijn niet correct";
+            ErrorLabelL.Text = E.Message;
         }
     }
 

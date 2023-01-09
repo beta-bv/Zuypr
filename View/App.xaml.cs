@@ -9,6 +9,7 @@ public partial class App : Application
     {
         InitializeComponent();
         dummydb.Initialize();
+         Model.City.GetValidCities();
         MainPage = new LaunchScreen();
     }
 }

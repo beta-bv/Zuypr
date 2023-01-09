@@ -5,18 +5,9 @@ namespace Controller
 {
     public static class Auth
     {
-        private static User _user;
+        // TODO: Dit veranderen naar een public property met get;set;?
 
-        public static User getUser()
-        {
-            return _user;
-        }
-
-        public static User setUser(User user)
-        {
-            _user = user;      
-            return _user;
-        }
+        public static User User { get; set; }
     }
 }
 
