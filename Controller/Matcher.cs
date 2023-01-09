@@ -14,7 +14,7 @@ namespace Controller
         private readonly DrinkType[] MyDislikedTypes;
 
         public List<User> UserList;
-        public List<User> MatchList = new List<User>();
+        public static List<User> MatchList = new List<User>();
 
         public double PassingScore { get; private set; }
 
