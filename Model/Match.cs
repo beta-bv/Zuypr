@@ -8,13 +8,13 @@ namespace Model
     public class Match
     {
         public int Id { get; set; }
-        public User[] Users { get; set; }
+        public List<User> Users { get; set; }
         public List<Message> Messages { get; set; }
         
         // Exists for EF
         public Match(){}
 
-        public Match(User[] users)
+        public Match(List<User> users)
         {
             Users = users;
             //Messages = Database.DB.Messages.Where(m => users.Contains(m.Sender) && users.Contains(m.Match)).ToList();

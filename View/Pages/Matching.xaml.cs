@@ -69,7 +69,7 @@ public partial class Matching : ContentPage
             PotentionalMatch.LikedUsers.Remove(User);
 
             //Add match on both users
-            CurrentMatch = new Model.Match(new User[] { User, PotentionalMatch });
+            CurrentMatch = new Model.Match(new List<User> { User, PotentionalMatch });
             User.Matches.Add(CurrentMatch);
             PotentionalMatch.Matches.Add(CurrentMatch);
 

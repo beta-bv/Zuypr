@@ -24,6 +24,7 @@ namespace Controller.Platforms
                     .Include(u => u.Cities)
                     .Include(u => u.Matches)
                     .First(u => u.Email.Equals(user.Email));   //query haalt de user op aan de hand van zijn/haar email
+                db.SaveChanges();
                 return userFromDatabse;                            // returned de user
             }
             catch (Exception ex)
@@ -44,7 +45,7 @@ namespace Controller.Platforms
             {
                 DatabaseContext db = new DatabaseContext();  //maakt database context aan
                 User userFromDatabse = db.Users.First(u => u.Email.Equals(email));   //query haalt de user op aan de hand van zijn/haar email
-                return userFromDatabse;                            // returned de user
+                return GetUserFromDatabase(userFromDatabse);                            // returned de user
             }
             catch (Exception ex)
             {
@@ -71,10 +72,41 @@ namespace Controller.Platforms
                     throw new Exception("A user with this email address already exists in the database");
                 }
 
+                List<City> newCitiesList = new List<City>();
+                foreach (City city in user.Cities)
+                {
+                    if (db.Users.Any(a => a.Cities.Any(b => b.Equals(city))))
+                    {
+                        // pak de dezelfe stad maar dan uit de databse
+                        newCitiesList.Add(db.Users.Where(a => a.Cities.Any(b => b.Equals(city))).FirstOrDefault().Cities.Where(c => c.Equals(city)).FirstOrDefault());
+                    }
+                    else
+                    {
+                        newCitiesList.Add(city);
+                    }
+                }
+                user.Cities = newCitiesList;
+                
+
+
                 //Add the user to the database and save the changes
                 db.Users.Add(user);
-                Auth.User = user;
                 db.SaveChanges();
+
+                //User dbuser = db.Users.Include(a => a.Cities).Where(a => a.Email.Equals(user.Email)).FirstOrDefault();
+
+                //foreach (City city in user.Cities)
+                //{
+                //    dbuser.Cities.Add(city);
+                //}
+
+                //foreach (Match match in user.Matches)
+                //{
+                //    dbuser.Matches.Add(match);
+                //}
+
+                Auth.User = GetUserFromDatabase(user);
+                //db.SaveChanges();
                 return true;
             }
             catch
@@ -111,12 +143,41 @@ namespace Controller.Platforms
         }
         public static bool UpdateUserInDatabase(int oldUserHash, User newUser)
         {
-            DatabaseContext db = new DatabaseContext();
-            //db.Users.Remove(userOldInfo);
-            //db.Users.Add(userNewInfo);
-            //db.SaveChanges();
+            //DatabaseContext db = new DatabaseContext();
 
-            User UserToUpdate = db.Users.ToList().Where(a => a.GetHashCode() == oldUserHash).FirstOrDefault();
+
+            //User UserToUpdate = db.Users.Include(u => u.Cities).Include(u => u.Matches).Where(a => a.Id == newUser.Id).FirstOrDefault();
+            //if (UserToUpdate != null)
+            //{
+            //    UserToUpdate.Name = newUser.Name;
+            //    UserToUpdate.Email = newUser.Email;
+
+            //    UserToUpdate.Cities = new List<City>() { new City("City A"), new City("City B") };
+            //    //foreach (City city in newUser.Cities)
+            //    //{
+            //    //    UserToUpdate.Cities.Add(city);
+            //    //}
+
+            //    //UserToUpdate.Matches.Clear();
+            //    //foreach (Match match in newUser.Matches)
+            //    //{
+            //    //    UserToUpdate.Matches.Add(match);
+            //    //}
+
+
+            //    //// Leeftijd cringe wordt gefixt door merijn
+            //    ////UserToUpdate.MinimumpreferredAge = newUser.MinimumpreferredAge;
+            //    ////UserToUpdate.MaximumpreferredAge = newUser.MaximumpreferredAge;
+            //    //UserToUpdate.LikedUsers = newUser.LikedUsers;
+
+            //    db.Entry(newUser).State = EntityState.Detached;
+
+            //    db.SaveChanges();
+            //}
+
+            DatabaseContext db = new DatabaseContext();
+
+            User UserToUpdate = db.Users.Include(u => u.Cities).Include(u => u.Matches).Where(a => a.Id == Auth.User.Id).FirstOrDefault();
             UserToUpdate = newUser;
             db.SaveChanges();
 
