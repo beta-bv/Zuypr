@@ -14,7 +14,7 @@ namespace Controller
         private readonly DrinkType[] MyDislikedTypes;
 
         public List<User> UserList;
-        public List<User> MatchList = new List<User>();
+        public static List<User> MatchList = new List<User>();
 
         public double PassingScore { get; private set; }
 
@@ -44,7 +44,8 @@ namespace Controller
             }
             // Excluding the logged-in user from all users
             // HACK: Should stil be fixed for official DB
-            UserList = dummydb.Users.Where(u => u.Name != User.Name).ToList();
+            DatabaseContext db = new DatabaseContext();
+            UserList = db.Users.Where(u => u.Name != User.Name).ToList();
 
             MyFavouriteDrinks = User.Favourites.Select(d => d.Name).ToArray();
             MyLikedDrinks = User.Likes.Select(d => d.Name).ToArray();
@@ -92,7 +93,12 @@ namespace Controller
             }
             // Excluding the logged-in user from all users
             // HACK: Should stil be fixed for official DB
-            UserList = dummydb.Users.Where(u => u.Name != User.Name).ToList();
+            try
+            {
+                DatabaseContext db = new DatabaseContext();
+                UserList = db.Users.Where(u => u.Name != User.Name).ToList();
+            }
+            catch (Exception ex) { }
 
             MyFavouriteDrinks = User.Favourites.Select(d => d.Name).ToArray();
             MyLikedDrinks = User.Likes.Select(d => d.Name).ToArray();

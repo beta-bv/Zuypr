@@ -157,6 +157,7 @@
 
 	<ItemGroup>
 	  <None Remove="Pages\DataTemplates\" />
+	  <None Remove="Resources\Images\delete_button.png" />
 	  <None Remove="Converters\" />
 	  <None Remove="Resources\Images\hertog-jan.png" />
 	  <None Remove="Resources\Images\la-chouffe.png" />

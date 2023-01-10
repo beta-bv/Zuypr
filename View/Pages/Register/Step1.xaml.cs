@@ -6,6 +6,9 @@ namespace View.Pages.Register;
 public partial class Step1 : ContentPage
 {
     public static User User { get; set; }
+    private int _atleast1city = 0;
+    private int _minAgeParsed;
+    private int _maxAgeParsed;
 
     public Step1(User user)
     {
@@ -16,7 +19,15 @@ public partial class Step1 : ContentPage
 
     private async void Next(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new Step2());
+        if ((_minAgeParsed != 0 && _minAgeParsed >= 18) && (_maxAgeParsed != 0 && _maxAgeParsed < 120) && _atleast1city > 0)
+        {
+            await Navigation.PushAsync(new Step2());
+        }
+        else
+        {
+            ErrorFrameEditPage.IsVisible = true;
+            ErrorLabelEditPage.Text = "You need to select a city and select a preferred age range to continue";
+        }
     }
     private void SearchBar_TextChanged_S1(object sender, TextChangedEventArgs e)
     {
@@ -27,7 +38,7 @@ public partial class Step1 : ContentPage
     {
         try
         {
-            if (!Auth.User.Cities.Select(a => a.Name).Contains(ListViewCities_S1.SelectedItem.ToString()))
+            if (ListViewCities_S1.SelectedItem != null && !Auth.User.Cities.Select(a => a.Name).Contains(ListViewCities_S1.SelectedItem.ToString()))
             {
                 ErrorFrameEditPage.IsVisible = false;
                 Auth.User.Cities.Add(new City(ListViewCities_S1.SelectedItem.ToString()));
@@ -35,6 +46,7 @@ public partial class Step1 : ContentPage
                 ListViewSelectedCities_S1.IsEnabled = false;
                 ListViewSelectedCities_S1.ItemsSource = null;
                 ListViewSelectedCities_S1.ItemsSource = Auth.User.Cities.Select(a => a.Name);
+                _atleast1city++;
             }
         }
         catch (NullReferenceException nre)
@@ -55,6 +67,7 @@ public partial class Step1 : ContentPage
                 ListViewSelectedCities_S1.IsEnabled = false;
                 ListViewSelectedCities_S1.ItemsSource = null;
                 ListViewSelectedCities_S1.ItemsSource = Auth.User.Cities.Select(a => a.Name);
+                _atleast1city--;
             }
         }
         catch (NullReferenceException) { }
@@ -63,8 +76,8 @@ public partial class Step1 : ContentPage
     {
         try
         {
-            int maxAgeParsed = Int32.Parse(maxAge.Text);
-            Auth.User.MaximumpreferredAge = maxAgeParsed;
+            _maxAgeParsed = Int32.Parse(maxAge.Text);
+            Auth.User.MaximumpreferredAge = _maxAgeParsed;
             //UserDatabaseOperations.UpdateUserInDatabase(tempUser, Auth.User);    //fixuh
             ErrorFrameEditPage.IsVisible = false;
         }
@@ -82,8 +95,8 @@ public partial class Step1 : ContentPage
     {
         try
         {
-            int minAgeParsed = Int32.Parse(minAge.Text);
-            Auth.User.MinimumpreferredAge = minAgeParsed;
+            _minAgeParsed = Int32.Parse(minAge.Text);
+            Auth.User.MinimumpreferredAge = _minAgeParsed;
             //UserDatabaseOperations.UpdateUserInDatabase(tempUser, Auth.User); //fixxuh
             ErrorFrameEditPage.IsVisible = false;
         }

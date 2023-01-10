@@ -12,10 +12,14 @@ public partial class Settings : ContentPage
     private bool _editIsClicked = false;
     private bool _editPIsClicked = false;
     private bool _deleteAccountClicked = false;
+    private int _minAgeParsed;
+    private int _maxAgeParsed;
     private List<City> _validCities;
     public Settings()
     {
         InitializeComponent();
+        minAge.Text = Auth.User.MinimumpreferredAge.ToString();
+        maxAge.Text = Auth.User.MaximumpreferredAge.ToString();
         EmailField.Text = Auth.User.Email;
         _validCities = Model.City.ValidCities;
         ListViewSelectedCities.IsEnabled = false;
@@ -76,7 +80,7 @@ public partial class Settings : ContentPage
             if (RepeatEmailField.Text.Equals(EmailField.Text))
             {
                 temp.Email = EmailField.Text.Trim();
-                UserDatabaseOperations.UpdateUserInDatabase(Auth.User.GetHashCode(), temp);
+                UserDatabaseOperations.UpdateUserInDatabase(temp);
                 EmailEditCancelBtn.Text = "Edit";
                 RepeatEmailField.Text = "";
                 EmailField.Text = Auth.User.Email;
@@ -172,7 +176,7 @@ public partial class Settings : ContentPage
             if (PasswordField.Text.Equals(RepeatPasswordField.Text) && User.ComparePasswords(User.HashString(OldPasswordField.Text), Auth.User.Password))
             {
                 temp.Password = PasswordField.Text;
-                UserDatabaseOperations.UpdateUserInDatabase(Auth.User.GetHashCode(), temp);
+                UserDatabaseOperations.UpdateUserInDatabase(temp);
                 PasswordEditCancelBtn.Text = "Edit";
                 OldPasswordField.Text = "";
                 PasswordField.Text = "";
@@ -192,42 +196,11 @@ public partial class Settings : ContentPage
         }
     }
 
-    private async void FileOpenBtn_Clicked(object sender, EventArgs e)
-    {
-        try
-        {
-            {
-                FileResult photo = await MediaPicker.Default.PickPhotoAsync();
-
-                if (photo != null)
-                {
-                    // save the file into local storage
-                    string wanted_path = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
-                    string localFilePath = Path.Combine(Path.Combine(wanted_path, "Zuypr\\Assets"), photo.FileName);    //path om in op te slaan werkt niet, en moet naar de db gaan pushen
-
-                    using Stream sourceStream = await photo.OpenReadAsync();
-                    using FileStream localFileStream = File.OpenWrite(localFilePath);
-
-                    await sourceStream.CopyToAsync(localFileStream);
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            ErrorLabelEditPage.Text = ex.Message;
-            ErrorFrameEditPage.IsVisible = true;
-
-        }
-    }
-
     private void maxAge_TextChanged(object sender, TextChangedEventArgs e)
     {
         try
         {
-            User tempUser = Auth.User;
-            int maxAgeParsed = Int32.Parse(maxAge.Text);
-            tempUser.MaximumpreferredAge = maxAgeParsed;
-            UserDatabaseOperations.UpdateUserInDatabase(Auth.User.GetHashCode(), tempUser);
+            _maxAgeParsed = Int32.Parse(maxAge.Text);
             ErrorFrameEditPage.IsVisible = false;
         }
         catch (FormatException fe)
@@ -244,10 +217,7 @@ public partial class Settings : ContentPage
     {
         try
         {
-            User tempUser = Auth.User;
-            int minAgeParsed = Int32.Parse(minAge.Text);
-            tempUser.MinimumpreferredAge = minAgeParsed;
-            UserDatabaseOperations.UpdateUserInDatabase(Auth.User.GetHashCode(), tempUser);
+            _minAgeParsed = Int32.Parse(minAge.Text);
             ErrorFrameEditPage.IsVisible = false;
         }
         catch (FormatException) { }
@@ -269,10 +239,10 @@ public partial class Settings : ContentPage
         User temp = Auth.User;
         try
         {
-            if (!temp.Cities.Select(a => a.Name).Contains(ListViewCities.SelectedItem.ToString()))
+            if (ListViewCities.SelectedItem != null && !temp.Cities.Select(a => a.Name).Contains(ListViewCities.SelectedItem.ToString()))
             {
                 temp.Cities.Add(new City(ListViewCities.SelectedItem.ToString()));
-                UserDatabaseOperations.UpdateUserInDatabase(Auth.User.GetHashCode(), temp);
+                UserDatabaseOperations.UpdateUserInDatabase(temp);
                 ListViewSelectedCities.IsEnabled = false;
                 ListViewSelectedCities.ItemsSource = null;
                 ListViewSelectedCities.ItemsSource = Auth.User.Cities.Select(a => a.Name);
@@ -288,12 +258,33 @@ public partial class Settings : ContentPage
         {
             if (temp.Cities.Remove(temp.Cities.Where(a => a.Name.Equals(ListViewCities.SelectedItem.ToString())).FirstOrDefault()))
             {
-                UserDatabaseOperations.UpdateUserInDatabase(Auth.User.GetHashCode(), temp);
+                UserDatabaseOperations.UpdateUserInDatabase(temp);
                 ListViewSelectedCities.IsEnabled = false;
                 ListViewSelectedCities.ItemsSource = null;
                 ListViewSelectedCities.ItemsSource = Auth.User.Cities.Select(a => a.Name);
             }
         }
         catch (NullReferenceException) { }
+    }
+
+    private void SaveButtonAge_Clicked(object sender, EventArgs e)
+    {
+        try
+        {
+            User tempUser = Auth.User;
+            _minAgeParsed = Int32.Parse(minAge.Text);
+            _maxAgeParsed = Int32.Parse(maxAge.Text);
+            tempUser.MinimumpreferredAge = _minAgeParsed;
+            tempUser.MaximumpreferredAge = _maxAgeParsed;
+            UserDatabaseOperations.UpdateUserInDatabase(tempUser);
+        }
+        catch(ArgumentNullException ane)
+        {
+        }
+        catch(Exception ex)
+        {
+            ErrorLabelEditPage.Text = ex.Message;
+            ErrorFrameEditPage.IsVisible = true;
+        }
     }
 }

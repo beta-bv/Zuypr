@@ -33,7 +33,7 @@ namespace Model
                 }
                 if (value < 18)
                 {
-                    throw new ArgumentException("The preferred age must be above 18");
+                    throw new ArgumentException("The preferred age must be 18 or above");
                 }
                 if (value > MaximumpreferredAge)
                 {
@@ -260,7 +260,7 @@ namespace Model
             Password = password;
             ProfileImage = $"https://avatars.dicebear.com/api/identicon/{name}.png?scale=80";
             Cities = new List<City>();
-            Matches = new List<Match>();
+            Matches = db.Matches.Where(m => m.Users.Contains(this)).ToList();
             LikedUsers = new List<User>();
             MaximumpreferredAge = 120;
             MinimumpreferredAge = 18;

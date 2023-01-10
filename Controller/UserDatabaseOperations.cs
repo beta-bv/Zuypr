@@ -25,6 +25,27 @@ namespace Controller
                     .Include(u => u.Matches)
                     .First(u => u.Email.Equals(user.Email));   //query haalt de user op aan de hand van zijn/haar email
                 db.SaveChanges();
+
+                List<int> matchids = new List<int>();
+                foreach(Match match in userFromDatabse.Matches)
+                {
+                    matchids.Add(match.Id);
+                }
+
+                List<Match> matches = new List<Match>();
+                
+                var matchesInts = db.Database.SqlQuery<int>($"SELECT UsersId FROM dbo.MatchUser WHERE MatchesId IN ({String.Join(",", matchids)})").ToList();
+                
+                foreach(int i in matchesInts)
+                {
+                    if(i != userFromDatabse.Id)
+                    {
+                        matches.Add(new Match(new List<User> { userFromDatabse, db.Users.Where(a => a.Id == i).ToList().First() }));
+                    }
+                }
+
+                userFromDatabse.Matches = matches;
+
                 return userFromDatabse;                            // returned de user
             }
             catch (Exception ex)
@@ -141,12 +162,12 @@ namespace Controller
             }
             return false;
         }
-        public static bool UpdateUserInDatabase(int oldUserHash, User newUser)
+        public static bool UpdateUserInDatabase(User user)
         {
             DatabaseContext db = new DatabaseContext();
 
-            db.Attach(newUser);
-            db.Entry(newUser).State = EntityState.Modified;
+            db.Attach(user);
+            db.Entry(user).State = EntityState.Modified;
             db.SaveChanges();
 
             return true;

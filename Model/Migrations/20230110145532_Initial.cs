@@ -49,33 +49,17 @@ namespace Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "messages",
+                name: "cities",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MatchId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_messages", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_messages_matches_MatchId",
-                        column: x => x.MatchId,
-                        principalTable: "matches",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "cities",
-                columns: table => new
-                {
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_cities", x => x.Name);
+                    table.PrimaryKey("PK_cities", x => x.Id);
                     table.ForeignKey(
                         name: "FK_cities_users_UserId",
                         column: x => x.UserId,
@@ -108,12 +92,44 @@ namespace Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "messages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SenderId = table.Column<int>(type: "int", nullable: true),
+                    TimeSent = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    MatchId1 = table.Column<int>(type: "int", nullable: true),
+                    MatchId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_messages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_messages_matches_MatchId",
+                        column: x => x.MatchId,
+                        principalTable: "matches",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_messages_users_MatchId1",
+                        column: x => x.MatchId1,
+                        principalTable: "users",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_messages_users_SenderId",
+                        column: x => x.SenderId,
+                        principalTable: "users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "locations",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CityName = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CityId = table.Column<int>(type: "int", nullable: true),
                     Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Zipcode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Number = table.Column<int>(type: "int", nullable: false),
@@ -123,10 +139,10 @@ namespace Model.Migrations
                 {
                     table.PrimaryKey("PK_locations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_locations_cities_CityName",
-                        column: x => x.CityName,
+                        name: "FK_locations_cities_CityId",
+                        column: x => x.CityId,
                         principalTable: "cities",
-                        principalColumn: "Name");
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -186,9 +202,9 @@ namespace Model.Migrations
                 column: "BarId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_locations_CityName",
+                name: "IX_locations_CityId",
                 table: "locations",
-                column: "CityName");
+                column: "CityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MatchUser_UsersId",
@@ -199,6 +215,16 @@ namespace Model.Migrations
                 name: "IX_messages_MatchId",
                 table: "messages",
                 column: "MatchId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_messages_MatchId1",
+                table: "messages",
+                column: "MatchId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_messages_SenderId",
+                table: "messages",
+                column: "SenderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_users_UserId",
