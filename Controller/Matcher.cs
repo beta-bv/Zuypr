@@ -44,7 +44,8 @@ namespace Controller
             }
             // Excluding the logged-in user from all users
             // HACK: Should stil be fixed for official DB
-            UserList = dummydb.Users.Where(u => u.Name != User.Name).ToList();
+            DatabaseContext db = new DatabaseContext();
+            UserList = db.Users.Where(u => u.Name != User.Name).ToList();
 
             MyFavouriteDrinks = User.GetFavourites().Select(d => d.Name).ToArray();
             MyLikedDrinks = User.GetLikes().Select(d => d.Name).ToArray();
@@ -92,7 +93,12 @@ namespace Controller
             }
             // Excluding the logged-in user from all users
             // HACK: Should stil be fixed for official DB
-            UserList = dummydb.Users.Where(u => u.Name != User.Name).ToList();
+            try
+            {
+                DatabaseContext db = new DatabaseContext();
+                UserList = db.Users.Where(u => u.Name != User.Name).ToList();
+            }
+            catch (Exception ex) { }
 
             MyFavouriteDrinks = User.GetFavourites().Select(d => d.Name).ToArray();
             MyLikedDrinks = User.GetLikes().Select(d => d.Name).ToArray();

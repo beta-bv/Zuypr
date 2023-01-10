@@ -8,7 +8,7 @@ public partial class App : Application
     public App()
     {
         InitializeComponent();
-        dummydb.Initialize();
+        //dummydb.Initialize();
         Model.City.GetValidCities();
         MainPage = new LaunchScreen();
     }
