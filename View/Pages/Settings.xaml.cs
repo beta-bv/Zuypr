@@ -269,7 +269,7 @@ public partial class Settings : ContentPage
         User temp = Auth.User;
         try
         {
-            if (!temp.Cities.Select(a => a.Name).Contains(ListViewCities.SelectedItem.ToString()))
+            if (ListViewCities_S1.SelectedItem != null && !temp.Cities.Select(a => a.Name).Contains(ListViewCities.SelectedItem.ToString()))
             {
                 temp.Cities.Add(new City(ListViewCities.SelectedItem.ToString()));
                 UserDatabaseOperations.UpdateUserInDatabase(temp);

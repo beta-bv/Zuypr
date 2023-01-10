@@ -39,7 +39,7 @@ public partial class Step1 : ContentPage
     {
         try
         {
-            if (!Auth.User.Cities.Select(a => a.Name).Contains(ListViewCities_S1.SelectedItem.ToString()))
+            if (ListViewCities_S1.SelectedItem != null && !Auth.User.Cities.Select(a => a.Name).Contains(ListViewCities_S1.SelectedItem.ToString()))
             {
                 ErrorFrameEditPage.IsVisible = false;
                 Auth.User.Cities.Add(new City(ListViewCities_S1.SelectedItem.ToString()));
@@ -50,7 +50,7 @@ public partial class Step1 : ContentPage
                 _atleast1city++;
             }
         }
-        catch (NullReferenceException nre) {
+        catch (Exception nre) {
             ErrorFrameEditPage.IsVisible = true;
             ErrorLabelEditPage.Text = "You need to select a city before you can add or remove it";
         }
