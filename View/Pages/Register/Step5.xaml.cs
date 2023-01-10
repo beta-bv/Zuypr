@@ -10,7 +10,7 @@ public partial class Step5 : ContentPage
     public Step5()
     {
         // Final update
-        UserDatabaseOperations.UpdateUserInDatabase(User.GetHashCode(), User);
+        UserDatabaseOperations.UpdateUserInDatabase(User);
         InitializeComponent();
     }
 

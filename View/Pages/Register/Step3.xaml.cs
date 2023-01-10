@@ -1,12 +1,11 @@
 ﻿using Model;
 using Controller;
-using System.Linq;
 namespace View.Pages.Register;
 
 public partial class Step3 : ContentPage
 {
     private static readonly User User = Step1.User;
-    public List<Drink> AllDrinks => DrinksDatabaseOperations.GetAllDrinksFromDatabase().Except(User.GetFavourites()).Except(User.GetDislikes()).ToList();
+    public List<Drink> AllDrinks => DrinksDatabaseOperations.GetAllDrinksFromDatabase().Except(User.Favourites).Except(User.Dislikes).ToList();
 
     private List<Drink> Favourites = User.Favourites;
     private List<Drink> Likes = User.Likes;

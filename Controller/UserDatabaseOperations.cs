@@ -27,18 +27,18 @@ namespace Controller
                 db.SaveChanges();
 
                 List<int> matchids = new List<int>();
-                foreach(Match match in userFromDatabse.Matches)
+                foreach (Match match in userFromDatabse.Matches)
                 {
                     matchids.Add(match.Id);
                 }
 
                 List<Match> matches = new List<Match>();
-                
+
                 var matchesInts = db.Database.SqlQuery<int>($"SELECT UsersId FROM dbo.MatchUser WHERE MatchesId IN ({String.Join(",", matchids)})").ToList();
-                
-                foreach(int i in matchesInts)
+
+                foreach (int i in matchesInts)
                 {
-                    if(i != userFromDatabse.Id)
+                    if (i != userFromDatabse.Id)
                     {
                         matches.Add(new Match(new List<User> { userFromDatabse, db.Users.Where(a => a.Id == i).ToList().First() }));
                     }
@@ -151,6 +151,7 @@ namespace Controller
             }
             return false;
         }
+
         public static bool RemoveUserFromDatabase(User userToDelete)
         {
             DatabaseContext db = new DatabaseContext();
@@ -162,6 +163,7 @@ namespace Controller
             }
             return false;
         }
+
         public static bool UpdateUserInDatabase(User user)
         {
             DatabaseContext db = new DatabaseContext();

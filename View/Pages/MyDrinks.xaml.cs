@@ -65,7 +65,7 @@ public partial class MyDrinks : ContentPage
             AmountFavorite--;
         }
 
-        UserDatabaseOperations.UpdateUserInDatabase(User.GetHashCode(), User);
+        UserDatabaseOperations.UpdateUserInDatabase(User);
     }
 
     /// <summary>
@@ -108,7 +108,7 @@ public partial class MyDrinks : ContentPage
             AmountLikes--;
         }
 
-        UserDatabaseOperations.UpdateUserInDatabase(User.GetHashCode(), User);
+        UserDatabaseOperations.UpdateUserInDatabase(User);
     }
 
     /// <summary>
@@ -151,6 +151,6 @@ public partial class MyDrinks : ContentPage
             AmountDislikes--;
         }
 
-        UserDatabaseOperations.UpdateUserInDatabase(User.GetHashCode(), User);
+        UserDatabaseOperations.UpdateUserInDatabase(User);
     }
 }

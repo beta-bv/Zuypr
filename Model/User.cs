@@ -258,6 +258,8 @@ namespace Model
             Email = email;
             DateOfBirth = dateOfBirth;
             Password = password;
+
+            DatabaseContext db = new DatabaseContext();
             ProfileImage = $"https://avatars.dicebear.com/api/identicon/{name}.png?scale=80";
             Cities = new List<City>();
             Matches = db.Matches.Where(m => m.Users.Contains(this)).ToList();
