@@ -346,7 +346,7 @@ namespace Model
             {
                 RemoveFromDrinkList(drink);
                 drinks.Add(drink);
-                updateIndexStr(ListTypes.Likes, drinks);
+                updateIndexStr(ListTypes.Dislikes, drinks);
             }
             return false;
         }

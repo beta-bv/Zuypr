@@ -2,7 +2,6 @@ using Model;
 using Controller;
 
 using View.Pages.Register;
-using Controller.Platforms;
 
 namespace View.Pages;
 

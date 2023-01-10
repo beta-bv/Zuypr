@@ -1,6 +1,5 @@
 ﻿using Model;
 using Controller;
-using Controller.Platforms;
 
 namespace View.Pages.Register;
 
@@ -22,7 +21,7 @@ public partial class Step1 : ContentPage
     private void SearchBar_TextChanged_S1(object sender, TextChangedEventArgs e)
     {
         SearchBar searchBar = (SearchBar)sender;
-        ListViewCities_S1.ItemsSource = Model.City.getCitySearchResult(searchBar.Text, 10).Select(a => a.Name); 
+        ListViewCities_S1.ItemsSource = Model.City.getCitySearchResult(searchBar.Text, 10).Select(a => a.Name);
     }
     private void AddButtonList_Pressed_S1(object sender, EventArgs e)
     {
@@ -38,7 +37,8 @@ public partial class Step1 : ContentPage
                 ListViewSelectedCities_S1.ItemsSource = Auth.User.Cities.Select(a => a.Name);
             }
         }
-        catch (NullReferenceException nre) {
+        catch (NullReferenceException nre)
+        {
             ErrorFrameEditPage.IsVisible = true;
             ErrorLabelEditPage.Text = "You need to select a city before you can add or remove it";
         }

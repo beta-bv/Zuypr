@@ -5,11 +5,11 @@ namespace View.Pages;
 public partial class MyDrinks : ContentPage
 {
     private static readonly User User = Auth.User;
-    public List<Drink> AllDrinks = DrinksDatabaseOperations.GetAllDrinksFromDatabase();
+    public List<Drink> AllDrinks => DrinksDatabaseOperations.GetAllDrinksFromDatabase().ToList();
 
-    private List<Drink> Favourites = User.Favourites ?? new List<Drink>();
-    private List<Drink> Likes = User.Likes ?? new List<Drink>();
-    private List<Drink> Dislikes = User.Dislikes ?? new List<Drink>();
+    private List<Drink> Favourites = User.Favourites;
+    private List<Drink> Likes = User.Likes;
+    private List<Drink> Dislikes = User.Dislikes;
 
     static int AmountFavorite;
     static int AmountLikes;
@@ -64,6 +64,8 @@ public partial class MyDrinks : ContentPage
         {
             AmountFavorite--;
         }
+
+        UserDatabaseOperations.UpdateUserInDatabase(User.GetHashCode(), User);
     }
 
     /// <summary>
@@ -105,6 +107,8 @@ public partial class MyDrinks : ContentPage
         {
             AmountLikes--;
         }
+
+        UserDatabaseOperations.UpdateUserInDatabase(User.GetHashCode(), User);
     }
 
     /// <summary>
@@ -146,5 +150,7 @@ public partial class MyDrinks : ContentPage
         {
             AmountDislikes--;
         }
+
+        UserDatabaseOperations.UpdateUserInDatabase(User.GetHashCode(), User);
     }
 }

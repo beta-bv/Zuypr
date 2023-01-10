@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Model;
 
-namespace Controller.Platforms
+namespace Controller
 {
     public static class UserDatabaseOperations
     {
@@ -86,7 +86,7 @@ namespace Controller.Platforms
                     }
                 }
                 user.Cities = newCitiesList;
-                
+
 
 
                 //Add the user to the database and save the changes
