@@ -143,7 +143,7 @@ namespace Model
         private string _likeList;
         private string _dislikeList;
 
-        [NotMapped]
+        [BackingField(nameof(_favouriteList))]
         public int[] FavouriteList
         {
             set
@@ -151,7 +151,7 @@ namespace Model
                 _favouriteList = String.Join(",", value);
             }
         }
-        [NotMapped]
+        [BackingField(nameof(_likeList))]
         public int[] LikeList
         {
             set
@@ -159,7 +159,7 @@ namespace Model
                 _likeList = String.Join(",", value);
             }
         }
-        [NotMapped]
+        [BackingField(nameof(_dislikeList))]
         public int[] DislikeList
         {
             set
