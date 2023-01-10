@@ -139,51 +139,50 @@ namespace Model
         // HACK: Holy fuck this is broken
         //--- START FUCKERY ---//
         // Using the backing field feature for EntityFramework
-        private string _favouriteList;
-        private string _likeList;
-        private string _dislikeList;
+        public string FavouriteListStr { get; private set; }
+        public string LikeListStr { get; private set; }
+        public string DislikeListStr { get; private set; }
 
-        [BackingField(nameof(_favouriteList))]
         public int[] FavouriteList
         {
             set
             {
-                _favouriteList = String.Join(",", value);
+                FavouriteListStr = String.Join(",", value);
             }
         }
-        [BackingField(nameof(_likeList))]
+
         public int[] LikeList
         {
             set
             {
-                _likeList = String.Join(",", value);
+                LikeListStr = String.Join(",", value);
             }
         }
-        [BackingField(nameof(_dislikeList))]
+
         public int[] DislikeList
         {
             set
             {
-                _dislikeList = String.Join(",", value);
+                DislikeListStr = String.Join(",", value);
             }
         }
 
         [NotMapped]
         public List<Drink> Favourites
         {
-            get => generateList(_favouriteList, new List<Drink>(3));
+            get => generateList(FavouriteListStr, new List<Drink>(3));
         }
 
         [NotMapped]
         public List<Drink> Likes
         {
-            get => generateList(_likeList, new List<Drink>(5));
+            get => generateList(LikeListStr, new List<Drink>(5));
         }
 
         [NotMapped]
         public List<Drink> Dislikes
         {
-            get => generateList(_dislikeList, new List<Drink>(3));
+            get => generateList(DislikeListStr, new List<Drink>(3));
         }
 
         /// <summary>
