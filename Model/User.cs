@@ -148,12 +148,14 @@ namespace Model
             DateOfBirth = dateOfBirth;
             Password = password;
 
+            DatabaseContext db = new DatabaseContext();
+
             _favourites = new List<Drink>(3);
             _likes = new List<Drink>(5);
             _dislikes = new List<Drink>(3);
             ProfileImage = $"https://avatars.dicebear.com/api/identicon/{name}.png?scale=80";
             Cities = new List<City>();
-            Matches = new List<Match>();
+            Matches = db.Matches.Where(m => m.Users.Contains(this)).ToList();
             LikedUsers = new List<User>();
             MaximumpreferredAge = 120;
             MinimumpreferredAge = 18;

@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 public partial class ChatScreen : ContentPage
 {
     private Match _matchChatScreen;
+
     //private System.Timers.Timer _timer;
     private IDispatcherTimer _timer;
 
@@ -17,7 +18,7 @@ public partial class ChatScreen : ContentPage
     {
         InitializeComponent();
         _matchChatScreen = match;
-        _timer = Application.Current.Dispatcher.CreateTimer();
+        _timer = Application.Current!.Dispatcher.CreateTimer();
         _timer.Interval = TimeSpan.FromSeconds(0.5);
         _timer.Tick += _timerElapsed;
         _timer.Start();
@@ -32,6 +33,7 @@ public partial class ChatScreen : ContentPage
             PlaceText(message);
         }
     }
+
     private void _timerElapsed(object sender, EventArgs e)
     {
         RefreshChat();
@@ -46,15 +48,18 @@ public partial class ChatScreen : ContentPage
     private async void SendMessage(object sender, EventArgs e)
     {
         string messageToSend = chatbox.Text?.Trim();
-        Message message = new(messageToSend, Auth.User, DateTime.Now, _matchChatScreen.Users[1]);
+        Message message = new(messageToSend, _matchChatScreen.Users[0], DateTime.Now, _matchChatScreen.Users[1]);
 
         if (message == null)
         {
             throw new ArgumentNullException(nameof(message));
         }
+
         DatabaseContext db = new DatabaseContext();
-        _matchChatScreen.Messages.Add(message);
+        db.Messages.Add(message);
         db.SaveChanges();
+
+        _matchChatScreen.Messages.Add(message);
         PlaceText(message);
 
         chatbox.Text = "";
@@ -102,7 +107,7 @@ public partial class ChatScreen : ContentPage
             }
         };
 
-        if (message.Sender.Equals(Auth.User))
+        if (message.Sender.Equals(_matchChatScreen.Users[0]))
         {
             renderableMessage.BackgroundColor = Color.FromArgb("#008000");
             renderableMessage.HorizontalOptions = LayoutOptions.End;
@@ -115,13 +120,14 @@ public partial class ChatScreen : ContentPage
 
         ChatMessageView.Children.Add(renderableMessage);
     }
+
     private void RefreshChat()
     {
         ChatMessageView.Children.Clear();
         DatabaseContext db = new DatabaseContext();
-        List<Message> messages = db.Matches.First(m => m.Equals(_matchChatScreen)).Messages;
-
-        if(!messages.IsNullOrEmpty())
+        List<Message> messages = _matchChatScreen.Messages;
+        
+        if (messages != null)
         {
             foreach (Message message in messages)
             {
