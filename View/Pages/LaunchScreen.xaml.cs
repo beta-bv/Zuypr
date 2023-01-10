@@ -37,7 +37,7 @@ public partial class LaunchScreen : ContentPage
             else
             {
                 ErrorFrameL.IsVisible = true;
-                ErrorLabelL.Text = "The ";
+                ErrorLabelL.Text = "The email/password combination is wrong";
             }
         }
         catch (Exception E)
