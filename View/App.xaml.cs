@@ -5,6 +5,7 @@ namespace View;
 
 public partial class App : Application
 {
+
     public App()
     {
         InitializeComponent();
@@ -12,4 +13,5 @@ public partial class App : Application
         Model.City.GetValidCities();
         MainPage = new LaunchScreen();
     }
+
 }

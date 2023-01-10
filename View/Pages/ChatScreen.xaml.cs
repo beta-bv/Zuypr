@@ -5,16 +5,26 @@ using Microsoft.Maui.Controls.Shapes;
 using Model;
 using Controller;
 using Message = Model.Message;
+using Windows.ApplicationModel.Chat;
+using Microsoft.IdentityModel.Tokens;
 
 public partial class ChatScreen : ContentPage
 {
     private Match _matchChatScreen;
+    //private System.Timers.Timer _timer;
+    private IDispatcherTimer _timer;
 
     public ChatScreen(Match match)
     {
         InitializeComponent();
         _matchChatScreen = match;
-
+        _timer = Application.Current.Dispatcher.CreateTimer();
+        _timer.Interval = TimeSpan.FromSeconds(0.5);
+        _timer.Tick += _timerElapsed;
+        _timer.Start();
+        //_timer = new System.Timers.Timer(500);
+        //_timer.Elapsed += _timerElapsed;
+        //_timer.Start();
         LabelUserName.Text = match.Users[1].Name; //bij groeps chats gaat dit stuk!
         ChatPfp.Source = match.Users[1].ProfileImage;
 
@@ -22,6 +32,10 @@ public partial class ChatScreen : ContentPage
         {
             PlaceText(message);
         }
+    }
+    private void _timerElapsed(object sender, EventArgs e)
+    {
+        RefreshChat();
     }
 
     /// <summary>
@@ -39,11 +53,9 @@ public partial class ChatScreen : ContentPage
         {
             throw new ArgumentNullException(nameof(message));
         }
-
+        DatabaseContext db = new DatabaseContext();
         _matchChatScreen.Messages.Add(message);
-
-        await Database.DB.SaveChangesAsync();
-
+        db.SaveChanges();
         PlaceText(message);
 
         chatbox.Text = "";
@@ -103,5 +115,19 @@ public partial class ChatScreen : ContentPage
         }
 
         ChatMessageView.Children.Add(renderableMessage);
+    }
+    private void RefreshChat()
+    {
+        ChatMessageView.Children.Clear();
+        DatabaseContext db = new DatabaseContext();
+        List<Message> messages = db.Matches.First(m => m.Users.Contains(_matchChatScreen.Users[0]) && m.Users.Contains(_matchChatScreen.Users[1])).Messages;
+
+        if(!messages.IsNullOrEmpty())
+        {
+            foreach (Message message in messages)
+            {
+                PlaceText(message);
+            }
+        }
     }
 }
