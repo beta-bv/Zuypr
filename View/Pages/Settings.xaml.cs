@@ -198,34 +198,6 @@ public partial class Settings : ContentPage
         }
     }
 
-    //private async void FileOpenBtn_Clicked(object sender, EventArgs e)
-    //{
-    //    try
-    //    {
-    //        {
-    //                FileResult photo = await MediaPicker.Default.PickPhotoAsync();
-
-    //                if (photo != null)  
-    //                {
-    //                // save the file into local storage
-    //                string wanted_path = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
-    //                string localFilePath = Path.Combine(Path.Combine(wanted_path, "Zuypr\\Assets"), photo.FileName);    //path om in op te slaan werkt niet, en moet naar de db gaan pushen
-
-    //                    using Stream sourceStream = await photo.OpenReadAsync();
-    //                    using FileStream localFileStream = File.OpenWrite(localFilePath);
-
-    //                    await sourceStream.CopyToAsync(localFileStream);
-    //                }
-    //            }
-    //        }
-    //    catch(Exception ex)
-    //    {
-    //        ErrorLabelEditPage.Text = ex.Message;
-    //        ErrorFrameEditPage.IsVisible = true;
-
-    //    }
-    //}
-
     private void maxAge_TextChanged(object sender, TextChangedEventArgs e)
     {
         try
