@@ -16,7 +16,6 @@
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
                 HorizontalOptions="Center" />
-
             <VerticalStackLayout
                 Grid.Row="1"
                 Grid.Column="0"
@@ -175,6 +174,11 @@
                             x:Name="maxAge" 
                             TextChanged="maxAge_TextChanged"/>
                     </HorizontalStackLayout>
+                    <Button
+                        x:Name="SaveButtonAge"
+                        Text="Save"
+                        Clicked="SaveButtonAge_Clicked"> 
+                    </Button>
                 </VerticalStackLayout>
                 <SearchBar Placeholder="Add or Remove a preferred city..."
                            TextChanged="SearchBar_TextChanged"/>

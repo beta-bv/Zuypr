@@ -51,7 +51,7 @@ namespace Controller.Platforms
             return dummydb.Users.Remove(userToDelete);
 
         }
-        public static bool UpdateUserInDatabase(int oldUserHash, User newUser)
+        public static bool UpdateUserInDatabase(User user)
         {
 
             User olduser = dummydb.Users.Where(a => a.GetHashCode() == oldUserHash).FirstOrDefault();
