@@ -135,12 +135,10 @@ namespace Model
         public string ProfileImage { get; set; }
         public List<Match> Matches { get; set; }
         public List<User> LikedUsers { get; set; }
-        //public List<Drink> Favourites { get; set; }
-        //public List<Drink> Likes { get; set; }
-        //public List<Drink> Dislikes { get; set; }
 
         // HACK: Holy fuck this is broken
         //--- START FUCKERY ---//
+        // Using the backing field feature for EntityFramework
         private string _favouriteList;
         private string _likeList;
         private string _dislikeList;
@@ -188,19 +186,66 @@ namespace Model
             get => generateList(_dislikeList, new List<Drink>(3));
         }
 
+        /// <summary>
+        /// Transforms a string of comma-sepparated ints to a List of Drinks
+        /// </summary>
+        /// <param name="indexStr">The string of comma-sepparated indexes</param>
+        /// <param name="drinks">The drink list with capacity</param>
+        /// <returns></returns>
         private List<Drink> generateList(string indexStr, List<Drink> drinks)
         {
             if (indexStr != null)
             {
                 foreach (int i in indexStr.Split(",").Select(i => Int32.Parse(i)).ToArray())
                 {
-                    if (!CheckIfListIsFull(drinks))
-                    {
-                        drinks.Add(dummydb.Drinks.ElementAt(i));
-                    }
+                    drinks.Add(dummydb.Drinks.ElementAt(i));
                 }
             }
             return drinks;
+        }
+
+        /// <summary>
+        /// Generates a string with comma-sepparated Drink indexes
+        /// </summary>
+        /// <param name="indexStr">The string of comma-sepparated indexes</param>
+        /// <param name="drinks">The drink list with capacity</param>
+        /// <returns></returns>
+        private int[] GenerateIndexStr(ListTypes type, List<Drink> drinks)
+        {
+            List<int> indexList = new List<int>();
+            foreach (Drink drink in drinks)
+            {
+                int index = dummydb.Drinks.IndexOf(drink);
+                indexList.Add(index);
+            }
+            return indexList.ToArray();
+        }
+
+        /// <summary>
+        /// Updates the drinkListString to the new generated string
+        /// </summary>
+        /// <param name="indexStr">The string of comma-sepparated indexes</param>
+        /// <param name="drinks">The drink list with capacity</param>
+        /// <returns></returns>
+        private bool updateIndexStr(ListTypes type, List<Drink> drinks)
+        {
+            try
+            {
+                switch (type)
+                {
+                    case ListTypes.Favourites:
+                        FavouriteList = GenerateIndexStr(type, drinks);
+                        break;
+                    case ListTypes.Likes:
+                        LikeList = GenerateIndexStr(type, drinks);
+                        break;
+                    case ListTypes.Dislikes:
+                        DislikeList = GenerateIndexStr(type, drinks);
+                        break;
+                }
+                return true;
+            }
+            catch (Exception) { return false; }
         }
         //--- END FUCKERY ---//
 
@@ -214,11 +259,6 @@ namespace Model
             Email = email;
             DateOfBirth = dateOfBirth;
             Password = password;
-
-            //DrinkList = new JObject();
-            //Favourites = new List<Drink>(3);
-            //Likes = new List<Drink>(5);
-            //Dislikes = new List<Drink>(3);
             ProfileImage = $"https://avatars.dicebear.com/api/identicon/{name}.png?scale=80";
             Cities = new List<City>();
             Matches = new List<Match>();
@@ -251,53 +291,65 @@ namespace Model
         }
 
         /// <summary>
-        /// Adds a drink to a given list Favourites, Likes or dislikes. 
+        /// Checks if the specified DrinkList can take another drink
         /// </summary>
         /// <param name="drink"></param>
         /// <param name="drinkList"></param>
-        /// <returns></returns>
-        public bool AddToDrinkList(Drink drink, List<Drink> drinkList)
+        /// <returns>bool</returns>
+        public bool ListCanTakeDrink(Drink drink, List<Drink> drinkList)
         {
-            if (CheckIfInList(drink, drinkList) || CheckIfListIsFull(drinkList))
-            {
-                return false;
-            }
-            else
-            {
-                RemoveFromDrinkList(drink);
-                drinkList.Add(drink);
-                return true;
-            }
+            return !CheckIfInList(drink, drinkList) && !CheckIfListIsFull(drinkList);
         }
 
         /// <summary>
-        /// Add a drink to the list _favourites.
+        /// Add a drink to the list Favourites.
         /// </summary>
         /// <param name="drink"></param>
         /// <returns></returns>
         public bool AddToFavourites(Drink drink)
         {
-            return AddToDrinkList(drink, Favourites);
+            List<Drink> drinks = Favourites;
+            if (ListCanTakeDrink(drink, drinks))
+            {
+                RemoveFromDrinkList(drink);
+                drinks.Add(drink);
+                updateIndexStr(ListTypes.Favourites, drinks);
+            }
+            return false;
         }
 
         /// <summary>
-        /// Add a drink to the list _likes.
+        /// Add a drink to the list Likes.
         /// </summary>
         /// <param name="drink"></param>
         /// <returns></returns>
         public bool AddToLikes(Drink drink)
         {
-            return AddToDrinkList(drink, Likes);
+            List<Drink> drinks = Likes;
+            if (ListCanTakeDrink(drink, drinks))
+            {
+                RemoveFromDrinkList(drink);
+                drinks.Add(drink);
+                updateIndexStr(ListTypes.Likes, drinks);
+            }
+            return false;
         }
 
         /// <summary>
-        /// Add a drink to the list _dislikes.
+        /// Add a drink to the list Dislikes.
         /// </summary>
         /// <param name="drink"></param>
         /// <returns></returns>
         public bool AddToDislikes(Drink drink)
         {
-            return AddToDrinkList(drink, Dislikes);
+            List<Drink> drinks = Dislikes;
+            if (ListCanTakeDrink(drink, drinks))
+            {
+                RemoveFromDrinkList(drink);
+                drinks.Add(drink);
+                updateIndexStr(ListTypes.Likes, drinks);
+            }
+            return false;
         }
 
         /// <summary>
@@ -309,17 +361,23 @@ namespace Model
         {
             if (Favourites.Contains(drink))
             {
-                Favourites.Remove(drink);
+                List<Drink> drinks = Favourites;
+                drinks.Remove(drink);
+                updateIndexStr(ListTypes.Favourites, drinks);
                 return true;
             }
             else if (Likes.Contains(drink))
             {
-                Likes.Remove(drink);
+                List<Drink> drinks = Likes;
+                drinks.Remove(drink);
+                updateIndexStr(ListTypes.Likes, drinks);
                 return true;
             }
             else if (Dislikes.Contains(drink))
             {
-                Dislikes.Remove(drink);
+                List<Drink> drinks = Dislikes;
+                drinks.Remove(drink);
+                updateIndexStr(ListTypes.Dislikes, drinks);
                 return true;
             }
             else
@@ -404,6 +462,13 @@ namespace Model
             dummy.Cities = new List<City>() { new("Dalfsen"), new("Hoonhorst") };
             return dummy;
         }
+    }
+
+    public enum ListTypes
+    {
+        Favourites,
+        Likes,
+        Dislikes
     }
 
 }
