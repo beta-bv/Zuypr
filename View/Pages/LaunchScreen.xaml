@@ -32,14 +32,14 @@
                         x:Name="EmailFieldL"
                         Placeholder="Email Address"
                         WidthRequest="250"
-                        MaxLength="200" />
+                        MaxLength="200"/>
 
                         <Entry
                         x:Name="PasswordFieldL"
                         Placeholder="Password"
                         WidthRequest="250"
                         MaxLength="200"
-                        IsPassword="True" />
+                        IsPassword="True"/>
 
                     </VerticalStackLayout>
                 </HorizontalStackLayout>

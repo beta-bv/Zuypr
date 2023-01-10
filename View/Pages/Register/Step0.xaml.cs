@@ -1,4 +1,4 @@
-﻿using Controller.Platforms;
+﻿using Controller;
 using Microsoft.Data.SqlClient;
 using Model;
 using System.Linq.Expressions;

@@ -30,4 +30,17 @@ public class DatabaseContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
         optionsBuilder.UseSqlServer(_builder.ConnectionString);
+
+    //protected override void OnModelCreating(ModelBuilder modelBuilder)
+    //{
+    //    modelBuilder.Entity<User>()
+    //        .Property<string>("FavouriteListStr")
+    //        .HasField("_favouriteList");
+    //    modelBuilder.Entity<User>()
+    //        .Property<string>("LikeListStr")
+    //        .HasField("_likeList");
+    //    modelBuilder.Entity<User>()
+    //        .Property<string>("DislikeListStr")
+    //        .HasField("_dislikeList");
+    //}
 }

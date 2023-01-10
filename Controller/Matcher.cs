@@ -47,13 +47,13 @@ namespace Controller
             DatabaseContext db = new DatabaseContext();
             UserList = db.Users.Where(u => u.Name != User.Name).ToList();
 
-            MyFavouriteDrinks = User.GetFavourites().Select(d => d.Name).ToArray();
-            MyLikedDrinks = User.GetLikes().Select(d => d.Name).ToArray();
-            MyDislikedDrinks = User.GetDislikes().Select(d => d.Name).ToArray();
+            MyFavouriteDrinks = User.Favourites.Select(d => d.Name).ToArray();
+            MyLikedDrinks = User.Likes.Select(d => d.Name).ToArray();
+            MyDislikedDrinks = User.Dislikes.Select(d => d.Name).ToArray();
 
-            MyFavouriteTypes = User.GetFavourites().Select(d => d.Type).ToArray();
-            MyLikedTypes = User.GetLikes().Select(d => d.Type).ToArray();
-            MyDislikedTypes = User.GetDislikes().Select(d => d.Type).ToArray();
+            MyFavouriteTypes = User.Favourites.Select(d => d.Type).ToArray();
+            MyLikedTypes = User.Likes.Select(d => d.Type).ToArray();
+            MyDislikedTypes = User.Dislikes.Select(d => d.Type).ToArray();
 
             if (passingScore > 1)
             {
@@ -100,13 +100,13 @@ namespace Controller
             }
             catch (Exception ex) { }
 
-            MyFavouriteDrinks = User.GetFavourites().Select(d => d.Name).ToArray();
-            MyLikedDrinks = User.GetLikes().Select(d => d.Name).ToArray();
-            MyDislikedDrinks = User.GetDislikes().Select(d => d.Name).ToArray();
+            MyFavouriteDrinks = User.Favourites.Select(d => d.Name).ToArray();
+            MyLikedDrinks = User.Likes.Select(d => d.Name).ToArray();
+            MyDislikedDrinks = User.Dislikes.Select(d => d.Name).ToArray();
 
-            MyFavouriteTypes = User.GetFavourites().Select(d => d.Type).ToArray();
-            MyLikedTypes = User.GetLikes().Select(d => d.Type).ToArray();
-            MyDislikedTypes = User.GetDislikes().Select(d => d.Type).ToArray();
+            MyFavouriteTypes = User.Favourites.Select(d => d.Type).ToArray();
+            MyLikedTypes = User.Likes.Select(d => d.Type).ToArray();
+            MyDislikedTypes = User.Dislikes.Select(d => d.Type).ToArray();
 
 
             if (passingScore > 1)
@@ -149,9 +149,9 @@ namespace Controller
         /// <returns>Returns the earned points</returns>
         private double GetExactMatchScore(User potentialMatch)
         {
-            string[] theirFavouriteDrinks = potentialMatch.GetFavourites().Select(d => d.Name).ToArray();
-            string[] theirLikedDrinks = potentialMatch.GetLikes().Select(d => d.Name).ToArray();
-            string[] theirDislikedDrinks = potentialMatch.GetDislikes().Select(d => d.Name).ToArray();
+            string[] theirFavouriteDrinks = potentialMatch.Favourites.Select(d => d.Name).ToArray();
+            string[] theirLikedDrinks = potentialMatch.Likes.Select(d => d.Name).ToArray();
+            string[] theirDislikedDrinks = potentialMatch.Dislikes.Select(d => d.Name).ToArray();
             double score = 0;
 
             // Grabbing the lowest array count to make matching more fair
@@ -190,9 +190,9 @@ namespace Controller
         /// <returns>Returns the earned points</returns>
         private double GetTypeMatchScore(User potentialMatch)
         {
-            DrinkType[] theirFavouriteTypes = potentialMatch.GetFavourites().Select(d => d.Type).ToArray();
-            DrinkType[] theirLikedTypes = potentialMatch.GetLikes().Select(d => d.Type).ToArray();
-            DrinkType[] theirDislikedTypes = potentialMatch.GetDislikes().Select(d => d.Type).ToArray();
+            DrinkType[] theirFavouriteTypes = potentialMatch.Favourites.Select(d => d.Type).ToArray();
+            DrinkType[] theirLikedTypes = potentialMatch.Likes.Select(d => d.Type).ToArray();
+            DrinkType[] theirDislikedTypes = potentialMatch.Dislikes.Select(d => d.Type).ToArray();
             double score = 0;
 
             // Grabbing the lowest array count to make matching more fair

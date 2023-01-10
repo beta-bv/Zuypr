@@ -122,16 +122,7 @@ namespace Controller
         /// <returns></returns>
         public static List<Drink> GetAllDrinksFromDatabase()
         {
-            try
-            {
-                DatabaseContext db = new DatabaseContext();
-                return db.Drinks.ToList();
-            }
-            catch (Exception ex)
-            {
-                new Exception(ex.Message);                 // gooit een exception als er iets mis gaat met de database
-                return null;
-            }
+            return dummydb.Drinks;
         }
 
         /// <summary>

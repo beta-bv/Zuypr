@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Model;
 
-namespace Controller.Platforms
+namespace Controller
 {
     public static class UserDatabaseOperations
     {
@@ -26,12 +26,24 @@ namespace Controller.Platforms
                     .First(u => u.Email.Equals(user.Email));   //query haalt de user op aan de hand van zijn/haar email
                 db.SaveChanges();
 
-                List<Match> matches = new List<Match>();
+                List<int> matchids = new List<int>();
                 foreach (Match match in userFromDatabse.Matches)
                 {
-                    List<Match> matchfromuser = db.Matches.Where(a => a.Id == match.Id).ToList();
-                    matches.Add(new Match(new List<User> { matchfromuser[0].Users.First(), matchfromuser[1].Users.First() }));
+                    matchids.Add(match.Id);
                 }
+
+                List<Match> matches = new List<Match>();
+
+                var matchesInts = db.Database.SqlQuery<int>($"SELECT UsersId FROM dbo.MatchUser WHERE MatchesId IN ({String.Join(",", matchids)})").ToList();
+
+                foreach (int i in matchesInts)
+                {
+                    if (i != userFromDatabse.Id)
+                    {
+                        matches.Add(new Match(new List<User> { userFromDatabse, db.Users.Where(a => a.Id == i).ToList().First() }));
+                    }
+                }
+
                 userFromDatabse.Matches = matches;
 
                 return userFromDatabse;                            // returned de user
@@ -95,7 +107,7 @@ namespace Controller.Platforms
                     }
                 }
                 user.Cities = newCitiesList;
-                
+
 
 
                 //Add the user to the database and save the changes
@@ -139,6 +151,7 @@ namespace Controller.Platforms
             }
             return false;
         }
+
         public static bool RemoveUserFromDatabase(User userToDelete)
         {
             DatabaseContext db = new DatabaseContext();
@@ -150,6 +163,7 @@ namespace Controller.Platforms
             }
             return false;
         }
+
         public static bool UpdateUserInDatabase(User user)
         {
             DatabaseContext db = new DatabaseContext();

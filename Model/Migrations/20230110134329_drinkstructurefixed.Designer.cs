@@ -12,8 +12,8 @@ using Model;
 namespace Model.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230109130858_cityid")]
-    partial class cityid
+    [Migration("20230110134329_drinkstructurefixed")]
+    partial class drinkstructurefixed
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

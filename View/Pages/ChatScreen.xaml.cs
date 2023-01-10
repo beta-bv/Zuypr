@@ -5,16 +5,26 @@ using Microsoft.Maui.Controls.Shapes;
 using Model;
 using Controller;
 using Message = Model.Message;
+using Microsoft.IdentityModel.Tokens;
 
 public partial class ChatScreen : ContentPage
 {
     private Match _matchChatScreen;
 
+    //private System.Timers.Timer _timer;
+    private IDispatcherTimer _timer;
+
     public ChatScreen(Match match)
     {
         InitializeComponent();
         _matchChatScreen = match;
-
+        _timer = Application.Current!.Dispatcher.CreateTimer();
+        _timer.Interval = TimeSpan.FromSeconds(0.5);
+        _timer.Tick += _timerElapsed;
+        _timer.Start();
+        //_timer = new System.Timers.Timer(500);
+        //_timer.Elapsed += _timerElapsed;
+        //_timer.Start();
         LabelUserName.Text = match.Users[1].Name; //bij groeps chats gaat dit stuk!
         ChatPfp.Source = match.Users[1].ProfileImage;
 
@@ -22,6 +32,11 @@ public partial class ChatScreen : ContentPage
         {
             PlaceText(message);
         }
+    }
+
+    private void _timerElapsed(object sender, EventArgs e)
+    {
+        RefreshChat();
     }
 
     /// <summary>
@@ -33,17 +48,18 @@ public partial class ChatScreen : ContentPage
     private async void SendMessage(object sender, EventArgs e)
     {
         string messageToSend = chatbox.Text?.Trim();
-        Message message = new(messageToSend, Auth.User, DateTime.Now, _matchChatScreen.Users[1]);
+        Message message = new(messageToSend, _matchChatScreen.Users[0], DateTime.Now, _matchChatScreen.Users[1]);
 
         if (message == null)
         {
             throw new ArgumentNullException(nameof(message));
         }
 
+        DatabaseContext db = new DatabaseContext();
+        db.Messages.Add(message);
+        db.SaveChanges();
+
         _matchChatScreen.Messages.Add(message);
-
-        await Database.DB.SaveChangesAsync();
-
         PlaceText(message);
 
         chatbox.Text = "";
@@ -91,7 +107,7 @@ public partial class ChatScreen : ContentPage
             }
         };
 
-        if (message.Sender.Equals(Auth.User))
+        if (message.Sender.Equals(_matchChatScreen.Users[0]))
         {
             renderableMessage.BackgroundColor = Color.FromArgb("#008000");
             renderableMessage.HorizontalOptions = LayoutOptions.End;
@@ -103,5 +119,20 @@ public partial class ChatScreen : ContentPage
         }
 
         ChatMessageView.Children.Add(renderableMessage);
+    }
+
+    private void RefreshChat()
+    {
+        ChatMessageView.Children.Clear();
+        DatabaseContext db = new DatabaseContext();
+        List<Message> messages = _matchChatScreen.Messages;
+        
+        if (messages != null)
+        {
+            foreach (Message message in messages)
+            {
+                PlaceText(message);
+            }
+        }
     }
 }

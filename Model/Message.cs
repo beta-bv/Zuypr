@@ -7,11 +7,11 @@ namespace Model
     [PrimaryKey("Id")]
     public class Message
     {
-        public int Id { get; }
-        public string Text { get; }
-        public User Sender { get; }
-        public DateTime TimeSent { get; }
-        public User Match { get; }
+        public int Id { get; set;}
+        public string Text { get; set; }
+        public User Sender { get; set; }
+        public DateTime TimeSent { get; set; }
+        public User Match { get; set; }
 
         // Exists for EF
         public Message()

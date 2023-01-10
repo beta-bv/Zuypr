@@ -26,13 +26,13 @@ public partial class Matching : ContentPage
         InitializeComponent();
 
         if (UsersQue.Count() == 0)
-        { 
+        {
             NoMatchesPopUp();
         }
         else
         {
             PotentionalMatch = UsersQue.Dequeue();
-            Drinks = PotentionalMatch.GetFavourites();
+            Drinks = PotentionalMatch.Favourites;
         }
 
         BindingContext = this;
@@ -46,7 +46,7 @@ public partial class Matching : ContentPage
         if (UsersQue.Count() > 0)
         {
             PotentionalMatch = UsersQue.Dequeue();
-            Drinks = PotentionalMatch.GetFavourites();
+            Drinks = PotentionalMatch.Favourites;
 
             //Changes the labels on the screen to the current user
             MatchName.Text = PotentionalMatch.Name;
@@ -80,7 +80,8 @@ public partial class Matching : ContentPage
             //matched pop up
             MatchedPopUp();
         }
-        else {
+        else
+        {
             //Add other user to auth user liked list
             User.LikedUsers.Add(PotentionalMatch);
 
@@ -134,7 +135,7 @@ public partial class Matching : ContentPage
         StackLayout stackLayout = new StackLayout
         {
             BackgroundColor = Colors.Black,
-            VerticalOptions =  LayoutOptions.Center
+            VerticalOptions = LayoutOptions.Center
         };
 
         StackLayout stackLayoutTwo = new StackLayout
@@ -171,7 +172,7 @@ public partial class Matching : ContentPage
             Margin = new Thickness(0, 10, 0, 20)
         };
 
-        HorizontalStackLayout horizontalStackLayout = new HorizontalStackLayout{};
+        HorizontalStackLayout horizontalStackLayout = new HorizontalStackLayout { };
 
         Button buttonBack = new Button
         {

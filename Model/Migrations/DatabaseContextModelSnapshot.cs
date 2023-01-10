@@ -181,7 +181,16 @@ namespace Model.Migrations
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("DislikeListStr")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FavouriteListStr")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LikeListStr")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("MaximumpreferredAge")

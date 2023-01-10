@@ -19,9 +19,9 @@ namespace View.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string drinkName = (string)value;
-            string[] favorite = user.GetFavourites().Select(x => x.Name).ToArray();
-            string[] liked = user.GetLikes().Select(x => x.Name).ToArray();
-            string[] disliked = user.GetDislikes().Select(x => x.Name).ToArray();
+            string[] favorite = user.Favourites.Select(x => x.Name).ToArray();
+            string[] liked = user.Likes.Select(x => x.Name).ToArray();
+            string[] disliked = user.Dislikes.Select(x => x.Name).ToArray();
 
             if (!drinkName.Equals("False"))
             {
