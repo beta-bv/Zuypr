@@ -5,7 +5,6 @@ using Microsoft.Maui.Controls.Shapes;
 using Model;
 using Controller;
 using Message = Model.Message;
-using Windows.ApplicationModel.Chat;
 using Microsoft.IdentityModel.Tokens;
 
 public partial class ChatScreen : ContentPage
@@ -120,7 +119,7 @@ public partial class ChatScreen : ContentPage
     {
         ChatMessageView.Children.Clear();
         DatabaseContext db = new DatabaseContext();
-        List<Message> messages = db.Matches.First(m => m.Users.Contains(_matchChatScreen.Users[0]) && m.Users.Contains(_matchChatScreen.Users[1])).Messages;
+        List<Message> messages = db.Matches.First(m => m.Equals(_matchChatScreen)).Messages;
 
         if(!messages.IsNullOrEmpty())
         {
