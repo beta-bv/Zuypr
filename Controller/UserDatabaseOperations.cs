@@ -26,12 +26,24 @@ namespace Controller.Platforms
                     .First(u => u.Email.Equals(user.Email));   //query haalt de user op aan de hand van zijn/haar email
                 db.SaveChanges();
 
-                List<Match> matches = new List<Match>();
-                foreach (Match match in userFromDatabse.Matches)
+                List<int> matchids = new List<int>();
+                foreach(Match match in userFromDatabse.Matches)
                 {
-                    List<Match> matchfromuser = db.Matches.Where(a => a.Id == match.Id).ToList();
-                    matches.Add(new Match(new List<User> { matchfromuser[0].Users.First(), matchfromuser[1].Users.First() }));
+                    matchids.Add(match.Id);
                 }
+
+                List<Match> matches = new List<Match>();
+                
+                var matchesInts = db.Database.SqlQuery<int>($"SELECT UsersId FROM dbo.MatchUser WHERE MatchesId IN ({String.Join(",", matchids)})").ToList();
+                
+                foreach(int i in matchesInts)
+                {
+                    if(i != userFromDatabse.Id)
+                    {
+                        matches.Add(new Match(new List<User> { userFromDatabse, db.Users.Where(a => a.Id == i).ToList().First() }));
+                    }
+                }
+
                 userFromDatabse.Matches = matches;
 
                 return userFromDatabse;                            // returned de user
