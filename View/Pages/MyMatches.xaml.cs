@@ -69,7 +69,7 @@ public partial class MyMatches : ContentPage
     {
         ImageButton temp = (ImageButton)sender;
         CurrentUser = (User) temp.BindingContext;
-        MatchedPopUp();
+        DeletePopUp();
     }
 
     public void NoMatchesPopUp() {
@@ -82,7 +82,7 @@ public partial class MyMatches : ContentPage
         };
         Content = labelNoMatches;
     }
-    public void MatchedPopUp()
+    public void DeletePopUp()
     {
         StackLayout stackLayout = new StackLayout
         {

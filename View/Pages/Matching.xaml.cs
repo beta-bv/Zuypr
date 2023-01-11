@@ -11,7 +11,7 @@ public partial class Matching : ContentPage
     public static User User = Auth.User;
     public static List<User> PotentionalMatches { get; set; }
     public static Queue<User> UsersQue = new Queue<User>(PotentionalMatches);
-    public List<User> HasUserInLikedList => User.LikedUsers.Where(a => a.Name.Equals(PotentionalMatch.Name)).ToList();
+    public List<User> HasUserInLikedList => new List<User>();
     public List<Drink> Drinks { get; set; }
 
     public User PotentionalMatch { get; set; }
@@ -21,7 +21,7 @@ public partial class Matching : ContentPage
     {
         Matcher matcher = new Matcher();
         matcher.GeneratePotentialMatches();
-        PotentionalMatches = Filter.FilteredPotentionalMatches; 
+        PotentionalMatches = Filter.FilteredPotentionalMatches;
 
         InitializeComponent();
 
@@ -78,7 +78,7 @@ public partial class Matching : ContentPage
             PotentionalMatch.Matches.Add(CurrentMatch);
 
             //matched pop up
-            MatchedPopUp();
+            DeletePopUp();
         }
         else
         {
@@ -130,7 +130,7 @@ public partial class Matching : ContentPage
     /// <summary>
     /// Creates popUp when both users liked each other
     /// </summary>
-    public void MatchedPopUp()
+    public void DeletePopUp()
     {
         StackLayout stackLayout = new StackLayout
         {

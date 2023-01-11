@@ -27,51 +27,6 @@ namespace Controller
         public double SemiNegativeMatchScore { get; private set; }
 
         /// <summary>
-        /// Constructor using mostly default values
-        /// </summary>
-        /// <param name="user"></param>
-        /// <param name="passingScore">Score needed for a user to be added to the MatchList</param>
-        /// <param name="exactMatchInfluence">How much impact exact matches have on the final score, type matches are based on this value</param>
-        public Matcher(double passingScore = 0.15, double exactMatchInfluence = 0.6)
-        {
-            try
-            {
-                User = Auth.User;
-            }
-            catch
-            {
-                throw new Exception("No user!");
-            }
-            // Excluding the logged-in user from all users
-            // HACK: Should stil be fixed for official DB
-            DatabaseContext db = new DatabaseContext();
-            UserList = db.Users.Where(u => u.Name != User.Name).ToList();
-
-            MyFavouriteDrinks = User.Favourites.Select(d => d.Name).ToArray();
-            MyLikedDrinks = User.Likes.Select(d => d.Name).ToArray();
-            MyDislikedDrinks = User.Dislikes.Select(d => d.Name).ToArray();
-
-            MyFavouriteTypes = User.Favourites.Select(d => d.Type).ToArray();
-            MyLikedTypes = User.Likes.Select(d => d.Type).ToArray();
-            MyDislikedTypes = User.Dislikes.Select(d => d.Type).ToArray();
-
-            if (passingScore > 1)
-            {
-                throw new Exception("Passing score should be below 1!");
-            }
-            PassingScore = passingScore;
-
-            ExactMatchInfluence = exactMatchInfluence;
-            TypeMatchInfluence = 1.0 - exactMatchInfluence;
-
-            // Some default values
-            PositiveMatchScore = 4.0;
-            NegativeMatchScore = -2.0;
-            SemiPositiveMatchScore = 1.5;
-            SemiNegativeMatchScore = -1.0;
-        }
-
-        /// <summary>
         /// Constructor using all custom values
         /// </summary>
         /// <param name="passingScore">Score needed for a user to be added to the MatchList. Between 0.0 and 1.0</param>
@@ -81,7 +36,14 @@ namespace Controller
         /// <param name="semiPositiveMatchScore">How many points a semi positive match receives</param>
         /// <param name="semiNegativeMatchScore">How many points a semi negative match receives</param>
         /// <exception cref="Exception"></exception>
-        public Matcher(double passingScore, double exactMatchInfluence, double positiveMatchScore, double negativeMatchScore, double semiPositiveMatchScore, double semiNegativeMatchScore)
+        public Matcher(
+            double passingScore = 0.15,
+            double exactMatchInfluence = 0.6,
+            double positiveMatchScore = 4.0,
+            double negativeMatchScore = -2.0,
+            double semiPositiveMatchScore = 1.5,
+            double semiNegativeMatchScore = -1.0
+        )
         {
             try
             {
@@ -92,13 +54,12 @@ namespace Controller
                 throw new Exception("No user!");
             }
             // Excluding the logged-in user from all users
-            // HACK: Should stil be fixed for official DB
             try
             {
                 DatabaseContext db = new DatabaseContext();
                 UserList = db.Users.Where(u => u.Name != User.Name).ToList();
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { } // Any exeption is ignored!
 
             MyFavouriteDrinks = User.Favourites.Select(d => d.Name).ToArray();
             MyLikedDrinks = User.Likes.Select(d => d.Name).ToArray();
@@ -124,6 +85,10 @@ namespace Controller
             SemiNegativeMatchScore = semiNegativeMatchScore;
         }
 
+        /// <summary>
+        /// Fills the MatchList with users that receiva a passing score after checking all drink Matches
+        /// </summary>
+        /// <returns>A list of potential matches</returns>
         public List<User> GeneratePotentialMatches()
         {
             foreach (User user in UserList)
