@@ -315,6 +315,7 @@ namespace Model
                 RemoveFromDrinkList(drink);
                 drinks.Add(drink);
                 updateIndexStr(ListTypes.Favourites, drinks);
+                return true;
             }
             return false;
         }
@@ -332,6 +333,7 @@ namespace Model
                 RemoveFromDrinkList(drink);
                 drinks.Add(drink);
                 updateIndexStr(ListTypes.Likes, drinks);
+                return true;
             }
             return false;
         }
@@ -349,6 +351,7 @@ namespace Model
                 RemoveFromDrinkList(drink);
                 drinks.Add(drink);
                 updateIndexStr(ListTypes.Dislikes, drinks);
+                return true;
             }
             return false;
         }
