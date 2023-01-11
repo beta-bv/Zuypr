@@ -7,8 +7,8 @@ using Model;
 
 namespace Tests
 {
-	public class User_RemoveFromDrinkListShould
-	{
+    public class User_RemoveFromDrinkListShould
+    {
 
         [Theory]
 
@@ -18,7 +18,7 @@ namespace Tests
         public void RemoveFromDrinkListFavourites(bool expected, int amount)
         {
             User jaap = User.GetDummyUser();
-            Drink drink = Drink.GetDummyDrink();
+            Drink drink = Drink.GetDummyDrink(0);
 
             if (amount == 1)
             {
@@ -36,7 +36,7 @@ namespace Tests
         public void RemoveFromDrinkListLikes(bool expected, int amount)
         {
             User jaap = User.GetDummyUser();
-            Drink drink = Drink.GetDummyDrink();
+            Drink drink = Drink.GetDummyDrink(1);
 
             if (amount == 1)
             {
@@ -54,7 +54,7 @@ namespace Tests
         public void RemoveFromDrinkListDislikes(bool expected, int amount)
         {
             User jaap = User.GetDummyUser();
-            Drink drink = Drink.GetDummyDrink();
+            Drink drink = Drink.GetDummyDrink(2);
 
             if (amount == 1)
             {
