@@ -12,7 +12,7 @@ using Model;
 namespace Model.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230109093909_Initial")]
+    [Migration("20230110145532_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace Model.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.1")
+                .HasAnnotation("ProductVersion", "7.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -63,13 +63,19 @@ namespace Model.Migrations
 
             modelBuilder.Entity("Model.City", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("Name");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
@@ -114,8 +120,8 @@ namespace Model.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CityName")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("CityId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Number")
                         .HasColumnType("int");
@@ -131,7 +137,7 @@ namespace Model.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CityName");
+                    b.HasIndex("CityId");
 
                     b.ToTable("locations");
                 });
@@ -160,9 +166,25 @@ namespace Model.Migrations
                     b.Property<int?>("MatchId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("MatchId1")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SenderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TimeSent")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("MatchId");
+
+                    b.HasIndex("MatchId1");
+
+                    b.HasIndex("SenderId");
 
                     b.ToTable("messages");
                 });
@@ -248,7 +270,7 @@ namespace Model.Migrations
                 {
                     b.HasOne("Model.City", "City")
                         .WithMany()
-                        .HasForeignKey("CityName");
+                        .HasForeignKey("CityId");
 
                     b.Navigation("City");
                 });
@@ -258,6 +280,18 @@ namespace Model.Migrations
                     b.HasOne("Model.Match", null)
                         .WithMany("Messages")
                         .HasForeignKey("MatchId");
+
+                    b.HasOne("Model.User", "Match")
+                        .WithMany()
+                        .HasForeignKey("MatchId1");
+
+                    b.HasOne("Model.User", "Sender")
+                        .WithMany()
+                        .HasForeignKey("SenderId");
+
+                    b.Navigation("Match");
+
+                    b.Navigation("Sender");
                 });
 
             modelBuilder.Entity("Model.User", b =>

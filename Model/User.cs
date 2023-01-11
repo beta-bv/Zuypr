@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Maui.Controls.Shapes;
 using Microsoft.Maui.Layouts;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
@@ -127,15 +129,124 @@ namespace Model
                 _dateOfBirth = value;
             }
         }
-        public int Id {get;set;}
+        public int Id { get; set; }
 
         public List<City> Cities { get; set; }
         public string ProfileImage { get; set; }
         public List<Match> Matches { get; set; }
         public List<User> LikedUsers { get; set; }
-        private List<Drink> _favourites { get; set; }
-        private List<Drink> _likes { get; set; }
-        private List<Drink> _dislikes { get; set; }
+
+        // HACK: Holy fuck this is broken
+        //--- START FUCKERY ---//
+        // Using the backing field feature for EntityFramework
+        public string FavouriteListStr { get; private set; }
+        public string LikeListStr { get; private set; }
+        public string DislikeListStr { get; private set; }
+
+        public int[] FavouriteList
+        {
+            set
+            {
+                FavouriteListStr = String.Join(",", value);
+            }
+        }
+
+        public int[] LikeList
+        {
+            set
+            {
+                LikeListStr = String.Join(",", value);
+            }
+        }
+
+        public int[] DislikeList
+        {
+            set
+            {
+                DislikeListStr = String.Join(",", value);
+            }
+        }
+
+        [NotMapped]
+        public List<Drink> Favourites
+        {
+            get => generateList(FavouriteListStr, new List<Drink>(3));
+        }
+
+        [NotMapped]
+        public List<Drink> Likes
+        {
+            get => generateList(LikeListStr, new List<Drink>(5));
+        }
+
+        [NotMapped]
+        public List<Drink> Dislikes
+        {
+            get => generateList(DislikeListStr, new List<Drink>(3));
+        }
+
+        /// <summary>
+        /// Transforms a string of comma-sepparated ints to a List of Drinks
+        /// </summary>
+        /// <param name="indexStr">The string of comma-sepparated indexes</param>
+        /// <param name="drinks">The drink list with capacity</param>
+        /// <returns></returns>
+        private List<Drink> generateList(string indexStr, List<Drink> drinks)
+        {
+            if (indexStr != null)
+            {
+                foreach (int i in indexStr.Split(",").Select(i => Int32.Parse(i)).ToArray())
+                {
+                    drinks.Add(dummydb.Drinks.ElementAt(i));
+                }
+            }
+            return drinks;
+        }
+
+        /// <summary>
+        /// Generates a string with comma-sepparated Drink indexes
+        /// </summary>
+        /// <param name="indexStr">The string of comma-sepparated indexes</param>
+        /// <param name="drinks">The drink list with capacity</param>
+        /// <returns></returns>
+        private int[] GenerateIndexStr(ListTypes type, List<Drink> drinks)
+        {
+            List<int> indexList = new List<int>();
+            foreach (Drink drink in drinks)
+            {
+                int index = dummydb.Drinks.IndexOf(drink);
+                indexList.Add(index);
+            }
+            return indexList.ToArray();
+        }
+
+        /// <summary>
+        /// Updates the drinkListString to the new generated string
+        /// </summary>
+        /// <param name="indexStr">The string of comma-sepparated indexes</param>
+        /// <param name="drinks">The drink list with capacity</param>
+        /// <returns></returns>
+        private bool updateIndexStr(ListTypes type, List<Drink> drinks)
+        {
+            try
+            {
+                switch (type)
+                {
+                    case ListTypes.Favourites:
+                        FavouriteList = GenerateIndexStr(type, drinks);
+                        break;
+                    case ListTypes.Likes:
+                        LikeList = GenerateIndexStr(type, drinks);
+                        break;
+                    case ListTypes.Dislikes:
+                        DislikeList = GenerateIndexStr(type, drinks);
+                        break;
+                }
+                return true;
+            }
+            catch (Exception) { return false; }
+        }
+        //--- END FUCKERY ---//
 
         public int Age => (DateTime.Now.Month < DateOfBirth.Month || (DateTime.Now.Month == DateOfBirth.Month && DateTime.Now.Day < DateOfBirth.Day)) ? (DateTime.Now.Year - DateOfBirth.Year) - 1 : DateTime.Now.Year - DateOfBirth.Year;
 
@@ -148,30 +259,13 @@ namespace Model
             DateOfBirth = dateOfBirth;
             Password = password;
 
-            _favourites = new List<Drink>(3);
-            _likes = new List<Drink>(5);
-            _dislikes = new List<Drink>(3);
+            DatabaseContext db = new DatabaseContext();
             ProfileImage = $"https://avatars.dicebear.com/api/identicon/{name}.png?scale=80";
             Cities = new List<City>();
-            Matches = new List<Match>();
+            Matches = db.Matches.Where(m => m.Users.Contains(this)).ToList();
             LikedUsers = new List<User>();
             MaximumpreferredAge = 120;
             MinimumpreferredAge = 18;
-        }
-
-        public List<Drink> GetFavourites()
-        {
-            return _favourites;
-        }
-
-        public List<Drink> GetLikes()
-        {
-            return _likes;
-        }
-
-        public List<Drink> GetDislikes()
-        {
-            return _dislikes;
         }
 
         /// <summary>
@@ -198,53 +292,65 @@ namespace Model
         }
 
         /// <summary>
-        /// Adds a drink to a given list Favourites, Likes or dislikes. 
+        /// Checks if the specified DrinkList can take another drink
         /// </summary>
         /// <param name="drink"></param>
         /// <param name="drinkList"></param>
-        /// <returns></returns>
-        public bool AddToDrinkList(Drink drink, List<Drink> drinkList)
+        /// <returns>bool</returns>
+        public bool ListCanTakeDrink(Drink drink, List<Drink> drinkList)
         {
-            if (CheckIfInList(drink, drinkList) || CheckIfListIsFull(drinkList))
-            {
-                return false;
-            }
-            else
-            {
-                RemoveFromDrinkList(drink);
-                drinkList.Add(drink);
-                return true;
-            }
+            return !CheckIfInList(drink, drinkList) && !CheckIfListIsFull(drinkList);
         }
 
         /// <summary>
-        /// Add a drink to the list _favourites.
+        /// Add a drink to the list Favourites.
         /// </summary>
         /// <param name="drink"></param>
         /// <returns></returns>
         public bool AddToFavourites(Drink drink)
         {
-            return AddToDrinkList(drink, _favourites);
+            List<Drink> drinks = Favourites;
+            if (ListCanTakeDrink(drink, drinks))
+            {
+                RemoveFromDrinkList(drink);
+                drinks.Add(drink);
+                updateIndexStr(ListTypes.Favourites, drinks);
+            }
+            return false;
         }
 
         /// <summary>
-        /// Add a drink to the list _likes.
+        /// Add a drink to the list Likes.
         /// </summary>
         /// <param name="drink"></param>
         /// <returns></returns>
         public bool AddToLikes(Drink drink)
         {
-            return AddToDrinkList(drink, _likes);
+            List<Drink> drinks = Likes;
+            if (ListCanTakeDrink(drink, drinks))
+            {
+                RemoveFromDrinkList(drink);
+                drinks.Add(drink);
+                updateIndexStr(ListTypes.Likes, drinks);
+            }
+            return false;
         }
 
         /// <summary>
-        /// Add a drink to the list _dislikes.
+        /// Add a drink to the list Dislikes.
         /// </summary>
         /// <param name="drink"></param>
         /// <returns></returns>
         public bool AddToDislikes(Drink drink)
         {
-            return AddToDrinkList(drink, _dislikes);
+            List<Drink> drinks = Dislikes;
+            if (ListCanTakeDrink(drink, drinks))
+            {
+                RemoveFromDrinkList(drink);
+                drinks.Add(drink);
+                updateIndexStr(ListTypes.Dislikes, drinks);
+            }
+            return false;
         }
 
         /// <summary>
@@ -254,19 +360,25 @@ namespace Model
         /// <returns></returns>
         public bool RemoveFromDrinkList(Drink drink)
         {
-            if (_favourites.Contains(drink))
+            if (Favourites.Contains(drink))
             {
-                _favourites.Remove(drink);
+                List<Drink> drinks = Favourites;
+                drinks.Remove(drink);
+                updateIndexStr(ListTypes.Favourites, drinks);
                 return true;
             }
-            else if (_likes.Contains(drink))
+            else if (Likes.Contains(drink))
             {
-                _likes.Remove(drink);
+                List<Drink> drinks = Likes;
+                drinks.Remove(drink);
+                updateIndexStr(ListTypes.Likes, drinks);
                 return true;
             }
-            else if (_dislikes.Contains(drink))
+            else if (Dislikes.Contains(drink))
             {
-                _dislikes.Remove(drink);
+                List<Drink> drinks = Dislikes;
+                drinks.Remove(drink);
+                updateIndexStr(ListTypes.Dislikes, drinks);
                 return true;
             }
             else
@@ -344,7 +456,7 @@ namespace Model
 
             return date < dateNow;
         }
-        
+
         public static User GetDummyUser()
         {
             User dummy = new User("dummyUser", "email@a.com", "Wachtwoord!", new DateTime(1999, 1, 1));
@@ -352,5 +464,12 @@ namespace Model
             return dummy;
         }
     }
-    
+
+    public enum ListTypes
+    {
+        Favourites,
+        Likes,
+        Dislikes
+    }
+
 }

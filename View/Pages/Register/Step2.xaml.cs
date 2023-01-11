@@ -5,11 +5,11 @@ namespace View.Pages.Register;
 public partial class Step2 : ContentPage
 {
     private static readonly User User = Step1.User;
-    public List<Drink> AllDrinks => DrinksDatabaseOperations.GetAllDrinksFromDatabase().Except(User.GetLikes()).Except(User.GetDislikes()).ToList();
+    public List<Drink> AllDrinks => DrinksDatabaseOperations.GetAllDrinksFromDatabase().Except(User.Likes).Except(User.Dislikes).ToList();
 
-    private List<Drink> Favourites = User.GetFavourites();
-    private List<Drink> Likes = User.GetLikes();
-    private List<Drink> Dislikes = User.GetDislikes();
+    private List<Drink> Favourites = User.Favourites;
+    private List<Drink> Likes = User.Likes;
+    private List<Drink> Dislikes = User.Dislikes;
 
     static int AmountFavorite;
     static int AmountLikes;
@@ -46,11 +46,11 @@ public partial class Step2 : ContentPage
             }
             else
             {
-                if (User.CheckIfListIsFull(User.GetFavourites()))
+                if (User.CheckIfListIsFull(User.Favourites))
                 {
                     button.IsChecked = false;
                 }
-                else if (User.CheckIfInList(drinkDislike, User.GetDislikes()) || User.CheckIfInList(drinkLike, User.GetLikes()))
+                else if (User.CheckIfInList(drinkDislike, User.Dislikes) || User.CheckIfInList(drinkLike, User.Likes))
                 {
                     button.IsChecked = false;
                 }
@@ -73,12 +73,14 @@ public partial class Step2 : ContentPage
     /// <param name="e"></param>
     private async void Next(object sender, EventArgs e)
     {
-        if (User.GetFavourites().Count != 0) {
+        if (User.Favourites.Count != 0)
+        {
             await Navigation.PushAsync(new Step3());
         }
-        else {
-                ErrorFrameL.IsVisible = true;
-                ErrorLabelL.Text = "You need to select at least one drink";
+        else
+        {
+            ErrorFrameL.IsVisible = true;
+            ErrorLabelL.Text = "You need to select at least one drink";
         }
     }
 }

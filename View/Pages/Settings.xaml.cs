@@ -1,11 +1,9 @@
 ﻿using Controller;
 using Microsoft.Maui.Storage;
 using Model;
-using Controller;
 using System.Linq.Expressions;
 using Microsoft.Maui.Storage;
 using System.Net;
-using Controller.Platforms;
 
 namespace View.Pages;
 
@@ -36,7 +34,7 @@ public partial class Settings : ContentPage
     private void onDeleteClicked(Object sender, EventArgs e)
     {
         _deleteAccountClicked = !_deleteAccountClicked;
-        if (_deleteAccountClicked) 
+        if (_deleteAccountClicked)
         {
             DestroyConfirm.IsVisible = true;
             DestroyCancel.IsVisible = true;
@@ -69,12 +67,12 @@ public partial class Settings : ContentPage
         User temp = Auth.User;
         try
         {
-            if(RepeatEmailField.Text == null || EmailField.Text == null)
+            if (RepeatEmailField.Text == null || EmailField.Text == null)
             {
                 throw new Exception("Email adress fields cannot be empty");
             }
 
-            if(EmailField.Text.Equals(Auth.User.Email) || RepeatEmailField.Text.Equals(Auth.User.Email))
+            if (EmailField.Text.Equals(Auth.User.Email) || RepeatEmailField.Text.Equals(Auth.User.Email))
             {
                 throw new Exception("Your new Email may not be your old Email");
             }
@@ -158,7 +156,7 @@ public partial class Settings : ContentPage
         try
         {
             User temp = Auth.User;
-            if(PasswordField.Text == null || RepeatPasswordField.Text == null || OldPasswordField.Text == null)
+            if (PasswordField.Text == null || RepeatPasswordField.Text == null || OldPasswordField.Text == null)
             {
                 throw new Exception("Password fields cannot be empty");
             }
@@ -166,16 +164,16 @@ public partial class Settings : ContentPage
             {
                 throw new Exception("new passwords are not the same");
             }
-            if (OldPasswordField.Text.Equals(RepeatPasswordField.Text)) 
+            if (OldPasswordField.Text.Equals(RepeatPasswordField.Text))
             {
                 throw new Exception("Your new password cannot be your old password");
             }
-            if(!User.ComparePasswords(User.HashString(OldPasswordField.Text), Auth.User.Password))
+            if (!User.ComparePasswords(User.HashString(OldPasswordField.Text), Auth.User.Password))
             {
                 throw new Exception("Old password is not correct");
             }
 
-            if (PasswordField.Text.Equals(RepeatPasswordField.Text) && User.ComparePasswords(User.HashString(OldPasswordField.Text), Auth.User.Password)) 
+            if (PasswordField.Text.Equals(RepeatPasswordField.Text) && User.ComparePasswords(User.HashString(OldPasswordField.Text), Auth.User.Password))
             {
                 temp.Password = PasswordField.Text;
                 UserDatabaseOperations.UpdateUserInDatabase(temp);
@@ -191,7 +189,7 @@ public partial class Settings : ContentPage
                 ErrorFrameEditPage.IsVisible = false;
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             ErrorLabelEditPage.Text = ex.Message;
             ErrorFrameEditPage.IsVisible = true;
@@ -205,10 +203,10 @@ public partial class Settings : ContentPage
             _maxAgeParsed = Int32.Parse(maxAge.Text);
             ErrorFrameEditPage.IsVisible = false;
         }
-        catch(FormatException fe)
+        catch (FormatException fe)
         {
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             ErrorLabelEditPage.Text = ex.Message;
             ErrorFrameEditPage.IsVisible = true;
@@ -222,7 +220,7 @@ public partial class Settings : ContentPage
             _minAgeParsed = Int32.Parse(minAge.Text);
             ErrorFrameEditPage.IsVisible = false;
         }
-        catch (FormatException){}
+        catch (FormatException) { }
         catch (Exception ex)
         {
             ErrorLabelEditPage.Text = ex.Message;

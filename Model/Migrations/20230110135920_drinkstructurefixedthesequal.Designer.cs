@@ -12,8 +12,8 @@ using Model;
 namespace Model.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230109143733_drinks-shall-be-public")]
-    partial class drinksshallbepublic
+    [Migration("20230110135920_drinkstructurefixedthesequal")]
+    partial class drinkstructurefixedthesequal
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -184,7 +184,16 @@ namespace Model.Migrations
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("DislikeListStr")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FavouriteListStr")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LikeListStr")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("MaximumpreferredAge")

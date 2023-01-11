@@ -5,7 +5,7 @@
 namespace Model.Migrations
 {
     /// <inheritdoc />
-    public partial class drinksshallbepublic : Migration
+    public partial class drinkstructurefixed : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

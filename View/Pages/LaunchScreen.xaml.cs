@@ -2,7 +2,6 @@ using Model;
 using Controller;
 
 using View.Pages.Register;
-using Controller.Platforms;
 
 namespace View.Pages;
 
@@ -24,12 +23,20 @@ public partial class LaunchScreen : ContentPage
             if (db.Users.Any(u => Email == u.Email) && User.HashString(password) == db.Users.Where(u => Email == u.Email).First().Password)
             {
                 User temp = Auth.User = UserDatabaseOperations.GetUserFromDatabaseByEmail(Email);
-                Application.Current.MainPage = new AppShell(temp);
+                if (temp != null)
+                {
+                    Application.Current.MainPage = new AppShell(temp);
+                }
+                else
+                {
+                    ErrorFrameL.IsVisible = true;
+                    ErrorLabelL.Text = "Something went wrong with retrieving your account";
+                }
             }
             else
             {
                 ErrorFrameL.IsVisible = true;
-                ErrorLabelL.Text = "de ingevulde gegevens zijn niet correct";
+                ErrorLabelL.Text = "The email/password combination is wrong";
             }
         }
         catch (Exception E)
